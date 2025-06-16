@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Компьютерные сети &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Компьютерные сети&raquo;" href="/2018/11/03/networks/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/980">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/11/03/networks/">
+<link rel="shortlink" href="/?p=980">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F11%2F03%2Fnetworks%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F11%2F03%2Fnetworks%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-980 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-980" class="post-980 post type-post status-publish format-standard hentry category-1 tag-29">
+	<header class="entry-header">
+		<h1 class="entry-title">Компьютерные сети</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/11/03/networks/" rel="bookmark"><time class="entry-date published updated" datetime="2018-11-03T20:43:03+03:00">03.11.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Недавно я в целях ликвидации безграмотности посмотрел видеокурс <strong>GeekBrains</strong> по компьютерным сетям (автор &#8212; <strong>Алексей Степченко</strong>). Курс великолепный, то как автор доносит информацию до слушателей &#8212; выше всяких похвал. Зиждется данный курс на практических примерах и заданиях, которые выполняются в программе <strong>Cisco Packet Tracer</strong>, которая эмулирует компьютерные сети, то бишь хосты, серверы, свичи, роутеры и пр. Причем эмулирует, я бы сказал, с высокой степенью реалистичности. В этой программе вы настраиваете сетевое оборудование и можете в реальном времени наблюдать функционирование сети. Есть там еще т. н. режим симуляции, когда вы можете наблюдать распространение по сети пакетов данных и рассматривать их содержимое. Packet Tracer можно скачать бесплатно. Версию <strong>6.2</strong> можно скачать без регистрации, более новые версии, соответственно, с регистрацией.</p>
+<p>Основная работа при изучении сетей в курсе связана с настройкой свичей и роутеров при помощи командной строки операционной системы Cisco IOS. Команд там много, к тому же они выстраиваются в определенную иерархию уровней вложенности. Чтобы не забыть, я решил законспектировать &#171;рецепты&#187; для настройки свичей и роутеров Cisco плюс немного теории.</p>
+<p>Для справки. Свич &#8212; устройство, которое коммутирует пакеты внутри одной подсети, т. е. свичи объединяют некоторое количество &#171;хостов&#187; в одну подсеть. Роутеры же служат мостиками между различными подсетями.</p>
+<h2>Обозначения</h2>
+<p>У многих команд имеются аргументы. Ниже, там где я использую такие команды, я не всегда указываю конкретное значение аргумента, а вместо этого пишу название аргумента в угловых скобках, например:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">hostname &lt;name&gt;</div></div>
+<p>Реальная же команда может выглядеть так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">hostname switch1</div></div>
+<p>или так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">hostname providers_router</div></div>
+<p>Если аргумент команды может принимать только определенный набор значений, то я записываю аргумент так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">&lt;value1|value2|value3|value4&gt;</div></div>
+<p>Например:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">duplex &lt;auto|full|half&gt;</div></div>
+<p>А реальная команда может выглядеть так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">duplex auto</div></div>
+<p>Команды в Cisco IOS выстроены в иерархию &#8212; дерево. Некоторые команды изменяют <em>режим</em> (состояние) командной строки. В каждом режиме можно выполнить специфический набор команд. Когда сетевое устройство только загрузилось, вы находитесь в т. н. <em>пользовательском режиме</em>. Если вы введете команду <code class="codecolorer text default"><span class="text">enable</span></code>, то попадете в <em>привилегированный режим</em>. В этом режиме вы можете выполнить определенный набор команд &#8212; посмотреть какие команды в него входят можно выполнив команду <code class="codecolorer text default"><span class="text">?</span></code>. Находясь в привилегированном режиме, вы можете выполнить команду <code class="codecolorer text default"><span class="text">configure terminal</span></code>, и тогда попадете в <em>режим глобальной конфигурации</em>, в котором есть свой набор допустимых команд. И так далее. Можно вернуться в предыдущий режим при помощи команды <code class="codecolorer text default"><span class="text">exit</span></code>. Также из любого режима можно вернуться прямиком в привилегированный режим при помощи команды <code class="codecolorer text default"><span class="text">end</span></code>. Вложенность команд я обозначаю при помощи отступов. Например, если я пишу</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; hostname &lt;name&gt;</div></div>
+<p>&#8230; то это значит, что команду <code class="codecolorer text default"><span class="text">hostname</span></code> можно выполнить только в режиме глобальной конфигурации, в который можно попасть из привилегированного режима, выполнив команду <code class="codecolorer text default"><span class="text">configure terminal</span></code>. А в привилегированный режим в свою очередь можно попасть из пользовательского режима, выполнив команду <code class="codecolorer text default"><span class="text">enable</span></code>.</p>
+<p>Некоторые команды имеют смысл и для свичей, и для роутеров, другие &#8212; только для свичей или только для роутеров. Если не оговорено, для какого типа устройства актуальна команда, значит она работает и для свичей, и для роутеров.</p>
+<h2>Команды общего назначения</h2>
+<p>Посмотреть список доступных команд в текущем режиме:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">?</div></div>
+<p>Перейти в привилегированный режим:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable</div></div>
+<p>Получить справку по интересующей вас команде:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; &lt;command&gt; ?</div></div>
+<p>Перейти в режим глобальной конфигурации:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal</div></div>
+<p>Задать имя, которое будет отображаться в качестве приглашения в командной строке:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; hostname &lt;name&gt;</div></div>
+<p>Отменить ранее выполненную команду:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; no &lt;command&gt;</div></div>
+<p>Вернуться в предыдущий режим:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">exit</div></div>
+<p>Вернуться сразу в привилегированный режим:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">end</div></div>
+<p>Сохранить текущую конфигурацию в ПЗУ:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; write</div></div>
+<p>Посмотреть текущую конфигурацию:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show running-config</div></div>
+<h2>Канальный уровень: настройка интерфейсов</h2>
+<p>У всех сетевых устройств есть <em>интерфейсы</em>. У ПК как правило один интерфейс, у свичей и роутеров интерфейсов много. Физические интерфейсы бывают разные, например: оптический интерфейс, коаксиальный кабель, витая пара, телефонная линия. В локальных сетях по большей части используется интерфейс стандарта ethernet на витой паре. На канальном уровне у ethernet интерфейсов есть настройки:</p>
+<ul>
+<li>дуплексный режим: автоматическое определение, полный дуплекс, полудуплекс.</li>
+<li>скорость: автоматическое определение, 10 Мбит/с, 100 Мбит/с, 1000 Мбит/с (для интерфейсов gigabit ethernet).</li>
+</ul>
+<p>В Cisco IOS интерфейсы устройства идентифицируются именами вида <code class="codecolorer text default"><span class="text">fa0/0, fa0/1, fa1/0, ge1/1</span></code> и т. д. Первые две буквы обозначают стандарт ethernet: fa &#8212; fast ethernet, ge &#8212; gigabit ethernet.<br>
+Ниже приведены команды, которые надо выполнить, чтобы настроить и включить конкретный интерфейс:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; duplex &lt;auto|full|half&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speed &lt;auto|10|100&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no shutdown</div></div>
+<p>Можно настроить одинаковым образом сразу группу интерфейсов при помощи команды interface range. Например следующая команда настраивает и включает сразу 25 интерфейсов:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface range fa0/0-24<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; duplex auto<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; speed auto<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no shutdown</div></div>
+<p>На канальном уровне ethernet-устройства идентифицируются 6-байтовыми MAC-адресами (MAC &#8212; Media Access Control). MAC-адрес условно уникален. В нем есть две части: идентификатор производителя устройства и идентификатор самого устройства.</p>
+<h2>Канальный и сетевой уровни: ARP table</h2>
+<p>ARP означает Address Resolution Protocol (связывает канальный и сетевой уровни). Одноименная таблица ставит в соответствие IP-адрес и MAC-адрес устройства в сети (на канальном уровне устройства идентифицируются MAC-адресами, на сетевом &#8212; IP-адресами). Как правило, отправитель сообщения знает IP-адрес получателя, но не знает его MAC-адрес (а он-то как раз и нужен для того, чтобы отправить сообщение). Для того, чтобы узнать MAC-адрес устройства по его IP-адресу, в сеть посылается широковещательный запрос &#8212; ARP-запрос &#171;whois ip A.B.C.D?&#187;, на который должно ответить то устройство, которое имеет данный IP-адрес, прислав свой MAC-адрес. Устройства запоминают соответствие IP и MAC-адресов в ARP-таблице, которую можно посмотреть при помощи команд, приведенных ниже.<br>
+На роутере команда:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show arp</div></div>
+<p>&#8230; отображает ARP-таблицу вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Protocol &nbsp;Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Age (min) &nbsp;Hardware Addr &nbsp; Type &nbsp; Interface<br>
+Internet &nbsp;1.0.0.2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0 &nbsp; 0001.434A.7170 &nbsp;ARPA &nbsp; FastEthernet0/0.99<br>
+Internet &nbsp;8.0.0.1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; 00D0.D399.7502 &nbsp;ARPA &nbsp; FastEthernet0/1<br>
+Internet &nbsp;8.8.8.8 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp; 0003.E4C1.148A &nbsp;ARPA &nbsp; FastEthernet0/1</div></div>
+<p>На хосте под управлением Windows или Linux:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">arp -a</div></div>
+<p>&#8230; отображает ARP-таблицу вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Internet Address &nbsp; &nbsp; &nbsp;Physical Address &nbsp; &nbsp; &nbsp;Type<br>
+192.168.1.1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0001.434a.7170 &nbsp; &nbsp; &nbsp; &nbsp;dynamic<br>
+192.168.1.2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 00d0.bc4e.0359 &nbsp; &nbsp; &nbsp; &nbsp;dynamic</div></div>
+<h2>Сетевой уровень: настройка интерфейсов</h2>
+<p>Настройка интерфейсов на сетевом уровне имеет смысл главным образом для роутеров.<br>
+Команда:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show ip interface brief</div></div>
+<p>&#8230; отображает таблицу настроек интерфейсов роутера на сетевом уровне. В этой таблице наиболее интересно поле IP-Address.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Interface &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; IP-Address &nbsp; &nbsp; &nbsp;OK? &nbsp; &nbsp;Method &nbsp; &nbsp;Status &nbsp; &nbsp;Protocol<br>
+FastEthernet0/0 &nbsp; &nbsp; 10.0.0.1 &nbsp; &nbsp; &nbsp; &nbsp;YES &nbsp; &nbsp;manual &nbsp; &nbsp;up &nbsp; &nbsp; &nbsp; &nbsp;up<br>
+FastEthernet0/1 &nbsp; &nbsp; 192.168.1.1 &nbsp; &nbsp; YES &nbsp; &nbsp;manual &nbsp; &nbsp;up &nbsp; &nbsp; &nbsp; &nbsp;up<br>
+FastEthernet0/2 &nbsp; &nbsp; 8.0.0.1 &nbsp; &nbsp; &nbsp; &nbsp; YES &nbsp; &nbsp;manual &nbsp; &nbsp;up &nbsp; &nbsp; &nbsp; &nbsp;up</div></div>
+<p>Чтобы интерфейс роутера нормально работал у него обязательно должен быть IP-адрес. Этот адрес ему можно задать при помощи команды:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;intefrace-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address &lt;ip&gt; &lt;subnet-mask&gt;</div></div>
+<p>Пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 10.0.0.1 255.0.0.0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 192.168.1.1 255.255.255.0</div></div>
+<p>Помимо адреса задается т. н. маска подсети &#8212; битовая маска, которая разбивает IP-адрес на две части: адрес сети и адрес устройства в этой сети. Например, команда <code class="codecolorer text default"><span class="text">ip address 192.168.1.1 255.255.255.0</span></code> говорит о том, что интерфейс принадлежит к сети 192.168.1.0 и имеет в ней адрес 192.168.1.1. Если на какой либо другой интерфейс роутера, например на тот, который имеет адрес 10.0.0.1, придет пакет, адресованный узлу с адресом (например 192.168.1.2), входящим в сеть 192.168.1.0, то роутер отправит этот пакет на свой интерфейс 192.168.1.1. Короче говоря, адрес и маска подсети интерфейса играют роль при <em>маршрутизации пакетов</em> (об этом речь ниже). В маске всегда старшие биты &#8212; единицы, а младшие &#8212; нули. Поэтому запись маски часто сокращают указывая только количество битов, равных 1. К примеру:</p>
+<table>
+<tr>
+<td>255.0.0.0</td>
+<td>&sol;8</td>
+</tr>
+<tr>
+<td>255.255.0.0</td>
+<td>&sol;16</td>
+</tr>
+<tr>
+<td>255.255.255.0</td>
+<td>&sol;24</td>
+</tr>
+<tr>
+<td>255.255.255.252</td>
+<td>&sol;30</td>
+</tr>
+</table>
+<p>Помимо реальных интерфейсов, можно создать в роутере виртуальный интерфейс (loopback):</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface loopback &lt;0-2147483647&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 127.0.0.1 255.255.255.0</div></div>
+<p>Чем виртуальный интерфейс отличается от реального? Только тем, что к нему не подключен никакой физический &#171;провод&#187;, т. е. если роутер станет посылать пакеты на этот интерфейс, то получить их сможет только он сам. Но зато другие устройства в сети вполне могут посылать пакеты на виртуальный интерфейс роутера и даже получать от роутера ответы. Т. е. например какой-нибудь хост спокойно может пропинговать loopback-интерфейс того роутера, к которому он подключен.</p>
+<h2>IP-адресация</h2>
+<p>Поскольку речь зашла об IP-адресах, уместно будет рассказать здесь о классовой и бесклассовой адресации и о специальных диапазонах IP-адресов.<br>
+В классовой адресации, маска подсети, к которой принадлежит IP-адрес, закодирована в старших битах этого самого IP-адреса:</p>
+<table>
+<tr>
+<th>Класс подсети</th>
+<th>Старшие биты IP-адреса</th>
+<th>Маска подсети</th>
+<th>1-й октет</th>
+<th>Число различных подсетей</th>
+<th>Число хостов в одной подсети</th>
+</tr>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>255.0.0.0</td>
+<td>0-127</td>
+<td>128</td>
+<td>16M</td>
+</tr>
+<tr>
+<td>B</td>
+<td>10</td>
+<td>255.255.0.0</td>
+<td>128-191</td>
+<td>16K</td>
+<td>16K</td>
+</tr>
+<tr>
+<td>C</td>
+<td>110</td>
+<td>255.255.255.0</td>
+<td>192-223</td>
+<td>2M</td>
+<td>254</td>
+</tr>
+</table>
+<p>В бесклассовой адресации, которая и используется ныне, уже не считается, что IP несет информацию о подсети, поэтому там, где необходимо, он должен сопровождаться маской подсети.</p>
+<p>В каждой подсети есть два специальных адреса, которые не могут быть выделены хостам: адрес самой подсети (в хостовой части адреса &#8212; нули) и широковещательный адрес (в хостовой части адреса &#8212; единицы). Например, в подсети 172.16.0.0/16 адрес 172.16.0.0 &#8212; это адрес подсети, а 172.16.255.255 &#8212; широковещательный адрес.</p>
+<p>Уникальных IP-адресов на всех не хватает, поэтому все множество адресов поделили на те, которые обязаны быть уникальными (&#171;белые&#187;), и те, которые не обязаны быть уникальными (&#171;серые&#187; или &#171;частные&#187;). С серого IP-адреса можно послать сообщение на белый IP-адрес, и с белого можно послать сообщение на белый, а вот послать сообщение с белого на серый &#8212; нельзя (не пугайтесь, проблему в этом случае решает технология NAT, о которой речь впереди). Частные диапазоны адресов следующие:</p>
+<ul>
+<li>1 подсеть класса A &#8212; 10.0.0.0</li>
+<li>16 подсетей класса B &#8212; 172.16.0.0-172.31.0.0</li>
+<li>256 подсетей класса C &#8212; 192.168.0.0-192.168.255.0</li>
+</ul>
+<p>Также есть диапазон 127.0.0.0-127.255.255.254, в котором находятся только loopback-адреса.</p>
+<h2>Сетевой уровень: статическая маршрутизация</h2>
+<p>Роутеры &#8212; это устройства, которые связывают между собой различные сети. Что здесь понимается под сетью? Я понимаю сеть (или подсеть) как совокупность устройств, которые соединены и обмениваются между собой информацией при помощи одной и той же технологии канального уровня (например, Ethernet). Внутри одной и той же (под)сети устройствам, вообще говоря, необязательно знать IP-адреса друг-друга, чтобы обмениваться информацией, если в технологии канального уровня предусмотрена своя система адресации устройств (например, в технологии Ethernet устройствам достаточно знать MAC-адреса друг-друга). А вот чтобы передать сообщение из одной сети в другую, нужна система адресации независимая от канального уровня &#8212; это и есть IP-адресация. На пути от отправителя к получателю сообщение проходит ряд роутеров, и каждый роутер выполняет маршрутизацию этого сообщения, т. е. определяет адрес следующего роутера, которому надо его передать (адрес &#171;следующего хопа&#187;). Маршрутизацию роутеры выполняют на основе таблиц маршрутизации. Таблица может быть настроена администратором сети, тогда это называется &#171;статическая маршрутизация&#187;.</p>
+<p>Следующая команда отображает таблицу маршрутизации:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show ip route</div></div>
+<p>&#8230; следующего вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">S &nbsp; &nbsp;10.0.0.0/8 &nbsp; &nbsp; &nbsp;[1/0] via 192.168.0.2<br>
+S &nbsp; &nbsp;172.17.0.0/16 &nbsp; [1/0] via 172.18.1.1<br>
+S &nbsp; &nbsp;192.168.6.0/24 &nbsp;[1/0] via 172.18.1.1<br>
+C &nbsp; &nbsp;172.18.0.0/16 &nbsp; is directly connected, FastEthernet0/1<br>
+C &nbsp; &nbsp;192.168.0.0/24 &nbsp;is directly connected, FastEthernet0/0<br>
+C &nbsp; &nbsp;192.168.4.0/24 &nbsp;is directly connected, FastEthernet1/0<br>
+C &nbsp; &nbsp;192.168.20.0/24 is directly connected, FastEthernet1/1</div></div>
+<p>Символ &#171;S&#187; означает, что маршрут настроен статически (администратором), символ &#171;C&#187; означает, что указанная подсеть непосредственно подсоединена к интерфейса роутера (и указано, к какому именно).</p>
+<p>Чтобы добавить маршрут к таблице маршрутизации, надо ввести следующие команды:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip route &lt;destination-prefix&gt; &lt;mask&gt; &lt;router-ip&gt;</div></div>
+<p>Пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip route 10.0.0.0 255.0.0.0 192.168.0.2</div></div>
+<p>А в следующем примере мы задаем адрес т. н. <em>шлюза по-умолчанию</em> &#8212; роутера, на который отправляются все пакеты, для которых специально не задан маршрут.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip route 0.0.0.0 0.0.0.0 &lt;default-gateway-ip&gt;</div></div>
+<h2>Сетевой уровень: динамическая маршрутизация &#8212; протокол RIP</h2>
+<p>RIP означает Routing Information Protocol (протокол сетевого уровня). По этому протоколу роутеры могут обмениваться между собой маршрутной информацией, что позволяет им автоматически создавать таблицы маршрутизации, избавляя от этой работы администратора сети. При настройке протокола RIP на роутере надо 1) включить его 2) задать версию протокола (версия 2 в отличие от версии 1 поддерживает бесклассовую IP-адресацию) 3) указать подсети, информацию информацию о которых роутеру разрешается посылать другим роутерам.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; router rip<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; version 2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network &lt;subnet1&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network &lt;subnet2&gt;</div></div>
+<h2>Сетевой уровень: DHCP</h2>
+<p>DHCP &#8212; Dynamic Host Control Protocol. Есть несколько настроек, которыми должен обладать практически любой хост в сети, чтобы нормально работать:</p>
+<ul>
+<li>IP-адрес хоста</li>
+<li>IP-адрес шлюза по-умолчанию. Шлюз по-умолчанию &#8212; это роутер, на который устройство отправляет все сообщения, для которых не прописан маршрут.</li>
+<li>IP-адрес DNS-сервера. DNS-сервер &#8212; это сервер, который является частью системы DNS, которая представляет собой распределенную базу данных (состоящую из многих серверов), которая хранит записи, сопоставляющие доменные имена и IP-адреса хостов в сети.</li>
+</ul>
+<p>Эти настройки могут быть заданы администратором сети вручную, но существует протокол, который позволяет хостам получать эти настройки автоматически от специально выделенного сервера &#8212; DHCP-сервера. DHCP-сервер можно настроить прямо на роутере. Причем DHCP-сервер на роутере может обслуживать сразу несколько подключенных к нему подсетей. Вы создаете т. н. пул адресов и указываете для него подсеть, шлюз по-молчанию и DNS-сервер:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip dhcp pool &lt;pool-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; default-router &lt;ip&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network &lt;subnet&gt; &lt;mask&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dns-server &lt;ip&gt;</div></div>
+<p>Также можно указать диапазон IP-адресов, которые DHCP-сервер не должен давать хостам &#8212; как правило это &#8212; адреса, которые администратор резервирует для роутеров и серверов:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip dhcp excluded-address &lt;ip-start&gt; &lt;ip-end&gt;</div></div>
+<p>Ну и вот конкретный пример настройки сервера DHCP на роутере:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip dhcp pool ip_address_pool<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network 192.168.1.0 255.255.255.0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; default-router 192.168.1.1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dns-server 8.8.8.8<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; exit<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip dhcp excluded-address 192.168.1.0 192.168.1.100</div></div>
+<p>Что касается самих хостов, то для них надо включить получение адреса автоматически, т. е. по протоколу DHCP. Роутеры тоже могут получать IP-адрес по DHCP, для этого при настройке интерфейса надо вместо IP-адреса указать dhcp:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address dhcp</div></div>
+<h2>DHCP-relay</h2>
+<p>Предположим, имеется несколько локальных сетей, подключенных к одному роутеру. И надо сделать для этих локальных сетей, чтобы хосты в них получали настройки по DHCP. Можно в каждой локальной сети поставить DHCP-сервер. Можно настроить DHCP-сервер на роутере, к которому подключены локальные сети. Но предположим, что мы хотим один DHCP-сервер на все локальные сети и не хотим делать его на роутере, а хотим делать его на отдельной машине. Такой сервер очевидно не может входить ни в одну из обслуживаемых им локальных сетей. С другой стороны, DHCP-запросы от хостов &#8212; это broadcast&#8217;овые UDP-пакеты, поэтому они могут распространяться только в пределах локальной сети, в которую входит хост-отправитель. Как быть? Оказывается, можно настроить роутер, к которому подключены локальные сети, так чтобы он передавал эти broadcast&#8217;овые UDP-пакеты на наш DHCP-сервер, а ответы DHCP-сервера переправлял обратно в локальную сеть хоста-отправителя. Это называется DHCP-relay. Чтобы настроить DHCP-relay, надо для всех интерфейсов, к которым подключены локальные сети, указать адрес DHCP-сервера, на который надо переправлять DHCP-запросы. Это команда <code class="codecolorer text default"><span class="text">ip helper-address</span></code>. Ну а на DHCP-сервер надо создать несколько пулов адресов &#8212; по одному на каждую из обслуживаемых локальных сетей.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip helper-address &lt;dhcp-server-ip&gt;<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip helper-address &lt;dhcp-server-ip&gt;</div></div>
+<p>Конкретный пример c двумя обслуживаемыми локальными сетями:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 8.0.0.1 255.0.0.0<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 15.0.0.1 255.255.255.252<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip helper-address 8.8.8.5<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 15.0.0.5 255.255.255.252<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip helper-address 8.8.8.5</div></div>
+<p>На DHCP сервере же надо настроить два пула адресов:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Pool Name &nbsp; &nbsp;Default Gateway &nbsp; &nbsp;DNS Server &nbsp; &nbsp;Start IP Address &nbsp; &nbsp;Subnet Mask<br>
+pool1 &nbsp; &nbsp; &nbsp; &nbsp;15.0.0.1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8.8.8.8 &nbsp; &nbsp; &nbsp; 15.0.0.2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;255.255.255.252<br>
+pool2 &nbsp; &nbsp; &nbsp; &nbsp;15.0.0.5 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8.8.8.8 &nbsp; &nbsp; &nbsp; 15.0.0.6 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;255.255.255.252</div></div>
+<h2>Прикладной уровень: DNS</h2>
+<p>DNS &#8212; Domain Name System &#8212; распределенная база данных, которая ставит в соответствие доменным именам хостов IP-адреса. Распределенная база данных располагается на множестве серверов, которые образуют иерархию (дерево). Имя хоста состоит из отдельных частей, которые тоже выстраиваются в иерархию. Например рассмотрим доменное имя <strong>www.dvsav.ru</strong>. В конце этого имени должна стоять точка, которая обозначает т. н. корневой домен, но поскольку она присутствует во всех доменных именах, ее всегда опускают. На самом деле, чтобы понять структуру доменного имени, лучше читать его задом наперед: <strong>.ru.dvsav.www</strong>:<br>
+<strong>.</strong> &#8212; корневой домен<br>
+<strong>ru</strong> &#8212; домен 1-ого уровня (национальная доменная зона)<br>
+<strong>dvsav</strong> &#8212; домен 2-ого уровня (название сайта)<br>
+<strong>www</strong> &#8212; домен 3-его уровня (имя сервера)<br>
+За каждую часть имени отвечает свой набор DNS-серверов. Обратившись к одному из <a href="https://ru.wikipedia.org/Корневые_серверы_DNS">корневых серверов</a> (.), можно получить список DNS-серверов для любого домена 1-ого уровня (ru). Обратившись к одному из DNS-серверов 1-ого уровня, можно получить список DNS-серверов хостера, на котором размещен сайт (dvsav). Обратившись к DNS-серверу хостера, можно получить IP-адрес сайта.</p>
+<h2>Сетевой уровень: NAT</h2>
+<p>Выше уже говорилось о том, что не все IP-адреса обязаны быть уникальными. Серые IP-адреса не уникальны и поэтому сообщения, идущие с этих адресов либо на эти адреса не маршрутизируются в сети Интернет (во-первых, благодаря access-list&#8217;ам на роутерах, которые запрещают трафик с серых адресов; во-вторых, потому, что для серых адресов на роутерах в Интернете никак не пропишешь маршруты) &#8212; ведь такие адреса не могут уникально идентифицировать устройство в сети. Серые IP-адреса используются только в локальных сетях: в пределах локальной сети серый IP-адрес должен быть уникальным. Но ведь и машинам в локальной сети хочется иметь доступ в Интернет. Как же быть, если серый IP-адрес не может ни отправить сообщение на белый IP-адрес, ни принять сообщение с белого IP-адреса? На помощь приходит технология NAT &#8212; Network Address Translation. Суть ее вкратце такова: локальную сеть с Интернетом соединяет роутер, который называется &#171;шлюз&#187;. Шлюз со стороны локальной сети имеет интерфейс с серым IP-адресом, со стороны Интернета &#8212; интерфейс с белым IP-адресом. Предположим, хост в локальной сети отправляет сообщение на некий белый IP-адрес в сети Интернет &#8212; это сообщение приходит на шлюз. Шлюз подменяет адрес источника (серый) в сообщении своим белым адресом и отправляет сообщение дальше. Сервер в сети Интернет что-нибудь посылает обратно на белый IP-адрес шлюза, шлюз подменяет в этом сообщении адрес назначения (свой белый адрес) серым адресом хоста в локальной сети и шлет сообщение в локальную сеть, где его принимает тот самый хост. Поскольку в локальной сети хостов много, а белый IP-адрес у роутера всего один, эти самые хосты надо как-то различать между собой. К счастью в разных протоколах есть дополнительные средства адресации, которые можно применить для идентификации хостов в локальной сети: в TCP и UDP это &#8212; номер порта; в ICMP &#8212; порядковый номер сообщения. Таким образом разным хостам в TCP например будут соответствовать разные номера портов. Собственно NAT &#8212; это трансляция следующего вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">серыйIP:портX &lt;-&gt; белыйIP:портY</div></div>
+<p>Напомню, что хостов с серыми IP в локальной сети в общем случае много, портов тоже много, а вот белый IP &#8212; один.</p>
+<p>Чтобы настроить NAT на шлюзе, надо указать какой интерфейс смотрит в Интернет, а какой &#8212; в локальную сеть. Также надо указать адрес локальной сети в т. н. access-list&#8217;е:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip nat inside source list &lt;1-199&gt; interface &lt;intefrace-looking-into-internet&gt; overload<br>
+&nbsp; &nbsp; &nbsp; &nbsp; access-list &lt;1-199&gt; permit &lt;local-subnet&gt; &lt;inverted-subnet-mask&gt;<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;local-network-interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip nat inside<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;intefrace-looking-into-internet&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip nat outside</div></div>
+<p>Конкретный пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip nat inside<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip nat outside<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip nat inside source list 1 interface fa0/1 overload<br>
+&nbsp; &nbsp; &nbsp; &nbsp; access-list 1 permit 192.168.1.0 0.0.0.255</div></div>
+<p>Если в локальной сети есть сервер (у сервера серый IP), и хочется сделать его доступным из Интернета (из Интернета доступны только хосты с белым IP), то и это можно сделать с помощью NAT. Называется это &#171;проброс порта&#187;. Суть в том, что шлюз все сообщения, поступающие из Инетрнета на определенный его порт, транслирует на сервер в локальной сети. Пользователи из Интернета при этом думают, что IP сервера &#8212; это белый IP шлюза. Настройка проброса порта на роутере выглядит так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip nat inside source static tcp &lt;inner-server-ip&gt; &lt;tcp-port&gt; &lt;out-router-interface-ip&gt; &lt;tcp-port&gt;</div></div>
+<p>Пример проброса 80-го порта для HTTP-сервера:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip nat inside source static tcp 192.168.1.2 80 15.0.0.2 80</div></div>
+<h2>SPT</h2>
+<p>SPT &#8212; Spanning Tree Protocol. Протокол, который используется свичами с одной целью &#8212; предотвратить явление под названием &#171;петля коммутации&#187;. Петля коммутации возникает когда в сети свичей существует замкнутый путь. Это явление приводит к безудержному размножению широковещательных пакетов и перегрузке сети. Чтобы предотвратить это, свичи обмениваются между собой информацией, и каждый свич строит т. н. дерево коммутации (spanning tree). Затем свичи сами отключают те интерфейсы, которые приводят к возникновению петли. В эмуляторе Packet Tracer можно указать один из двух SPT-протоколов (pvst либо rapid pvst):</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; spanning-tree mode &lt;pvst|rapid-pvst&gt;</div></div>
+<p>Протокол SPT можно выключить (по-умолчанию SPT включен) например так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; no spanning-tree vlan 1-1024</div></div>
+<p>Ну включить так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; spanning-tree vlan 1-1024</div></div>
+<p>Также можно посмотреть дерево spanning-tree, которое построил свич:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show spanning-tree</div></div>
+<p>&#8230; отобразит информацию следующего вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">&nbsp; Spanning tree enabled protocol rstp<br>
+&nbsp; Root ID &nbsp; &nbsp;Priority &nbsp; &nbsp;32769<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Address &nbsp; &nbsp; 0005.5ECB.9206<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Cost &nbsp; &nbsp; &nbsp; &nbsp;19<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Port &nbsp; &nbsp; &nbsp; &nbsp;1(FastEthernet0/1)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Hello Time &nbsp;2 sec &nbsp;Max Age 20 sec &nbsp;Forward Delay 15 sec<br>
+<br>
+&nbsp; Bridge ID &nbsp;Priority &nbsp; &nbsp;32769 &nbsp;(priority 32768 sys-id-ext 1)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Address &nbsp; &nbsp; 00D0.D3A6.9A32<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Hello Time &nbsp;2 sec &nbsp;Max Age 20 sec &nbsp;Forward Delay 15 sec<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Aging Time &nbsp;20<br>
+<br>
+Interface &nbsp; &nbsp; &nbsp; &nbsp;Role Sts Cost &nbsp; &nbsp; &nbsp;Prio.Nbr Type<br>
+---------------- ---- --- --------- -------- --------------------------------<br>
+Fa0/2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Desg FWD 19 &nbsp; &nbsp; &nbsp; &nbsp;128.2 &nbsp; &nbsp;P2p<br>
+Fa0/3 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Altn BLK 19 &nbsp; &nbsp; &nbsp; &nbsp;128.3 &nbsp; &nbsp;P2p<br>
+Fa0/1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Root FWD 19 &nbsp; &nbsp; &nbsp; &nbsp;128.1 &nbsp; &nbsp;P2p</div></div>
+<p>&#8230; в которой можно увидеть, что дерево состоит из нашего свича плюс еще два, один из которых является корневым. Нас также могут интересовать статуты портов свича. Про состояния портов&#8230; Когда порт свича включается, он переходит в состояние <strong>Listening</strong>, т. е. обменивается информацией с подключенным к нему другим свичом. Затем он переходит в состояние <strong>Learning</strong> &#8212; вычисляет дерево коммутации. А затем, в зависимости от результатов вычислений он переходит либо во включенное <strong>Forwarding</strong> либо выключенное <strong>Blocked</strong> состояние.</p>
+<h2>VLAN</h2>
+<p>VLAN &#8212; Virtual Local Area Network. Штука, простая, хотя словами объяснить трудно. Предположим имеется две локальные сети (напомню, что принадлежность хоста к той или иной локальной сети определяется его IP-адресом и маской подсети), подключенные к одному свичу. Свич (в определенных обстоятельствах) дублирует приходящие на один из его интерфейсов пакеты на всех остальных своих интерфейсах, из-за чего пакеты из одной локальной сети могут попадать в другую. Это само по себе не страшно, но порождает ненужный трафик между двумя сетями. Использование VLAN&#8217;ов позволяет логически разделить две подсети, как бы создав два логических свича из одного физического. Так можно изолировать трафики локальных сетей друг от друга.</p>
+<p>Во-первых VLAN надо на свиче создать. По-умолчанию в свиче всегда присутствует один VLAN, который называется <strong>vlan 1</strong>. Создать VLAN и дать ему удобочитаемое имя можно так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vlan &lt;1-1005&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vlan name &lt;vlan-name&gt;</div></div>
+<p>Конкретный пример: если к свичу подключены две локальных сети, то можно создать например два VLAN&#8217;а:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vlan 2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; name marketing_department<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vlan 3<br>
+&nbsp; &nbsp; &nbsp; &nbsp; name it_department</div></div>
+<p>Далее те интерфейсы свича (access-порты), к которым подключены указанные локальные сети, надо сопоставить с созданными VLAN&#8217;ами (удобно работать сразу с диапазонами интерфейсов при помощи команды interface range). Пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface range fa0/1-10<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switchport mode access<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switchport access vlan 2<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface range fa0/11-20<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switchport mode access<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switchport access vlan 3</div></div>
+<p>Однако не все интерфейсы свича могут быть подключены к указанным локальным подсетям &#8212; например может быть интерфейс, подключенный к роутеру, через который осуществляется доступ обеих локальных сетей в Интернет. По такому интерфейсу будет передаваться трафик из обоих VLAN&#8217;ов, поэтому этот интерфейс надо пометить как trunk:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface range fa0/21<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; switchport mode trunk</div></div>
+<p>Вот и всё. Можно посмотреть информацию о VLAN&#8217;ах при помощи команды:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show vlan brief</div></div>
+<p>&#8230; которая выведет информацию следующего вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">VLAN Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Status &nbsp; &nbsp;Ports<br>
+---- -------------------------------- --------- -------------------------------<br>
+1 &nbsp; &nbsp;default &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;active &nbsp; &nbsp;Fa0/22, Fa0/23, Fa0/24<br>
+2 &nbsp; &nbsp;marketing_department &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; active &nbsp; &nbsp;Fa0/1, Fa0/2, Fa0/3, Fa0/4<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fa0/5, Fa0/6, Fa0/7, Fa0/8<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fa0/9, Fa0/10<br>
+3 &nbsp; &nbsp;it_department &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;active &nbsp; &nbsp;Fa0/11, Fa0/12, Fa0/13, Fa0/14<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fa0/15, Fa0/16, Fa0/17, Fa0/18<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fa0/19, Fa0/20</div></div>
+<p>В приведенном вывода отсутствует trunk&#8217;овый интерфейс. Чтобы его увидеть, надо выполнить следующую команду:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; show interfaces trunk</div></div>
+<p>&#8230; которая отобразит информацию о trunk&#8217;овых интерфейсах:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Port &nbsp; &nbsp; &nbsp; &nbsp;Mode &nbsp; &nbsp; &nbsp; &nbsp; Encapsulation &nbsp;Status &nbsp; &nbsp; &nbsp; &nbsp;Native vlan<br>
+Fa0/21 &nbsp; &nbsp; &nbsp;on &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 802.1q &nbsp; &nbsp; &nbsp; &nbsp; trunking &nbsp; &nbsp; &nbsp;1<br>
+<br>
+Port &nbsp; &nbsp; &nbsp; &nbsp;Vlans allowed on trunk<br>
+Fa0/21 &nbsp; &nbsp; &nbsp;1-1005<br>
+<br>
+Port &nbsp; &nbsp; &nbsp; &nbsp;Vlans allowed and active in management domain<br>
+Fa0/21 &nbsp; &nbsp; &nbsp;1,2,3<br>
+<br>
+Port &nbsp; &nbsp; &nbsp; &nbsp;Vlans in spanning tree forwarding state and not pruned<br>
+Fa0/21 &nbsp; &nbsp; &nbsp;1,2,3</div></div>
+<p>Ну хорошо, а как всё это работает? Как свич отделяет трафик одной подсети от трафика другой? Он помечает пакеты каждой сети <em>тегом</em>, который идентифицирует тот или иной VLAN, это называется <em>тегированием трафика</em>. Если пакет <em>входит в</em> access-порт свича, то он помечается тегом, соответствующим тому VLAN&#8217;у, которому принадлежит порт. Если пакет <em>выходит из</em> access-порта, то тег, которым он был (если был) помечен, снимается. Что касается trunk-портов, то для них никаких действий с тегами не производится. Далее, в зависимости от того, каким тегом помечен тот или иной пакет, свич решает, на какой порт (или порты) его отправить.</p>
+<p>VLAN имеет отношение не только к свичам, но и к роутерам. Если на один и тот же интерфейс роутера приходит трафик с нескольких разных VLAN&#8217;ов, то этот физический интерфейс придется разбить на соответствующее количество логических интерфейсов и дать каждому из них отдельный IP-адрес:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface&gt;.&lt;subinterface&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address &lt;ip&gt; &lt;subnet-mask&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; encapsulation dot1Q &lt;vlan-ID&gt;</div></div>
+<p>Пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0.2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; encapsulation dot1Q 2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 85.0.0.1 255.255.255.252<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0.3<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; encapsulation dot1Q 3<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 85.0.0.5 255.255.255.252</div></div>
+<p>Если на интерфейс роутера помимо трафика из VLAN&#8217;ов приходит еще и нетегированный трафик, то надо создать логический интерфейс и для него:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0.1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; encapsulation dot1Q 1 native<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 10.0.0.1 255.0.0.0</div></div>
+<h2>Access-list</h2>
+<p>Access-list&#8217;ы позволяют отбрасывать трафик, выходящий (outbound) из заданного интерфейса либо входящий (inbound) в заданный интерфейс, адрес источника которого удовлетворяет заданному правилу:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; access-list &lt;1-199&gt; deny &lt;subnet&gt; &lt;inverted-mask&gt;<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface &lt;interface-name&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip access-group &lt;1-199&gt; &lt;in|out&gt;</div></div>
+<p>Пример. Отбрасывать трафик, который выходит из интерфейса fa0/0.3 и адрес источника которого принадлежит к подсети 192.168.0.0/24:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; access-list 1 deny 192.168.0.0 0.0.0.255<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0.3<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip access-group 1 out</div></div>
+<p>Другой пример. Отбрасывать трафик, который входит в интерфейс fa0/0.3 и адрес источника которого принадлежит к подсети 192.168.1.0/24:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; access-list 2 deny 192.168.1.0 0.0.0.255<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface fa0/0.3<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip access-group 2 in</div></div>
+<h2>Удаленное управление свичом или роутером по протоколу telnet</h2>
+<p>Сетевым устройством можно управлять либо подключившись к нему по USB-интерфейсу, либо подключившись удаленно, т. е. через сеть по протоколу telnet. Последний вариант и рассмотрим. Чтобы удаленный доступ через telnet заработал, надо обязательно задать пароль администратора и пароль для удаленного доступа:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; enable password &lt;password&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; line vty &lt;0-15&gt; &lt;0-15&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; login<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; password &lt;password&gt;</div></div>
+<p>Пример:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; enable password admin_pswd<br>
+&nbsp; &nbsp; &nbsp; &nbsp; line vty 0 4<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; login<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; password telnet_pswd</div></div>
+<p>Чем один пароль отличается от другого? Один (telnet_pswd) позволяет получить доступ к командной строке, второй (admin_pswd) &#8212; перейти в привилегированный режим и настроить устройство.</p>
+<p>Однако для того, чтобы можно было получить удаленный доступ к устройству, устройство должно иметь IP-адрес. С роутером всё просто &#8212; любой его интерфейс имеет IP-адрес. А свич? Оказывается для свича можно указать IP-адрес для VLAN&#8217;а. Как правило это &#8212; vlan 1:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface vlan1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address &lt;ip&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no shutdown</div></div>
+<h2>VPN: GRE-туннель</h2>
+<p>VPN &#8212; Virtual Provate Network. GRE &#8212; Generic Routing Encapsulation. VPN &#8212; технология (набор протоколов), благодаря которой можно для двух разных удаленных друг от друга подсетей создать иллюзию, что они &#171;соединены одним свичом&#187;.</p>
+<p>Предположим, есть две локальных подсети 192.168.0.0/24 и 192.168.4.0/24, которые подключены к роутерам соответственно r1 и r2, и надо для них создать VPN. На обоих роутерах интерфейс fa0/0 смотрит в локальную сеть (адреса r1:192.168.0.1/24, r2:192.168.4.1/24), а fa0/1 &#8212; в Интернет (адреса r1:1.0.0.2/8, r2:2.0.0.2/8).</p>
+<p>На роутере r1 создаем виртуальный интерфейс Tunnel0 и<br>
+1) даем ему IP-адрес<br>
+2) указываем интерфейс-источник роутера r1: fa0/1<br>
+3) указываем внешний IP-адрес роутера r2 в качестве адреса назначения</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r1&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface tunnel 0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 10.0.0.1 255.0.0.0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tunnel source fa0/1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tunnel destination 2.0.0.2</div></div>
+<p>Аналогично поступаем с роутером r2:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r2&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; interface tunnel 0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ip address 10.0.0.2 255.0.0.0<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tunnel source fa0/1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tunnel destination 1.0.0.2</div></div>
+<p>Далее надо для обоих роутеров прописать маршрут до локальных подсетей друг-друга:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r1&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip route 192.168.4.0 255.255.255.0 10.0.0.2</div></div>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r2&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ip route 192.168.0.0 255.255.255.0 10.0.0.1</div></div>
+<p>&#8230; либо на обоих роутерах включить протокол RIP</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r1&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; router rip<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; version 2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network 192.168.0.0</div></div>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">r2&gt;enable<br>
+&nbsp; &nbsp; configure terminal<br>
+&nbsp; &nbsp; &nbsp; &nbsp; router rip<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; version 2<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; network 192.168.4.0</div></div>
+<p>После всего этого подсети 192.168.0.0/24 и 192.168.4.0/24 оказываются как бы соединены одним свичом, и хост в одной сети может например пропинговать хост в другой сети:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">host192.168.0.101&gt;ping 192.168.4.102</div></div>
+<h2>Консольные утилиты</h2>
+<p>Напоследок вот набор команд командной строки (для хостов, а не для роутеров и свичей), которые пригождаются при работе с сетью:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">ping &lt;ip&gt;<br>
+ping -t &lt;ip&gt;<br>
+tracert &lt;ip&gt;<br>
+telnet &lt;ip&gt;<br>
+nslookup &lt;domain-name&gt;</div></div>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/11/03/networks/" data-a2a-title="Компьютерные сети">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F11%2F03%2Fnetworks%2F&amp;linkname=%D0%9A%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B5%D1%82%D0%B8" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F11%2F03%2Fnetworks%2F&amp;linkname=%D0%9A%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B5%D1%82%D0%B8" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F11%2F03%2Fnetworks%2F&amp;linkname=%D0%9A%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B5%D1%82%D0%B8" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" rel="tag">Разное</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/09/30/opengl-6/" rel="prev">Опыт изучения OpenGL &#8212; Часть 6 &#8212; Улучшаем программу рисования треугольника</a></div>
+<div class="nav-next"><a href="/2018/11/23/c11-new-features/" rel="next">C++11 new features</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/11/03/networks/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="980" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

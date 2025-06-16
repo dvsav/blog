@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>C++11 new features &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;C++11 new features&raquo;" href="/2018/11/23/c11-new-features/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1073">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/11/23/c11-new-features/">
+<link rel="shortlink" href="/?p=1073">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F11%2F23%2Fc11-new-features%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F11%2F23%2Fc11-new-features%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1073 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1073" class="post-1073 post type-post status-publish format-standard hentry category-1 tag-c-c">
+	<header class="entry-header">
+		<h1 class="entry-title">C++11 new features</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/11/23/c11-new-features/" rel="bookmark"><time class="entry-date published updated" datetime="2018-11-23T17:18:54+03:00">23.11.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Недавно посмотрел курс <strong>Advanced C++ Programming</strong> на портале <strong>caveofprogramming.com</strong>. Как обычно, решил некоторые вещи законспектировать, чтобы не забыть.</p>
+<ul>
+<li><a href="#type-in-block">Определение пользовательского типа внутри функции</a></li>
+<li><a href="#auto-keyword">Ключевое слово auto</a></li>
+<li><a href="#range-based-for">Range-based for loop</a></li>
+<li><a href="#nested-type">Вложенные классы</a></li>
+<li><a href="#iterability">Что должен уметь класс контейнера, чтобы быть &#171;итерабельным&#187;</a></li>
+<li><a href="#lambda">Лямбда-выражения</a></li>
+<li><a href="#std-function">std::function &#8212; General-purpose polymorphic function wrapper</a></li>
+<li><a href="#variadic-templates">Шаблоны с произвольным числом аргументов (Variadic Templates)</a></li>
+<li><a href="#rvalue">Rvalue reference</a></li>
+<li><a href="#perfect-forwarding">Perfect forwarding</a></li>
+<li><a href="#passing-params">Способы передачи параметров в функции</a></li>
+<li><a href="#std-bind">std::bind</a></li>
+<li><a href="#static_assert">static_assert</a></li>
+<li><a href="#out-of-scope">Что осталось за кадром</a></li>
+</ul>
+<h2>Литература</h2>
+<ul>
+<li id="Vandervoorde">Дэвид Вандервурд, Николаи Джосаттис, Дуглас Грегор &#8212; Шаблоны C++. Справочник разработчика. 2-е издание</li>
+<li id="Meyers">Scott Meyers &#8212; Effective Modern C++</li>
+<li id="Josuttis">Nicolai Josuttis &#8212; The C++ Standard Library. A Tutorial and Reference</li>
+</ul>
+<h2 id="type-in-block">Определение пользовательского типа внутри функции</h2>
+<p>Начнем с мелочей. Я не знал, что так можно, но вот оказывается, да:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// declaring user type within function body!</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Test<br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> x<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> y<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; Test tst<span class="br0">&#123;</span> <span class="nu0">10</span>, <span class="nu0">20</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> tst.<span class="me1">x</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> tst.<span class="me1">y</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Можно определять пользовательские типы прямо внутри блока, но это не должны быть шаблонные типы [<a href="#Vandervoorde">Вандервурд</a>].</p>
+<h2 id="auto-keyword">Ключевое слово auto</h2>
+<p>Я уже был знаком с эти словом и использовал его точно так же как ключевое слово <strong>var</strong> в C# &#8212; чтобы не указывать тип переменной при ее объявлении и инициализации:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">auto</span> greeting <span class="sy1">=</span> <span class="st0">&quot;Hello!&quot;</span><span class="sy4">;</span> <span class="co1">// the same as char* greeting = &quot;Hello!&quot;;</span><br>
+<span class="kw4">auto</span> pVec <span class="sy1">=</span> <span class="kw3">new</span> std<span class="sy4">::</span><span class="me2">vector</span><span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// the same as std::vector* pVec = new std::vector();</span>
+</div></div>
+<p>Особенно полезно это слово бывает, когда имя типа длинное:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">auto</span> i <span class="sy1">=</span> pVec<span class="sy2">-</span><span class="sy1">&gt;</span>begin<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// the same as std::vector&lt;int&gt;::iterator i = pVec-&gt;begin();</span>
+</div></div>
+<p>Чего я не знал, так это, что ключевое слово <strong>auto</strong> может быть использовано при объявлении функции в сочетании с ключевым словом <strong>decltype</strong>. Для обычной функции в этом быть может мало смысла, но может пригодиться для шаблонной функции:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T1, <span class="kw2">typename</span> T2<span class="sy1">&gt;</span><br>
+<span class="kw4">auto</span> add<span class="br0">&#40;</span>T1 a, T2 b<span class="br0">&#41;</span> <span class="sy2">-</span><span class="sy1">&gt;</span> <span class="kw2">decltype</span><span class="br0">&#40;</span>a <span class="sy2">+</span> b<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> add<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu16">3.14</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> std<span class="sy4">::</span><span class="me2">endl</span><span class="sy4">;</span> <span class="co1">// calls add&lt;int, double&gt;()</span><br>
+&nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Вот эта штука <code class="codecolorer cpp default"><span class="cpp"><span class="sy2">-</span><span class="sy1">&gt;</span> <span class="kw2">decltype</span><span class="br0">&#40;</span>a <span class="sy2">+</span> b<span class="br0">&#41;</span></span></code> называется <strong>trailing return type</strong>. Слово <strong>auto</strong> здесь говорит о том, что тип возвращаемого значения функции &#8212; это <strong>trailing return type</strong>. В <strong>C++14</strong> тип возвращаемого значения уже может быть определен компилятором автоматически, т. е. trailing return type указывать не нужно (но это возможно, только если объявление функции совмещено с ее определением):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T1, <span class="kw2">typename</span> T2<span class="sy1">&gt;</span><br>
+<span class="kw4">auto</span> add<span class="br0">&#40;</span>T1 a, T2 b<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В книге [<a href="#Vandervoorde">Вандервурд, раздел 1.3.2. Вывод возвращаемого типа</a>] объясняется, что если возвращаемый тип может оказаться ссылкой, то следует в trailing return type применить шаблон <code class="codecolorer cpp default"><span class="cpp">std<span class="sy4">::</span><span class="me2">decay</span><span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">type</span></span></code>, который &#171;низводит&#187; <em>ссылку</em> до <em>значения</em> (кстати, то же самое делает ключевое слово auto). Также можно применить шаблон <code class="codecolorer cpp default"><span class="cpp">std<span class="sy4">::</span><span class="me2">common_type</span><span class="sy1">&lt;</span>T1, T2<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">type</span></span></code>, который вычисляет общий тип для T1 и T2:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T1, <span class="kw2">typename</span> T2<span class="sy1">&gt;</span><br>
+<span class="kw2">typename</span> std<span class="sy4">::</span><span class="me2">common_type</span><span class="sy1">&lt;</span>T1, T2<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">type</span> add<span class="br0">&#40;</span>T1 a, T2 b<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="range-based-for">Range-based for loop</h2>
+<p>Чтобы перебрать все элементы контейнера в C++98 надо было написать цикл вроде следующего:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span>vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> vec<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span>vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">iterator</span> i <span class="sy1">=</span> vec.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> i <span class="sy3">!</span><span class="sy1">=</span> vec.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="sy2">*</span>i <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В C++11 такой же код можно записать короче:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span>vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> vec<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">auto</span> x <span class="sy4">:</span> vec<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> x <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Приведенный код годится для коллекции чисел. А вот для коллекции более крупных объектов лучше использовать другой код (см. [<a href="#Josuttis">Josuttis, 3.1.4 Range-Based for Loops</a>]):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> MyType <span class="br0">&#123;</span> <span class="coMULTI">/*...*/</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span>vector<span class="sy1">&lt;</span>MyType<span class="sy1">&gt;</span><span class="sy3">&amp;</span> vec<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">auto</span><span class="sy3">&amp;</span> x <span class="sy4">:</span> vec<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> x <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Почему? Потому что в приведенном коде мы имеем дело с константными ссылками на элементы вектора, и поэтому копирования элементов вектора не происходит. А в коде <code class="codecolorer cpp default"><span class="cpp"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">auto</span> x <span class="sy4">:</span> vec<span class="br0">&#41;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span></span></code> происходит копирование элементов вектора, мы имеем дело с их копиями, а ненужного копирования всегда стараются избегать.<br>
+Если вам нужно изменять элементы списка, то вы тоже должны использовать ссылки, иначе вы измените копии элементов, а не сами элементы:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> increment_elements<span class="br0">&#40;</span>vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> vec<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; // The following code is wrong because it changes the copies of elements!<br>
+&nbsp; &nbsp; for (auto x : vec)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; ++x;<br>
+&nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">auto</span><span class="sy3">&amp;</span> x <span class="sy4">:</span> vec<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy2">++</span>x<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="nested-type">Вложенные классы</h2>
+<p>Вложенный класс имеет доступ ко всем членам того класса, в который он вложен. Пример вложенного класса, который сразу приходит в голову: класс любого стандартного контейнера STL имеет вложенный класс <strong>iterator</strong>. Если вы захотите создать свой класс контейнера <strong>my_awesome_container&lt;T&gt;</strong>, то вы наверняка должны будете создать вложенный класс итератора. Написать это можно так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="co1">// Nested type - iterator</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> iterator<br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// members of iterator</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// ... other members of the class</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<p>&#8230; или можно &#171;разделить два класса в пространстве&#187;:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> iterator<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// ... other members of the class</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">iterator</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// members of iterator</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<h2 id="iterability">Что должен уметь класс контейнера, чтобы быть &#171;итерабельным&#187;</h2>
+<p>В курсе от caveofprogramming.com автор рассказывает как реализовать контейнер, чтобы он был итерабельным, т. е. чтобы можно было перебрать его элементы при помощи range-based for loop. Он приводит в качестве примера нечто подобное (я изменил код, чтобы не нарушать чужих авторских прав):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; T<span class="sy2">*</span> m_internal_array<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> m_size<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> iterator<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="br0">&#40;</span><span class="kw4">int</span> size<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_internal_array<span class="br0">&#40;</span><span class="kw3">new</span> T<span class="br0">&#91;</span>size<span class="br0">&#93;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_size<span class="br0">&#40;</span>size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; ~my_awesome_container<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">delete</span><span class="br0">&#91;</span><span class="br0">&#93;</span> m_internal_array<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">int</span> size<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_size<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; T<span class="sy3">&amp;</span> operator<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> index<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_internal_array<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; iterator begin<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> iterator<span class="br0">&#40;</span><span class="sy2">*</span><span class="kw3">this</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; iterator end<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> iterator<span class="br0">&#40;</span><span class="sy2">*</span><span class="kw3">this</span>, m_size<span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">iterator</span><br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="sy3">&amp;</span> container<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> index<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; iterator<span class="br0">&#40;</span>my_awesome_container<span class="sy3">&amp;</span> container, <span class="kw4">int</span> index<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; container<span class="br0">&#40;</span>container<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; index<span class="br0">&#40;</span>index<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// dereference operator</span><br>
+&nbsp; &nbsp; T<span class="sy3">&amp;</span> operator<span class="sy2">*</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> container<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// inequality operator</span><br>
+&nbsp; &nbsp; <span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span><span class="br0">&#40;</span><span class="kw4">const</span> iterator<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> index <span class="sy3">!</span><span class="sy1">=</span> rhs.<span class="me1">index</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// postincrement operator</span><br>
+&nbsp; &nbsp; iterator<span class="sy3">&amp;</span> operator<span class="sy2">++</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> iterator<span class="br0">&#40;</span>container, index<span class="sy2">++</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// preincrement operator</span><br>
+&nbsp; &nbsp; iterator<span class="sy3">&amp;</span> operator<span class="sy2">++</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy2">++</span>index<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> vec<span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// populate container</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> vec.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> i<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// iterate through the container</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">auto</span> x <span class="sy4">:</span> vec<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> x <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Хотя приведенный выше код контейнера и итератора работает, он далеко не полноценен. Если вы попробуете применить к такому контейнеру какой-нибудь стандартный алгоритм (например, <strong>find</strong>), то получите ошибку компиляции. Это из-за того, что приведенный итератор реализует не все требования, предъявляемые к итераторам. На страничке <a href="http://www.cplusplus.com/reference/iterator/">cplusplus.com/reference/iterator</a> можно посмотреть полный список требований к итераторам различных категорий. Руководствуясь этими требованиями, я дополнил код итератора, чтобы он соответствовал категории <strong>forward iterator</strong>, после чего и алгоритм <strong>find</strong> заработал:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;algorithm&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; T<span class="sy2">*</span> m_internal_array<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> m_size<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> iterator<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="br0">&#40;</span><span class="kw4">int</span> size<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_internal_array<span class="br0">&#40;</span><span class="kw3">new</span> T<span class="br0">&#91;</span>size<span class="br0">&#93;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_size<span class="br0">&#40;</span>size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; ~my_awesome_container<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">delete</span><span class="br0">&#91;</span><span class="br0">&#93;</span> m_internal_array<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">int</span> size<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> m_size<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; T<span class="sy3">&amp;</span> operator<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> index<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> m_internal_array<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; iterator begin<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> iterator<span class="br0">&#40;</span><span class="sy2">*</span><span class="kw3">this</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; iterator end<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> iterator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">iterator</span> <span class="sy4">:</span> <span class="kw2">public</span> std<span class="sy4">::</span><span class="me2">iterator</span><span class="sy1">&lt;</span>forward_iterator_tag, T<span class="sy1">&gt;</span><br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="sy2">*</span> container <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> index <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; iterator<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">=</span> <span class="kw1">default</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; iterator<span class="br0">&#40;</span><span class="kw4">const</span> iterator<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span> <span class="sy1">=</span> <span class="kw1">default</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; iterator<span class="br0">&#40;</span>my_awesome_container<span class="sy3">&amp;</span> container, <span class="kw4">int</span> index<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; container<span class="br0">&#40;</span><span class="sy3">&amp;</span>container<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; index<span class="br0">&#40;</span>index<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">const</span> iterator<span class="sy3">&amp;</span> operator<span class="sy1">=</span><span class="br0">&#40;</span><span class="kw4">const</span> iterator<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; this<span class="sy2">-</span><span class="sy1">&gt;</span>container <span class="sy1">=</span> rhs.<span class="me1">container</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; this<span class="sy2">-</span><span class="sy1">&gt;</span>index <span class="sy1">=</span> rhs.<span class="me1">index</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; T<span class="sy3">&amp;</span> operator<span class="sy2">*</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> container<span class="sy2">-</span><span class="sy1">&gt;</span>operator<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; T<span class="sy2">*</span> operator<span class="sy2">-</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy3">&amp;</span>container<span class="sy2">-</span><span class="sy1">&gt;</span>operator<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">bool</span> operator<span class="sy1">==</span><span class="br0">&#40;</span><span class="kw4">const</span> iterator<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="br0">&#40;</span>this<span class="sy2">-</span><span class="sy1">&gt;</span>container <span class="sy1">==</span> rhs.<span class="me1">container</span> <span class="sy3">&amp;&amp;</span> index <span class="sy1">==</span> rhs.<span class="me1">index</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span><span class="br0">&#40;</span><span class="kw4">const</span> iterator<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy3">!</span><span class="br0">&#40;</span><span class="sy2">*</span><span class="kw3">this</span> <span class="sy1">==</span> rhs<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// postincrement</span><br>
+&nbsp; &nbsp; iterator<span class="sy3">&amp;</span> operator<span class="sy2">++</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; iterator ret_value <span class="sy1">=</span> iterator<span class="br0">&#40;</span><span class="sy2">*</span>container, index<span class="sy2">++</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>index <span class="sy1">&gt;=</span> container<span class="sy2">-</span><span class="sy1">&gt;</span>size<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; index <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> ret_value<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// preincrement</span><br>
+&nbsp; &nbsp; iterator<span class="sy3">&amp;</span> operator<span class="sy2">++</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy2">++</span>index <span class="sy1">&gt;=</span> container<span class="sy2">-</span><span class="sy1">&gt;</span>size<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; index <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> vec<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> vec.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> i<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> searched_iter <span class="sy1">=</span> find<span class="br0">&#40;</span>vec.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, vec.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">if</span><span class="br0">&#40;</span>searched_iter <span class="sy3">!</span><span class="sy1">=</span> vec.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="sy2">*</span>searched_iter <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Что изменилось в классе итератора. Во-первых, класс итератора наследуется от шаблонного класса <strong>std::iterator</strong>, в одном из параметров которого в частности указывается к какой категории принадлежит наш итератор. Во-вторых, добавились конструктор по-умолчанию и конструктор копирования. В-третьих, добавились операторы присваивания (=), разыменования (-&gt;) и сравнения (==).</p>
+<h2 id="lambda">Лямбда-выражения</h2>
+<p>Лямбда выражения знакомы мне по C# &#8212; это способ создать анонимную функцию с целью передачи указателя на нее куда-либо (например в другую функцию). В C++ лямбда выражения обеспечивают удобство работы с алгоритмами стандартной библиотеки C++, заменяя собой более трудоемкие в написании <a href="https://en.wikipedia.org/wiki/Function_object">функторы</a>. Чтобы объявить функцию, надо указать ее возвращаемое значение и список параметров. Функторы являются объектами, и поэтому помимо параметров и возвращаемого значения могут еще и обладать <em>состоянием</em>, т. е., грубо говоря, иметь поля. Лямбда-выражения тоже являются объектами, а в качестве состояния могут хранить захваченные локальные переменные (captured local variables) из той функции, в которой объявлено лямбда-выражение. Причем это могут быть как значения переменных, так и ссылки на них. Параметры в лямбда-выражениях указываются в <em>круглых скобках</em>. Тело выражения указывается в <em>фигурных скобках</em>. Захваченные переменные указываются в <em>квадратных скобках</em> (а вот например в C# захваченные значения указывать нигде не нужно). В C++ есть синтаксис на случай, если надо захватить все локальные переменные сразу по значению или по ссылке (см. примеры ниже). Приведу несколько примеров различных лямбда-выражений:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;string&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda1 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy4">;</span> <span class="co1">// the simplest lambda: no return value (void), no captured variables, no params, no code</span><br>
+&nbsp; &nbsp; lambda1<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// calling lambda-expression</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Another simple lambda: no return value, no captured variables, no params</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda2 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lambda2: Hello&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda2<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Return type is specified explicitly (-&gt; double)</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda3 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">double</span> a, <span class="kw4">int</span> b<span class="br0">&#41;</span> <span class="sy2">-</span><span class="sy1">&gt;</span> <span class="kw4">double</span> <span class="br0">&#123;</span> <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lambda3: &quot;</span> <span class="sy1">&lt;&lt;</span> lambda3<span class="br0">&#40;</span><span class="nu16">4.5</span>, <span class="nu0">3</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda4 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">int</span> b<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lambda4: &quot;</span> <span class="sy1">&lt;&lt;</span> lambda4<span class="br0">&#40;</span><span class="nu0">4</span>, <span class="nu0">3</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// declaring local variables in order to show capturing in lambda-expressions</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> var1 <span class="sy1">=</span> <span class="nu0">5</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> var2 <span class="sy1">=</span> <span class="nu17">1.5f</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures specified variables by value</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda5 <span class="sy1">=</span> <span class="br0">&#91;</span>var1, var2<span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda5<span class="br0">&#40;</span><span class="st0">&quot;lambda5: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures all local variables by value</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda6 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy1">=</span><span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda6<span class="br0">&#40;</span><span class="st0">&quot;lambda6: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures all local variables by reference</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda7 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy3">&amp;</span><span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="sy2">++</span>var1<span class="sy4">;</span> <span class="sy2">--</span>var2<span class="sy4">;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda7<span class="br0">&#40;</span><span class="st0">&quot;lambda7: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures all local variables by reference except var2, which is captured by value</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda8 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy3">&amp;</span>, var2<span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="sy2">++</span>var1<span class="sy4">;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda8<span class="br0">&#40;</span><span class="st0">&quot;lambda8: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Compilation error: var2 is captured by value, so it cannot be modified</span><br>
+&nbsp; &nbsp; <span class="co1">//auto lambda8_1 = [&amp;, var2](string str_param) { ++var1; /*Error-&gt;*/ --var2; cout &lt;&lt; str_param &lt;&lt; var1 &lt;&lt; &quot; &quot; &lt;&lt; var2 &lt;&lt; endl; };</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures var1 by reference and var2 by value</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda9 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy3">&amp;</span>var1, var2<span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="sy2">++</span>var1<span class="sy4">;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda9<span class="br0">&#40;</span><span class="st0">&quot;lambda9: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Captures all local variables by value except var2, which is captured by reference </span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> lambda10 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy1">=</span>, <span class="sy3">&amp;</span>var2<span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="sy2">++</span>var2<span class="sy4">;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; lambda10<span class="br0">&#40;</span><span class="st0">&quot;lambda10: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Когда лямбда выражение определяется внутри функции-члена класса, бывает необходимо, чтобы оно захватывало не только локальные переменные, но и указатель <strong>this</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;string&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> TestLambda<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> m_Var1 <span class="sy1">=</span> <span class="nu0">3</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> m_Var2 <span class="sy1">=</span> <span class="nu17">1.2f</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> foo<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> var1 <span class="sy1">=</span> <span class="nu0">5</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">float</span> var2 <span class="sy1">=</span> <span class="nu17">1.5f</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Captures this pointer. Also captures var1 by value and var2 by reference</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> lambda1 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="kw3">this</span>, var1, <span class="sy3">&amp;</span>var2<span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Var1<span class="sy2">++</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var2<span class="sy2">--</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> m_Var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> m_Var2 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; lambda1<span class="br0">&#40;</span><span class="st0">&quot;lambda1: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Trying to capture this and to capture all local variables by value leads to a compilation error</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; &nbsp; &nbsp; auto lambda2 = [=, this](string str_param)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; // _____________^__^______________Error!!!<br>
+&nbsp; &nbsp; &nbsp; &nbsp; {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cout &lt;&lt; str_param &lt;&lt; m_Var1 &lt;&lt; &quot; &quot; &lt;&lt; m_Var2 &lt;&lt; &quot; &quot; &lt;&lt; var1 &lt;&lt; &quot; &quot; &lt;&lt; var2 &lt;&lt; endl;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; };<br>
+&nbsp; &nbsp; &nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Captures this pointer. Also captures all local variables by reference</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> lambda3 <span class="sy1">=</span> <span class="br0">&#91;</span><span class="sy3">&amp;</span>, <span class="kw3">this</span><span class="br0">&#93;</span><span class="br0">&#40;</span>string str_param<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Var1<span class="sy2">++</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var2<span class="sy2">++</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> str_param <span class="sy1">&lt;&lt;</span> m_Var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> m_Var2 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var1 <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> var2 <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; lambda3<span class="br0">&#40;</span><span class="st0">&quot;lambda3: captured variables: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; TestLambda testLambda<span class="sy4">;</span><br>
+&nbsp; &nbsp; testLambda.<span class="me1">foo</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="std-function">std::function &#8212; General-purpose polymorphic function wrapper</h2>
+<p>Шаблонный класс <strong>std::function</strong> представляет собой универсальный указатель на любой объект, который может быть вызван как функция. Вызваны, насколько мне известно, могут быть три вида объектов: указатели на функции, функторы (объекты, для которых переопределен оператор &#171;круглые скобки&#187; <strong>operator()</strong>), и лямбда-выражения (которые, если я не ошибаюсь, являются разновидностью функторов). Так вот, любой из этих объектов может быть преобразован к типу <strong>std::function</strong>. (Программисту на языке C# сразу вспоминаются <em>делегаты</em>). Посмотрим, как работает <strong>std::function</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;functional&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="co1">// this function accepts function pointers, functors as well as lambda-expressions</span><br>
+<span class="kw4">void</span> run<span class="br0">&#40;</span>function<span class="sy1">&lt;</span><span class="kw4">bool</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="sy1">&gt;</span> func, <span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span> <br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> func<span class="br0">&#40;</span>arg<span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// function</span><br>
+<span class="kw4">bool</span> greater_than_zero<span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> arg <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// functor</span><br>
+<span class="kw2">class</span> less_than_zero<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">bool</span> operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> arg <span class="sy1">&lt;</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// calls function</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>greater_than_zero, <span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls lambda-expression</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> arg <span class="sy2">%</span> <span class="nu0">2</span> <span class="sy1">==</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="br0">&#125;</span>, <span class="nu0">4</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls functor</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>less_than_zero<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="sy2">-</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Чтобы понять, как в принципе мог бы быть реализован класс <strong>std::function</strong>, я написал аналогичный класс, который правда подходит для вызова только с одним аргументом:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;functional&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> TRet, <span class="kw2">typename</span> TArg<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> single_argument_function<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; TRet<span class="br0">&#40;</span><span class="sy2">*</span>function_pointer<span class="br0">&#41;</span><span class="br0">&#40;</span>TArg<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// function pointer</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">class</span> stub_class <span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; stub_class<span class="sy2">*</span> functor_object_pointer<span class="sy4">;</span> <span class="co1">// pointer to a functor object</span><br>
+&nbsp; &nbsp; TRet<span class="br0">&#40;</span>__thiscall stub_class<span class="sy4">::</span><span class="sy2">*</span> functor_operator_parentheses<span class="br0">&#41;</span><span class="br0">&#40;</span>TArg<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// pointer to operator() of the functor object</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="co1">// Constructor taking function pointer as argument</span><br>
+&nbsp; &nbsp; single_argument_function<span class="br0">&#40;</span>TRet<span class="br0">&#40;</span><span class="sy2">*</span>function_pointer<span class="br0">&#41;</span><span class="br0">&#40;</span>TArg<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; function_pointer<span class="br0">&#40;</span>function_pointer<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_object_pointer<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_operator_parentheses<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Constructor taking a pointer to functor object as argument</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; single_argument_function<span class="br0">&#40;</span>T obj<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; function_pointer<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_object_pointer<span class="br0">&#40;</span><span class="kw2">reinterpret_cast</span><span class="sy1">&lt;</span>stub_class<span class="sy2">*</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>obj<span class="br0">&#41;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_operator_parentheses<span class="br0">&#40;</span><span class="kw2">reinterpret_cast</span><span class="sy1">&lt;</span>TRet<span class="br0">&#40;</span>__thiscall stub_class<span class="sy4">::</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span>TArg<span class="br0">&#41;</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>T<span class="sy4">::</span><span class="me2">operator</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// operator()</span><br>
+&nbsp; &nbsp; TRet operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span>TArg arg<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>functor_operator_parentheses <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="br0">&#40;</span>functor_object_pointer<span class="sy2">-</span><span class="sy1">&gt;</span><span class="sy2">*</span>functor_operator_parentheses<span class="br0">&#41;</span><span class="br0">&#40;</span>arg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>function_pointer <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> function_pointer<span class="br0">&#40;</span>arg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">// this function accepts function pointers, functors as well as lambda-expressions</span><br>
+<span class="kw4">void</span> run<span class="br0">&#40;</span>single_argument_function<span class="sy1">&lt;</span><span class="kw4">bool</span>, <span class="kw4">int</span><span class="sy1">&gt;</span> func, <span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> func<span class="br0">&#40;</span>arg<span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// function</span><br>
+<span class="kw4">bool</span> greater_than_zero<span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> arg <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// functor</span><br>
+<span class="kw2">class</span> less_than_zero<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">bool</span> operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> arg <span class="sy1">&lt;</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// calls function</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>greater_than_zero, <span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls lambda-expression</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> arg<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> arg <span class="sy2">%</span> <span class="nu0">2</span> <span class="sy1">==</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="br0">&#125;</span>, <span class="nu0">4</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls functor</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>less_than_zero<span class="br0">&#123;</span><span class="br0">&#125;</span>, <span class="sy2">-</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: 1</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Приведенный код дался мне это нелегко. Оказывается, для того, чтобы вызвать указатель на метод класса, компилятору непременно надо знать, что это за класс. Казалось бы, достаточно запихнуть в регистр <strong>ecx</strong> адрес объекта (this), и выполнить машинную команду <strong>call</strong> с адресом метода в качестве аргумента; и не нужно вам знать, к какому классу принадлежит объект. Но нет, компилятор желает знать класс. Хорошо, пришлось дать ему пустой класс-заглушку <code class="codecolorer cpp default"><span class="cpp"><span class="kw2">class</span> stub_class <span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span></span></code>.</p>
+<h2 id="variadic-templates">Шаблоны с произвольным числом аргументов (Variadic Templates)</h2>
+<p>Приведенный выше код работает только для функций с одним аргументом. Чтобы сделать его более универсальным, нужно воспользоваться новой фишкой C++11 под названием <em>variadic templates</em> [<a href="#Vandervoorde">Вандервурд, Глава 4 &#8212; Вариативные шаблоны</a>].</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;functional&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="co1">// The class representing any callable object with variable number of arguments.</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> TRet, <span class="kw2">typename</span>... <span class="me1">TArgs</span><span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> multiple_argument_function<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; TRet<span class="br0">&#40;</span><span class="sy2">*</span>function_pointer<span class="br0">&#41;</span><span class="br0">&#40;</span>TArgs...<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// function pointer</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">class</span> stub_class <span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; stub_class<span class="sy2">*</span> functor_object_pointer<span class="sy4">;</span> <span class="co1">// pointer to a functor object</span><br>
+&nbsp; &nbsp; TRet<span class="br0">&#40;</span>__thiscall stub_class<span class="sy4">::</span><span class="sy2">*</span> functor_operator_parentheses<span class="br0">&#41;</span><span class="br0">&#40;</span>TArgs...<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// pointer to operator() of the functor object</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="co1">// Constructor taking function pointer as argument</span><br>
+&nbsp; &nbsp; multiple_argument_function<span class="br0">&#40;</span>TRet<span class="br0">&#40;</span><span class="sy2">*</span>function_pointer<span class="br0">&#41;</span><span class="br0">&#40;</span>TArgs...<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; function_pointer<span class="br0">&#40;</span>function_pointer<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_object_pointer<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_operator_parentheses<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Constructor taking a pointer to functor object as argument</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; multiple_argument_function<span class="br0">&#40;</span>T obj<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; function_pointer<span class="br0">&#40;</span><span class="kw2">nullptr</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_object_pointer<span class="br0">&#40;</span><span class="kw2">reinterpret_cast</span><span class="sy1">&lt;</span>stub_class<span class="sy2">*</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>obj<span class="br0">&#41;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; functor_operator_parentheses<span class="br0">&#40;</span><span class="kw2">reinterpret_cast</span><span class="sy1">&lt;</span>TRet<span class="br0">&#40;</span>__thiscall stub_class<span class="sy4">::</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span>TArgs...<span class="br0">&#41;</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>T<span class="sy4">::</span><span class="me2">operator</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// operator()</span><br>
+&nbsp; &nbsp; TRet operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span>TArgs... <span class="me1">args</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>functor_operator_parentheses <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="br0">&#40;</span>functor_object_pointer<span class="sy2">-</span><span class="sy1">&gt;</span><span class="sy2">*</span>functor_operator_parentheses<span class="br0">&#41;</span><span class="br0">&#40;</span>args...<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>function_pointer <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> function_pointer<span class="br0">&#40;</span>args...<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">// this variadic function template accepts function pointers, functors as well as lambda-expressions</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> TFunc, <span class="kw2">typename</span>... <span class="me1">TArgs</span><span class="sy1">&gt;</span><br>
+<span class="kw4">void</span> run<span class="br0">&#40;</span>TFunc func, TArgs... <span class="me1">args</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> func<span class="br0">&#40;</span>args...<span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// function</span><br>
+<span class="kw4">double</span> sum<span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">float</span> b, <span class="kw4">double</span> c<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> b <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> c <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; = &quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b <span class="sy2">+</span> c<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// functor</span><br>
+<span class="kw2">class</span> sum_functor<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">double</span> operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">float</span> b, <span class="kw4">double</span> c<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> b <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> c <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; = &quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b <span class="sy2">+</span> c<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// calls function</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>sum, <span class="nu0">1</span>, <span class="nu17">2.5f</span>, <span class="nu16">4.3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls lambda-expression</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">float</span> b, <span class="kw4">double</span> c<span class="br0">&#41;</span> <span class="sy2">-</span><span class="sy1">&gt;</span> <span class="kw4">double</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> b <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; + &quot;</span> <span class="sy1">&lt;&lt;</span> c <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; = &quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">+</span> b <span class="sy2">+</span> c<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="nu0">1</span>, <span class="nu17">2.5f</span>, <span class="nu16">4.3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// calls functor</span><br>
+&nbsp; &nbsp; run<span class="br0">&#40;</span>sum_functor<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="nu0">1</span>, <span class="nu17">2.5f</span>, <span class="nu16">4.3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="rvalue">Rvalue reference</h2>
+<p>В стандарте C++11 появилась возможность отделить два понятия: <strong>lvalue</strong> и <strong>rvalue</strong>. <strong>lvalue</strong> &#8212; это значение, которое может находиться слева от оператора присваивания (и справа тоже). <strong>rvalue</strong> &#8212; это значение, которое не может находиться слева от оператора присваивания, а может находиться только справа. Посмотрим на примеры того и другого:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">int</span> a<span class="sy4">;</span> <span class="co1">// a - lvalue</span><br>
+a <span class="sy1">=</span> <span class="nu0">5</span><span class="sy4">;</span> <span class="co1">// a - lvalue; 5 - rvalue</span><br>
+<span class="kw4">int</span> c <span class="sy1">=</span> <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// c - lvalue; the return value of cin.get() is an rvalue</span>
+</div></div>
+<p><strong>lvalue</strong> &#8212; это переменная или параметр функции. <strong>rvalue</strong> &#8212; это или литерал, или возвращаемое значение функции (если функция возвращает именно значение, а не ссылку на переменную).<br>
+Необходимость разделения понятий <strong>lvalue</strong> и <strong>rvalue</strong>, как я понимаю, возникает чтобы избежать излишнего копирования объектов. Копирование объектов происходит при передаче параметров в функции <em>по значению</em>, при инициализации объектов (вызов копирующего конструктора), при присваивании (вызов оператора копирующего присваивания). А копирование бывает излишним именно тогда, когда в функцию передаются по значению значения <strong>rvalue</strong>, когда объект инициализируется значением rvalue (<strong>rvalue</strong> передается в копирующий конструктор), когда переменной присваивается rvalue (в оператор присваивания передается <strong>rvalue</strong>). Почему копирование излишне? Потому, что <strong>rvalue</strong> после этого копирования уничтожается, т. е. вызывается деструктор, который освобождает все захваченные объектом ресурсы. Вместо того, чтобы копировать ресурсы (а копирование ресурсов может быть очень ресурсозатратной операцией) из одного объекта в другой, а затем уничтожать одну их копий, можно просто передать ресурсы одного объекта другому без всякого копирования. Вот поэтому и появилось в стандарте понятие <strong>rvalue reference</strong>. Обозначается <strong>rvalue-ссылка</strong> на тип <strong>T</strong> как <strong>T&amp;&amp;</strong>. Смысл это понятие имеет, как я понимаю, только как тип параметра функции. Можно использовать <strong>rvalue reference</strong> и как тип локальной переменной, но в этом я не вижу никакого смысла, поскольку в таком качестве <strong>rvalue reference</strong> ведет себя точно так же как <strong>lvalue reference</strong>.<br>
+Посмотрим как компилятор различает ссылки lvalue и rvalue. В примере ниже есть две перегруженных функции, одна из которых принимает в качестве параметра lvalue reference, а другая &#8212; rvalue reference:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// function accepts lvalue reference</span><br>
+<span class="kw4">void</span> print_int<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy3">&amp;</span> a<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lvalue &quot;</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// function accepts rvalue reference</span><br>
+<span class="kw4">void</span> print_int<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy3">&amp;&amp;</span> a<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;rvalue &quot;</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// function return value is an rvalue</span><br>
+<span class="kw4">int</span> foo<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> <span class="nu0">3</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">int</span> x <span class="sy1">=</span> <span class="nu0">4</span><span class="sy4">;</span><br>
+<span class="co1">// function return value is an lvalue</span><br>
+<span class="kw4">int</span><span class="sy3">&amp;</span> bar<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> x<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> a <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; print_int<span class="br0">&#40;</span>a<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; <span class="co1">// lvalue 1</span><br>
+&nbsp; &nbsp; print_int<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; <span class="co1">// rvalue 2</span><br>
+&nbsp; &nbsp; print_int<span class="br0">&#40;</span>foo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// rvalue 3</span><br>
+&nbsp; &nbsp; print_int<span class="br0">&#40;</span>bar<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// lvalue 4</span><br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Но это только иллюстрация того, что компилятор различает lvalue и rvalue. Практическое применение этой способности компилятора заключается в создании конструкторов перемещения (moving constructor) и перемещающих операторов присваивания (moving assignment operator). Чтобы это продемонстрировать, вернемся к классу <strong>my_awesome_container</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> my_awesome_container<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; T<span class="sy2">*</span> m_internal_array<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> m_size<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="co1">// Moving constructor</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="br0">&#40;</span>my_awesome_container<span class="sy3">&amp;&amp;</span> rhs<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_internal_array<span class="br0">&#40;</span>rhs.<span class="me1">m_internal_array</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_size<span class="br0">&#40;</span>rhs.<span class="me1">m_size</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; rhs.<span class="me1">m_internal_array</span> <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; rhs.<span class="me1">m_size</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Moving assignment operator</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> my_awesome_container<span class="sy3">&amp;</span> operator<span class="sy1">=</span><span class="br0">&#40;</span>my_awesome_container<span class="sy3">&amp;&amp;</span> rhs<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_internal_array <span class="sy1">=</span> rhs.<span class="me1">m_internal_array</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_size <span class="sy1">=</span> rhs.<span class="me1">m_size</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; rhs.<span class="me1">m_internal_array</span> <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; rhs.<span class="me1">m_size</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Constructor with parameters</span><br>
+&nbsp; &nbsp; my_awesome_container<span class="br0">&#40;</span><span class="kw4">int</span> size<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_internal_array<span class="br0">&#40;</span><span class="kw3">new</span> T<span class="br0">&#91;</span>size<span class="br0">&#93;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; m_size<span class="br0">&#40;</span>size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; ~my_awesome_container<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">delete</span><span class="br0">&#91;</span><span class="br0">&#93;</span> m_internal_array<span class="sy4">;</span> <span class="co1">// Note: deleting nullptr is ok now</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// ... other members of the class</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+my_awesome_container make_my_awesome_container<span class="br0">&#40;</span><span class="kw4">int</span> size<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> my_awesome_container<span class="br0">&#40;</span>size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; my_awesome_container vec1<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">=</span> make_my_awesome_container<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// calls moving constructor</span><br>
+&nbsp; &nbsp; my_awesome_container vec2<span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// calls constructor with parameters</span><br>
+&nbsp; &nbsp; vec2 <span class="sy1">=</span> make_my_awesome_container<span class="br0">&#40;</span><span class="nu0">7</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// calls moving assignment operator</span><br>
+&nbsp; &nbsp; vec1 <span class="sy1">=</span> vec2<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// calls copy assignment operator</span><br>
+&nbsp; &nbsp; vec1 <span class="sy1">=</span> std<span class="sy4">::</span><span class="me2">move</span><span class="br0">&#40;</span>vec2<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// calls moving assignment operator</span><br>
+&nbsp; &nbsp; my_awesome_container vec3 <span class="sy1">=</span> vec1<span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// calls copy constructor</span><br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Ну и наконец, поговорим о бессмысленных (Это только на мой взгляд. Может я чего не понимаю) операциях с rvalue-ссылками. Это &#8212; объявление локальной переменной типа rvalue-reference, а оно, как показывает эксперимент, эквивалентно объявлению локальной переменной типа lvalue-reference:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Test <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+Test make_Test<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> Test<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> print_Test<span class="br0">&#40;</span><span class="kw4">const</span> Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;print lvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> print_Test<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;print rvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Test lvalue_tst<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Local variable declaration</span><br>
+&nbsp; &nbsp; <span class="co1">// Test&amp;&amp; rvalue_tst = lvalue_tst; // Compilation error (rvalue reference cannot be bound to an lvalue)</span><br>
+&nbsp; &nbsp; Test<span class="sy3">&amp;&amp;</span> rvalue_tst <span class="sy1">=</span> make_Test<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// Fine: rvalue reference is bound to an rvalue. But this is equivalent to Test&amp; rvalue_tst = make_Test(1, 2);</span><br>
+&nbsp; &nbsp; print_Test<span class="br0">&#40;</span>lvalue_tst<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// print lvalue</span><br>
+&nbsp; &nbsp; print_Test<span class="br0">&#40;</span>rvalue_tst<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// print lvalue</span><br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="perfect-forwarding">Perfect forwarding</h2>
+<p>Допустим у нас есть перегруженная функция <strong>foo</strong>, одна версия которой принимает в качестве параметра <strong>rvalue</strong>, а другая <strong>lvalue</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;type_traits&gt;</span><br>
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> Test<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> val<span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="co1">// Constructor with parameters</span><br>
+&nbsp; &nbsp; Test<span class="br0">&#40;</span><span class="kw4">int</span> val<span class="br0">&#41;</span> <span class="sy4">:</span> val<span class="br0">&#40;</span>val<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;constructor: &quot;</span> <span class="sy1">&lt;&lt;</span> val <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Copy constructor</span><br>
+&nbsp; &nbsp; Test<span class="br0">&#40;</span><span class="kw4">const</span> Test<span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span> <span class="sy4">:</span> val<span class="br0">&#40;</span>rhs.<span class="me1">val</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;copy constructor: &quot;</span> <span class="sy1">&lt;&lt;</span> val <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Destructor</span><br>
+&nbsp; &nbsp; ~Test<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;destructor: &quot;</span> <span class="sy1">&lt;&lt;</span> val <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;rvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> no_forwarding<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span>t<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; no_forwarding<span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: rvalue or lvalue???</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Угадайте, что выведет на экран программа, <strong>rvalue</strong> или <strong>lvalue</strong>? Думаете <strong>rvalue</strong>? Нет, она выведет <strong>lvalue</strong>. Как так? А дело в том, что <strong>Test&amp;&amp; t</strong> &#8212; это не <strong>rvalue</strong>, а <strong>lvalue</strong>, хотя тип параметра <strong>t</strong> &#8212; это <strong>rvalue reference</strong>. Но <strong>rvalue reference</strong> вовсе необязательно является <strong>rvalue</strong>. Если я вас совсем запутал, то почитайте лучше [<a href="#Meyers">Meyers, Chapter 5. Rvalue References, Move Semantics and Perfect Forwarding</a>]. Является ли поведение функции <strong>no_forwarding</strong> желательным для нас? Конечно нет, так как объект <strong>rvalue</strong> рассматривается функцией <strong>foo</strong> как объект <strong>lvalue</strong>, что потенциально может приводить к излишнему копированию этого объекта. Исправить это поведение можно разными способами, и в книжке [<a href="#Meyers">Meyers</a>] рассказано, почему единственно верный из них &#8212; это использование функции <strong>std::forward</strong>. Если вкратце, то функция <strong>std::forward</strong> &#171;возвращает&#187; параметру его &#171;правоссылковость&#187; (<strong>rvalueness</strong>) в том случае, если это параметр является <strong>rvalue-ссылкой</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;rvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw4">void</span> perf_forwarding_test<span class="br0">&#40;</span>T<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span>forward<span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="br0">&#40;</span>t<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// std::forward preserves l- or r-valueness of the argument</span><br>
+&nbsp; &nbsp; <span class="co1">// foo(static_cast&lt;T&amp;&amp;&gt;(t)); // alternative way. does the same thing.</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="coMULTI">/*<br>
+// template specialization of std::forward for lvalue reference parameter<br>
+template&lt;class T&gt;<br>
+constexpr T&amp;&amp; forward(remove_reference_t&lt;T&gt;&amp; arg)<br>
+{<br>
+&nbsp; &nbsp; return (static_cast&lt;T&amp;&amp;&gt;(arg));<br>
+}<br>
+<br>
+// template specialization of std::forward for rvalue reference parameter<br>
+template&lt;class T&gt;<br>
+constexpr T&amp;&amp; forward(remove_reference_t&lt;T&gt;&amp;&amp; arg)<br>
+{<br>
+&nbsp; &nbsp; return (static_cast&lt;T&amp;&amp;&gt;(arg));<br>
+}<br>
+*/</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Test test<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Instantiates perf_forwarding_test&lt;Test&amp;&gt;(Test&amp; t)</span><br>
+&nbsp; &nbsp; <span class="co1">// Reference collapsing is taking place: perf_forwarding_test&lt;Test&amp;&gt;(Test&amp;&amp;&amp; t) -&gt; perf_forwarding_test&lt;Test&amp;&gt;(Test&amp; t)</span><br>
+&nbsp; &nbsp; <span class="co1">// forward&lt;Test&amp;&gt;(t) -&gt; static_cast&lt;Test&amp;&amp;&amp;&gt;(t) -&gt; static_cast&lt;Test&amp;&gt;(t)</span><br>
+&nbsp; &nbsp; perf_forwarding_test<span class="br0">&#40;</span>test<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// prints: lvalue</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// the same as above. we just specified template parameter explicitly</span><br>
+&nbsp; &nbsp; perf_forwarding_test<span class="sy1">&lt;</span>Test<span class="sy3">&amp;</span><span class="sy1">&gt;</span><span class="br0">&#40;</span>test<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: lvalue</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Instantiates perf_forwarding_test&lt;Test&gt;(Test&amp;&amp; t)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// forward&lt;Test&gt;(t) -&gt; static_cast&lt;Test&amp;&amp;&gt;(t) -&gt; the same as static_cast&lt;Test&gt;(t)</span><br>
+&nbsp; &nbsp; perf_forwarding_test<span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: rvalue</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// the same as above. we just specified template parameter explicitly</span><br>
+&nbsp; &nbsp; perf_forwarding_test<span class="sy1">&lt;</span>Test<span class="sy1">&gt;</span><span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// prints: rvalue</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// compilation error: perf_forwarding_test&lt;Test&gt; requires parameter of type Test&amp;&amp;, while test is of type Test&amp;</span><br>
+&nbsp; &nbsp; <span class="co1">// perf_forwarding_test&lt;Test&gt;(test);</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// compilation error: perf_forwarding_test&lt;Test&amp;&gt; requires parameter of type Test&amp;&amp;&amp;=Test&amp;, while Test(3) is of type Test&amp;&amp;</span><br>
+&nbsp; &nbsp; <span class="co1">// perf_forwarding_test&lt;Test&amp;&gt;(Test(4));</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Автор курса <strong>caveofprogramming.com</strong> говорит, что вызов функции <strong>std::forward&lt;T&gt;(arg)</strong> эквивалентен <strong>static_cast&lt;T&gt;(arg)</strong>. Давайте разберемся, почему он неправ. Рассмотрим такой код:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;lvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;rvalue&quot;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw4">void</span> wrong_perf_forwarding<span class="br0">&#40;</span>T<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span><span class="kw2">static_cast</span><span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="br0">&#40;</span>t<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Test test<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; wrong_perf_forwarding<span class="br0">&#40;</span>test<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; test is an lvalue =&gt; T=Test&amp;<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; wrong_perf_forwarding&lt;Test&amp;&gt;(test);<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; template&lt;typename T = Test&amp;&gt;<br>
+&nbsp; &nbsp; void wrong_perf_forwarding(Test&amp;&amp;&amp; t = collapses to Test&amp; t = lvalue reference) <br>
+&nbsp; &nbsp; {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; // reference casts to reference, no copying, prints: lvalue<br>
+&nbsp; &nbsp; &nbsp; &nbsp; foo(static_cast&lt;Test&amp;&gt;(t));<br>
+&nbsp; &nbsp; }<br>
+<br>
+&nbsp; &nbsp; FINE, NO COPYING<br>
+&nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; wrong_perf_forwarding<span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; Test(2) is an rvalue =&gt; T=Test<br>
+<br>
+&nbsp; &nbsp; wrong_perf_forwarding&lt;Test&gt;(Test(2));<br>
+<br>
+&nbsp; &nbsp; template&lt;typename T = Test&gt;<br>
+&nbsp; &nbsp; void wrong_perf_forwarding(Test&amp;&amp; t = rvalue reference)<br>
+&nbsp; &nbsp; {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; // cast to Test leads to copying, static_cast&lt;Test&gt;(t) is an rvalue, so prints: rvalue<br>
+&nbsp; &nbsp; &nbsp; &nbsp; foo(static_cast&lt;Test&gt;(t));<br>
+&nbsp; &nbsp; }<br>
+<br>
+&nbsp; &nbsp; BAD, COPYING HAPPENS<br>
+&nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>При передаче <strong>rvalue</strong> в качестве параметра происходит ненужное копирование (пояснения даны в коде).</p>
+<p>Чтобы как следует разобраться во всех этих взрывающих мозг rvalue reference, lvalue reference и forwarding reference, читайте книжку [<a href="#Meyers">Meyers, Chapter 5. Rvalue References, Move Semantics and Perfect Forwarding</a>]. Пока я все это читал, у меня появились еще вопросы &#171;а что будет если&#8230;?&#187; касательно параметров функций типа <strong>rvalue-reference</strong> и <strong>lvalue-reference</strong> а также слова <strong>auto</strong>, которые я разрешил при помощи эксперимента. Код привожу ниже:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+ostream<span class="sy3">&amp;</span> operator<span class="sy1">&lt;&lt;</span><span class="br0">&#40;</span>ostream<span class="sy3">&amp;</span> os, Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> os <span class="sy1">&lt;&lt;</span> t.<span class="me1">val</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// Accepts rvalues only</span><br>
+<span class="kw4">void</span> foo<span class="br0">&#40;</span>Test<span class="sy3">&amp;&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;foo: &quot;</span> <span class="sy1">&lt;&lt;</span> t<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// Accepts both lvalues and rvalues</span><br>
+<span class="kw4">void</span> bar<span class="br0">&#40;</span>Test<span class="sy3">&amp;</span> t<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;bar: &quot;</span> <span class="sy1">&lt;&lt;</span> t<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Test t1<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// invokes constructor with parameters</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// *** Can I call a function, taking rvalue reference with lvalue? ***</span><br>
+&nbsp; &nbsp; <span class="co1">// foo(t1); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // compilation error: rvalue reference cannot be bound to an lvalue</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// fine</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">move</span><span class="br0">&#40;</span>t1<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// fine: casts lvalue reference to rvalue reference</span><br>
+&nbsp; &nbsp; foo<span class="br0">&#40;</span><span class="kw2">static_cast</span><span class="sy1">&lt;</span>Test<span class="sy3">&amp;&amp;</span><span class="sy1">&gt;</span><span class="br0">&#40;</span>t1<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// fine: does the same thing as std::move()</span><br>
+<br>
+&nbsp; &nbsp; bar<span class="br0">&#40;</span>t1<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// fine</span><br>
+&nbsp; &nbsp; bar<span class="br0">&#40;</span>Test<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// fine</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// *** When I declare and initialize a variable at what conditions copying takes place? ***</span><br>
+&nbsp; &nbsp; Test t2 <span class="sy1">=</span> Test<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// invokes constructor with parameters</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t2<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> t3 <span class="sy1">=</span> Test<span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// invokes constructor with parameters</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t3<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span><span class="sy3">&amp;</span> t4 <span class="sy1">=</span> Test<span class="br0">&#40;</span><span class="nu0">4</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp;<span class="co1">// invokes constructor with parameters</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t4<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> t5 <span class="sy1">=</span> t1<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// invokes copy constructor</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t5<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span><span class="sy3">&amp;</span> t6 <span class="sy1">=</span> t1<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; <span class="co1">// inits a reference to t1; t6 is of type Test&amp;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t6<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span><span class="sy3">&amp;&amp;</span> t7 <span class="sy1">=</span> t1<span class="sy4">;</span> &nbsp; &nbsp; &nbsp;<span class="co1">// inits a reference to t1; t7 is of type Test&amp;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t7<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span><span class="sy3">&amp;&amp;</span> t8 <span class="sy1">=</span> Test<span class="br0">&#40;</span><span class="nu0">8</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// t8 is of type Test&amp;&amp;; the same as Test t8 = Test(8);</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t8<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="co1">// foo(t8); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// compilation error: rvalue reference cannot be bound to an lvalue</span><br>
+<br>
+&nbsp; &nbsp; Test<span class="sy3">&amp;&amp;</span> t9 <span class="sy1">=</span> Test<span class="br0">&#40;</span><span class="nu0">9</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// t9 is of type Test&amp;&amp;; the same as Test t9 = Test(9);</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> t9<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="co1">// foo(t9); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// compilation error: rvalue reference cannot be bound to an lvalue</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Поскольку <a href="#Meyers">книжку Мейерса</a> я читал не последовательно, я только позже обнаружил, что он о выведении типов (type deduction) при использовании слова <strong>auto</strong> пишет подробно в главе 1 &#8212; Deducing Types.</p>
+<h2 id="passing-params">Способы передачи параметров в функции</h2>
+<p>Хотелось бы, резюмируя, перечислить способы передачи параметров в функции, коих в C++11 прибавилось:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> MyType <span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> foo1<span class="br0">&#40;</span>MyType arg<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// (С++98) function accepting parameter by value (copying takes place)</span><br>
+<span class="kw4">void</span> foo2<span class="br0">&#40;</span>MyType<span class="sy3">&amp;</span> arg<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; <span class="co1">// (С++98) function accepting parameter by reference</span><br>
+<span class="kw4">void</span> foo3<span class="br0">&#40;</span><span class="kw4">const</span> MyType<span class="sy3">&amp;</span> arg<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// (С++98) function accepting parameter by constant reference</span><br>
+<span class="kw4">void</span> foo4<span class="br0">&#40;</span>MyType<span class="sy3">&amp;&amp;</span> arg<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp;<span class="co1">// (С++11) function accepting rvalues only (by reference)</span><br>
+<br>
+<span class="co1">// (С++11) function accepting a &quot;universal reference&quot; (both rvalue reference and lvalue reference)</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw4">void</span> foo5<span class="br0">&#40;</span>T<span class="sy3">&amp;&amp;</span> arg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; foo5<span class="br0">&#40;</span>MyType<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// instantiates foo5&lt;MyType&gt;(MyType&amp;&amp;)</span><br>
+<br>
+&nbsp; &nbsp; MyType mt<span class="sy4">;</span><br>
+&nbsp; &nbsp; foo5<span class="br0">&#40;</span>mt<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// instantiates foo5&lt;MyType&amp;&gt;(MyType&amp;)</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// This will not compile. You cannot pass rvalue by nonconstant reference.</span><br>
+&nbsp; &nbsp; <span class="co1">//foo2(MyType());</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// But you can pass rvalue by constant reference.</span><br>
+&nbsp; &nbsp; foo3<span class="br0">&#40;</span>MyType<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Несколько неожиданным для меня оказалось то, что оказывается нельзя передать <strong>rvalue</strong> по неконстантной ссылке, а вот по константной ссылке &#8212; можно.</p>
+<h2 id="std-bind">std::bind</h2>
+<p>Функция <strong>std::bind</strong> возвращает объект, который может быть вызван как функция (в классе, к которому этот объект принадлежит, переопределен <strong>operator()</strong>), т. е. он является функтором. В качестве параметра <strong>std::bind</strong> принимает указатель на функцию либо функтор, плюс значения всех или некоторых параметров, которые могут быть переданы этой функции или этому функтору. Некоторые из параметров могут быть заменены <em>плейсхолдерами</em> (<strong>_1</strong>, <strong>_2</strong>, <strong>_3</strong> и т. д.). Словесное объяснение звучит запутанно, надеюсь, из примеров ниже все станет ясно:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;functional&gt;</span><br>
+<br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">::</span><span class="me2">placeholders</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">int</span> multiply<span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">int</span> b, <span class="kw4">int</span> c<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; * &quot;</span> <span class="sy1">&lt;&lt;</span> b <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; * &quot;</span> <span class="sy1">&lt;&lt;</span> c <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; = &quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">*</span> b <span class="sy2">*</span> c<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> call_function<span class="br0">&#40;</span>function<span class="sy1">&lt;</span><span class="kw4">int</span><span class="br0">&#40;</span><span class="kw4">int</span>, <span class="kw4">int</span><span class="br0">&#41;</span><span class="sy1">&gt;</span> func<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> func<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">class</span> MyFunctor<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">int</span> b, <span class="kw4">int</span> c<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> a <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; * &quot;</span> <span class="sy1">&lt;&lt;</span> b <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; * &quot;</span> <span class="sy1">&lt;&lt;</span> c <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; = &quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> a <span class="sy2">*</span> b <span class="sy2">*</span> c<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> bind1 <span class="sy1">=</span> bind<span class="br0">&#40;</span>multiply, <span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> bind1<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// prints: 1 * 2 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> bind2 <span class="sy1">=</span> bind<span class="br0">&#40;</span>multiply, _1, _2, _3<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> bind2<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">3</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="co1">// prints: 1 * 2 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> bind3 <span class="sy1">=</span> bind<span class="br0">&#40;</span>multiply, _1, <span class="nu0">2</span>, <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> bind3<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; <span class="co1">// prints: 1 * 2 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> bind4 <span class="sy1">=</span> bind<span class="br0">&#40;</span>multiply, _2, _1, <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> bind4<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// prints: 2 * 1 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; call_function<span class="br0">&#40;</span>bind4<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// prints: 2 * 1 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; MyFunctor my_functor<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> bind5 <span class="sy1">=</span> bind<span class="br0">&#40;</span>my_functor, _2, _1, <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> bind5<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// prints: 2 * 1 * 3 = 6</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Обратите внимание, что плейсхолдеры принадлежат к пространству имен <strong>std::placeholders</strong> (std::placeholders::_1, std::placeholders::_2) и т. д.</p>
+<h2 id="static_assert">static_assert</h2>
+<p>Ключевое слово, которое позволяет делать различные проверки (assertions) на этапе компиляции. Проверки обычно касаются шаблонных параметров классов и функций. Например, предположим, вы пишете шаблонный класс для представления точки на плоскости <strong>Point&lt;T&gt;</strong>, где <strong>T</strong> &#8212; это параметр шаблона, которые определяет тип координаты X и координаты Y. Вы вероятно хотели бы ограничить возможные значения параметра <strong>T</strong> числовыми типами. Если программист попытается в качестве параметра шаблона использовать нечисловой тип, то должна выбрасываться ошибка компиляции. Тогда вам просто надо написать в теле класса <strong>static_assert</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;type_traits&gt;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> Point<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">static_assert</span><span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">is_arithmetic</span><span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">value</span>, <span class="st0">&quot;Template parameter T must be a numeric type!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; T X<span class="sy4">;</span><br>
+&nbsp; &nbsp; T Y<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<p>1-ым аргументом static_assert является булевская константа, значение которой определяется во время компиляции (constexpr &#8212; см. ниже). Если константа равна <strong>true</strong>, то ничего плохого не происходит. Если константа равна <strong>false</strong>, то возникает ошибка компиляции с сообщением, которое задано 2-м аргументом static_assert &#8212; строковым литералом.</p>
+<p>Проверки различных условий, накладываемых на параметры шаблонов, обычно производятся при помощи других шаблонов &#8212; определенных в файле <strong>&lt;type_traits&gt;</strong>. Например, <strong>std::is_arithmetic&lt;T&gt;</strong> &#8212; это шаблонная структура, у которой есть поле <strong>static constexpr bool value;</strong>, которое имеет значение <strong>true</strong>, если параметр шаблона <strong>T</strong> является числовым типом и <strong>false</strong> &#8212; если нечисловым. А как это так, для одних параметров шаблона поле структуры имеет одно значение, а для других &#8212; другое? C++ позволяет создавать разный код для разных значений параметра шаблона &#8212; это называется специализация шаблона (template specialization). Вот как гипотетически могла бы выглядеть структура <strong>std::is_arithmetic</strong> в сильно упрощенном варианте:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// By default type T is not numerical...</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw4">struct</span> is_arithmetic<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">static</span> <span class="kw2">constexpr</span> <span class="kw4">bool</span> value <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span> <span class="co1">// FALSE by default</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">// ... except for the following types:</span><br>
+<br>
+<span class="co1">// the following is a template specialization</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;&gt;</span><br>
+<span class="kw4">struct</span> is_arithmetic<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">static</span> <span class="kw2">constexpr</span> <span class="kw4">bool</span> value <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span> <span class="co1">// TRUE for T=int</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// the following is a template specialization</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;&gt;</span><br>
+<span class="kw4">struct</span> is_arithmetic<span class="sy1">&lt;</span><span class="kw4">float</span><span class="sy1">&gt;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">static</span> <span class="kw2">constexpr</span> <span class="kw4">bool</span> value <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span> <span class="co1">// TRUE for T=float</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// et cetera...</span>
+</div></div>
+<h2 id="out-of-scope">Что осталось за кадром</h2>
+<p>Есть ряд вещей, о которых мне уже лень писать, но я их хотя бы перечислю:</p>
+<ul>
+<li>
+<strong>constexpr</strong> &#8212; ключевое слово, которое позволяет создавать функции, которые вычисляются <em>во время компиляции</em>, что позволяет не тратить время на эти вычисления во время выполнения программы.</li>
+<li>
+<strong>noexcept</strong> &#8212; ключевое слово, которым маркируются функции. Оно сообщает компилятору о том, что данная функция не генерирует исключений (по крайней мере, программист предполагает, то это так). Это знание позволяет компилятору сгенерировать более эффективный код при вызове функции.</li>
+<li>
+<strong>decltype, auto, decltype(auto)</strong> &#8212; все три варианта можно использовать для выведения типа возвращаемого значения функции, правда могут получиться разные результаты &#8212; об этом написано в [<a href="#Meyers">Meyers, Item 3. Understand decltype</a>]</li>
+</ul>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/11/23/c11-new-features/" data-a2a-title="C++11 new features">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F11%2F23%2Fc11-new-features%2F&amp;linkname=C%2B%2B11%20new%20features" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F11%2F23%2Fc11-new-features%2F&amp;linkname=C%2B%2B11%20new%20features" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F11%2F23%2Fc11-new-features%2F&amp;linkname=C%2B%2B11%20new%20features" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/11/03/networks/" rel="prev">Компьютерные сети</a></div>
+<div class="nav-next"><a href="/2019/01/27/opengl-7/" rel="next">Опыт изучения OpenGL &#8212; Часть 7 &#8212; Пространственные преобразования. Перспективная проекция.</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/11/23/c11-new-features/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1073" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

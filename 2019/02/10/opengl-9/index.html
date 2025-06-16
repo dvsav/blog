@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Опыт изучения OpenGL — Часть 8 — Vector maths API &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Опыт изучения OpenGL — Часть 8 — Vector maths API&raquo;" href="/2019/02/10/opengl-9/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1204">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2019/02/10/opengl-9/">
+<link rel="shortlink" href="/?p=1204">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F02%2F10%2Fopengl-9%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F02%2F10%2Fopengl-9%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1204 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1204" class="post-1204 post type-post status-publish format-standard hentry category-1 tag-c-c tag-opengl">
+	<header class="entry-header">
+		<h1 class="entry-title">Опыт изучения OpenGL — Часть 8 — Vector maths API</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2019/02/10/opengl-9/" rel="bookmark"><time class="entry-date published updated" datetime="2019-02-10T16:06:48+03:00">10.02.2019</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>В <a href="http://localhost/opengl-8/">прошлой заметке</a> я закончил теоретическую часть рассказа про пространственные преобразования в компьютерной графике. Теперь хочу сказать два слова про программирование всего этого на C++.</p>
+<h2>Vector &amp; Matrix</h2>
+<p>Было довольно очевидно, из чего должен состоять API для векторной алгебры в моем проекте. Это должны были быть два класса: <strong>Vector</strong> и <strong>Matrix</strong>. Элементами вектора могут быть числа различных типов (скажем, int, float, double и пр.), поэтому очевидно, что классы Vector и Matrix должны были быть шаблонными (тип элемента матрицы/вектора должен быть параметром шаблона). И вектор, и матрица могут иметь разные размерности, например вектор может быть двумерный или трехмерный, матрица может быть 2&#215;2 или 3&#215;3 или 4&#215;4 и т. д. Причем двумерный вектор и трехмерный вектор &#8212; это векторы разных типов! Так же как матрица 2&#215;2 и матрица 3&#215;3 &#8212; это матрицы разных типов. Поэтому размерности вектора и/или матрицы тоже должны быть параметрами шаблона. Ну и наконец, для векторов и матриц надо определить операции сложения, умножения (вектора на вектор, вектора на скаляр, матрицы на вектор, матрицы на скаляр, матрицы на матрицу), скалярного и векторного произведения и другие.</p>
+<p>Классов векторов я написал несколько. Один базовый класс <strong>VectorBase</strong> может иметь произвольную размерность. <strong>VectorBase</strong> хранит свои элементы в массиве <strong>std::array</strong>. Получить доступ к i-ому элементу ветора можно при помощи оператора &#171;квадратные скобки&#187; либо функции <strong>at()</strong>. Кроме того, класс <strong>VectorBase</strong> я сделал <em>итерабельным</em>. Три производных класса <strong>Vector</strong> наследуют классу <strong>VectorBase</strong> и имеют размерности от 2 до 4. Сделал я их для того, чтобы определить в них методы X(), Y(), Z(), W() &#8212; для удобства обращения к элементам таких векторов. Действительно, код становится более читабельным, если например вместо <code class="codecolorer cpp default"><span class="cpp">vec.<span class="me1">at</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span></span></code> написать <code class="codecolorer cpp default"><span class="cpp">vec.<span class="me1">X</span><span class="br0">&#40;</span><span class="br0">&#41;</span></span></code>, или вместо <code class="codecolorer cpp default"><span class="cpp">vec<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span></span></code> написать <code class="codecolorer cpp default"><span class="cpp">vec.<span class="me1">Y</span><span class="br0">&#40;</span><span class="br0">&#41;</span></span></code> и т. д. Ниже привожу только объявления классов, полный код можно увидеть в <a href="https://bitbucket.org/dvsav/openrenderingengine/">репозитории</a>.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Vector.h</span><br>
+<br>
+<span class="kw2">namespace</span> vmath<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; A vector<br>
+&nbsp; &nbsp; Template parameters:<br>
+&nbsp; &nbsp; T - type of vector coordinates<br>
+&nbsp; &nbsp; Dimension - vector space dimension (number of coordinates in vector)<br>
+&nbsp; &nbsp; */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T, <span class="kw4">int</span> Dimension<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> VectorBase <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; A vector<br>
+&nbsp; &nbsp; Template parameters:<br>
+&nbsp; &nbsp; T - type of vector coordinates<br>
+&nbsp; &nbsp; Dimension - vector space dimension (number of coordinates in vector)<br>
+&nbsp; &nbsp; */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T, <span class="kw4">int</span> Dimension<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Vector <span class="sy4">:</span> <span class="kw2">public</span> VectorBase<span class="sy1">&lt;</span>T, Dimension<span class="sy1">&gt;</span><br>
+<br>
+&nbsp; &nbsp; <span class="coMULTI">/* 2-dimensional vector */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">2</span><span class="sy1">&gt;</span> <span class="sy4">:</span> <span class="kw2">public</span> VectorBase<span class="sy1">&lt;</span>T, <span class="nu0">2</span><span class="sy1">&gt;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="coMULTI">/* 3-dimensional vector */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">3</span><span class="sy1">&gt;</span> <span class="sy4">:</span> <span class="kw2">public</span> VectorBase<span class="sy1">&lt;</span>T, <span class="nu0">3</span><span class="sy1">&gt;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="coMULTI">/* 4-dimensional vector */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">4</span><span class="sy1">&gt;</span> <span class="sy4">:</span> <span class="kw2">public</span> VectorBase<span class="sy1">&lt;</span>T, <span class="nu0">4</span><span class="sy1">&gt;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Класс матрицы я решил реализовать в виде массива столбцов. При этом каждый столбец &#8212; это вектор. Соответственно, способ хранения элементов матрицы в памяти компьютера у меня &#8212; <strong>column-major</strong>. Ниже приведу только объявление класса матрицы.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Matrix.h</span><br>
+<br>
+<span class="kw2">namespace</span> vmath<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; A matrix. Elements are stored in column-major format.<br>
+&nbsp; &nbsp; Template parameters:<br>
+&nbsp; &nbsp; T - type of matrix elements<br>
+&nbsp; &nbsp; Rows - number of rows<br>
+&nbsp; &nbsp; Cols - number of columns<br>
+&nbsp; &nbsp; */</span><br>
+&nbsp; &nbsp; <span class="kw2">template</span> <span class="sy1">&lt;</span><span class="kw2">typename</span> T, <span class="kw4">int</span> Rows, <span class="kw4">int</span> Cols<span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> Matrix <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>SSE</h2>
+<p>Ниде показан код операции сложения двух векторов:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T, <span class="kw2">typename</span> V, <span class="kw4">int</span> Dimension<span class="sy1">&gt;</span><br>
+<span class="kw4">const</span> Vector<span class="sy1">&lt;</span><span class="kw2">decltype</span><span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">declval</span><span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">+</span> std<span class="sy4">::</span><span class="me2">declval</span><span class="sy1">&lt;</span>V<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>, Dimension<span class="sy1">&gt;</span> operator<span class="sy2">+</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span>T, Dimension<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span>V, Dimension<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span> <span class="kw2">noexcept</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Vector<span class="sy1">&lt;</span><span class="kw2">decltype</span><span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">declval</span><span class="sy1">&lt;</span>T<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">+</span> std<span class="sy4">::</span><span class="me2">declval</span><span class="sy1">&lt;</span>V<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>, Dimension<span class="sy1">&gt;</span> vec<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> Dimension<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> lhs<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy2">+</span> rhs<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> vec<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Код этот простой и понятный (хотя в нем присутствуют разные <a href="http://localhost/c11-new-features/">кракозябры из C++11</a>) &#8212; в цикле последовательно складываются элементы вектора. Из книжки [<a href="http://dvsav.ru/opengl-1/#Gregory">Gregory, 4.7. Hardware-Accelerated SIMD Math</a>] я узнал, что в процессорах Intel давно существуют средства для выполнения операций над векторами под названием SSE &#8212; Streaming SIMD Extensions. SIMD означает SIngle Instruction Multiple Data &#8212; одна операция выполняется одновременно над несколькими числами &#8212; ровно то, что происходит при сложении или покомпонентном умножении векторов. SSE добавляет в архитектуру процессора набор 128-разрядных регистров (регистры имеют имена xmm0, xmm1, xmm2 и т. д.) и набор машинных инструкций для выполнения SIMD-оперций (например, инструкция <code class="codecolorer asm default"><span class="asm"><span class="kw3">addps</span> <span class="kw4">xmm0</span><span class="sy1">,</span> <span class="kw4">xmm1</span></span></code> складывает регистры xmm0 и xmm1 и помещает результат в xmm0). В один 128-разрядный регистр можно поместить четыре 32-разрядных числа с плавающей точкой (float), т. е. вектор. Дальше одна операция (сложение, вычитание, умножение) выполняется над двумя такими регистрами. Результат тоже сохраняется в регистре, из которого его затем можно переместить в оперативную память (адрес в оперативной памяти обязательно должен быть выровнен по границе 16 байт). Операции, исользующие SSE, можно запрограммировать либо при помощи ассемблерных вставок, либо при помощи специальных ключевых слов компилятора (в  книге [Gregory] объясняется, почему последний вариант предпочтителен). Ниже приведен пример реализации операции сложения двух векторов с использованием SSE:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;xmmintrin.h&gt;</span><br>
+<br>
+<span class="co1">// Adds two vectors unsing SSE.</span><br>
+<span class="kw2">inline</span> <span class="kw4">const</span> Vector<span class="sy1">&lt;</span><span class="kw4">float</span>, <span class="nu0">4</span><span class="sy1">&gt;</span> operator<span class="sy2">+</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span><span class="kw4">float</span>, <span class="nu0">4</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span><span class="kw4">float</span>, <span class="nu0">4</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs<span class="br0">&#41;</span> <span class="kw2">noexcept</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; __m128 a <span class="sy1">=</span> _mm_load_ps<span class="br0">&#40;</span>lhs.<span class="me1">data</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// load vector data into a __m128 variable (xmm register)</span><br>
+&nbsp; &nbsp; __m128 b <span class="sy1">=</span> _mm_load_ps<span class="br0">&#40;</span>rhs.<span class="me1">data</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// load vector data into a __m128 variable (xmm register)</span><br>
+<br>
+&nbsp; &nbsp; __m128 c <span class="sy1">=</span> _mm_add_ps<span class="br0">&#40;</span>a, b<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// perform the addition operation (the result is stored in __m128 variable i. e. in an xmm register)</span><br>
+<br>
+&nbsp; &nbsp; __declspec<span class="br0">&#40;</span>align<span class="br0">&#40;</span><span class="nu0">16</span><span class="br0">&#41;</span><span class="br0">&#41;</span> Vector<span class="sy1">&lt;</span><span class="kw4">float</span>, <span class="nu0">4</span><span class="sy1">&gt;</span> vec<span class="sy4">;</span> <span class="co1">// declare a variable of type Vector aligned to the 16-byte boundary in RAM</span><br>
+&nbsp; &nbsp; _mm_store_ps<span class="br0">&#40;</span>vec.<span class="me1">data</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, c<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// store the result of the SSE operation in the variable in RAM</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">return</span> vec<span class="sy4">;</span> <span class="co1">// return the result stored in RAM</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В [<a href="http://dvsav.ru/opengl-1/#Gregory">Gregory, 4.7.4 Vector-Matrix Multiplication with SSE</a>] также объясняется как выполнить умножение матрицы и ветора при помощи SSE.</p>
+<h2>WorldPositionAndOrientation</h2>
+<p>В <a href="http://localhost/opengl-8/">прошлой заметке</a> я говорил, что позиция объекта в world space задается вектором, а ориентация объекта может быть задана двумя векторами, которые указывают направление осей координат в системе model space, связанной с объектом (направление третьей оси можно рассчитать как векторное произведение двух первых). На основании информации о позиции объекта и его ориентации в пространстве можно сформировать матрицу перехода из model space в world space. Информацию о позиции и ориентации объекта я решил поместить в класс <strong>engine::WorldPositionAndOrientation</strong>. Ниже привожу только поля этого класса:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> WorldPositionAndOrientation<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec3 m_Position<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec3 m_ForwardDirection<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec3 m_UpDirection<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; ...<br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Объект может перемещаться и вращаться в пространстве. Поэтому удобно движение и вращение объекта поместить в соответствующие функции (ниже привожу только объявления некоторых функций):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="coMULTI">/*<br>
+Rotates object around object's up axis (Y)<br>
+Parameters:<br>
+angle - angle in radians (+ CW, - CCW)<br>
+*/</span><br>
+WorldPositionAndOrientation<span class="sy3">&amp;</span> Yaw<span class="br0">&#40;</span>GLfloat angle<span class="br0">&#41;</span> <span class="kw2">noexcept</span><span class="sy4">;</span><br>
+<br>
+<span class="coMULTI">/*<br>
+Rotates object around object's right axis (X)<br>
+Parameters:<br>
+[angle] - angle in radians (+ CW, - CCW)<br>
+*/</span><br>
+WorldPositionAndOrientation<span class="sy3">&amp;</span> Pitch<span class="br0">&#40;</span>GLfloat angle<span class="br0">&#41;</span> <span class="kw2">noexcept</span><span class="sy4">;</span><br>
+<br>
+<span class="coMULTI">/*<br>
+Rotates object around object's forward axis (Z)<br>
+Parameters:<br>
+angle - angle in radians (+ CW, - CCW)<br>
+*/</span><br>
+WorldPositionAndOrientation<span class="sy3">&amp;</span> Roll<span class="br0">&#40;</span>GLfloat angle<span class="br0">&#41;</span> <span class="kw2">noexcept</span><span class="sy4">;</span><br>
+<br>
+<span class="coMULTI">/*<br>
+Moves object position up or down (along object's Y-axis)<br>
+Parameters:<br>
+delta - translation along object's Y-axis (+ up, - down)<br>
+*/</span><br>
+WorldPositionAndOrientation<span class="sy3">&amp;</span> MoveUpDown<span class="br0">&#40;</span>GLfloat delta<span class="br0">&#41;</span> <span class="kw2">noexcept</span><span class="sy4">;</span><br>
+<br>
+<span class="coMULTI">/*<br>
+Moves object position right or left (along object's X-axis)<br>
+Parameters:<br>
+[delta] - translation along object's X axis<br>
+*/</span><br>
+WorldPositionAndOrientation<span class="sy3">&amp;</span> MoveRightLeft<span class="br0">&#40;</span>GLfloat delta<span class="br0">&#41;</span> <span class="kw2">noexcept</span><span class="sy4">;</span>
+</div></div>
+<p>И наконец, функция формирования матрицы model-to-world:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">inline</span> <span class="kw4">auto</span> make_ModelToWorldMatrix<span class="br0">&#40;</span><span class="kw4">const</span> WorldPositionAndOrientation<span class="sy3">&amp;</span> wpo<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> vmath<span class="sy4">::</span><span class="me2">make_ModelToWorldMatrix</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; wpo.<span class="me1">getPosition</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; wpo.<span class="me1">getForwardDirection</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; wpo.<span class="me1">getUpDirection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>&#8230; которая пользуется функцией <strong>make_ModelToWorldMatrix</strong> из файла <strong>Matrix.h</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="coMULTI">/*<br>
+Creates a model-to-world matrix which transforms model coordinates into world coordinates.<br>
+Parameters:<br>
+[position] - position vector of the model in world space<br>
+[forwardDirection] - forward direction of the model (z-axis direction) in world space<br>
+[upDirection] - up direction of the model (y-axis direction) in world space<br>
+Assumptions:<br>
+[forwardDirection] is normalized (i. e. it is of unit length).<br>
+[upDirection] is normalized (i. e. it is of unit length).<br>
+[upDirection] is not necessarily the same as model's y-axis direction, but it shouldn't be the same as forwardDirection.<br>
+Handedness of the model space is the same as that of the world space.<br>
+*/</span><br>
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">typename</span> T<span class="sy1">&gt;</span><br>
+<span class="kw4">const</span> Matrix<span class="sy1">&lt;</span>T, <span class="nu0">4</span>, <span class="nu0">4</span><span class="sy1">&gt;</span> make_ModelToWorldMatrix<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">3</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> position,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">3</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> forwardDirection,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> Vector<span class="sy1">&lt;</span>T, <span class="nu0">3</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> upDirection<span class="br0">&#41;</span> <span class="kw2">noexcept</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> s <span class="sy1">=</span> cross_product<span class="br0">&#40;</span>upDirection, forwardDirection<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// X = [Y x Z] = [Up x Forward]</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> u <span class="sy1">=</span> cross_product<span class="br0">&#40;</span>forwardDirection, s<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Y = [Z x X] = [Forward x S]</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">return</span> Matrix<span class="sy1">&lt;</span>T, <span class="nu0">4</span>, <span class="nu0">4</span><span class="sy1">&gt;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> s.<span class="me1">X</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, s.<span class="me1">Y</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, s.<span class="me1">Z</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, T<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#125;</span>, <span class="co1">// right</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> u.<span class="me1">X</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, u.<span class="me1">Y</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, u.<span class="me1">Z</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, T<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#125;</span>, <span class="co1">// up</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> forwardDirection.<span class="me1">X</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, forwardDirection.<span class="me1">Y</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, forwardDirection.<span class="me1">Z</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, T<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#125;</span>, <span class="co1">// forward</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> position.<span class="me1">X</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, position.<span class="me1">Y</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, position.<span class="me1">Z</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, T<span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#125;</span> <span class="co1">// position</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Сейчас хочу сказать про изменение в коде, которое произошло уже после того, как я дописал этот пост. Как было показано в <a href="http://localhost/opengl-8/">прошлой заметке</a> и как можно видеть в коде функции <strong>make_ModelToWorldMatrix</strong>, три первых столбца (напоминаю, что столбцы в коде записаны горизонтально, так как используется порядок column-major) матрицы model-to-world являются векторами, которые задают направления осей right, up и forward системы координат model space. Последний столбец задает позицию начала координат model space. Поэтому почему бы не хранить означенные четыре вектора в виде матрицы model-to-world? Тогда саму матрицу не придется конструировать каждый раз когда она понадобится. Поэтому я изменил класс <strong>engine::WorldPositionAndOrientation</strong>, чтобы он содержал не три отдельных вектора, а одну матрицу model-to-world размером 4&#215;4. При этом векторы right, up, forward и position легко извлечь, так как они являются столбцами матрицы:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> WorldPositionAndOrientation<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; mat4 m_ModelToWorldMatrix<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> mat4<span class="sy3">&amp;</span> ModelToWorldMatrix<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="kw2">noexcept</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ModelToWorldMatrix<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets object's right direction in world space.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vec3<span class="sy3">&amp;</span> RightDirection<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="kw2">noexcept</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ModelToWorldMatrix.<span class="me1">at</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>.<span class="me1">vec3</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets object's up direction in world space.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vec3<span class="sy3">&amp;</span> UpDirection<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="kw2">noexcept</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ModelToWorldMatrix.<span class="me1">at</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>.<span class="me1">vec3</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets object's forward direction in world space.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vec3<span class="sy3">&amp;</span> ForwardDirection<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="kw2">noexcept</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ModelToWorldMatrix.<span class="me1">at</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span>.<span class="me1">vec3</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets object's position in world space.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vec3<span class="sy3">&amp;</span> Position<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">noexcept</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ModelToWorldMatrix.<span class="me1">at</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span>.<span class="me1">vec3</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; ...<br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>Camera</h2>
+<p>Кроме различных объектов-моделей в игре присутствует камера, которая тоже обладает позицией и ориентацией в world space. На основании позиции и ориентации камеры можно сформировать матрицу перехода из world space в camera space. Но кроме этого объект &#171;камера&#187; также может содержать информацию о параметрах перспективной проекции. Мой класс <strong>engine::Camera</strong> именно такой (ниже приведены фрагменты кода этого класса):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Camera<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co2">#pragma region Fields</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; WorldPositionAndOrientation m_WorldPositionAndOrientation<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLfloat m_ViewAngle<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLfloat m_AspectRatio<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLfloat m_NearPlane<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLfloat m_FarPlane<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; mat4 m_PerspectiveProjectionMatrix<span class="sy4">;</span> <span class="co1">// cached perspective projection matrix</span><br>
+<br>
+&nbsp; &nbsp; ...<br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> mat4<span class="sy3">&amp;</span> getPerspectiveProjectionMatrix<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_PerspectiveProjectionMatrix<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; mat4 getWorldToCameraMatrix<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> vmath<span class="sy4">::</span><span class="me2">make_WorldToCameraMatrix</span><span class="sy1">&lt;</span>GLfloat<span class="sy1">&gt;</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_WorldPositionAndOrientation.<span class="me1">getPosition</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_WorldPositionAndOrientation.<span class="me1">getForwardDirection</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_WorldPositionAndOrientation.<span class="me1">getUpDirection</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> CalcPerspectiveProjectionMatrix<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_PerspectiveProjectionMatrix <span class="sy1">=</span> vmath<span class="sy4">::</span><span class="me2">make_PerspectiveProjectionMatrix</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_ViewAngle,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_AspectRatio,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_NearPlane,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_FarPlane<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>На этом все. В следующей заметке рассмотрим вопрос о том, как матрицы передаются в шейдеры, которые и выполняют всякие преобразования над моделями 3-хмерных объектов.</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2019/02/10/opengl-9/" data-a2a-title="Опыт изучения OpenGL — Часть 8 — Vector maths API">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2019%2F02%2F10%2Fopengl-9%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%208%20%E2%80%94%20Vector%20maths%20API" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2019%2F02%2F10%2Fopengl-9%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%208%20%E2%80%94%20Vector%20maths%20API" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2019%2F02%2F10%2Fopengl-9%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%208%20%E2%80%94%20Vector%20maths%20API" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a>, <a href="/tag/opengl/" rel="tag">OpenGL</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2019/02/06/opengl-8/" rel="prev">Опыт изучения OpenGL — Часть 7 — Пространственные преобразования (продолжение)</a></div>
+<div class="nav-next"><a href="/2019/02/22/opengl-10/" rel="next">Опыт изучения OpenGL &#8212; Часть 9 &#8212; Uniform Variables &amp; Uniform Blocks</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/02/10/opengl-9/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1204" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

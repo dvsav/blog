@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Vulkan Learning &#8212; 6. 3d модель. Буферы памяти и изображения &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Vulkan Learning &#8212; 6. 3d модель. Буферы памяти и изображения&raquo;" href="/2021/09/14/vulkan-6/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1807">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2021/09/14/vulkan-6/">
+<link rel="shortlink" href="/?p=1807">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2021%2F09%2F14%2Fvulkan-6%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2021%2F09%2F14%2Fvulkan-6%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1807 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1807" class="post-1807 post type-post status-publish format-standard hentry category-1 tag-c-c tag-vulkan">
+	<header class="entry-header">
+		<h1 class="entry-title">Vulkan Learning &#8212; 6. 3d модель. Буферы памяти и изображения</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2021/09/14/vulkan-6/" rel="bookmark"><time class="entry-date published updated" datetime="2021-09-14T15:47:11+03:00">14.09.2021</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Итак, нам осталось отрисовать трехмерную модель. Прежде всего, посмотрим, что модель собой представляет (рис. 1).</p>
+<figure id="attachment_1809" aria-describedby="caption-attachment-1809" style="width: 1880px" class="wp-caption alignnone"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/09/3dModel.jpg" alt="" width="1880" height="1080" class="size-full wp-image-1809"><figcaption id="caption-attachment-1809" class="wp-caption-text">Рис. 1 &#8212; 3d модель</figcaption></figure>
+<p>Модель состоит из трех кусков данных:</p>
+<ul>
+<li>
+<strong>Mesh</strong>. Модель по сути представляет собой множество треугольников. Каждый треугольник задается тремя вершинами (vertices), а каждая вершина характеризуется тремя координатами в в локальной системе координат нашей модели. Таким образом у нас должен быть массив вершин. Чтобы задать треугольник, нам надо указать три индекса (indices) в массиве вершин. Чтобы задать множество треугольников, нам нужно указать множество троек таких индексов. Таким образом, мы должны сформировать массив индексов. Indexed drawing &#8212; это не единственный, но наверное самый распространенный метод задания треугольников.</li>
+<li>
+<strong>Material</strong>. Mesh &#8212; это только каркас (wireframe), который визуально воспринимается как силуэт или скелет объекта. Чтобы объект стал похож на реальный предмет, нужно натянуть на него некую шкурку, т. е. материал (Material). Материал должен задавать свойства поверхности объекта, такие как цвет (diffuse color), матовость или блескучесть (shininess), свечение &#8212; для источников света (emissive color), шероховатость (normal map и height map) и пр. Обычно все или некоторые из этих параметров поверхности имею различные значения в разных ее точках, поэтому задаются они текстурами &#8212; двумерными картинками, которые в итоге &#171;натягиваются&#187; на mesh.</li>
+<li>
+<strong>World position &amp; orientation</strong>. Модель еще нужно как-то расположить в системе координат сцены (world space). Расположение объекта задается матрицей преобразования &#8212; это матрица 4&#215;4 (model-to-world matrix), которая обычно представляет комбинацию из преобразования трансляции и поворота. Матрица преобразования в этом случае &#8212; это четыре столбца, которые представляют собой позицию объекта в системе координат сцены (position) и три вектора, которые задают направления осей локальной системы координат модели в системе координат сцены (right, up, forward).</li>
+</ul>
+<h2>Типы памяти</h2>
+<p>Наша задача &#8212; разместить вышеперечисленные куски данных в памяти (это может быть внутренняя память видеокарты &#8212; GPU memory или оперативная память компьютера &#8212; system memory) и передать ссылки на них пайплайну (последнее мы делаем путем записи соответствующих команд в командный буфер, вроде vkCmdBindVertexBuffers, vkCmdBindIndexBuffer, vkCmdBindDescriptorSets). Оказывается, что разные куски данных следует размещать в разных типах памяти. Например, mesh мы размещаем во внутренней памяти видеокарты, поскольку это большой объем данных, который интенсивно читается графическим процессором. Текстуры тоже обычно размещаются в памяти видеокарты, при этом, поскольку они являются двумерными изображениями и отдельные их пиксели интенсивно считываются видеопроцессором, размещение текстур в памяти (image layout) может быть нетривиальным, т. е. представлять собой не просто двумерный массив пикселей, а быть оптимизировано для кэширования отдельных кусочков изображения (optimal tiling). А вот матрица model-to-world подвергается частым модификациям со стороны CPU, поэтому мы скорее поместим ее в оперативную память компьютера либо в память видеокарты, к которой CPU имеет непосредственный доступ.</p>
+<p>Заметим, что ситуация более сложная, чем просто наличие двух видов памяти: GPU и system memory. Внутри этих двух памятей выделяются участки, обладающие различными свойствами. В Vulkan эти свойства представлены в виде перечисления VkMemoryPropertyFlags:</p>
+<table>
+<tr>
+<th style="text-align:left">VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT</th>
+<td style="text-align:left">Память наиболее эффективная с точки зрения доступа к ней GPU. Т. е. это попросту память видеокарты. Однако заметим, что GPU может иметь доступ и к системной памяти через механизм DMA, хотя это и менее эффективно.</td>
+</tr>
+<tr>
+<th style="text-align:left">VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT</th>
+<td style="text-align:left">Память, которая доступна для доступа CPU через так называемый mapped pointer (который получается вызовом функции vkMapMemory). Доступ осуществляется так, будто CPU имеет дело с системной памятью (это может быть так на самом деле, но может быть и не так, поскольку существует механизм, который позволяет CPU обращаться непосредственно к памяти видеокарты).</td>
+</tr>
+<tr>
+<th style="text-align:left">VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</th>
+<td style="text-align:left">Означает, что не требуется вызов функции vkFlushMappedMemoryRanges для того, чтобы сделать изменения в памяти, сделанный CPU, видимыми для GPU и не требуется вызов функции vkInvalidateMappedMemoryRanges для того, чтобы сделать изменения в памяти, сделанные GPU, видимыми для CPU.</td>
+</tr>
+<tr>
+<th style="text-align:left">VK_MEMORY_PROPERTY_HOST_CACHED_BIT</th>
+<td style="text-align:left">Чтение CPU из такой памяти более эффективно, однако такая память не всегда является host coherent.</td>
+</tr>
+</table>
+<p>Разобраться с видами памятей в Vulkan мне помогли следующие ссылки:</p>
+<ul>
+<li><a href="https://asawicki.info/news_1740_vulkan_memory_types_on_pc_and_how_to_use_them">Vulkan Memory Types on PC and How to Use Them</a></li>
+<li><a href="https://gpuopen.com/learn/vulkan-device-memory/">Using Vulkan® Device Memory</a></li>
+<li><a href="https://stackoverflow.com/questions/51624650/vulkan-memoryheaps-and-their-memorytypes/51625266">Vulkan memoryHeaps and their memoryTypes</a></li>
+</ul>
+<p>Из них я понял, что вся память в системе делится на <em>кучи</em> (heaps). Каждая куча может располагаться либо в памяти видеокарты (DEVICE_LOCAL) либо в системной памяти (non-DEVICE_LOCAL). Каждая куча поддерживает один или несколько типов памяти. Функция ниже выводит информацию о кучах и типах памяти на экран:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Prints information about all memory types present in a specified physicalDevice.</span><br>
+<span class="co1">// Each memory type has its own set of properties (device local, host visible, etc.).</span><br>
+<span class="co1">// Each memory type belongs to some memory heap. There can be many memory heaps in</span><br>
+<span class="co1">// the physicalDevice each of which can be either device-local or not device-local</span><br>
+<span class="co1">// and have different size (in bytes).</span><br>
+<span class="kw2">inline</span> <span class="kw4">void</span> PrintMemoryInfo<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">PhysicalDevice</span><span class="sy3">&amp;</span> physicalDevice<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> memoryProperties <span class="sy1">=</span> physicalDevice.<span class="me1">getMemoryProperties</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">uint32_t</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> memoryProperties.<span class="me1">memoryTypeCount</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> heapIndex <span class="sy1">=</span> memoryProperties.<span class="me1">memoryTypes</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">heapIndex</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cout</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;memory type index = &quot;</span> <span class="sy1">&lt;&lt;</span> i<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; heap = &quot;</span> <span class="sy1">&lt;&lt;</span> heapIndex<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; size = &quot;</span> <span class="sy1">&lt;&lt;</span> memoryProperties.<span class="me1">memoryHeaps</span><span class="br0">&#91;</span>heapIndex<span class="br0">&#93;</span>.<span class="me1">size</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; heapFlags = &quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="br0">&#40;</span>memoryProperties.<span class="me1">memoryHeaps</span><span class="br0">&#91;</span>heapIndex<span class="br0">&#93;</span>.<span class="me1">flags</span> <span class="sy3">&amp;</span> vk<span class="sy4">::</span><span class="me2">MemoryHeapFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span> <span class="sy4">?</span> <span class="st0">&quot;&quot;</span> <span class="sy4">:</span> <span class="st0">&quot;not &quot;</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;DEVICE_LOCAL&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; propertyFlags =&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="br0">&#40;</span>memoryProperties.<span class="me1">memoryTypes</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">propertyFlags</span> <span class="sy3">&amp;</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span> &nbsp;<span class="sy4">?</span> <span class="st0">&quot; DEVICE_LOCAL&quot;</span> &nbsp;<span class="sy4">:</span> <span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="br0">&#40;</span>memoryProperties.<span class="me1">memoryTypes</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">propertyFlags</span> <span class="sy3">&amp;</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eHostVisible</span> &nbsp;<span class="sy4">?</span> <span class="st0">&quot; HOST_VISIBLE&quot;</span> &nbsp;<span class="sy4">:</span> <span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="br0">&#40;</span>memoryProperties.<span class="me1">memoryTypes</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">propertyFlags</span> <span class="sy3">&amp;</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eHostCoherent</span> <span class="sy4">?</span> <span class="st0">&quot; HOST_COHERENT&quot;</span> <span class="sy4">:</span> <span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> <span class="br0">&#40;</span>memoryProperties.<span class="me1">memoryTypes</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">propertyFlags</span> <span class="sy3">&amp;</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eHostCached</span> &nbsp; <span class="sy4">?</span> <span class="st0">&quot; HOST_CACHED&quot;</span> &nbsp; <span class="sy4">:</span> <span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">&lt;&lt;</span> std<span class="sy4">::</span><span class="me2">endl</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Например, на компьютере с процессором Intel со встроенным GPU получилось две кучи и три типа памяти:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">memory type index = 0 heap = 0 size = 1107296256 heapFlags = DEVICE_LOCAL propertyFlags = DEVICE_LOCAL<br>
+memory type index = 1 heap = 1 size = 1107296256 heapFlags = DEVICE_LOCAL propertyFlags = DEVICE_LOCAL HOST_VISIBLE HOST_COHERENT<br>
+memory type index = 2 heap = 1 size = 1107296256 heapFlags = DEVICE_LOCAL propertyFlags = DEVICE_LOCAL HOST_VISIBLE HOST_COHERENT HOST_CACHED</div></div>
+<p>А на компьютере с дискретной видеокартой NVIDIA получилось три кучи и пять типов памяти:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">memory type index = 0 heap = 1 size = 34327236608 heapFlags = not DEVICE_LOCAL propertyFlags = 0<br>
+memory type index = 1 heap = 0 size = &nbsp;8399093760 heapFlags = DEVICE_LOCAL &nbsp; &nbsp; propertyFlags = DEVICE_LOCAL<br>
+memory type index = 2 heap = 1 size = 34327236608 heapFlags = not DEVICE_LOCAL propertyFlags = HOST_VISIBLE HOST_COHERENT<br>
+memory type index = 3 heap = 1 size = 34327236608 heapFlags = not DEVICE_LOCAL propertyFlags = HOST_VISIBLE HOST_COHERENT HOST_CACHED<br>
+memory type index = 4 heap = 2 size = &nbsp; 224395264 heapFlags = DEVICE_LOCAL &nbsp; &nbsp; propertyFlags = DEVICE_LOCAL HOST_VISIBLE HOST_COHERENT</div></div>
+<p>Желательно сориентироваться в том, для какого типа данных какой тип памяти подходит больше всего. Причем, если наиболее подходящий тип памяти (вариант 1) уже переполнен, можно выбрать другой тип, идущий вторым приоритетом (вариант 2):</p>
+<table>
+<tr>
+<th rowspan="2"></th>
+<th colspan="2">GPU Data (meshes, textures, attachments&sol;framebuffers)</th>
+<th colspan="2">CPU->GPU Dataflow (uniform variables)</th>
+</tr>
+<tr>
+<td style="text-align:left">Вариант 1</td>
+<td style="text-align:left">Вариант 2</td>
+<td style="text-align:left">Вариант 1</td>
+<td style="text-align:left">Вариант 2</td>
+</tr>
+<tr>
+<th>DEVICE_LOCAL</th>
+<td style="text-align:left">+</td>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">+</td>
+<td style="text-align:left">&#8212;</td>
+</tr>
+<tr>
+<th>HOST_VISIBLE</th>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">+</td>
+<td style="text-align:left">+</td>
+<td style="text-align:left">+</td>
+</tr>
+<tr>
+<th>HOST_COHERENT</th>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">неважно</td>
+<td style="text-align:left">+</td>
+<td style="text-align:left">+</td>
+</tr>
+<tr>
+<th>HOST_CACHED</th>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">&#8212;</td>
+<td style="text-align:left">&#8212;</td>
+</tr>
+</table>
+<h2>Buffers &amp; Images</h2>
+<p>Итак, казалось бы, мы имеем распределение различных ресурсов по различным видам памяти. Но оказывается есть еще одно распределение, лежащее в другой плоскости: по layout&#8217;у памяти. Uniform variables, например, имеют т. н. линейный формат, т. е., например, если у нас есть структура</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">struct</span> SomeData<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> x<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> y<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> z<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>&#8230; то мы понимаем, что x расположен по смещению 0 относительно начала буфера памяти, y &#8212; по смещению 4, а z &#8212; по смещению 8.<br>
+Другое дело изображения (текстуры, фреймбуферы) &#8212; они тоже могут иметь линейный формат (linear tiling), когда адрес пикселя с координатами (x, y) вычисляется по формуле <code class="codecolorer text default"><span class="text">y * stride + x * pixelSize</span></code>, где stride &#8212; размер строки пикселей в байтах, pixelSize &#8212; размер одного пикселя в байтах. Однако линейный формат для изображений менее эффективен с точки зрения доступа к соседним пикселям: дело в том, что пиксели расположенные друг под другом на изображении оказываются в линейном формате расположенными далеко друг от друга в памяти. Поэтому на практике применяется другой формат, когда всё изображение разбивается на множество более мелких изображений (поэтому tiling, tile &#8212; плитка, черепица), в которых пиксели находятся в памяти рядом друг с другом (optimal tiling). Кроме того, GPU еще и сжимает изображения для экономии пропускной способности шины данных &#8212; т. е. переводит их в определенный формат, который в Vulkan&#8217;овской терминологии называется layout&#8217;ом. Различие между tiling&#8217;ом и layout&#8217;ом &#8212; это темная история, в которой я не до конца разобрался, но вот некоторые ссылки, которые отчасти объясняют эти вещи:</p>
+<ul>
+<li><a href="https://www.reddit.com/r/vulkan/comments/48cvzq/image_layouts/">Reddit: Image Layout vs. Image Tiling</a></li>
+<li><a href="https://software.intel.com/content/www/us/en/develop/articles/api-without-secrets-introduction-to-vulkan-part-6.html">API without Secrets: Introduction to Vulkan* Part 6</a></li>
+<li><a href="https://vulkan.lunarg.com/doc/view/1.2.135.0/windows/chunked_spec/chap11.html#resources-image-layouts">Vulkan Specification: Image Layouts</a></li>
+</ul>
+<p>Суть в том, что в итоге мы имеем два вида объектов для хранения ресурсов в памяти: Буферы и Изображения. И с каждым из них может быть связан участок системной либо видеопамяти (рис. 2).</p>
+<figure id="attachment_1829" aria-describedby="caption-attachment-1829" style="width: 767px" class="wp-caption alignnone"><img decoding="async" src="/wp-content/uploads/2021/09/VulkanMemories.jpg" alt="" width="767" height="886" class="size-full wp-image-1829"><figcaption id="caption-attachment-1829" class="wp-caption-text">Рис. 2 &#8212; Виды памяти для различных ресурсов в Vulkan</figcaption></figure>
+<p>Еще пара важных слов об Image Layout и Image Tiling. Tiling&#8217;ов существует по сути два:</p>
+<table>
+<tr>
+<th style="text-align:left">VK_IMAGE_TILING_LINEAR</th>
+<td style="text-align:left">Неоптимален для работы GPU, пригоден только для работы как staging buffer, т. е. для копирования информации из одного места в другое (но не, например, в качестве текстуры или фреймбуфера). При этом, единственный формат, который доступен для чтения-записи CPU.</td>
+</tr>
+<tr>
+<th style="text-align:left">VK_IMAGE_TILING_OPTIMAL</th>
+<td style="text-align:left">Оптимален для работы GPU, применяется для всех сценариев использования кроме случая, когда CPU должен читать-писать что-то в это изображение через mapped pointer.</td>
+</tr>
+</table>
+<p>Что касается Layout&#8217;а, то он является мутной штукой для программиста. Что мы знаем о нем, так это то, что если определенная стадия пайплайна работает с изображением, то это изображение должно в этот момент иметь определенный требуемый данной стадией пайплайна layout (который у  каждой стадии свой: например, во время отрисовки пайпайном изображения (буфера цвета) из свопчейна, это изображение должно иметь layout VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, а во время отправки этого же изображения на экран (в Presentation Engine) &#8212; VK_IMAGE_LAYOUT_PRESENT_SRC_KHR). Таким образом, вообще говоря, изображение в ходе цикла отрисовки должно менять свои layout&#8217;ы (этим переформатированием изображения занимается GPU) &#8212; и мы должны указать, какой layout должно оно иметь на каждой стадии, что мы и делали при описании RenderPass&#8217;а). Изменение Layout&#8217;а (layout transition) выполняется GPU автоматически в соответствии с настройками в RenderPass&#8217;е, но иногда нужно выполнить это изменение не в ходе цикла отрисовки, а заранее &#8212; так например текстура непосредственно после ее создания имеет VK_IMAGE_LAYOUT_UNDEFINED; чтобы скопировать в нее изображение, нужно сначала перевести ее в VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL; затем, чтобы она стала доступна для чтения пайплайном, нужно перевести ее в VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL. Для такого layout transition&#8217;а можно использовать командный буфер и добавить в него <a href="https://vulkan.lunarg.com/doc/view/1.2.135.0/windows/chunked_spec/chap6.html#synchronization-image-memory-barriers">memory barrier</a> (см. ниже).</p>
+<p>Итак, для представления буферов и изображений я написал два класса: VkMemoryBuffer и VkImage2d. Здесь приведу лишь отдельные фрагменты псевдокода, а полный код смотрите в <a href="https://bitbucket.org/dvsav/vulkanlearning/">репозитории</a>.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// A class that binds together two Vulkan notions: &quot;Buffer&quot; and &quot;Memory&quot;.</span><br>
+<span class="kw2">class</span> VkMemoryBuffer<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Buffer</span> m_LocalBuffer<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">DeviceMemory</span> m_LocalMemory<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; VkMemoryBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferUsageFlags</span> usage, <span class="co1">// Indicates for which purposes the data in the buffer is going to be used</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlags</span> appMemoryRequirements<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_LocalBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_LocalMemory<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// CREATE BUFFER</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_LocalBuffer <span class="sy1">=</span> logicalDevice.<span class="me1">createBuffer</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferCreateInfo</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">size</span> <span class="sy1">=</span> bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">usage</span> <span class="sy1">=</span> usage,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Buffers can be owned by a specific queue family or be shared between multiple at the same time</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">sharingMode</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">SharingMode</span><span class="sy4">::</span><span class="me2">eExclusive</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// ALLOCATE MEMORY FOR BUFFER</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Our physical device can have multiple memory types on board.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// But our buffer is only compatible with some types of our physical device's memory.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// The VkMemoryRequirements struct has three fields:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// &nbsp; &nbsp; size: The size of the required amount of memory in bytes, may differ from bufferInfo.size.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// &nbsp; &nbsp; alignment: The offset in bytes where the buffer begins in the allocated region of memory, depends on bufferInfo.usage and bufferInfo.flags.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// &nbsp; &nbsp; memoryTypeBits: Bit field of the memory types that are suitable for the buffer.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> memoryRequirements <span class="sy1">=</span> logicalDevice.<span class="me1">getBufferMemoryRequirements</span><span class="br0">&#40;</span>m_LocalBuffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_LocalMemory <span class="sy1">=</span> logicalDevice.<span class="me1">allocateMemory</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">MemoryAllocateInfo</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">allocationSize</span> <span class="sy1">=</span> memoryRequirements.<span class="me1">size</span>,<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Index of memory type on Physical Device that has required bit flags</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">memoryTypeIndex</span> <span class="sy1">=</span> FindMemoryTypeIndex<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; physicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; memoryRequirements,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; appMemoryRequirements<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// BIND MEMORY TO BUFFER</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">bindBufferMemory</span><span class="br0">&#40;</span>m_LocalBuffer, m_LocalMemory,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// The offset within the region of memory</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">virtual</span> ~VkMemoryBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">destroyBuffer</span><span class="br0">&#40;</span>m_LocalBuffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">freeMemory</span><span class="br0">&#40;</span>m_LocalMemory<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> Size<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_BufferSize<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Buffer</span><span class="sy3">&amp;</span> Buffer<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_LocalBuffer<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">DeviceMemory</span><span class="sy3">&amp;</span> LocalMemory<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_LocalMemory<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">/// &lt;summary&gt;</span><br>
+<span class="co1">/// Copies data from one memory type to another using</span><br>
+<span class="co1">/// temporary created command buffer.</span><br>
+<span class="co1">/// &lt;/summary&gt;</span><br>
+<span class="kw2">inline</span> <span class="kw4">void</span> CopyBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Buffer</span><span class="sy3">&amp;</span> source,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Buffer</span><span class="sy3">&amp;</span> destination,<br>
+&nbsp; &nbsp; <span class="kw4">size_t</span> srcOffset,<br>
+&nbsp; &nbsp; <span class="kw4">size_t</span> dstOffset,<br>
+&nbsp; &nbsp; <span class="kw4">size_t</span> size<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// Data are copied from one memory type to another</span><br>
+&nbsp; &nbsp; <span class="co1">// through the execution of a copy command that must be</span><br>
+&nbsp; &nbsp; <span class="co1">// placed in a command buffer.</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> commandBuffer <span class="sy1">=</span> BeginCommandBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferCopy</span> copyRegion<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">srcOffset</span> <span class="sy1">=</span> srcOffset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">dstOffset</span> <span class="sy1">=</span> dstOffset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">size</span> <span class="sy1">=</span> size<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; commandBuffer.<span class="me1">copyBuffer</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; source, &nbsp; &nbsp; &nbsp;<span class="co1">// src</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; destination, <span class="co1">// dst</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu0">1</span>, <span class="co1">// region count</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy3">&amp;</span>copyRegion<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// regions</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; EndAndSubmitCommandBuffer<span class="br0">&#40;</span>commandBuffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Суть в том, что есть объект vk::Buffer, который служит ссылкой на буфер и, например, позволяет копировать данные из одного буфера в другой. И есть память vk::DeviceMemory, которую нужно выделять (allocate) при создании буфера и освобождать (free) при его уничтожении. Объект vk::Buffer нужно еще привязать (bind) к памяти vk::DeviceMemory. Отметим, что при создании буфера указывается параметр vk::BufferUsageFlags, от которого зависят требования к типу памяти (в частности ее выравнивание).</p>
+<p>Теперь рассмотрим изображение. Изображение обладает более сложной и частично скрытой от наших глаз структурой. У него есть длина, ширина, формат пикселя. Также имеется объект vk::Image, который служит ссылкой на изображение и тоже позволяет, например, скопировать данные из буфера памяти (staging buffer) в изображение. И есть память vk::DeviceMemory, которую, как и в случае с буфером, надо привязать (bind) к изображению vk::Image. Но также имеется еще один объект vk::ImageView, который используется для ссылки на изображение при создании дескрипторов и attachment&#8217;ов (да не просто ссылки, а ссылки, которая имеет определенный интерфейс и раскрывает определенный аспект изображения &#8212; об этом речь шла в одной из прошлых заметок).</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Binds together three Vulkan notions: &quot;image&quot;, &quot;memory&quot; and &quot;image view&quot;.</span><br>
+<span class="kw2">class</span> VkImage2d <span class="kw2">final</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> m_Width<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> m_Height<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Format</span> m_ImageFormat<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Image</span> m_Image<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">DeviceMemory</span> m_ImageMemory<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageView</span> m_ImageView<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; VkImage2d<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> width,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> height,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Format</span> format,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageTiling</span> tiling,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageUsageFlags</span> useFlags,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlags</span> memoryPropFlags,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageAspectFlags</span> aspectFlags<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Width<span class="br0">&#40;</span>width<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Height<span class="br0">&#40;</span>height<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_ImageFormat<span class="br0">&#40;</span>format<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_IsDestroyed<span class="br0">&#40;</span><span class="kw2">false</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// CREATE IMAGE STRUCTRE</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Image <span class="sy1">=</span> logicalDevice.<span class="me1">createImage</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageCreateInfo</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">imageType</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageType</span><span class="sy4">::</span><span class="me2">e2D</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Type of image (1D, 2D, 3D)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">format</span> <span class="sy1">=</span> format,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">extent</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">Extent3D</span> <span class="br0">&#123;</span>width, height, 1u<span class="br0">&#125;</span>, &nbsp;<span class="co1">// width, height, depth</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">mipLevels</span> <span class="sy1">=</span> <span class="nu0">1</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Number of mipmap levels</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">arrayLayers</span> <span class="sy1">=</span> <span class="nu0">1</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Number of layers in image array</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">samples</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">SampleCountFlagBits</span><span class="sy4">::</span><span class="me2">e1</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">tiling</span> <span class="sy1">=</span> tiling, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// How image data should be arranged in memory</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">usage</span> <span class="sy1">=</span> useFlags,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">initialLayout</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eUndefined</span> <span class="co1">// Layout of image data on creation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// ALLOCATE MEMORY</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> memoryRequirements <span class="sy1">=</span> logicalDevice.<span class="me1">getImageMemoryRequirements</span><span class="br0">&#40;</span>m_Image<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_ImageMemory <span class="sy1">=</span> logicalDevice.<span class="me1">allocateMemory</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">MemoryAllocateInfo</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">allocationSize</span> <span class="sy1">=</span> memoryRequirements.<span class="me1">size</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">memoryTypeIndex</span> <span class="sy1">=</span> FindMemoryTypeIndex<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; physicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; memoryRequirements,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; memoryPropFlags<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// BIND IMAGE AND MEMORY</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">bindImageMemory</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Image,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_ImageMemory,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// offset to memory</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// CREATE IMAGE VIEW</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_ImageView <span class="sy1">=</span> CreateImageView<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Image,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; format,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; aspectFlags<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; ~VkImage2d<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">destroyImageView</span><span class="br0">&#40;</span>m_ImageView<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">destroyImage</span><span class="br0">&#40;</span>m_Image<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logicalDevice.<span class="me1">freeMemory</span><span class="br0">&#40;</span>m_ImageMemory<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> width<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_Width<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">uint32_t</span> height<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_Height<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Format</span> ImageFormat<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ImageFormat<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Image</span><span class="sy3">&amp;</span> Image<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_Image<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">DeviceMemory</span><span class="sy3">&amp;</span> ImageMemory<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ImageMemory<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">ImageView</span><span class="sy3">&amp;</span> ImageView<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_ImageView<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">/// &lt;summary&gt;</span><br>
+<span class="co1">/// Copies data from one memory type to another using</span><br>
+<span class="co1">/// temporary created command buffer.</span><br>
+<span class="co1">/// &lt;/summary&gt;</span><br>
+<span class="kw2">inline</span> <span class="kw4">void</span> CopyBufferToImage<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Buffer</span><span class="sy3">&amp;</span> source,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Image</span><span class="sy3">&amp;</span> destination,<br>
+&nbsp; &nbsp; <span class="kw4">size_t</span> srcOffset,<br>
+&nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">Offset3D</span> dstOffset,<br>
+&nbsp; &nbsp; <span class="kw4">uint32_t</span> width,<br>
+&nbsp; &nbsp; <span class="kw4">uint32_t</span> height<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// Data are copied from one memory type to another</span><br>
+&nbsp; &nbsp; <span class="co1">// through the execution of a copy command that must be</span><br>
+&nbsp; &nbsp; <span class="co1">// placed in a command buffer.</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> commandBuffer <span class="sy1">=</span> BeginCommandBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryBufferImageCopy.html</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferImageCopy</span> imageRegion<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">bufferOffset</span> <span class="sy1">=</span> srcOffset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">bufferRowLength</span> <span class="sy1">=</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">bufferImageHeight</span> <span class="sy1">=</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">imageSubresource</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageSubresourceLayers</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">aspectMask</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageAspectFlagBits</span><span class="sy4">::</span><span class="me2">eColor</span>, <span class="co1">// Which aspect of image to copy</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">mipLevel</span> <span class="sy1">=</span> <span class="nu0">0</span>, &nbsp; &nbsp; &nbsp; <span class="co1">// Mipmap level to copy</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">baseArrayLayer</span> <span class="sy1">=</span> <span class="nu0">0</span>, <span class="co1">// Starting array layer (if array)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">layerCount</span> <span class="sy1">=</span> <span class="nu0">1</span> &nbsp; &nbsp; &nbsp;<span class="co1">// Number of layers to copy (if array)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">imageOffset</span> <span class="sy1">=</span> dstOffset, <span class="co1">// x, y, z</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">imageExtent</span> <span class="sy1">=</span> <span class="br0">&#123;</span> width, height, <span class="nu0">1</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; commandBuffer.<span class="me1">copyBufferToImage</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; source,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; destination,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// The layout of the image subresources of dstImage specified in pRegions at the time this command is executed.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// This means that the image MUST have this layout so as the copy operation to succeed.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// To put it another way, command buffer &quot;expects&quot; the image to have this layout.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eTransferDstOptimal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; imageRegion<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; EndAndSubmitCommandBuffer<span class="br0">&#40;</span>commandBuffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>Pipeline Barriers and Layout Transitions</h2>
+<p>Как уже было упомянуто, текстуры требуют изменений layout&#8217;а при их создании. Выполняется это при помощи добавления в командный буфер ImageMemoryBarrier&#8217;а. Барьер &#8212; это объект, который устанавливает зависимости между между командами, которые выполняются внутри очереди (очередей) команд. Команды на самом деле выполняются отнюдь не в том порядке, в котором они были записаны в командный буфер (out-of-order execution), поэтому, если нужно, чтобы некий набор команд выполнился раньше, чем начнет выполняться другой набор, нужно явно задать эту так называемую execution dependency при помощи барьера. Однако, в силу наличия множества кэшей в GPU, выполнение команд в определенном порядке отнюдь не означает что если операция 1 записала данные в память, то операция 2 может эти данные прочитать &#8212; чтобы это стало возможным нужно задать memory dependency всё через тот же барьер. Попутно барьер еще и задает трансформацию layout&#8217;а изображения &#8212; именно этим мы и пользуемся. Чтобы разобраться с барьерами, прочитайте следующие ресурсы:</p>
+<ul>
+<li>
+<a href="http://themaister.net/blog/2019/08/14/yet-another-blog-explaining-vulkan-synchronization/">Yet another blog explaining Vulkan synchronization</a> &#8212; MUST READ!</li>
+<li>
+<a href="https://vulkan.lunarg.com/doc/view/1.2.135.0/windows/chunked_spec/chap6.html#synchronization-dependencies">Vulkan Specification: 6.1. Execution and Memory Dependencies</a>. Ключевой момент для понимания того, что написано в спецификации: availability operation = flush caches after srcStage+srcAccessMask(write operations only), visibility operation = invalidate caches before dstStage+dstAccessMask.</li>
+</ul>
+<p>Итак, вот код функции, которая изменяет layout изображения:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Change image layout.</span><br>
+<span class="kw2">inline</span> <span class="kw4">void</span> TransitionImageLayout<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Image</span><span class="sy3">&amp;</span> image,<br>
+&nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageLayout</span> oldLayout,<br>
+&nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageLayout</span> newLayout<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> commandBuffer <span class="sy1">=</span> BeginCommandBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Memory barrier describes what stages of a pipeline depend on other stages finishing first.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Beteween the two pipeline stages we also can perform transitions between layouts of images.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// So the transition, if we've defined it, takes place after the first pipeline stage and before</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the second pipeline stage.</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageMemoryBarrier</span> imageMemoryBarrier<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">oldLayout</span> <span class="sy1">=</span> oldLayout,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">newLayout</span> <span class="sy1">=</span> newLayout,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">srcQueueFamilyIndex</span> <span class="sy1">=</span> VK_QUEUE_FAMILY_IGNORED, <span class="co1">// Queue family to transition from</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">dstQueueFamilyIndex</span> <span class="sy1">=</span> VK_QUEUE_FAMILY_IGNORED, <span class="co1">// Queue family to transition to</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">image</span> <span class="sy1">=</span> image, <span class="co1">// Image being accessed and modified as part of barrier</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">subresourceRange</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageSubresourceRange</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">aspectMask</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageAspectFlagBits</span><span class="sy4">::</span><span class="me2">eColor</span>, <span class="co1">// The aspect of image being altered</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">baseMipLevel</span> <span class="sy1">=</span> <span class="nu0">0</span>, &nbsp; <span class="co1">// 1st mipmap level to start alteration on</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">levelCount</span> <span class="sy1">=</span> <span class="nu0">1</span>, &nbsp; &nbsp; <span class="co1">// Number of mipmap levels to alter</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">baseArrayLayer</span> <span class="sy1">=</span> <span class="nu0">0</span>, <span class="co1">// 1st layer to start alterations on (if array)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .<span class="me1">layerCount</span> <span class="sy1">=</span> <span class="nu0">1</span> &nbsp; &nbsp; &nbsp;<span class="co1">// Number of layers to alter (if array)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">PipelineStageFlags</span> src_stage<span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">PipelineStageFlags</span> dst_stage<span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// If transitioning from new (undefined) image to image ready to receive data...</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>oldLayout <span class="sy1">==</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eUndefined</span> <span class="sy3">&amp;&amp;</span> newLayout <span class="sy1">==</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eTransferDstOptimal</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; imageMemoryBarrier.<span class="me1">srcAccessMask</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy4">;</span> <span class="co1">// Transition is allowed to start after any point at the 1st pipeline stage</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; imageMemoryBarrier.<span class="me1">dstAccessMask</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">AccessFlagBits</span><span class="sy4">::</span><span class="me2">eTransferWrite</span><span class="sy4">;</span> <span class="co1">// Transition must occur before we attempt to transfer-write (copy data to the image) at the 2nd pipeline stage</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; src_stage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">PipelineStageFlagBits</span><span class="sy4">::</span><span class="me2">eTopOfPipe</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dst_stage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">PipelineStageFlagBits</span><span class="sy4">::</span><span class="me2">eTransfer</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// If transitioning from transfer destination to shader readable...</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>oldLayout <span class="sy1">==</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eTransferDstOptimal</span> <span class="sy3">&amp;&amp;</span> newLayout <span class="sy1">==</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eShaderReadOnlyOptimal</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; imageMemoryBarrier.<span class="me1">srcAccessMask</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">AccessFlagBits</span><span class="sy4">::</span><span class="me2">eTransferWrite</span><span class="sy4">;</span> <span class="co1">// The 1st stage has written data into image</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; imageMemoryBarrier.<span class="me1">dstAccessMask</span> <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">AccessFlagBits</span><span class="sy4">::</span><span class="me2">eShaderRead</span><span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// The 2nd stage reads texels from image</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; src_stage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">PipelineStageFlagBits</span><span class="sy4">::</span><span class="me2">eTransfer</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dst_stage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">PipelineStageFlagBits</span><span class="sy4">::</span><span class="me2">eFragmentShader</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; commandBuffer.<span class="me1">pipelineBarrier</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcStageMask*/</span> src_stage, <span class="co1">// 1st pipeline stage</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstStageMask*/</span> dst_stage, <span class="co1">// 2nd pipeline stage</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dependencyFlags*/</span> vk<span class="sy4">::</span><span class="me2">DependencyFlags</span><span class="br0">&#123;</span><span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*memoryBarriers*/</span> <span class="kw2">nullptr</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*bufferMemoryBarriers*/</span> <span class="kw2">nullptr</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*imageMemoryBarriers*/</span> imageMemoryBarrier<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; EndAndSubmitCommandBuffer<span class="br0">&#40;</span>commandBuffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>Host-Visible Buffer &amp; Mapped Pointer</h2>
+<p>Итак, если мы вернемся к рисунку 2, то мы увидим, что у нас есть два вида буферов памяти: host-visible и device-local. Host-visibility означает, что наш CPU может получить непосредственный доступ к памяти через т. н. mapped pointer, т. е. просто через указатель, который указывает на некий участок в адресном пространстве CPU. Правда сначала нужно &#171;спроецировать&#187; (map) буфер на это адресное пространство. Ниже показан класс HostVisibleBuffer, который наследует классу VkMemoryBuffer и в который добавлены несколько методов как раз для проецирования буфера на адресное пространство CPU. Спроецировав буфер, мы получаем указатель, который можем использовать например для копирования данных из оперативной памяти в буфер или наборот.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> HostVisibleBuffer <span class="sy4">:</span> <span class="kw2">public</span> VkMemoryBuffer<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; HostVisibleBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> VkContext<span class="sy3">&amp;</span> vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferUsageFlags</span> usage<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VkMemoryBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*usage*/</span> usage,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// CPU-visible and not needing flushing</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*appMemoryRequirements*/</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eHostVisible</span> <span class="sy3">|</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eHostCoherent</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Copies data from memory to buffer</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> set<span class="br0">&#40;</span><span class="kw4">size_t</span> offset, <span class="kw4">size_t</span> size, <span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> srcData<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// MAP MEMORY -&gt; COPY DATA -&gt; UNMAP MEMORY</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span><span class="sy2">*</span> data <span class="sy1">=</span> Map<span class="br0">&#40;</span>offset, size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">memcpy</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data, &nbsp; &nbsp;<span class="co1">// destination</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; srcData, <span class="co1">// source</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// size</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Context<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">LogicalDevice</span>.<span class="me1">unmapMemory</span><span class="br0">&#40;</span>LocalMemory<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span><span class="sy2">*</span> Map<span class="br0">&#40;</span><span class="kw4">size_t</span> offset, <span class="kw4">size_t</span> size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span><span class="sy2">*</span> data<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Context<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">LogicalDevice</span>.<span class="me1">mapMemory</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LocalMemory<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset, <span class="co1">// offset</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size, &nbsp; <span class="co1">// size</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">MemoryMapFlags</span><span class="br0">&#123;</span><span class="br0">&#125;</span>, <span class="co1">// flags</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy3">&amp;</span>data<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> data<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> Unmap<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Context<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">LogicalDevice</span>.<span class="me1">unmapMemory</span><span class="br0">&#40;</span>LocalMemory<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<h2>Gpu Buffer &amp; Staging Buffer</h2>
+<p>С host-visible буфером дело обстоит довольно просто, поскольку обращение с ним по сути мало чем отличается от обращения к оперативной памяти (например, для копирования данных в буфер мы используем стандартную функцию из библиотеки языка Си memcpy). Другое дело &#8212; device-local буфер. Определенно можно сказать, что он находится в памяти видеокарты и притом эта память не может быть спроецирована на адресное пространство CPU. Для записи данных в такой буфер приходится, во-первых, создавать отдельный host-visible буфер (он называется staging buffer) и помещать в него данные для записи, а затем посылать GPU некие команды копирования данных из host-visible буфера в device-local буфер, для чего эти команды нужно записать в некий командный буфер и отправлять на выполнение в некую очередь команд. Чтение данных из device-local буфера выглядит аналогично: мы создаем staging buffer и посылаем GPU команды копирования из device-local буфера в этот staging buffer. Ну а уж со staging buffer&#8217;ом мы работаем через mapped pointer. Всё это специфическое поведение device-local буфера я поместил в класс под названием GpuBuffer:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Represents a buffer object that stores its data in local GPU memory.</span><br>
+<span class="co1">// Such kind of buffer fits well for data that don't need to be changed very frequently by the host CPU,</span><br>
+<span class="co1">// because reading-writing those data by the CPU involves moving data between conventional memory and GPU memory</span><br>
+<span class="co1">// and this is not very efficient.</span><br>
+<span class="kw2">class</span> GpuBuffer <span class="sy4">:</span> <span class="kw2">public</span> VkMemoryBuffer<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GpuBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> VkContext<span class="sy3">&amp;</span> vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">BufferUsageFlags</span> usage<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VkMemoryBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bufferSize,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Buffer can be a data transfer destination (from a staging buffer)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*usage*/</span> vk<span class="sy4">::</span><span class="me2">BufferUsageFlagBits</span><span class="sy4">::</span><span class="me2">eTransferDst</span> <span class="sy3">|</span> usage,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// CPU-visible and not needing flushing</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*appMemoryRequirements*/</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// Copies data from host memory to GPU memory.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// This operation consumes time and memory resources, so</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// it's recommended that you use it rarely.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;/summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;source&quot;&gt;Pointer to the source buffer in host memory&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;offset&quot;&gt;Offset to the GPU buffer at which data will be copied&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;size&quot;&gt;Size of data being copied in bytes&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> setData<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _In_ _Notnull_ <span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> source,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> offset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; util<span class="sy4">::</span><span class="me2">Requires</span><span class="sy4">::</span><span class="me2">That</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; source <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size <span class="sy1">&lt;=</span> Size<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset <span class="sy1">&gt;=</span> <span class="nu0">0</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset <span class="sy2">+</span> size <span class="sy1">&lt;=</span> Size<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FUNCTION_INFO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CREATE STAGING BUFFER &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ***</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> stagingBuffer <span class="sy1">=</span> CreateStagingBuffer_Src<span class="br0">&#40;</span>Context<span class="br0">&#40;</span><span class="br0">&#41;</span>, size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stagingBuffer.<span class="me1">set</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*offset*/</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*size*/</span> size,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcData*/</span> source<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *** COPY DATA FROM STAGING BUFFER TO LOCAL BUFFER ***</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Data are copied from the host memory to the GPU memory</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// through the execution of a copy command that must be</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// placed in a command buffer.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CopyBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Context<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcBuffer*/</span> stagingBuffer.<span class="me1">Buffer</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstBuffer*/</span> Buffer<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcOffset*/</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstOffset*/</span> offset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*size*/</span> size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Once we have copied data from the host memory to</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the GPU memory, we no longer need staging buffer.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stagingBuffer.<span class="me1">Destroy</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// Copies data from host memory to GPU memory.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// This operation consumes time and memory resources, so</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// it's recommended that you use it rarely.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;/summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;source&quot;&gt;Pointer to the source buffer in host memory&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> setData<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _In_ _Notnull_ <span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> source<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setData<span class="br0">&#40;</span>source, <span class="nu0">0</span>, Size<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// Copies data from GPU memory to host memory.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// This operation consumes time and memory resources, so</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// it's recommended that you use it rarely.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;/summary&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;destination&quot;&gt;Pointer to the destination buffer in host memory&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;offset&quot;&gt;Offset to the GPU buffer at which data will be taken&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">/// &lt;param name=&quot;size&quot;&gt;Size of data being copied in bytes&lt;/param&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span><span class="sy2">*</span> getData<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _Out_ _Notnull_ <span class="kw4">void</span><span class="sy2">*</span> destination,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> offset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">size_t</span> size<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; util<span class="sy4">::</span><span class="me2">Requires</span><span class="sy4">::</span><span class="me2">That</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; destination <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">nullptr</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size <span class="sy1">&lt;=</span> Size<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset <span class="sy1">&gt;=</span> <span class="nu0">0</span> <span class="sy3">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; offset <span class="sy2">+</span> size <span class="sy1">&lt;=</span> Size<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FUNCTION_INFO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CREATE STAGING BUFFER &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ***</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> stagingBuffer <span class="sy1">=</span> CreateStagingBuffer_Dst<span class="br0">&#40;</span>Context<span class="br0">&#40;</span><span class="br0">&#41;</span>, size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *** COPY DATA FROM LOCAL BUFFER TO STAGING BUFFER ***</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// *****************************************************</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Data are copied from the GPU memory to the host memory</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// through the execution of a copy command that must be</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// placed in a command buffer.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CopyBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Context<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcBuffer*/</span> Buffer<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstBuffer*/</span> stagingBuffer.<span class="me1">Buffer</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcOffset*/</span> offset,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstOffset*/</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*size*/</span> size<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// MAP MEMORY -&gt; COPY DATA -&gt; UNMAP MEMORY</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span><span class="sy2">*</span> mapped_mem <span class="sy1">=</span> stagingBuffer.<span class="me1">Map</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">memcpy</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; destination, &nbsp; <span class="co1">// destination</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mapped_mem, &nbsp; &nbsp;<span class="co1">// source</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Size<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// size</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stagingBuffer.<span class="me1">Unmap</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Once we have copied data from the host memory to</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the GPU memory, we no longer need staging buffer.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stagingBuffer.<span class="me1">Destroy</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> destination<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<h2>Images: Textures &amp; Attachments</h2>
+<p>Что касается изображений, то все они могут быть представлены одним классом, который я назвал VkImage2d. Например, текстура &#8212; это ни что иное как изображение. Однако именно при создании текстуры есть нюанс &#8212; мы ведь должны скопировать в нее изображение из оперативной памяти. А для этого у текстуры должен быть определенный layout, а именно VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL. В свою очередь, после того, как мы скопировали изображение в текстуру, ее будет считывать (sampl&#8217;ить) наш pipeline, а для этого текстура должна иметь layout VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL. Все эти трансформации layout&#8217;а отражены в функции CreateTexture:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Create a texture</span><br>
+VkImage2d CreateTexture<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> VkContext<span class="sy3">&amp;</span> vkContext,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> util<span class="sy4">::</span><span class="me2">Image</span><span class="sy3">&amp;</span> image<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; VkImage2d texture<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; physicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; logicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; image.<span class="me1">width</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; image.<span class="me1">height</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*format*/</span> vk<span class="sy4">::</span><span class="me2">Format</span><span class="sy4">::</span><span class="me2">eR8G8B8A8Unorm</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*tiling*/</span> vk<span class="sy4">::</span><span class="me2">ImageTiling</span><span class="sy4">::</span><span class="me2">eOptimal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*useFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="sy4">::</span><span class="me2">eTransferDst</span> <span class="sy3">|</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="sy4">::</span><span class="me2">eSampled</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*propFlags*/</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*aspectFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageAspectFlagBits</span><span class="sy4">::</span><span class="me2">eColor</span><span class="br0">&#41;</span>,<br>
+<br>
+&nbsp; &nbsp; HostVisibleBuffer imageStagingBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; image.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="coMULTI">/*usage*/</span> vk<span class="sy4">::</span><span class="me2">BufferUsageFlagBits</span><span class="sy4">::</span><span class="me2">eTransferSrc</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; imageStagingBuffer.<span class="me1">set</span><span class="br0">&#40;</span>image.<span class="me1">data</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; TransitionImageLayout<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; texture.<span class="me1">Image</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*oldLayout*/</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eUndefined</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*newLayout*/</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eTransferDstOptimal</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; CopyBufferToImage<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*source*/</span> imageStagingBuffer.<span class="me1">Buffer</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*destination*/</span> texture.<span class="me1">Image</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*srcOffset*/</span> <span class="nu0">0</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*dstOffset*/</span> vk<span class="sy4">::</span><span class="me2">Offset3D</span> <span class="br0">&#123;</span><span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; texture.<span class="me1">width</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; texture.<span class="me1">height</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; TransitionImageLayout<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; vkContext,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; texture.<span class="me1">Image</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*oldLayout*/</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eTransferDstOptimal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*newLayout*/</span> vk<span class="sy4">::</span><span class="me2">ImageLayout</span><span class="sy4">::</span><span class="me2">eShaderReadOnlyOptimal</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">return</span> texture<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Что же касается буфера цвета и буфера глубины, то они являются у нас attachment&#8217;ами, ссылки на которые содержатся в структурах под названием Framebuffer, ссылки на которые в свою очередь указываются при записи команд отрисовки в командный буфер (это тема следующей заметки). Layout&#8217;ы attachment&#8217;ов указываются в структуре RenderPass, которую мы рассматривали ранее. Переходы между layout&#8217;ами выполняются автоматически. Поэтому создание буферов цвета и глубины суть просто создание объектов VkImage2d с передачей некоторых специфических параметров в конструктор этого класса:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Create depth buffer (it is usually mandatory for any 3d-rendering)</span><br>
+<span class="kw2">inline</span> VkImage2d CreateDepthBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">PhysicalDevice</span><span class="sy3">&amp;</span> physicalDevice,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Device</span><span class="sy3">&amp;</span> logicalDevice,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Extent2D</span><span class="sy3">&amp;</span> imageExtent,<br>
+&nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageUsageFlags</span> usage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> VkImage2d<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; physicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; logicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; imageExtent.<span class="me1">width</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; imageExtent.<span class="me1">height</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*format*/</span> FindDepthFormat<span class="br0">&#40;</span>physicalDevice<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*tiling*/</span> vk<span class="sy4">::</span><span class="me2">ImageTiling</span><span class="sy4">::</span><span class="me2">eOptimal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*useFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="sy4">::</span><span class="me2">eDepthStencilAttachment</span> <span class="sy3">|</span> usage,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*propFlags*/</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*aspectFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageAspectFlagBits</span><span class="sy4">::</span><span class="me2">eDepth</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">// Create color buffer (for example, for deferred rendering).</span><br>
+<span class="kw2">inline</span> VkImage2d CreateColorBuffer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">PhysicalDevice</span><span class="sy3">&amp;</span> physicalDevice,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Device</span><span class="sy3">&amp;</span> logicalDevice,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> vk<span class="sy4">::</span><span class="me2">Extent2D</span><span class="sy3">&amp;</span> swapChainExtent,<br>
+&nbsp; &nbsp; vk<span class="sy4">::</span><span class="me2">ImageUsageFlags</span> usage <span class="sy1">=</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">return</span> VkImage2d<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; physicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; logicalDevice,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; swapChainExtent.<span class="me1">width</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; swapChainExtent.<span class="me1">height</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*format*/</span> FindColorBufferFormat<span class="br0">&#40;</span>physicalDevice<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*tiling*/</span> vk<span class="sy4">::</span><span class="me2">ImageTiling</span><span class="sy4">::</span><span class="me2">eOptimal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*useFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageUsageFlagBits</span><span class="sy4">::</span><span class="me2">eColorAttachment</span> <span class="sy3">|</span> usage,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*propFlags*/</span> vk<span class="sy4">::</span><span class="me2">MemoryPropertyFlagBits</span><span class="sy4">::</span><span class="me2">eDeviceLocal</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*aspectFlags*/</span> vk<span class="sy4">::</span><span class="me2">ImageAspectFlagBits</span><span class="sy4">::</span><span class="me2">eColor</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Дополним нашу объектную модель буферами памяти:<br>
+<figure id="attachment_1871" aria-describedby="caption-attachment-1871" style="width: 2458px" class="wp-caption alignnone"><img decoding="async" src="/wp-content/uploads/2021/10/VulkanObjectModel5.jpg" alt="" width="2458" height="922" class="size-full wp-image-1871"><figcaption id="caption-attachment-1871" class="wp-caption-text">Рис. 3 &#8212; Объектная модель</figcaption></figure></p>
+<p>На этом всё. Мы рассмотрели где хранятся данные о трехмерных объектах. Теперь нам осталось узнать, как эти данные пристыковать к пайплайну. Это делается через определенные команды, которые записываются в командный буфер, о чем мы и поговорим в следующей заметке.</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2021/09/14/vulkan-6/" data-a2a-title="Vulkan Learning — 6. 3d модель. Буферы памяти и изображения">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2021%2F09%2F14%2Fvulkan-6%2F&amp;linkname=Vulkan%20Learning%20%E2%80%94%206.%203d%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C.%20%D0%91%D1%83%D1%84%D0%B5%D1%80%D1%8B%20%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%20%D0%B8%20%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2021%2F09%2F14%2Fvulkan-6%2F&amp;linkname=Vulkan%20Learning%20%E2%80%94%206.%203d%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C.%20%D0%91%D1%83%D1%84%D0%B5%D1%80%D1%8B%20%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%20%D0%B8%20%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2021%2F09%2F14%2Fvulkan-6%2F&amp;linkname=Vulkan%20Learning%20%E2%80%94%206.%203d%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C.%20%D0%91%D1%83%D1%84%D0%B5%D1%80%D1%8B%20%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%20%D0%B8%20%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a>, <a href="/tag/vulkan/" rel="tag">Vulkan</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2021/09/02/vulkan-5/" rel="prev">Vulkan Learning &#8212; 5. Acquiring Swapchain Image. Submitting Command Buffer. Presenting Image. Synchronization. Swapchain Recreation</a></div>
+<div class="nav-next"><a href="/2021/09/16/vulkan-7/" rel="next">Vulkan Learning &#8212; 7. Дескрипторы. Запись команд в командный буфер</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2021/09/14/vulkan-6/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1807" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

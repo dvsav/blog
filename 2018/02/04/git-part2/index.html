@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Git (Часть 2 &#8212; Cookbook) &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Git (Часть 2 &#8212; Cookbook)&raquo;" href="/2018/02/04/git-part2/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/175">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/02/04/git-part2/">
+<link rel="shortlink" href="/?p=175">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F02%2F04%2Fgit-part2%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F02%2F04%2Fgit-part2%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-175 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-175" class="post-175 post type-post status-publish format-standard hentry category-2 tag-git">
+	<header class="entry-header">
+		<h1 class="entry-title">Git (Часть 2 &#8212; Cookbook)</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/02/04/git-part2/" rel="bookmark"><time class="entry-date published updated" datetime="2018-02-04T21:02:41+03:00">04.02.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>В <a href="http://localhost/git-part1/">предыдущей заметке</a> я создавал некий пустой проект и добавлял его в систему управления версиями Git. Здесь я приведу небольшую &#171;cookbook&#187; по работе с Git. Подробная информация про Git содержится в книге <a href="https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols">Scott Chacon and Ben Straub &#8212; Pro Git (Second Edition) &#8212; 2014</a>.</p>
+<h2>Справка по Git</h2>
+<p>Аргументами утилиты git являются всякие команды (например git config, git diff и т. д.). Незаменимая команда для получения справки по командам утилиты git &#8212; это команда help. Например, чтобы получить справку по команде git diff, напечатайте следующее:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git <span class="kw3">help</span></span> <span class="kw2">diff</span>
+</div></div>
+<h2>Конфигурирование Git</h2>
+<p>Минимально необходимое конфигурирование Git заключается в указании имени и адреса электронной почты пользователя. Эти данные будут содержаться в каждом коммите, чтобы было понятно кто сделал этот коммит. Можно установить имя пользователя и почту глобально для всех репозиториев (тогда вы используете ключ <code class="codecolorer text default"><span class="text">--global</span></code>):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git config</span> <span class="re5">--global</span> user.name <span class="st0">&quot;Ваше Имя&quot;</span><br>
+<span class="kw2">git config</span> <span class="re5">--global</span> user.email <span class="st0">&quot;you@example.com&quot;</span>
+</div></div>
+<p>&#8230; или только для текущего репозитория (тогда вы не используете ключ <code class="codecolorer text default"><span class="text">--global</span></code>):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git config</span> user.name <span class="st0">&quot;Ваше Имя&quot;</span><br>
+<span class="kw2">git config</span> user.email <span class="st0">&quot;you@example.com&quot;</span>
+</div></div>
+<h2>Клонирование удаленного репозитория</h2>
+<p>У всякого удаленного репозитория есть URL. Например у моего репозитория osdevlearning URL следующий: <strong>https://dvsav@bitbucket.org/dvsav/osdevlearning.git</strong>. Клонирование репозитория &#8212; это копирование его с удаленного сервера на локальный компьютер. Часто проект начинается именно с клонирования.</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git clone</span> https:<span class="sy0">//</span>dvsav<span class="sy0">@</span>bitbucket.org<span class="sy0">/</span>dvsav<span class="sy0">/</span>osdevlearning.git</div></div>
+<p>По-умолчанию при клонировании репозитория git присваивает ему обозначение <strong>origin</strong>. Далее в этой заметке удаленный репозиторий будет обозначаться именно так.</p>
+<h2>Создание локального репозитория</h2>
+<p>Как было сказано выше, чтобы создать локальный репозиторий, можно клонировать удаленный. Другой вариант &#8212; создать новый локальный репозиторий командой <strong>git init</strong>. Но сначала надо перейти в папку с вашим проектом. Команда git init создаст в этой папке папку <strong>.git</strong>, где будет храниться база данных для созданного репозитория. Git автоматически создаст ветку под названием <strong>master</strong> (о ветках см. ниже).</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw3">cd</span> osdevlearning<br>
+<span class="kw2">git init</span>
+</div></div>
+<h2>Добавление ссылки на удаленный репозиторий</h2>
+<p>Вы можете работать сразу с несколькими удаленными репозиториями. Для добавления ссылки на удаленный репозиторий надо выполнить команду:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git remote</span> add ИмяРепозитория URLРепозитория</div></div>
+<p>ИмяРепозитория &#8212; это просто его локальное обозначение. Пример:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git remote</span> add another_repo https:<span class="sy0">//</span>dvsav<span class="sy0">@</span>bitbucket.org<span class="sy0">/</span>dvsav<span class="sy0">/</span>repo2.git</div></div>
+<h2>Очистка удаленного репозитория</h2>
+<p>Предположим, я хочу начать с чистого листа и очистить удаленный репозиторий osdevlearning, т. е. удалить всю историю коммитов. Можно конечно просто зайти на сайт BitBucket и удалить репозиторий osdevlearning, а затем создать новый репозиторий с таким же именем. Но есть и другой способ. Удаляю папку <strong>osdevlearning</strong> на локальном ПК и создаю ее заново:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw3">cd</span> ~<br>
+<span class="kw2">rm</span> <span class="re5">-rfv</span> osdevlearning<br>
+<span class="kw2">mkdir</span> osdevlearning</div></div>
+<p>Создаю локальный репозиторий в папке <strong>osdevlearning</strong>:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw3">cd</span> osdevlearning<br>
+<span class="kw2">git init</span>
+</div></div>
+<p>Создаю первый коммит:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st_h">'Initial commit'</span> <span class="re5">--allow-empty</span>
+</div></div>
+<p>Ключ <code class="codecolorer text default"><span class="text">--allow-empty</span></code> нужен, чтобы разрешить коммиту быть пустым.<br>
+Добавляю ссылку на удаленный репозиторий:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git remote</span> add origin https:<span class="sy0">//</span>dvsav<span class="sy0">@</span>bitbucket.org<span class="sy0">/</span>dvsav<span class="sy0">/</span>osdevlearning.git</div></div>
+<p>И наконец, отправляю коммит на удаленный репозиторий. При этом в удаленном репозитории удаляются все старые коммиты:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git push</span> <span class="re5">--force</span> <span class="re5">--set-upstream</span> origin master</div></div>
+<p>Всё, теперь у меня есть локальный и удаленный репозитории, оба совершенно чистые с одним пустым коммитом.</p>
+<h2>Stage-Commit-Push</h2>
+<p>При работе над проектом вы производите в файлах проекта некие изменения. Какие именно изменения вы произвели с момента последнего коммита, вы можете посмотреть при помощи команды status:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer"><span class="kw2">git status</span></div></div>
+<p>Затем вы индексируете изменения некоторых файлов. Индексирование &#8212; это указание, какие из сделанных изменений войдут в коммит. Коммит &#8212; это фиксация изменений, т. е. сохранение снимка состояния проекта с учетом изменений в базе данных. Индексирование делается при помощи команды add:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git add</span> <span class="sy0">&lt;</span>file1<span class="sy0">&gt;</span> <span class="sy0">&lt;</span>file2<span class="sy0">&gt;</span> ... <span class="sy0">&lt;</span>fileN<span class="sy0">&gt;</span>
+</div></div>
+<p>Вы можете проиндексировать все изменения при помощи ключа -A:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git add</span> <span class="re5">-A</span>
+</div></div>
+<p>Затем вы можете передумать и удалить изменения некоторых файлов из области индексации:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git reset</span> <span class="sy0">&lt;</span>fileX<span class="sy0">&gt;</span> <span class="sy0">&lt;</span>fileY<span class="sy0">&gt;</span>
+</div></div>
+<p>А если вы хотите отменить сами изменения, то используйте следующую команду:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git checkout</span> <span class="re5">--</span> <span class="sy0">&lt;</span>fileX<span class="sy0">&gt;</span> <span class="sy0">&lt;</span>fileY<span class="sy0">&gt;</span>
+</div></div>
+<p>Теперь вы фиксируете проиндексированные изменения, снабжая их кратким описанием. Снимок проекта с учетом этих изменений сохраняется в локальную базу данных (которая находится в папке <strong>.git</strong>):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;Add some significant changes to the project&quot;</span>
+</div></div>
+<p>И наконец, вы отправляете коммит в удаленный репозиторий:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git push</span> origin master</div></div>
+<p>Здесь <strong>origin</strong> &#8212; это обозначение для удаленного репозитория, оно как бы заменяет длинный URL этого репозитория. <strong>master</strong> &#8212; в данном случае название текущей ветки. Ветка master создается автоматически при создании репозитория.<br>
+При выполнении команды <code class="codecolorer text default"><span class="text">push</span></code>, в зависимости от настроенного вами метода аутентификации, вас могут спросить имя пользователя и пароль &#8212; это будут имя пользователя и пароль от аккаунта на хостинге репозиториев (например, GitHub или Bitbucket).</p>
+<h2>Просмотр состояния локального репозитория</h2>
+<p>Когда мы работаем над очередными изменениями проекта, перед их индексированием или фиксацией мы хотим получать информацию о том, какие изменения проиндексированы, а какие &#8212; нет. Эту информацию нам дает команда</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer"><span class="kw2">git status</span></div></div>
+<p>Мы также хотим видеть историю изменений в целом со всеми ветвлениями. Следующая команда красиво отображает эту информацию на экране:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git log</span> <span class="re5">--oneline</span> <span class="re5">--decorate</span> <span class="re5">--graph</span> <span class="re5">--all</span>
+</div></div>
+<h2>Просмотр удаленных репозиториев</h2>
+<p>Следующая команда отображает список удаленных репозиториев:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer"><span class="kw2">git remote</span></div></div>
+<p>Можно посмотреть информацию о конкретном репозитории (о его ветках):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git remote</span> show origin</div></div>
+<h2>Просмотр изменений в файлах проекта</h2>
+<p>Следующая команда показывает, что вы изменили в файлах проекта, но пока еще не проиндексировали:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer"><span class="kw2">git diff</span></div></div>
+<p>А вот эта команда показывает, что вы изменили и проиндексировали:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git diff</span> <span class="re5">--staged</span>
+</div></div>
+<h2>Ветвления</h2>
+<p>Ветки помогают синхронизировать работу членов команды (один член команды &#8212; одна ветка). Ветки помогают синхронизировать работу над отдельными задачами (одна задача &#8212; одна ветка). Ветки помогают разграничить стабильные версии проекта (обычно &#8212; ветка master) и версии, находящиеся в разработке (обычно &#8212; ветка develop).<br>
+В качестве примера достаточно рассмотреть тематическую ветку (topic branch). Предположим, я нахожусь в ветке master и мне необходимо решить некую проблему, назовем ее <strong>the_issue</strong>. Я создаю одноименную ветку и перехожу на эту ветку:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git branch</span> the_issue<br>
+<span class="kw2">git checkout</span> the_issue</div></div>
+<p>Сделать все то же самое за одну команду можно так:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git checkout</span> <span class="re5">-b</span> the_issue</div></div>
+<p>Далее я выполняю ряд изменений в проекте и делаю ряд коммитов (см. раздел Stage-Commit-Push). Когда я окончательно решил проблему the_issue, я хочу чтобы все изменения, которые я произвел, попали в ветку master. Я выполняю слияние ветки the_issue в ветку master:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git checkout</span> master<br>
+<span class="kw2">git merge</span> the_issue</div></div>
+<p>Если слияние прошло успешно, то ветка the_issue мне больше не нужна, и ее можно удалить:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git branch</span> <span class="re5">-d</span> the_issue</div></div>
+<p>Если же слияние прошло не успешно, значит между какими-либо изменениями файлов в сливаемых ветках имеется конфликт, который я должен разрешить путем редактирования этих файлов. После разрешения конфликта я индексирую изменения в этих файлах при помощи команды</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git add</span> <span class="sy0">&lt;</span>file1<span class="sy0">&gt;</span> <span class="sy0">&lt;</span>file2<span class="sy0">&gt;</span> ... <span class="sy0">&lt;</span>fileN<span class="sy0">&gt;</span>
+</div></div>
+<p>Затем я выполняю коммит:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;merge the_issue into master&quot;</span>
+</div></div>
+<p>После чего уже удаляю ветку the_issue:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git branch</span> <span class="re5">-d</span> the_issue</div></div>
+<p>Приведенная выше команда удаляет ветку в локальном репозитории. Удалить ветку в удаленном репозитории можно так:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git push</span> origin <span class="re5">-delete</span> the_issue</div></div>
+<h3>Памятка</h3>
+<p>Ветка &#8212; это ссылка на коммит.<br>
+Коммит имеет обычно один родительский коммит (тот, который был перед ним).<br>
+Коммит, который образовался в результате слияния двух веток имеет два родительских коммита.</p>
+<p>Второй способ скопировать в ветку master изменения, которые сделаны в ветке the_issue &#8212; это так называемое <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">перемещение (rebase)</a>. Этот способ может сделать более наглядной историю изменений, но его рекомендуется использовать только в том случае, если в ветке the_issue работает только один программист. В таком случае хороший тон &#8212; это сначала сделать rebase, а затем merge:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git checkout</span> the_issue<br>
+<br>
+<span class="kw2">git rebase</span> master<br>
+<br>
+<span class="co0"># resolve any conflicts</span><br>
+<span class="kw2">git rebase</span> <span class="re5">--continue</span><br>
+<br>
+<span class="co0"># if you cannot resolve conflicts then do:</span><br>
+<span class="co0"># git rebase --abort</span><br>
+<br>
+<span class="kw2">git checkout</span> master<br>
+<span class="kw2">git merge</span> the_issue</div></div>
+<p>Что здесь происходит:</p>
+<ol>
+<li>мы переходим на ветку the_issue (если мы еще не там)</li>
+<li>сверху к последнему коммиту master пристраиваются все коммиты из the_issue (чтобы понять, посмотрите картинки в книжке <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">Pro Git</a>)</li>
+<li>мы переходим на ветку master</li>
+<li>сливаем the_issue в master</li>
+</ol>
+<p>Затем ветку the_issue тоже можно удалять.</p>
+<h2>Патчи (patches)</h2>
+<p>Патч &#8212; это простое средство для обмена изменениями кода в текстовом виде. Патч представляет собой текстовый файл, в котором указывается какие строки и в каком файле исходного кода были изменены. Создать патч можно при помощи команды <strong>git diff</strong>:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git diff</span> tag1 tag2 <span class="sy0">&gt;</span> mypatch.patch</div></div>
+<p>Здесь tag1 и tag2 &#8212; это теги, которые идентифицируют два коммита, между которыми diff вычисляет разницу, а разница перенаправляется в файл mypatch.patch. Затем вы пересылаете патч, скажем, своему коллеге, и он может применить его к своей рабочей копии репозитория, запустив утилиту <strong>patch</strong>:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">patch</span> <span class="re5">-p1</span> <span class="sy0">&lt;</span> .<span class="sy0">/</span>mypatch.patch</div></div>
+<p>Здесь предполагается, что текущей папкой в командной строке является корень репозитория (поэтому ключ -p1). Второй аргумент команды patch &#8212; это путь к файлу патча.<br>
+Предварительно можно безопасно проверить, не вызовет ли патч конфликтов при помощи ключа <strong>&#8212;dry-run</strong>:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">patch</span> <span class="re5">-p1</span> <span class="re5">--dry-run</span> <span class="sy0">&lt;</span> .<span class="sy0">/</span>mypatch.patch</div></div>
+<p>В git также есть всякие автоматизированные команды для формирования и применения патчей: <strong>git format-patch</strong>, <strong>git am</strong>, <strong>git apply</strong>.</p>
+<h3>Reset current branch to some specific commit</h3>
+<p>А если я слил чью-то ветку в свою, еще не отправил изменения в удаленный репозиторий (не сделал push), передумал и захотел отменить слияние? Можно выполнить действие &#171;reset current branch to commit&#187;, выбрав тот коммит, который был закоммичен до слияния:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git reset</span> <span class="re5">-q</span> <span class="re5">--hard</span> 5ae8ad8b</div></div>
+<p>Здесь 5ae8ad8b &#8212; это hash коммита. Помимо наиболее подходящей в данном случае опции <strong>-hard</strong> есть еще опции <strong>-mixed</strong> и <strong>-soft</strong>, которые не удаляют сами изменения, которые возникли в результате слияния.</p>
+<h2>Скачивание изменений из удаленного репозитория в локальный репозиторий</h2>
+<p>Предположим, один член команды сделал несколько коммитов и отправил их в удаленных репозиторий. У другого члена команды нет этих изменений на его локальном ПК, но он хочет их иметь. Он скачивает изменения с удаленного репозитория при помощи команды</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git fetch</span> origin</div></div>
+<p>Напоминаю, что <strong>origin</strong> в данном случае &#8212; это обозначение для удаленного репозитория.<br>
+Можно скачать изменения со всех имеющихся удаленных репозиториев:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git fetch</span> <span class="re5">--all</span>
+</div></div>
+<p>Команда <strong>fetch</strong> однако не выполняет слияния изменений, скачанных из удаленного репозитория с вашей текущей локальной веткой &#8212; вы должны выполнить это слияние вручную (предварительно можете посмотреть изменения командой <strong>git status</strong>):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git merge</span> origin<span class="sy0">/</span>master</div></div>
+<p>Здесь <strong>origin/master</strong> &#8212; обозначение для ветки master в удаленном репозитории.<br>
+Можно выполнить fetch и merge в один прием:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git pull</span> origin</div></div>
+<h2>Игнорирование файлов .gitignore</h2>
+<p>Не все файлы одинаково полезны. Например, некоторые файлы генерируются автоматически средами разработки. Я в основном пишу программы в Visual Studio, которая генерирует множество служебных файлов с расширениями .pdb, .ilk, .ipch, .obj, .tlog и другими. В Git предусмотрено средство, которое заставляет Git игнорировать определенные файлы (т. е. не добавлять автоматически в репозиторий и не отображать в списке неотслеживаемых) &#8212; это текстовый файл <strong>.gitignore</strong>, который вы создаете в папке вашего проекта (например в моем проекте osdevlearning я создаю файл .gitignore в папке osdevlearning). В файле .gitignore вы указываете т. н. паттерны &#8212; выражения которые определяют группы файлов (или папок), имена которых соответствуют некоторым условиям. Например паттерн <strong>*.obj</strong> означает все файлы с расширением <strong>.obj</strong>. Ниже приведен фрагмент файла .gitignore для одного из моих проектов в Visual Studio:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0">## Ignore Visual Studio temporary files, build results, and</span><br>
+<span class="co0">## files generated by popular Visual Studio add-ons.</span><br>
+<br>
+<span class="co0"># User-specific files</span><br>
+<span class="sy0">*</span>.suo<br>
+<span class="sy0">*</span>.user<br>
+<span class="sy0">*</span>.userosscache<br>
+<span class="sy0">*</span>.sln.docstates<br>
+<br>
+<span class="co0"># User-specific files (MonoDevelop/Xamarin Studio)</span><br>
+<span class="sy0">*</span>.userprefs<br>
+<br>
+<span class="co0"># Build results</span><br>
+<span class="br0">&#91;</span>Dd<span class="br0">&#93;</span>ebug<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Dd<span class="br0">&#93;</span>ebugPublic<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Rr<span class="br0">&#93;</span>elease<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Rr<span class="br0">&#93;</span>eleases<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Xx<span class="br0">&#93;</span><span class="nu0">64</span><span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Xx<span class="br0">&#93;</span><span class="nu0">86</span><span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Bb<span class="br0">&#93;</span>uild<span class="sy0">/</span><br>
+bld<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Bb<span class="br0">&#93;</span>in<span class="sy0">/</span><br>
+<span class="br0">&#91;</span>Oo<span class="br0">&#93;</span>bj<span class="sy0">/</span>
+</div></div>
+<h2>Удаление файлов</h2>
+<p>Следующая команда удаляет файл из рабочей папки проекта:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git rm</span> <span class="sy0">&lt;</span>fileX<span class="sy0">&gt;</span>
+</div></div>
+<p>А вот эта команда не удаляет файл из рабочей папки, но удаляет его из списка отслеживаемых:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git rm</span> <span class="re5">--cached</span> <span class="sy0">&lt;</span>fileX<span class="sy0">&gt;</span>
+</div></div>
+<p>Последняя команда пригодится вам на случай, если забыли добавить какой-либо файл в <strong>.gitignore</strong> и случайно проиндексировали его.<br>
+Кстати, чтобы просмотреть имена всех отслеживаемых файлов, нужно выполнить следующую команду:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git ls-tree</span> <span class="re5">-r</span> master <span class="re5">--name-only</span>
+</div></div>
+<p>Здесь <strong>master</strong> &#8212; имя ветки, которую вы просматриваете.</p>
+<h2>Спрятывание изменений (stashing)</h2>
+<p>Со мной часто случается следующая история. Я работаю в своей ветке, и у меня есть незакоммиченные изменения. Какой-нибудь мой коллега, который работает в своей ветке, коммитит и отправляет в удаленный репозиторий некие изменения, которые мне очень хочется слить в мою ветку прямо сейчас. Но я не могу слить его ветку в свою, поскольку у меня, как я говорил, есть незакоммиченные изменения (а коммитить недоделанную работу я не хочу). Что делать? Оказывается мои незакоммиченные изменения можно &#171;спрятать&#187;, т. е. сохранить в базе данных git, удалив их при этом из рабочей копии. После чего я могу слить ветку моего коллеги в свою, а затем восстановить мои спрятанные изменения.<br>
+Итак, чтобы спрятать все незакоммиченные изменения в текущей ветке, я выполняю команду:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer"><span class="kw2">git stash</span></div></div>
+<p>То, что я спрятал, сохраняется в некоем стеке. Содержимое этого стека можно посмотреть так:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git stash</span> list</div></div>
+<p>Каждый элемент стека имеет имя <code class="codecolorer text default"><span class="text">stash@{i}</span></code> (здесь и далее <strong>i</strong> &#8212; это номер элемента в стеке).<br>
+Далее я что-то делаю, например, сливаю ветку своего коллеги в свою.<br>
+Затем я могу восстановить мои спрятанные изменения:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git stash</span> apply stash<span class="sy0">@</span><span class="br0">&#123;</span>i<span class="br0">&#125;</span>
+</div></div>
+<p>Вышеприведенная команда применяет изменения к рабочей копии, но не удаляет их их базы данных git. Чтобы удалить изменения из стека, я выполняю команду:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git stash</span> drop stash<span class="sy0">@</span><span class="br0">&#123;</span>i<span class="br0">&#125;</span>
+</div></div>
+<h2>Теги</h2>
+<p>Коммиты идентифицируются своими 40-разрядными шестнадцатеричными контрольными суммами. Более человекопонятный способ присвоить коммиту идентификатор &#8212; это теги (tags). Присвоив коммиту тег, можно затем ссылаться на этот коммит не по контрольной сумме, а по тегу. Присвоить коммиту тег можно так:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git tag</span> mytag 3c10f56</div></div>
+<p>Здесь mytag &#8212; это имя тега, а 3c10f56 &#8212; первые несколько цифр контрольной суммы соответствующего коммита.<br>
+Теперь можно ссылаться на соответствующий коммит по его тегу, например, перейти на этот коммит так:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="kw2">git checkout</span> mytag</div></div>
+<h2>Поиск бага методом дихотомии (bisect)</h2>
+<p>Если вы имеете цепочку коммитов, и знаете, что в начале цепочки бага нет, а в конце он есть, и если вы хотите найти, какой именно коммит привел к появлению бага, то вы можете это сделать методом дихотомии. Процесс ровно такой же, как процесс поиска корня уравнения с одним неизвестным методом дихотомии (деление отрезка пополам). А git поможет вам несколько автоматизировать процесс при помощи команды <strong>git bissect</strong>. Ниже я лишь перечислю команды которые вам понадобятся в процессе, остальное &#8212; читайте в <strong>git help bissect</strong>.</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># manual process of searching a bug</span><br>
+<span class="kw2">git bisect</span> start<br>
+<span class="kw2">git bisect</span> bad &nbsp; &nbsp; &nbsp; &nbsp;<span class="co0"># the starting commit has a bug</span><br>
+<span class="kw2">git bisect</span> good mytag <span class="co0"># the commit with tag mytag doesn't have a bug</span><br>
+<br>
+<span class="kw2">git bisect</span> bad &nbsp; &nbsp; &nbsp; &nbsp;<span class="co0"># the commit in between the staring commit and mytag commit has a bug</span><br>
+<span class="kw2">git bisect</span> good<br>
+<span class="kw2">git bisect</span> good<br>
+<span class="kw2">git bisect</span> bad<br>
+<br>
+<span class="kw2">git bisect</span> reset <span class="co0"># get back to the starting commit</span><br>
+<br>
+<span class="co0"># if you have written an automated test to check for a bug presence</span><br>
+<span class="kw2">git bisect</span> run .<span class="sy0">/</span>testbugshellscript.sh</div></div>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/02/04/git-part2/" data-a2a-title="Git (Часть 2 — Cookbook)">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F02%2F04%2Fgit-part2%2F&amp;linkname=Git%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20Cookbook%29" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F02%2F04%2Fgit-part2%2F&amp;linkname=Git%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20Cookbook%29" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F02%2F04%2Fgit-part2%2F&amp;linkname=Git%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20Cookbook%29" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%91%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/git/" rel="tag">Git</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/02/02/git-part1/" rel="prev">Git (Часть 1 &#8212; Введение)</a></div>
+<div class="nav-next"><a href="/2018/02/06/study-intel-part1/" rel="next">Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 1 &#8212; Hello World на голом железе)</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/02/04/git-part2/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="175" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

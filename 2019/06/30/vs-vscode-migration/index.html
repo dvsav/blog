@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Переход с Visual Studio на VS Code &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Переход с Visual Studio на VS Code&raquo;" href="/2019/06/30/vs-vscode-migration/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1351">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2019/06/30/vs-vscode-migration/">
+<link rel="shortlink" href="/?p=1351">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F06%2F30%2Fvs-vscode-migration%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F06%2F30%2Fvs-vscode-migration%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1351 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1351" class="post-1351 post type-post status-publish format-standard hentry category-1 tag-29">
+	<header class="entry-header">
+		<h1 class="entry-title">Переход с Visual Studio на VS Code</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2019/06/30/vs-vscode-migration/" rel="bookmark"><time class="entry-date published updated" datetime="2019-06-30T20:19:05+03:00">30.06.2019</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Если вы используете <strong>Microsoft Visual Studio</strong> в коммерческих целях, то вам нужно покупать лицензию. Фирма, в которой я работаю, такую лицензию имеет. Однако, почему бы не избавиться от необходимости платить, и не перейти на бесплатные средства разработки? Вот и стали мы переходить&#8230; Оказалось, что не так это сложно, в конце концов интегрированная среда разработки (ее платная часть) &#8212; это лишь графическая оболочка, которая для своей работы пользуется различными бесплатными утилитами командной строки. Графическую Visual Studio часть можно компенсировать бесплатным редактором исходного кода <a href="https://code.visualstudio.com/">Visual Studio Code</a>. Что требуется от редактора? Две вещи: <a href="https://en.wikipedia.org/wiki/Intelligent_code_completion">IntelliSense</a> и поддержка отладки исходного кода. В VS Code это есть. Но текстовый редактор &#8212; это не IDE, поэтому такие задачи как компиляция исходного кода и управление пакетами придется выполнять &#171;своими руками&#187;, т. е. используя утилиты командной строки. В отсутствие IDE придется научиться этими утилитами пользоваться. Обо всех проблемах, связанных с переходом с Visual Studio на свободное ПО &#8212; далее в этой заметке.</p>
+<ul>
+<li><a href="#package-management">Управление пакетами &#8212; Nuget Package Manager</a></li>
+<li><a href="#nuget-paket">Переход с Nuget на Paket</a></li>
+<li><a href="#making-csproj">Создание проектов и решений без Visual Studio</a></li>
+<li><a href="#building-solution">Сборка решения</a></li>
+<li><a href="#vs-extentions">Расширения для Visual Studio</a></li>
+<li><a href="#vscode-usage">Как пользоваться VS Code</a></li>
+</ul>
+<p>Для справки: в Visual Studio я работаю над большим решением, которое включает порядка сотни проектов на .NET &frasl; C#. Далее в примерах командной строки будут использоваться следующие условные обозначения:<br>
+<strong>SolutionDir</strong> &#8212; папка, в которой находится решение (файл с расширением <strong>.sln</strong>)<br>
+<strong>ProjectDir</strong> &#8212; папка, в которой лежит проект (файл с расширением <strong>.csproj</strong>)</p>
+<h2 id="package-management">Управление пакетами &#8212; Nuget Package Manager</h2>
+<p><strong>Nuget</strong> &#8212; это менеджер пакетов (package manager) &#8212; утилита, которая автоматизирует использование (в частности, скачивание, установку, удаление) стороннего кода. Подробнее о менеджерах пакетов вообще и о Nuget в частности читайте в статье <a href="https://docs.microsoft.com/ru-ru/nuget/what-is-nuget">Что такое Nuget и для чего он нужен</a>. Nuget поставляется в составе Visual Studio. Существует целый зоопарк родных поддерживаемых Microsoft инструментов для управления пакетами, основанный на Nuget. Какие-то из них доступны только из Visual Studio, какие-то можно использовать сами по себе. Перечислю их в том порядке, в котором я их для себя открывал:</p>
+<table>
+<tr>
+<th>Инструмент</th>
+<th>Только в составе Visual Studio?
+</th>
+</tr>
+<tr>
+<td>Package Manager UI
+</td>
+<td>да</td>
+</tr>
+<tr>
+<td>Package Manager Console
+</td>
+<td>да</td>
+</tr>
+<tr>
+<td>nuget.exe
+</td>
+<td>нет</td>
+</tr>
+<tr>
+<td>dotnet.exe
+</td>
+<td>нет</td>
+</tr>
+<tr>
+<td>PowerShell PackageManagement
+</td>
+<td>нет</td>
+</tr>
+</table>
+<h3>packages.config и PackageReference</h3>
+<p>Прежде чем перейти к рассмотрению каждого инструмента для управления пакетами, сделаем небольшое отступление. Видимо так исторически сложилось, что существует два формата хранения информации об установленных пакетах.</p>
+<p>Вариант первый, который по-умолчанию имеет место в проектах для .NET Framework &#8212; это файл <a href="https://docs.microsoft.com/ru-ru/nuget/reference/packages-config">packages.config</a>. Этот xml-файл создается отдельно для каждого проекта в решении. В файле перечисляются пакеты, от которых зависит данный проект. Для каждого пакета указывается его имя, версия и целевая платформа (target framework).</p>
+<p>Второй вариант &#8212; это когда информация о пакетах для проекта хранится прямо в файле проекта (*.csproj) в xml-узлах под названием <a href="https://docs.microsoft.com/ru-ru/nuget/consume-packages/package-references-in-project-files">PackageReference</a>.</p>
+<p>Ну а теперь &#8212; к инструментам&#8230;</p>
+<h3>Package Manager UI и Package Manager Console</h3>
+<p>В Visual Studio в вашем распоряжении будет как консольный (<a href="https://docs.microsoft.com/en-us/nuget/tools/package-manager-console">Package Manager Console</a>), так и графический (<a href="https://docs.microsoft.com/en-us/nuget/tools/package-manager-ui">Package Manager UI</a>) интерфейс для работы с Nuget. Открыть оба инструмента в Visual Studio можно при помощи меню <code class="codecolorer text default"><span class="text">Tools &gt; NuGet Package Manager</span></code>. Причем интерфейс командной строки в Visual Studio &#8212; это оболочка PowerShell с <a href="https://docs.microsoft.com/en-us/nuget/tools/powershell-reference">кучей cmdlet&#8217;ов</a> типа Find-Package, Istall-Package, Update-Package и других.</p>
+<h3>nuget.exe</h3>
+<p>Консольная утилита <strong>nuget.exe</strong> &#8212; это, как мне кажется, самый простой и понятный инструмент, который можно использовать без Visual Studio. Но сначала его надо установить. Для этого надо <a href="https://www.nuget.org/downloads">скачать nuget.exe</a> в какую-нибудь папку и добавить путь к этой папке в переменную окружения PATH (в Windows: <code class="codecolorer text default"><span class="text">Панель управления\Система и безопасность\Система\Дополнительные параметры системы\Переменные среды</span></code>).</p>
+<p><strong>Установка пакетов для заданного проекта</strong><br>
+1. В папке проекта (где лежит файл *.csproj) создайте файл <strong>packages.config</strong> и добавьте в него информацию о необходимых пакетах. Вот пример такого файла:</p>
+<div class="codecolorer-container xml default" style="overflow:auto;white-space:nowrap;"><div class="xml codecolorer">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;utf-8&quot;</span><span class="re2">?&gt;</span></span><br>
+<span class="sc3"><span class="re1">&lt;packages<span class="re2">&gt;</span></span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;package</span> <span class="re0">id</span>=<span class="st0">&quot;AForge&quot;</span> <span class="re0">version</span>=<span class="st0">&quot;2.2.5&quot;</span> <span class="re0">targetFramework</span>=<span class="st0">&quot;net46&quot;</span> <span class="re2">/&gt;</span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;package</span> <span class="re0">id</span>=<span class="st0">&quot;AForge.Imaging&quot;</span> <span class="re0">version</span>=<span class="st0">&quot;2.2.5&quot;</span> <span class="re0">targetFramework</span>=<span class="st0">&quot;net46&quot;</span> <span class="re2">/&gt;</span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;package</span> <span class="re0">id</span>=<span class="st0">&quot;AForge.Math&quot;</span> <span class="re0">version</span>=<span class="st0">&quot;2.2.5&quot;</span> <span class="re0">targetFramework</span>=<span class="st0">&quot;net46&quot;</span> <span class="re2">/&gt;</span></span><br>
+<span class="sc3"><span class="re1">&lt;/packages<span class="re2">&gt;</span></span></span>
+</div></div>
+<p>2. Далее в командной строке (обычной cmd.exe) запускаем nuget. При этом в аргументах командной строки обязательно надо указать путь к файлу <strong>packages.config</strong> и путь к папке, в которую будут установлены пакеты (обычно это папка <strong>packages</strong>, которая лежит в папке решения):</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir\ProjectDir&gt; nuget install packages.config -OutputDirectory SolutionDir\packages</div></div>
+<p>Примечательно, что средства Visual Studio <strong>Package Manager Console</strong> и <strong>Package Manager UI</strong> а также утилита <strong>dotnet.exe</strong> при установке пакета добавляют ссылки на сборки этого пакета в файл проекта (*.csproj), а вот утилита <strong>nuget.exe</strong> <a href="https://docs.microsoft.com/en-us/nuget/consume-packages/ways-to-install-a-package">не добавляет</a>. Поэтому вам придется добавлять ссылки вручную (что необязательно плохо &#8212; я, например, люблю утилиты которые делают только узкую специфическую часть работы, а не все сразу).</p>
+<p><strong>Восстановление пакетов для всего решения</strong><br>
+Переходим в корневую папку решения и вызываем:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; nuget restore</div></div>
+<p>Когда нужно восстановить пакеты, nuget.exe ищет в папках проектов файлы <strong>packages.config</strong> и считывает из них информацию о том, какие именно пакеты надо установить.</p>
+<h3>dotnet.exe</h3>
+<p>Инструмент, который обеспечивает не только управление пакетами, но и возможность создания решений, проектов, сборки и пр. &#8212; это <a href="https://docs.microsoft.com/ru-ru/dotnet/core/tools/?tabs=netcore2x">.NET Core command-line interface (CLI) tools</a>, который является частью платформы <a href="https://docs.microsoft.com/ru-ru/dotnet/core/about">.NET Core</a>. Пользоваться этим самым <strong>.NET Core CLI</strong> можно при помощи утилиты <strong>dotnet.exe</strong>. С помощью этой утилиты вы можете управлять пакетами как в <strong>nuget.exe</strong>, но есть нюанс: <strong>dotnet.exe</strong> не поддерживает <strong>packages.config</strong> (см. выше), а поддерживает только <strong>PackageReference</strong>.</p>
+<p><strong>Установка пакетов для заданного проекта</strong></p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir\ProjectDir&gt; dotnet add package &lt;PACKAGE_NAME&gt; --package-directory &lt;PACKAGE_DIRECTORY&gt;</div></div>
+<p><strong>Восстановление пакетов для всего решения</strong></p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; dotnet restore --packages &lt;PACKAGES_DIRECTORY&gt;</div></div>
+<h3>PowerShell PackageManagement</h3>
+<p>И еще один инструмент &#8212; <a href="https://www.red-gate.com/simple-talk/sysadmin/powershell/managing-packages-using-windows-powershell/">PowerShell PackageManagement</a> &#8212; <a href="https://docs.microsoft.com/en-us/powershell/developer/module/understanding-a-windows-powershell-module">модуль PowerShell</a>, который содержит такие же <a href="https://docs.microsoft.com/en-us/powershell/module/packagemanagement/?view=powershell-6">cmdlet&#8217;ы</a>, как и интерфейс командной строки Visual Studio (Find-Package, Istall-Package и пр.) Но, оказывается, консольный интерфейс Visual Studio и интерфейс PowerShell PackageManagement в чем-то все-таки <a href="https://docs.microsoft.com/en-us/nuget/tools/powershell-reference">отличаются</a>:</p>
+<blockquote><p>The commands listed here are specific to the Package Manager Console in Visual Studio, and differ from the Package Management module commands that are available in a general PowerShell environment.</p></blockquote>
+<p>Чтобы воспользоваться PowerShell PackageManagement, вы можете запустить Windows PowerShell или PowerShell ISE. При попытке что-то установить этим инструментом у меня возникли проблемы, описанные <a href="https://superuser.com/questions/1159701/nuget-packages-do-not-display-on-powershell-windows-10">в топике Nuget Packages do not display on powershell Windows 10 на superuser.com</a>. Например, пытаемся посмотреть доступные пакеты NuGet стандартным способом, который описывается в документации от Microsoft:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;"><div class="powershell codecolorer">Find<span class="sy0">-</span>Package <span class="sy0">-</span>ProviderName NuGet</div></div>
+<p>И не видим ничего. А делать надо так:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;"><div class="powershell codecolorer">Find<span class="sy0">-</span>Package <span class="sy0">-</span>Source https:<span class="sy0">//</span>www.nuget.org<span class="sy0">/</span>api<span class="sy0">/</span>v2<span class="sy0">/</span>
+</div></div>
+<p>В общем, везде ссылайтесь не на <code class="codecolorer text default"><span class="text">-ProviderName NuGet</span></code> а на <code class="codecolorer text default"><span class="text">-Source https://www.nuget.org/api/v2/</span></code> (именно <strong>v2</strong>, а не <strong>v3</strong>).</p>
+<p><strong>Поиск пакетов по имени</strong><br>
+Допустим я хочу установить пакет Extended.Wpf&#8230; что-то там, не помню как называется.</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;"><div class="powershell codecolorer">Find<span class="sy0">-</span>Package <span class="kw5">-Name</span> Extended.Wpf<span class="sy0">*</span> <span class="sy0">-</span>Source https:<span class="sy0">//</span>www.nuget.org<span class="sy0">/</span>api<span class="sy0">/</span>v2<span class="sy0">/</span><br>
+Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Version &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Summary &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+<span class="sy0">----</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">-------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">-------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+Extended.Wpf.Toolkit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3.5.0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NuGet &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Extended WPF Toolkit is the number one collection of WPF controls <span class="kw3">for</span> creating next<span class="sy0">-</span>gen Windows apps.</div></div>
+<p>Ага, есть такой пакет, называется Extended.Wpf.Toolkit. Теперь я его устанавливаю:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;"><div class="powershell codecolorer">Install<span class="sy0">-</span>Package <span class="kw5">-Name</span> Extended.Wpf.Toolkit <span class="sy0">-</span>Source https:<span class="sy0">//</span>www.nuget.org<span class="sy0">/</span>api<span class="sy0">/</span>v2<span class="sy0">/</span> <span class="kw5">-Destination</span> SolutionDir\packages</div></div>
+<p>Естественно, никакие ссылки в проект не добавляются (т. е. в этом смысле PowerShell PackageManagement работает аналогично nuget.exe).<br>
+А теперь я хочу посмотреть список установленных пакетов:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;"><div class="powershell codecolorer">Get<span class="sy0">-</span>Package <span class="kw5">-Destination</span> SolutionDir\packages<br>
+Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Version &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Source &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ProviderName &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+<span class="sy0">----</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">-------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">------------</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+Extended.Wpf.Toolkit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3.5.0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SolutionDir\Extended.Wpf.Toolkit.... NuGet</div></div>
+<h2 id="nuget-paket">Переход с Nuget на Paket</h2>
+<p>При безусловных преимуществах, которые дает использование Nuget, есть и некоторые мелкие неудобства. Нас с коллегами например напрягало, что при установке (или восстановлении) пакета средствами Visual Studio в проект всегда добавляются ссылки на сборки пакета с установленным свойством <a href="https://github.com/NuGet/Home/issues/329">Copy Local = True</a>, т. е. они будут копироваться в выходную папку проекта, а нас такое поведение не устраивало <a href="http://localhost/powershell-vs-postbuild-2/">по некоторым причинам</a>.</p>
+<p>Поэтому мы решили рассмотреть переход на другой менеджер пакетов &#8212; <a href="https://fsprojects.github.io/Paket/index.html">Paket</a>. Преимущества Paket (по мнению его авторов) по сравнению с Nuget описаны <a href="https://github.com/fsprojects/Paket">на страничке проекта на GiHub</a>. Как и nuget.exe, Paket &#8212; это консольная утилита, которая для Windows поставляется в виде файла <strong>packet.exe</strong>. Процесс установки описан в <a href="https://fsprojects.github.io/Paket/installation.html">Paket installation</a>. Есть некоторые нюансы касательно установки:</p>
+<p>1. Вам придется создать в корне вашего решения папку <strong>.paket</strong>, а поскольку имя папки начинается с точки, вы сможете сделать это только из командной строки:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">mkdir .paket</div></div>
+<p>2. Есть еще одна <a href="https://fsprojects.github.io/Paket/getting-started.html#Downloading-Paket-and-it-s-BootStrapper">инструкция по установке</a>, которая говорит: скачав файл <a href="https://github.com/fsprojects/Paket/releases/tag/5.210.1">paket.bootstrapper.exe</a> в папку <strong>.paket</strong>, переименуйте его в <strong>paket.exe</strong> и закоммитьте (игнорировать его при помощи файла .gitignore, не надо). Зачем все это надо, написано <a href="https://fsprojects.github.io/Paket/bootstrapper.html#Magic-mode">в описании файла paket.bootstrapper.exe</a>.</p>
+<p>3. Для удобства пользования утилитой packet.exe существует расширение для Visual Studio под названием <a href="https://marketplace.visualstudio.com/items?itemName=SteffenForkmann.PaketforVisualStudio">Paket for Visual Studio</a>, которое обеспечивает некие плюшки, в частности подсветку синтаксиса и InteliSense для файлов paket.dependencies и paket.references. Но это расширение <a href="https://github.com/fsprojects/Paket.VisualStudio/issues/176">не устанавливается</a> для Visual Studio 2019.</p>
+<p>Установив paket.exe, подготавливаем наше решение (имеется в виду Visual Studio solution). Создаем в папке решения файл <a href="https://fsprojects.github.io/Paket/dependencies-file.html">paket.dependencies</a>. В нем перечисляются все пакеты для всех проектов решения, обычно, с указанием версий. Для одного из моих решений файл выглядит так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">// paket.dependencies file for paket package manager utility<br>
+<br>
+// restrict target framework<br>
+framework: &gt;= net46<br>
+<br>
+source https://api.nuget.org/v3/index.json<br>
+<br>
+// don't copy referenced assemblies to project's output directory<br>
+copy_local: false<br>
+<br>
+// NuGet packages<br>
+nuget Accord 3.8.0<br>
+nuget Accord.Imaging 3.8.0<br>
+nuget Accord.MachineLearning 3.8.0<br>
+nuget Accord.Math 3.8.0<br>
+nuget Accord.Statistics 3.8.0<br>
+nuget Accord.Video 3.8.0<br>
+nuget Accord.Vision 3.8.0<br>
+nuget AForge 2.2.5<br>
+nuget AForge.Imaging 2.2.5<br>
+nuget AForge.Math 2.2.5<br>
+nuget AForge.Video 2.2.5<br>
+nuget AForge.Video.DirectShow 2.2.5<br>
+nuget AvalonEdit 5.0.4<br>
+nuget Extended.Wpf.Toolkit 2.5<br>
+nuget Mantin.Controls.Wpf.Notification 3.2.0.0<br>
+nuget MessagingToolkit.QRCode 1.3.0<br>
+nuget Microsoft.CodeDom.Providers.DotNetCompilerPlatform 2.0.1<br>
+nuget Ookii.Dialogs.Wpf 1.0.0<br>
+nuget System.ValueTuple 4.5.0<br>
+nuget System.Windows.Interactivity.WPF 2.0.20525</div></div>
+<p>После того как файл <strong>paket.dependencies</strong> создан, можно попросить paket закачать пакеты:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; .paket\paket.exe install</div></div>
+<p>Paket загружает пакеты в папку <code class="codecolorer text default"><span class="text">SolutionDir\packages</span></code> &#8212; в ту же самую папку, в которую их загружает NuGet.</p>
+<p><strong>ВАЖНО:</strong> в первый раз когда я запустил команду <strong>paket.exe install</strong>, paket помимо нужных пакетов закачал еще огромную кучу какого-то хлама. Оказалось, что мне надо было ограничить версию целевой платформы, добавив в <strong>paket.dependencies</strong> строчку <code class="codecolorer text default"><span class="text">framework: &gt;= net46</span></code>. А хлам &#8212; это были пакеты-зависимости (от них зависели нужные пакеты, перечисленные в файле <strong>paket.dependencies</strong>) для всех возможных платформ. Добавив упомянутую строчку и перезапустив <strong>paket.exe install</strong>, получаем правильный результат, без лишних пакетов.</p>
+<p>Команда <strong>paket.exe install</strong> генерирует в папке решения файл <strong>paket.lock</strong>, который описывает какой пакет от какого пакета зависит. У меня он выглядит так:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">RESTRICTION: &gt;= net46<br>
+NUGET<br>
+&nbsp; remote: https://api.nuget.org/v3/index.json<br>
+&nbsp; &nbsp; Accord (3.8)<br>
+&nbsp; &nbsp; Accord.Imaging (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Math (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Statistics (&gt;= 3.8)<br>
+&nbsp; &nbsp; Accord.MachineLearning (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Math (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Statistics (&gt;= 3.8)<br>
+&nbsp; &nbsp; Accord.Math (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; Accord.Statistics (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Math (&gt;= 3.8)<br>
+&nbsp; &nbsp; Accord.Video (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; Accord.Vision (3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Imaging (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.MachineLearning (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Math (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Statistics (&gt;= 3.8)<br>
+&nbsp; &nbsp; &nbsp; Accord.Video (&gt;= 3.8)<br>
+&nbsp; &nbsp; AForge (2.2.5)<br>
+&nbsp; &nbsp; AForge.Imaging (2.2.5)<br>
+&nbsp; &nbsp; &nbsp; AForge (&gt;= 2.2.5)<br>
+&nbsp; &nbsp; &nbsp; AForge.Math (&gt;= 2.2.5)<br>
+&nbsp; &nbsp; AForge.Math (2.2.5)<br>
+&nbsp; &nbsp; &nbsp; AForge (&gt;= 2.2.5)<br>
+&nbsp; &nbsp; AForge.Video (2.2.5)<br>
+&nbsp; &nbsp; &nbsp; AForge (&gt;= 2.2.5)<br>
+&nbsp; &nbsp; AForge.Video.DirectShow (2.2.5)<br>
+&nbsp; &nbsp; &nbsp; AForge.Video (&gt;= 2.2.5)<br>
+&nbsp; &nbsp; AvalonEdit (5.0.4)<br>
+&nbsp; &nbsp; Extended.Wpf.Toolkit (2.5)<br>
+&nbsp; &nbsp; Mantin.Controls.Wpf.Notification (3.2)<br>
+&nbsp; &nbsp; MessagingToolkit.QRCode (1.3)<br>
+&nbsp; &nbsp; Microsoft.CodeDom.Providers.DotNetCompilerPlatform (2.0.1)<br>
+&nbsp; &nbsp; Ookii.Dialogs.Wpf (1.0)<br>
+&nbsp; &nbsp; System.ValueTuple (4.5)<br>
+&nbsp; &nbsp; System.Windows.Interactivity.WPF (2.0.20525)</div></div>
+<p>Далее надо для каждого проекта указать, какие пакеты этому проекту нужны. Для этого надо создать в папке каждого проекта файл <a href="https://fsprojects.github.io/Paket/references-files.html">paket.references</a>. Этот файл очень простой &#8212; в нем просто перечисляются названия пакетов без указания версий. Вот как он выглядит для одного из проектов в моем решении:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Microsoft.CodeDom.Providers.DotNetCompilerPlatform<br>
+System.ValueTuple</div></div>
+<p>Если теперь запустить <strong>paket.exe install</strong>, то нужные пакеты не только загрузятся в папку <strong>packages</strong> (если они уже не загружены), но и в файл проекта (.csproj) добавятся ссылки на сборки из этих пакетов. Я уже писал выше, что для меня было важно в ссылках на сборки контролировать параметр <strong>Copy Local</strong> и делать его равным False. В <strong>paket</strong> это достигается строчкой <code class="codecolorer text default"><span class="text">copy_local: false</span></code> в файле <strong>paket.dependencies</strong>.</p>
+<p>Вот собственно и весь процесс использования <strong>paket</strong>. Последнее, что нужно сказать: если вы в своем решении уже пользовались <strong>NuGet</strong>, и переходите на <strong>paket</strong>, то утилита paket может выполнить этот переход полностью автоматически (т. е. вам не придется делать все, что было описано выше, нужно будет только скачать paket.exe):</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">.paket\paket.exe convert-from-nuget --force</div></div>
+<h2 id="making-csproj">Создание проектов и решений без Visual Studio</h2>
+<h3>Создание файлов проектов и решений вручную</h3>
+<p>Файлы проектов (с расширениями .csproj, .vcxproj и другие) и решений (с расширением .sln) &#8212; это файлы, которые потребляет программа MSBuild. Это текстовые файлы формата xml. В файле проекта содержится информация о том, как его построить (какие файлы исходного кода принадлежат к проекту, какими инструментами их копилировать, на какие библиотеки ссылается проект и пр.). В файле решения перечисляются все проекты, которые принадлежат решению.<br>
+<a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2019">В документации к MSBuild</a> приведен простой пример, как создавать файлы проектов вручную. Там же есть <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/walkthrough-using-msbuild?view=vs-2019">хорошее руководство по синтаксису файлов проектов</a>. Прочитав это руководство, я разобрался например в том, как при помощи настроек в файле проекта MSBuild скопировать файлы сборок (*.dll) из папки <strong>OutputPath</strong> в некую другую папку <strong>DistributionFolder</strong>, которая задается в свойствах проекта:</p>
+<div class="codecolorer-container xml default" style="overflow:auto;white-space:nowrap;"><div class="xml codecolorer">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;utf-8&quot;</span><span class="re2">?&gt;</span></span><br>
+<span class="sc3"><span class="re1">&lt;Project</span> <span class="re0">ToolsVersion</span>=<span class="st0">&quot;12.0&quot;</span> <span class="re0">DefaultTargets</span>=<span class="st0">&quot;Build&quot;</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="re2">&gt;</span></span><br>
+...<br>
+...<br>
+...<br>
+&nbsp; <span class="sc3"><span class="re1">&lt;PropertyGroup<span class="re2">&gt;</span></span></span><br>
+&nbsp; &nbsp; <span class="sc-1">&lt;!-- Property of the project that can be changed --&gt;</span><br>
+&nbsp; &nbsp; <span class="sc3"><span class="re1">&lt;DistributionFolder<span class="re2">&gt;</span></span></span>$(SolutionDir)Distributive\$(ConfigurationName)<span class="sc3"><span class="re1">&lt;/DistributionFolder</span> <span class="re2">&gt;</span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;/PropertyGroup<span class="re2">&gt;</span></span></span><br>
+<br>
+&nbsp; <span class="sc3"><span class="re1">&lt;ItemGroup<span class="re2">&gt;</span></span></span><br>
+&nbsp; &nbsp; <span class="sc-1">&lt;!-- Input to the tasks (see below) --&gt;</span><br>
+&nbsp; &nbsp; <span class="sc3"><span class="re1">&lt;OutputFiles</span> <span class="re0">Include</span>=<span class="st0">&quot;$(OutputPath)*.dll&quot;</span> <span class="re2">/&gt;</span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;/ItemGroup<span class="re2">&gt;</span></span></span><br>
+<br>
+&nbsp; <span class="sc-1">&lt;!-- Target --&gt;</span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;Target</span> <span class="re0">Name</span>=<span class="st0">&quot;PostBuild&quot;</span> <span class="re0">AfterTargets</span>=<span class="st0">&quot;Build&quot;</span><span class="re2">&gt;</span></span><br>
+&nbsp; &nbsp; <span class="sc-1">&lt;!-- Task --&gt;</span><br>
+&nbsp; &nbsp; <span class="sc3"><span class="re1">&lt;Exec</span> <span class="re0">Command</span>=<span class="st0">&quot;echo POSTBUILD COPYING OUTPUT FILES&quot;</span> <span class="re2">/&gt;</span></span><br>
+<br>
+&nbsp; &nbsp; <span class="sc-1">&lt;!-- Task --&gt;</span><br>
+&nbsp; &nbsp; <span class="sc3"><span class="re1">&lt;Copy</span> <span class="re0">SourceFiles</span>=<span class="st0">&quot;@(OutputFiles)&quot;</span></span><br>
+<span class="sc3"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="re0">DestinationFolder</span>=<span class="st0">&quot;$(DistributionFolder)&quot;</span> <span class="re2">/&gt;</span></span><br>
+&nbsp; <span class="sc3"><span class="re1">&lt;/Target<span class="re2">&gt;</span></span></span><br>
+<span class="sc3"><span class="re1">&lt;/Project<span class="re2">&gt;</span></span></span>
+</div></div>
+<p>Во фрагменте файла проекта (.csproj) даны комментарии по терминологии (в MSBuild ключевую роль играют понятия: <strong>Target</strong>, <strong>Task</strong>, <strong>Property</strong> и <strong>Item</strong>). По принципам своей работы <strong>MSBuild</strong> очень похожа на утилиту <strong>make</strong>.</p>
+<p>Небольшое отступление. Если речь не идет о создании нового файла проекта (.csproj), а лишь об изменении имеющегося, то даже необязательно редактировать файл проекта. Те изменения, которые вы планируете внести в файл проекта можно вынести в отдельные два файла <strong>Directory.Build.props</strong> и <strong>Directory.Build.targets</strong>, которые утилита <strong>MSBuild</strong> сама ищет в папке проекта и выше нее и импортирует в проект. Подробнее об этом читайте в статье <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/customize-your-build?view=vs-2019">Customize your build</a>.</p>
+<h3>Утилита dotnet.exe</h3>
+<p>Утилита dotnet.exe умеет создавать проекты для .NET Core (и поддерживает ряд соответствующих шаблонов проектов), но не для .NET Framework. Например проект приложения WPF dotnet.exe вам не создаст &#8212; утилита не поддерживает такой шаблон проекта. Ну а ради интереса, вот как при помощи dotnet.exe создать решение, создать проект (здесь &#8212; шаблон Class Library), добавить проект в решение и построить решение:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">dotnet new sln -n MySolution<br>
+dotnet new classlib -n MyProject<br>
+dotnet sln MySolution.sln add MyProject/MyProject.csproj<br>
+dotnet build</div></div>
+<p>Здесь <strong>MySolution</strong> &#8212; имя решения (будет создан файл MySolution.sln), <strong>MyProject</strong> &#8212; имя проекта (в папке решения будет создана папка MyProject и в ней &#8212; файл MyProject.csproj).</p>
+<h3>Утилита <a href="https://cmake.org/">CMake</a>
+</h3>
+<p><a href="https://stackoverflow.com/questions/2074144/generate-c-sharp-project-using-cmake">В топике на Stack Overflow &#8212; Generate C# project using CMake</a> и <a href="https://github.com/bemehiser/cmake_csharp_example">на страничке проекта cmake_csharp_example на GitHub</a> объясняется как можно сгенерировать проект csproj при помощи CMake, но&#8230; CMake требует наличия на компьютере установленной Visual Studio.</p>
+<h3>Программная генерация файлов проектов и решений</h3>
+<p>Вот <a href="https://stackoverflow.com/questions/33329144/making-a-solution-file-without-using-visual-studio">топике Making a solution file without using visual studio на Stack Overflow</a> рассказывается что можно программно генерировать файлы решений и проектов при помощи <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/msbuild-api?view=vs-2019">MSBuild API</a>, который входит в .NET Framework.</p>
+<h3>Резюме</h3>
+<p><em>Таким образом, я не нашел простого способа генерировать файлы решений и проектов без Visual Studio </em>🙁 Если выбирать из того что есть, то я склоняюсь к созданию файлов проектов вручную в текстовом редакторе. При этом создать вручную файл решения (sln) &#8212; это уже совсем геморрой, потому что в нем используются GUID&#8217;ы, но как раз файл решения, как мне кажется, можно создавать утилитой <strong>dotnet.exe</strong>.</p>
+<h2 id="building-solution">Сборка решения</h2>
+<h3>MSBuild</h3>
+<p>Без Visual Studio вы можете построить проект при помощи утилиты <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/msbuild?view=vs-2019">MSBuild.exe</a>, которую можно скачать и использовать бесплатно. Например, чтобы построить release&#8217;ную версию программы, нужно находясь в папке решения, запустить в командной строке:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; MSBuild.exe -property:Configuration=Release</div></div>
+<p>Чтобы программа <strong>MSBuild</strong> успешно запустилась из командной строки, вам нужно либо добавить путь к папке, где лежит <strong>msbuild.exe</strong> в переменную окружения PATH (у меня это <code class="codecolorer text default"><span class="text">C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin</span></code>), либо запускать командную строку <strong>Visual Studio Command Prompt</strong> либо указывать полный путь к файлу MSBuild.exe.</p>
+<h3>Build Systems (автоматизация сборки решения)</h3>
+<p><a href="https://www.cs.virginia.edu/~dww4s/articles/build_systems.html">Build system</a> &#8212; это некий софт, который выполняет сборку программы из кучи файлов (исходников и ресурсов), учитывая зависимости этих файлов друг от друга. Яркими представителями такого софта (из известных мне) являются утилиты GNU make, CMake, MSBuild. Когда вы используете такую утилиту для сборки своей программы, вы всегда создаете некий текстовый файл, в котором так или иначе описывается процесс сборки (в GNU make это makefile, в MSBuild это файл проекта).</p>
+<p>При построении большого решения, о котором я рассказывал в <a href="http://localhost/powershell-vs-postbuild/">прошлой заметке</a>, у нас возникают проблемы формирования дистрибутива (т. е. копирования файлов), которые стандартными средствами Visual Studio (читай &#8212; средствами MSBuild) не очень легко решаются &#8212; приходится писать скрипты например для PowerShell. Связана эта проблема с тем, что дистрибутив у нас &#8212; это не одна папка, в которую сваливаются все сборки (dll-ки) а целая структура папок. А структура папок нам нужна а) чтобы не запутаться в огромной куче файлов б) потому что программа у нас модульная, поддерживает плагины, и каждый плагин &#8212; это папка с одной или несколькими сбороками внутри; плагин устанавливается путем копирования такой папки в дистрибутив, а удаляется соответственно путем удаления этой папки из дистрибутива.</p>
+<p>При отказе от Visual Studio возникают дополнительные проблемы &#8212; приходится &#171;вручную&#187; вызывать package manager для восстановления пакетов и MSBuild для сборки проектов. Все это приводит к необходимости написать такой скрипт, который бы выполнял все наши задачи:</p>
+<ol>
+<li>Очистка решения и &frasl; или дистрибутива</li>
+<li>Установка &frasl; восстановление &frasl; обновление пакетов</li>
+<li>Построение проектов</li>
+<li>Формирование дистрибутива (копирование всяких файлов в папку дистрибутива)</li>
+</ol>
+<p>Для выполнения этих задач применительно к проекту на платформе .NET мы рассматривали build system&#8217;ы, перечисленные в табличке ниже. Причем предпочтение мы отдавали системам, использующим в качестве языка программирования C#.</p>
+<table>
+<tr>
+<th>Build System</th>
+<th>Programming Language</th>
+</tr>
+<tr>
+<td><a href="https://www.nuke.build/index.html">Nuke</a></td>
+<td>C#</td>
+</tr>
+<tr>
+<td><a href="https://cakebuild.net/">Cake</a></td>
+<td>С#</td>
+</tr>
+<tr>
+<td><a href="https://github.com/psake/psake">Psake</a></td>
+<td>PowerShell</td>
+</tr>
+<tr>
+<td><a href="https://fake.build/">Fake</a></td>
+<td>F#</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ruby/rake">Rake</a></td>
+<td>Ruby</td>
+</tr>
+</table>
+<p>В итоге остановились на системе <strong>Nuke</strong>.</p>
+<h3>Nuke</h3>
+<p>Установка Nuke на компьютер:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">dotnet tool install Nuke.GlobalTool --global</div></div>
+<p>Установка Nuke в решение Visual Studio:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; nuke :setup</div></div>
+<p>Далее у меня состоялся с утилитой следующий диалог:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">How should the build project be named?<br>
+┐ &nbsp;nuke_build_project<br>
+Where should the build project be located?<br>
+┐ &nbsp;nuke_build_project<br>
+Which NUKE version should be used?<br>
+┐ &nbsp;0.20.1 (latest release)<br>
+Which solution should be the default?<br>
+┐ &nbsp;MySuperBigSolution.sln<br>
+Do you need help getting started with a basic build?<br>
+┐ &nbsp;Yes, get me started!<br>
+Restore, compile, pack using ...<br>
+┐ &nbsp;Neither<br>
+Source files are located in ...<br>
+┐ &nbsp;./src<br>
+Move packages to ...<br>
+┐ &nbsp;Neither<br>
+Where do test projects go?<br>
+┐ &nbsp;./tests<br>
+Do you use GitVersion?<br>
+┐ &nbsp;Yes, just not setup yet<br>
+Creating directory 'SolutionDir\nuke_build_project'...<br>
+Creating directory 'SolutionDir\tests'...</div></div>
+<p>Утилита создает в корне решения несколько файлов (из которых нас интересует только <strong>build.ps1</strong>) и проект &#8212; консольное приложение на C#, которое будет строить наше решение.</p>
+<p>Пример очень простого кода <strong>Build.cs</strong>:</p>
+<div class="codecolorer-container csharp default" style="overflow:auto;white-space:nowrap;"><div class="csharp codecolorer">
+<span class="kw4">class</span> Build <span class="sy0">:</span> NukeBuild<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">int</span> Main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span> Execute<span class="sy0">&lt;</span>Build<span class="sy0">&gt;</span><span class="br0">&#40;</span>x <span class="sy0">=&gt;</span> x<span class="sy0">.</span><span class="me1">Compile</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="br0">&#91;</span>Parameter<span class="br0">&#40;</span><span class="st0">&quot;Configuration to build - Default is 'Debug' (local) or 'Release' (server)&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">readonly</span> Configuration Configuration <span class="sy0">=</span> IsLocalBuild <span class="sy0">?</span> Configuration<span class="sy0">.</span><span class="me1">Debug</span> <span class="sy0">:</span> Configuration<span class="sy0">.</span><span class="me1">Release</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; AbsolutePath SourceDirectory <span class="sy0">=&gt;</span> RootDirectory <span class="sy0">/</span> <span class="st0">&quot;src&quot;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// This describes a utility tool - package manager paket.exe</span><br>
+&nbsp; &nbsp; <span class="br0">&#91;</span>LocalExecutable<span class="br0">&#40;</span><span class="st0">&quot;./.paket/paket.exe&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">readonly</span> Tool Paket<span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Example of command line:</span><br>
+&nbsp; &nbsp; <span class="co1">// ./build.ps1 -target clean</span><br>
+&nbsp; &nbsp; Target Clean <span class="sy0">=&gt;</span> _ <span class="sy0">=&gt;</span> _<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Before</span><span class="br0">&#40;</span>Restore<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Executes</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SourceDirectory<span class="sy0">.</span><span class="me1">GlobDirectories</span><span class="br0">&#40;</span><span class="st0">&quot;**/bin&quot;</span>, <span class="st0">&quot;**/obj&quot;</span><span class="br0">&#41;</span><span class="sy0">.</span><span class="kw1">ForEach</span><span class="br0">&#40;</span>DeleteDirectory<span class="br0">&#41;</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Example of command line:</span><br>
+&nbsp; &nbsp; <span class="co1">// ./build.ps1 -target restore</span><br>
+&nbsp; &nbsp; Target Restore <span class="sy0">=&gt;</span> _ <span class="sy0">=&gt;</span> _<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Executes</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Here we use the tool paket.exe we described previously</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Paket<span class="br0">&#40;</span><span class="st0">&quot;install&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Example of command line:</span><br>
+&nbsp; &nbsp; <span class="co1">// ./build.ps1 -target compile -configuration release</span><br>
+&nbsp; &nbsp; Target Compile <span class="sy0">=&gt;</span> _ <span class="sy0">=&gt;</span> _<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">DependsOn</span><span class="br0">&#40;</span>Restore<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Executes</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MSBuildTasks<span class="sy0">.</span><span class="me1">MSBuild</span><span class="br0">&#40;</span>msbuild_settings <span class="sy0">=&gt;</span> msbuild_settings<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">SetConfiguration</span><span class="br0">&#40;</span>Configuration<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Example of command line:</span><br>
+&nbsp; &nbsp; <span class="co1">// ./build.ps1 -target rebuild -configuration release</span><br>
+&nbsp; &nbsp; Target Rebuild <span class="sy0">=&gt;</span> _ <span class="sy0">=&gt;</span> _<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">DependsOn</span><span class="br0">&#40;</span>Clean<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">DependsOn</span><span class="br0">&#40;</span>Compile<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Executes</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p><strong>Nuke</strong> &#8212; это, помимо всего прочего, <strong>API</strong>, который позволяет анализировать файлы проектов (.csproj) и решений (.sln). Например, следующий учебный кусок кода проходит по всем проектам в решении и выводит в консоль название папки решения (Solution Folder), в которой находится проект и свойство OutputPath проекта:</p>
+<div class="codecolorer-container csharp default" style="overflow:auto;white-space:nowrap;"><div class="csharp codecolorer">
+<span class="kw1">foreach</span> <span class="br0">&#40;</span><span class="kw1">var</span> project <span class="kw1">in</span> Solution<span class="sy0">.</span><span class="me1">AllProjects</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// output the solution folder name for the project</span><br>
+&nbsp; &nbsp; Logger<span class="sy0">.</span><span class="me1">Normal</span><span class="br0">&#40;</span>project<span class="sy0">.</span><span class="me1">SolutionFolder</span><span class="sy0">.</span><span class="me1">Name</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; <span class="co1">// output the project's output path</span><br>
+&nbsp; &nbsp; Logger<span class="sy0">.</span><span class="me1">Normal</span><span class="br0">&#40;</span>project<span class="sy0">.</span><span class="me1">GetMSBuildProject</span><span class="br0">&#40;</span>Configuration<span class="br0">&#41;</span><span class="sy0">.</span><span class="me1">GetPropertyValue</span><span class="br0">&#40;</span><span class="st0">&quot;OutputPath&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Тут надо отметить метод <code class="codecolorer csharp default"><span class="csharp">Project GetMSBuildProject<span class="br0">&#40;</span><span class="kw1">this</span> Project project, <span class="kw4">string</span> configuration <span class="sy0">=</span> <span class="kw1">null</span>, <span class="kw4">string</span> targetFramework <span class="sy0">=</span> <span class="kw1">null</span><span class="br0">&#41;</span><span class="sy0">;</span></span></code>. Дело в том, что в файлах проекта активно используются <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/msbuild-conditional-constructs?view=vs-2019">условные конструкции</a> &#8212; они создаются при помощи атрибута <a href="https://docs.microsoft.com/ru-ru/visualstudio/msbuild/msbuild-conditions?view=vs-2019">Condition</a>. Это напоминает директивы условной компиляции в C/С++. Поэтому, чтобы узнать истинное значение, скажем, свойства <strong>OutputPath</strong>, которое оно будет иметь во время построения утилитой <strong>MSBuild</strong>, надо выполнить (evaluate) все эти условные конструкции. Вот это-то и делает метод <strong>GetMSBuildProject</strong>.</p>
+<p>Итак, у нас есть проект программы, которая выполняет сборку решения. Теперь чтобы запустить процесс сборки решения, надо выполнить в командной строке <strong>powershell</strong> скрипт <strong>build.ps1</strong>:</p>
+<div class="codecolorer-container text blackboard" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">SolutionDir&gt; .\build.ps1 -target compile -configuration release</div></div>
+<h2 id="vs-extentions">Расширения для Visual Studio</h2>
+<h3>Command Task Runner</h3>
+<p>Мы с вами уже увидели, что для того чтобы выпонять различные задачи, например построить &frasl; очистить решение или восстановить пакеты, надо вызывать разные утилиты из командной строки. Это можно делать как при помощи обычной windows&#8217;овской командной строки <strong>cmd.exe</strong> или оболочки <strong>PowerShell</strong>, так и при помощи командной строки Visual Studio &#8212; Package Manager Console. Неудобство заключается в том, что 1) надо держать в памяти все команды, которые могут понадобиться в жизни 2) надо печатать их вручную в командной строке. Для облегчения жизни программиста в Visual Studio существует компонент под названием Task Runner Explorer (<code class="codecolorer text default"><span class="text">View &gt; Other Windows &gt; Task Runner Explorer</span></code>), в котором отображается список задач, любую из которых можно запустить одним кликом. Сами задачи берутся из файла <strong>commands.json</strong>, который надо создавать и редактировать вручную. В описании каждой задачи в файле <strong>commands.json</strong> указывается утилита, которую надо запустить, и аргументы командной строки. В свою очередь, чтобы не создавать и не редактировать его вручную, существует расширение <a href="https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner">Command Task Runner</a>.</p>
+<p>Вот пример файла <strong>commands.json</strong> с двумя задачами (BuildRelease и Clean), которые выполняются путем запуска скрипта <strong>build.ps1</strong> (скрипт PowerShell, который появился при установке Nuke):</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;"><div class="javascript codecolorer">
+<span class="br0">&#123;</span><br>
+&nbsp; <span class="st0">&quot;commands&quot;</span><span class="sy0">:</span> <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="st0">&quot;Build Release&quot;</span><span class="sy0">:</span> <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;fileName&quot;</span><span class="sy0">:</span> <span class="st0">&quot;powershell.exe&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;workingDirectory&quot;</span><span class="sy0">:</span> <span class="st0">&quot;.&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;arguments&quot;</span><span class="sy0">:</span> <span class="st0">&quot;-ExecutionPolicy Bypass -NonInteractive -File build.ps1 -target compile -configuration release&quot;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy0">,</span><br>
+<br>
+&nbsp; &nbsp; <span class="st0">&quot;Clean&quot;</span><span class="sy0">:</span> <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;fileName&quot;</span><span class="sy0">:</span> <span class="st0">&quot;powershell.exe&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;workingDirectory&quot;</span><span class="sy0">:</span> <span class="st0">&quot;.&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; <span class="st0">&quot;arguments&quot;</span><span class="sy0">:</span> <span class="st0">&quot;-ExecutionPolicy Bypass -NonInteractive -File build.ps1 -target clean&quot;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Обратил внимание на такую неприятную особенность Task Runner Explorer: когда запускаешь задачу, графический интерфейс Visual Studio становится недоступным. Видимо задача запускается в потоке обработки сообщений (windows message loop).</p>
+<h3><a href="https://marketplace.visualstudio.com/items?itemName=nuke.visualstudio">NUKE Support</a></h3>
+<p>Расширение <strong>NUKE Support</strong> автоматически добавляет nuke&#8217;овские задачи в <strong>commands.json</strong>. Правда у меня это расширение почему-то не заработало. Судя по <a href="https://github.com/nuke-build/visualstudio/blob/master/src/Nuke.VisualStudio/TaskRunner/TaskRunner.cs">исходникам</a>, расширение запускает <code class="codecolorer text default"><span class="text">build.ps1 --help</span></code> и добывает из вывода информацию о target&#8217;ах.</p>
+<h2 id="vscode-usage">Как пользоваться VS Code</h2>
+<p>В окне VS Code слева находится панелька EXPLORER. Там вы увидите кнопку Открыть папку (Open Folder). Вы щелкаете по этой кнопке и в диалоге выбора папки выбираете папку вашего решения (SolutionDir). После этого VS Code начинает загружать решение (Не знаю, что именно делает VS Code, но какая-то обработка файлов проектов происходит &#8212; ее ход отображается в панели OUTPUT в нижней части окна VS Code). Далее нам нужны две вещи: 1) одним кликом запускать сборку решения; 2) научиться отлаживать программу.</p>
+<h3>Command Palette</h3>
+<p>В VS Code есть точно такая же штука как <strong>Task Runner Explorer</strong> в Visual Studio &#8212; <a href="https://code.visualstudio.com/docs/editor/tasks">запускатель задач</a>. Найти его можно в меню <code class="codecolorer text default"><span class="text">View &gt; Command Palette...</span></code>. Там, насколько я понимаю, есть какие-то встроенные задачи по-умолчанию. Но помимо них вы можете добавлять свои собственные. Если вы выберете <code class="codecolorer text default"><span class="text">View &gt; Command Palette... &gt; Tasks: Run Task</span></code>, то VS Code предложит вам создать файл <code class="codecolorer text default"><span class="text">SolutionDir\.vscode\tasks.json</span></code>, в котором можно описать набор задач. Пример содержимого файла <strong>tasks.json</strong>, который по смыслу аналогичен файлу <strong>commands.json</strong> для Visual Studio, приведенному выше:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;"><div class="javascript codecolorer">
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="st0">&quot;version&quot;</span><span class="sy0">:</span> <span class="st0">&quot;2.0.0&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; <span class="st0">&quot;tasks&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;label&quot;</span><span class="sy0">:</span> <span class="st0">&quot;build release&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;command&quot;</span><span class="sy0">:</span> <span class="st0">&quot;powershell&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;type&quot;</span><span class="sy0">:</span> <span class="st0">&quot;process&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;args&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;${workspaceFolder}/build.ps1&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;-target compile&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;-configuration release&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#93;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;problemMatcher&quot;</span><span class="sy0">:</span> <span class="st0">&quot;$tsc&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;label&quot;</span><span class="sy0">:</span> <span class="st0">&quot;clean&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;command&quot;</span><span class="sy0">:</span> <span class="st0">&quot;powershell&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;type&quot;</span><span class="sy0">:</span> <span class="st0">&quot;process&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;args&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;${workspaceFolder}/build.ps1&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;-target clean&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#93;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;problemMatcher&quot;</span><span class="sy0">:</span> <span class="st0">&quot;$tsc&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="br0">&#93;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h3>Отладка в VS Code</h3>
+<p>Во-первых, чтобы писать и отлаживать код на C# в VS Code рекомендуют установить расширение <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">C# for Visual Studio Code</a>.</p>
+<p>Если вы попробуете запустить отладку (например выбрав меню <code class="codecolorer text default"><span class="text">Debug &gt; Start Debugging</span></code>, то VS Code создаст файл <code class="codecolorer text default"><span class="text">SolutionDir\.vscode\launch.json</span></code>, который используется для <a href="https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md">конфигурирования отладчика</a>. Вот такой файлик создался у меня по-умолчанию (я только поменял значение свойства &#171;program&#187; на путь к исполняемому файлу моей программы):</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;"><div class="javascript codecolorer">
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp;<span class="co1">// Use IntelliSense to find out which attributes exist for C# debugging</span><br>
+&nbsp; &nbsp;<span class="co1">// Use hover for the description of the existing attributes</span><br>
+&nbsp; &nbsp;<span class="co1">// For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md</span><br>
+&nbsp; &nbsp;<span class="st0">&quot;version&quot;</span><span class="sy0">:</span> <span class="st0">&quot;0.2.0&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp;<span class="st0">&quot;configurations&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;name&quot;</span><span class="sy0">:</span> <span class="st0">&quot;.NET Core Launch (console)&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;type&quot;</span><span class="sy0">:</span> <span class="st0">&quot;coreclr&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;request&quot;</span><span class="sy0">:</span> <span class="st0">&quot;launch&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// If you have changed target frameworks, make sure to update the program path.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;program&quot;</span><span class="sy0">:</span> <span class="st0">&quot;${workspaceFolder}/Distributive/Debug/MySuperAwesomeApp.exe&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;args&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;cwd&quot;</span><span class="sy0">:</span> <span class="st0">&quot;${workspaceFolder}/Distributive/Debug&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;console&quot;</span><span class="sy0">:</span> <span class="st0">&quot;internalConsole&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;stopAtEntry&quot;</span><span class="sy0">:</span> <span class="kw2">false</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;name&quot;</span><span class="sy0">:</span> <span class="st0">&quot;.NET Core Attach&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;type&quot;</span><span class="sy0">:</span> <span class="st0">&quot;coreclr&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;request&quot;</span><span class="sy0">:</span> <span class="st0">&quot;attach&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;processId&quot;</span><span class="sy0">:</span> <span class="st0">&quot;${command:pickProcess}&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="br0">&#93;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В VS Code почему-то <a href="https://github.com/OmniSharp/omnisharp-vscode/issues/1716">можно отлаживать только 64-разрядные программы</a>, поэтому вам придется специально построить 64-разрядную версию своей программы. Для этого при компиляции вы должны передать утилите <strong>MSBuild</strong> параметр командной строки <code class="codecolorer text default"><span class="text">/p:Prefer32Bit=False</span></code>. Если мы запускаем MSBuild из проекта nuke, то можно добавить такую tagret в исходный код проекта nuke:</p>
+<div class="codecolorer-container csharp default" style="overflow:auto;white-space:nowrap;"><div class="csharp codecolorer">
+<span class="co1">// Build.cs</span><br>
+<br>
+<span class="kw4">class</span> Build <span class="sy0">:</span> NukeBuild<br>
+<span class="br0">&#123;</span><br>
+<span class="sy0">...</span><br>
+<span class="sy0">...</span><br>
+<span class="sy0">...</span><br>
+&nbsp; &nbsp; <span class="co1">// Example of command line:</span><br>
+&nbsp; &nbsp; <span class="co1">// ./build.ps1 -target CompileDebugX64</span><br>
+&nbsp; &nbsp; Target CompileDebugX64 <span class="sy0">=&gt;</span> _ <span class="sy0">=&gt;</span> _<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">DependsOn</span><span class="br0">&#40;</span>Restore<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">Executes</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">=&gt;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MSBuildTasks<span class="sy0">.</span><span class="me1">MSBuild</span><span class="br0">&#40;</span>msbuild_settings <span class="sy0">=&gt;</span> msbuild_settings<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">SetConfiguration</span><span class="br0">&#40;</span>Configuration<span class="sy0">.</span><span class="me1">Debug</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">.</span><span class="me1">SetProperty</span><span class="br0">&#40;</span><span class="st0">&quot;Prefer32Bit&quot;</span>, <span class="st0">&quot;False&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span><br>
+<span class="sy0">...</span><br>
+<span class="sy0">...</span><br>
+<span class="sy0">...</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>Благодарности</h2>
+<p>Автор благодарит своего коллегу <strong>Сашу Новикова</strong>. Этот <del>не</del>хороший человек раньше меня разобрался во всех этих nuget&#8217;ах, paket&#8217;ах, msbuild&#8217;ах, fake&#8217;ах и прочих vscod&#8217;ах и заставил меня разбираться в них тоже, а также помогал консультацией, да еще и эту заметку прочитал и высказал ценные замечания. Спасибо, Саша!</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2019/06/30/vs-vscode-migration/" data-a2a-title="Переход с Visual Studio на VS Code">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2019%2F06%2F30%2Fvs-vscode-migration%2F&amp;linkname=%D0%9F%D0%B5%D1%80%D0%B5%D1%85%D0%BE%D0%B4%20%D1%81%20Visual%20Studio%20%D0%BD%D0%B0%20VS%20Code" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2019%2F06%2F30%2Fvs-vscode-migration%2F&amp;linkname=%D0%9F%D0%B5%D1%80%D0%B5%D1%85%D0%BE%D0%B4%20%D1%81%20Visual%20Studio%20%D0%BD%D0%B0%20VS%20Code" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2019%2F06%2F30%2Fvs-vscode-migration%2F&amp;linkname=%D0%9F%D0%B5%D1%80%D0%B5%D1%85%D0%BE%D0%B4%20%D1%81%20Visual%20Studio%20%D0%BD%D0%B0%20VS%20Code" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" rel="tag">Разное</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2019/05/18/geekbrains-test-cpp-intermediate/" rel="prev">Тест по программированию на C++ от GeekBrains (средний уровень)</a></div>
+<div class="nav-next"><a href="/2019/10/20/c-plusplus-ide/" rel="next">C++ и среды разработки</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			Один комментарий к &ldquo;Переход с Visual Studio на VS Code&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-9" class="comment even thread-even depth-1">
+			<article id="div-comment-9" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="https://secure.gravatar.com/avatar/c100fdf572972160d6ff55d3ae11110a24dd0e7dc726d243243215ac2de44afb?s=32&#038;d=mm&#038;r=g" srcset="https://secure.gravatar.com/avatar/c100fdf572972160d6ff55d3ae11110a24dd0e7dc726d243243215ac2de44afb?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" decoding="async">						<b class="fn">Денис</b><span class="says">:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2019/06/30/vs-vscode-migration/#comment-9"><time datetime="2019-07-02T16:31:31+03:00">02.07.2019 в 16:31</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Отличный блог! Саша тоже молодец!</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="/2019/06/30/vs-vscode-migration/?replytocom=9#respond" data-commentid="9" data-postid="1351" data-belowelement="div-comment-9" data-respondelement="respond" data-replyto="Комментарий к записи Денис" aria-label="Комментарий к записи Денис">Ответить</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+		</ol>
+<!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/06/30/vs-vscode-migration/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1351" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 5 — Прерывания) &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 5 — Прерывания)&raquo;" href="/2018/04/22/study-intel-part5/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/394">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/04/22/study-intel-part5/">
+<link rel="shortlink" href="/?p=394">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F04%2F22%2Fstudy-intel-part5%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F04%2F22%2Fstudy-intel-part5%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-394 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-394" class="post-394 post type-post status-publish format-standard hentry category-1 tag-x86 tag-26">
+	<header class="entry-header">
+		<h1 class="entry-title">Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 5 — Прерывания)</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/04/22/study-intel-part5/" rel="bookmark"><time class="entry-date published updated" datetime="2018-04-22T19:57:21+03:00">22.04.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>После того как в <a href="http://localhost/study-intel-part4/">предыдущей заметке</a> мы написали загрузчик, мы не ограничены в размере кода нашей программы. Вернемся теперь снова к логике повествования книги <strong>Руслана Аблязова — Программирование на ассемблере на платформе х86-64 — 2011</strong>. В сегодняшней заметке реализуем обработку прерываний в защищенном режиме, которая рассмотрена в разделе книги <strong>2.2. Прерывания в защищенном режиме</strong>.</p>
+<h2>Что такое прерывание</h2>
+<p>Прерывания &#8212; это механизм, при помощи которого программа (вероятнее всего &#8212; операционная система), которую выполняет процессор, может реагировать на различные события. События бывают двух видов:</p>
+<ul>
+<li>
+<strong>Аппаратные прерывания</strong>, при помощи которых периферийные устройства сигнализируют о чем-то процессору.</li>
+<li>
+<strong>Исключения</strong> &#8212; ошибочные ситуации вроде деления на 0 или нарушения прав доступа к памяти.</li>
+</ul>
+<p>Как только случается такое событие, процессор прерывает выполнение основной программы и переходит к обработке события, т. е. реагирует на это событие, выполняя определенную процедуру, которая называется <em>обработчиком прерывания</em>. Обработав прерывание, процессор возвращается к выполнению основной программы с того места, где она была прервана.</p>
+<p>Всего может существовать до 256 различных прерываний. Они пронумерованы от 0 до 255 и для каждого, вообще говоря, должен существовать свой обработчик. Полный список прерываний смотрите в разделе <strong>6.3.1 External Interrupts</strong> руководства <strong>Intel 64 and IA-32 Architectures Software Developer’s Manual &#8212; Volume 3. System Programming Guide</strong>.</p>
+<h2>Программные прерывания</h2>
+<p>Заметим, что обработчик любого прерывания может быть вызван программно при помощи команды <strong>int n</strong> (где n &#8212; номер прерывания), что аналогично вызову функции командой call. Однако некоторые прерывания вызывать программно не стоит, так как это непременно приведет к аварии. К таким прерываниям относятся те <em>исключения</em>, при возникновении которых процессор помещает в стек т. н. код ошибки &#8212; дополнительная информация о произошедшем исключении. Команда <strong>int</strong> не помещает в стек код ошибки, но &#171;ничего не подозревающий&#187; обработчик исключения ожидает, что код ошибки будет в стеке &#8212; поэтому и произойдет авария.</p>
+<p>Команду <strong>int n</strong> могут выполнять как программы, работающие в режиме ядра (наиболее привилегированном), так и программы, работающие в пользовательском режиме (наименее привилегированном). Для пользовательских программ вызов программного прерывания &#8212; это способ воспользоваться услугами операционной системы &#8212; т. н. <em>системными вызовами</em>. Подробнее о системных вызовах читайте тут: <a href="https://en.wikipedia.org/wiki/System_call">Wikipedia &#8212; System call</a>.</p>
+<p>При программном вызове обработчика прерывания процессор проверяет, обладает ли вызывающий код достаточным уровнем привилегий для осуществления такого вызова. Каков этот достаточный уровень привилегий, определяет поле DPL дескриптора шлюза прерывания (об этом см. ниже). Если уровень привилегий у вызывающего кода недостаточен, то процессор генерирует исключение General Protection Fault. К примеру, для того, чтобы пользовательский код мог вызвать обработчик прерывания программно, дескриптор шлюза прерывания должен иметь поле DPL=3.</p>
+<p>Среди программных прерываний команда <strong>int 3</strong> занимает особое место и имеет короткий опкод 0xСС. Эта команда используется отладчиками для реализации точек останова. Подробнее об отладке читайте в статье <a href="https://habrahabr.ru/post/39771/">Хабрахабр &#8212; Про брейкпойнты</a>.</p>
+<h2>Какие прерывания мы будем обрабатывать</h2>
+<p>Самый наглядный пример обработки аппаратных прерываний &#8212; это обработка прерываний от клавиатуры. Когда пользователь нажимает или отпускает клавишу на клавиатуре, контроллер клавиатуры генерирует запрос на прерывание. Благодаря обработке этого прерывания пользователь сможет хотя бы на минимальном уровне взаимодействовать с нашей программой. Кроме того, в сегодняшней программе мы будем обрабатывать еще одно аппаратное прерывание &#8212; от системного таймера. Остальные аппаратные прерывания (IRQ &#8212; прерывания от периферийных устройств) тоже будут иметь обработчики, только эти обработчики не будут ничего делать, а будут только возвращать управление прерванной программе. Мы также будем обрабатывать одно исключение &#8212; исключение общей защиты (General Protection Fault). Остальные исключения не будут иметь обработчиков, поэтому при возникновении таких исключений будет происходить Triple Fault (авария и перезагрузка процессора).</p>
+<h2>Откуда берутся обработчики прерываний</h2>
+<p>Обработчики прерываний &#8212; это практически обычные функции. Они находятся в оперативной памяти. Как процессор находит обработчик для каждого прерывания?<br>
+В реальном режиме работы процессора в самом начале оперативной памяти находится т. н. <em>таблица векторов прерываний</em>, которая представляет собой массив из 256-ти 32-разрядных чисел. Каждое число &#8212; это пара 16-разрядных чисел <em>сегмент:смещение</em>, которая и является адресом обработчика прерывания в памяти. Номер прерывания является номером записи в таблице векторов прерываний.<br>
+В защищенном режиме все сложнее, но не намного. В оперативной памяти хранится таблица векторов прерываний &#8212; <strong>Interrupt Descriptor Table (IDT)</strong>, которая представляет собой массив 64-разрядных чисел &#8212; дескрипторов шлюзов. Дескриптор шлюза содержит селектор сегмента кода, в котором находится обработчик прерывания и адрес (смещение) обработчика в этом сегменте (т. е. ту же информацию, что и вектор прерывания в реальном режиме). Перед тем как разрешить прерывания, необходимо адрес и размер таблицы IDT загрузить в регистр <strong>IDTR</strong> при помощи команды <strong>lidt</strong> (аналогично тому, как мы загружали адрес и лимит таблицы GDT, когда <a href="http://localhost/study-intel-part3/">переходили в защищенный режим</a>).</p>
+<h2>Типы шлюзов в таблице векторов прерываний</h2>
+<p>В таблице IDT могут находиться шлюзы трех разных типов (шлюз прерывания, шлюз ловушки и шлюз задачи), но я в этой заметке буду использовать только один из них &#8212; шлюз прерывания. Шлюз ловушки ничем не отличается от шлюза прерывания, кроме одного: если в таблице IDT находится шлюз прерывания, то при вызове обработчика этого прерывания процессор сбрасывает флаг разрешения прерываний <strong>IF</strong> в регистре <strong>EFLAGS</strong> (запрещая маскируемые прерывания); если же в таблице находится шлюз ловушки, то процессор не сбрасывает флаг <strong>IF</strong>. А вот что такое шлюз задачи, я вообще пока не знаю.</p>
+<h2>Формат шлюза прерывания</h2>
+<p>Формат дескрипторов шлюзов прерываний, ловушек и задач смотрите в разделе <strong>6.11 IDT DESCRIPTORS</strong> руководства <strong>Intel 64 and IA-32 Architectures Software Developer’s Manual &#8212; Volume 3. System Programming Guide</strong>. Здесь я хочу привести только формат шлюза прерывания.</p>
+<table>
+<tr>
+<th>31</th>
+<th>—</th>
+<th>16</th>
+<th>15</th>
+<th>14</th>
+<th>13</th>
+<th>12</th>
+<th>—</th>
+<th>8</th>
+<th>7</th>
+<th>—</th>
+<th>5</th>
+<th>4</th>
+<th>—</th>
+<th>0</th>
+<th></th>
+</tr>
+<tr>
+<td colspan="3">Offset[31:16]</td>
+<td>P</td>
+<td colspan="2">DPL</td>
+<td colspan="3">0 D 1 1 0</td>
+<td colspan="3">0 0 0</td>
+<td colspan="3"></td>
+<th>4</th>
+</tr>
+<tr>
+<td colspan="3">Segment Selector</td>
+<td colspan="12">Offset[15:0]</td>
+<th>0</th>
+</tr>
+</table>
+<p><strong>Segment Selector</strong> &#8212; это селектор сегмента кода, в котором находится обработчик прерывания. <strong>Offset</strong> &#8212; это смещение обработчика относительно базового адреса сегмента кода. О поле <strong>DPL</strong> я уже говорил &#8212; оно играет роль только при программном вызове обработчика прерывания командой <strong>int n</strong>. Бит <strong>D</strong> определяет т. н. разрядность шлюза прерывания. О роли этого бита читайте раздел <strong>21.1 DEFINING 16-BIT AND 32-BIT PROGRAM MODULES</strong> руководства <strong>Intel 64 and IA-32 Architectures Software Developer’s Manual &#8212; Volume 3. System Programming Guide</strong>. Я буду использовать только 32-разрядные сегменты и шлюзы, поэтому у меня бит D всегда будет равен 1.</p>
+<h2>Исходный код программы</h2>
+<p>Поскольку программа становится все больше и больше, мне приходится усложнять ее структуру &#8212; разбивать исходный код на отдельные файлы. Ниже схематично показана структура программы <strong>boot_sector.asm</strong>. Эта часть программы вряд ли подвергнется изменениям в дальнейшем. Всё, что может измениться в дальнейшем, я поместил в файл <strong>protected_mode.inc</strong>, который включается директивой include в самый конец программы.</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; boot_sector.asm</span><br>
+<span class="co1">; ====== РЕАЛЬНЫЙ РЕЖИМ ======</span><br>
+include <span class="st0">'bios_services.inc'</span> <span class="co1">; функции-обертки вокруг сервисов BIOS</span><br>
+<span class="co1">; загрузка секторов с дискеты (bootloader)</span><br>
+<span class="co1">; переход в защищенный режим</span><br>
+<span class="co1">; ===== ЗАЩИЩЕННЫЙ РЕЖИМ =====</span><br>
+include <span class="st0">'descriptor_macros.inc'</span> <span class="co1">; макросы для определения дескрипторов сегментов и шлюзов</span><br>
+<span class="co1">; глобальная таблица дескрипторов (Global Descriptor Table)</span><br>
+include <span class="st0">'protected_mode.inc'</span> <span class="co1">; файл, который содержит остальной код защищенного режима</span>
+</div></div>
+<p>Функции BIOS, загрузку секторов с диска, переход в защищенный режим и глобальную таблицу дескрипторов мы уже рассмотрели в предыдущих заметках:</p>
+<ul>
+<li><a href="http://localhost/study-intel-part3/">Переход в защищенный режим</a></li>
+<li><a href="http://localhost/study-intel-part4/">Загрузчик</a></li>
+</ul>
+<p>В нынешнем файле <strong>boot_sector.asm</strong> используется как загрузчик, так и переход в защищенный режим, так что этот файл по сути является комбинацией одноименных файлов из двух упомянутых выше заметок. Плюс я добавил в него несколько мелких новшеств:</p>
+<ul>
+<li>
+Количество секторов для загрузки при помощи функции <strong>BIOS_LoadSectorsSmart</strong> вычисляется компилятором путем деления размера программы на 512 (512 байт &#8212; это размер одного сектора). Размер программы вычисляется как разность адресов, на которые ссылаются метки start и finish, расположенные соответственно в начале и в конце файла boot_sector.asm.
+</li>
+<li>
+Макрос для определения дескриптора сегмента <strong>SEGMENT_DESCRIPTOR</strong>, который упоминался в заметке про переход в защищенный режим, я поместил в файл <strong>descriptor_macros.inc</strong>. В этом же файле находятся макросы для определения дескрипторов шлюзов прерываний и ловушек.
+</li>
+<li>
+В глобальную таблицу дескрипторов я добавил еще один дескриптор, описывающий сегмент видеопамяти в текстовом режиме. Этот сегмент удобно использовать при выводе текстовых сообщений на экран. Селектор этого сегмента мы загружаем в сегментный регистр <strong>ES</strong>, поскольку именно этот сегментный регистр используется в Intel&#8217;овских командах, работающих со строками (stos, stosw и пр.). О строковых командах Intel читайте в <strong>Intel 64 and IA-32 Architectures Software Developer’s Manual &#8212; Volume 2. Instruction Set Reference, A-Z</strong>.
+</li>
+</ul>
+<p>Итак, вот полный код файла <strong>boot_sector.asm</strong>:</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; boot_sector.asm</span><br>
+<br>
+<span class="co1">; ============================================ REAL MODE =======================================================</span><br>
+<span class="kw5">use16</span> &nbsp; &nbsp; <span class="co1">; generate 16-bit code</span><br>
+org <span class="nu0">7C00h</span> <span class="co1">; the code starts at 0x7C00 memory address</span><br>
+<br>
+<span class="kw5">start</span><span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> far <span class="kw6">dword</span> <span class="nu0">0x0000</span><span class="sy1">:</span>entr <span class="co1">; makes CS=0, IP=0x7c00</span><br>
+<br>
+include <span class="st0">'bios_services.inc'</span><br>
+<br>
+entr<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">xor</span> &nbsp;<span class="kw4">ax</span><span class="sy1">,</span> <span class="kw4">ax</span> &nbsp; &nbsp; <span class="co1">; ax = 0</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> &nbsp;<span class="kw4">ds</span><span class="sy1">,</span> <span class="kw4">ax</span> &nbsp; &nbsp; <span class="co1">; setup data segment ds=ax=0</span><br>
+&nbsp; &nbsp; <span class="kw1">cli</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; when we set up stack we need disable interrupts because stack is involved in interrupts handling</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> &nbsp;<span class="kw4">ss</span><span class="sy1">,</span> <span class="kw4">ax</span> &nbsp; &nbsp; <span class="co1">; setup stack segment ss=ax=0</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> &nbsp;<span class="kw4">sp</span><span class="sy1">,</span> <span class="nu0">0x7C00</span> <span class="co1">; stack will grow starting from 0x7C00 memory address</span><br>
+&nbsp; &nbsp; <span class="kw1">sti</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; enable interrupts</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">call</span> BIOS_ClearScreen<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> bootloader<br>
+&nbsp; &nbsp; <br>
+<span class="co1">; -------------------------------------------- BOOTLOADER ------------------------------------------------------</span><br>
+disk_id <span class="kw5">dw</span> <span class="nu0">0x0000</span> <span class="co1">; disk identifier (0...3 - floppy disks; greater or equal to 0x80 - other disk types)</span><br>
+bootloader_message <span class="kw5">db</span> <span class="st0">'Starting bootloader...'</span><span class="sy1">,</span> <span class="nu0">0x0D</span><span class="sy1">,</span> <span class="nu0">0x0A</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+<br>
+bootloader<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>disk_id<span class="br0">&#93;</span><span class="sy1">,</span> <span class="kw4">dl</span> <span class="co1">; save disk identifier (it appears in dl after the start of PC)</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Print message</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> bootloader_message<br>
+&nbsp; &nbsp; <span class="kw1">call</span> BIOS_PrintString<br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Reset disk subsystem</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="br0">&#91;</span>disk_id<span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">call</span> BIOS_ResetDiskSubsystem<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="br0">&#91;</span>disk_id<span class="br0">&#93;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; push disk identifier</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw6">dword</span> <span class="nu0">1</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; push LBA of the 1st sector to load</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="br0">&#40;</span>finish<span class="sy1">-</span><span class="kw5">start</span><span class="sy1">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy1">/</span><span class="nu0">512</span> <span class="co1">; push number of sectors to load</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> second_sector &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; push memory address at which sectors are to be loaded</span><br>
+&nbsp; &nbsp; <span class="kw1">call</span> BIOS_LoadSectorsSmart<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> transition_to_pm<br>
+<br>
+<span class="co1">; -------------------------------------------- TRANSITION TO PROTECTED MODE ------------------------------------</span><br>
+transition_to_pm<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="co1">; Open gate A20 through the System Control Port A</span><br>
+&nbsp; &nbsp; <span class="kw1">in</span> &nbsp;<span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x92</span> <span class="co1">; read the content of port 0x92 (System Control Port A) into al</span><br>
+&nbsp; &nbsp; <span class="kw1">or</span> &nbsp;<span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x02</span> <span class="co1">; set 1st bit in al to 1</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> <span class="nu0">0x92</span><span class="sy1">,</span> <span class="kw4">al</span> <span class="co1">; write al into port 0x92</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Disable maskable interrupts</span><br>
+&nbsp; &nbsp; <span class="kw1">cli</span> <span class="co1">; clear flag IF in EFLAGS register</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Disable non-maskable interrupts</span><br>
+&nbsp; &nbsp; <span class="kw1">in</span> &nbsp;<span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x70</span><br>
+&nbsp; &nbsp; <span class="kw1">or</span> &nbsp;<span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x80</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> <span class="nu0">0x70</span><span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span class="kw1">lgdt</span> <span class="br0">&#91;</span>gdtr<span class="br0">&#93;</span> <span class="co1">; load the address and size of Global Descriptor Table (GDT) into GDTR register</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Switch to protected mode</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> &nbsp;<span class="kw4">eax</span><span class="sy1">,</span> <span class="kw4">cr0</span> &nbsp;<span class="co1">; read the content of register cr0 (Machine Status Word - MSW) into eax</span><br>
+&nbsp; &nbsp; <span class="kw1">or</span> &nbsp; <span class="kw4">al</span><span class="sy1">,</span> &nbsp;<span class="nu0">0x01</span> <span class="co1">; set 0th bit to 1 (0th bit of cr0 is called PE - Protection Enable)</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> &nbsp;<span class="kw4">cr0</span><span class="sy1">,</span> <span class="kw4">eax</span> &nbsp;<span class="co1">; write eax to cr0</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Load protected mode entry point into CS:EIP</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> far <span class="kw6">dword</span> <span class="nu0">0000000000001000b</span><span class="sy1">:</span>pm_entry <span class="co1">; 0000000000001000b is a segment selector which is loaded into CS register</span><br>
+<br>
+<span class="co1">; -------------------------------------------- BOOT SECTOR SIGNATURE -------------------------------------------</span><br>
+end_of_boot_sector<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="co1">; The size of a disk sector is 512 bytes. Boot sector signature occupies the two last bytes.</span><br>
+&nbsp; &nbsp; <span class="co1">; The gap between the end of the source code and the boot sector signature is filled with zeroes.</span><br>
+&nbsp; &nbsp; <span class="kw5">times</span> <span class="nu0">510</span><span class="sy1">-</span>end_of_boot_sector<span class="sy1">+</span><span class="kw5">start</span> <span class="kw5">db</span> <span class="nu0">0</span> <br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">55h</span><span class="sy1">,</span> <span class="nu0">0AAh</span> <span class="co1">; boot sector signature</span><br>
+<br>
+second_sector<span class="sy1">:</span><br>
+&nbsp; &nbsp; <br>
+<span class="co1">; ============================================ PROTECTED MODE ==================================================</span><br>
+<span class="kw5">use32</span> <span class="co1">; generate 32-bit code</span><br>
+<br>
+<span class="co1">; -------------------------------------------- GLOBAL DESCRIPTOR TABLE -----------------------------------------</span><br>
+include <span class="st0">'descriptor_macros.inc'</span><br>
+<br>
+<span class="kw5">align</span> <span class="nu0">8</span> <span class="co1">; we align global descriptor table to the 8-bytes boundary (for the sake of processor's performance)</span><br>
+gdt<span class="sy1">:</span><br>
+&nbsp; &nbsp; NULL_SEG_DESCRIPTOR <span class="kw5">db</span> <span class="nu0">8</span> dup<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Base &nbsp; &nbsp; &nbsp; &nbsp;Limit &nbsp; &nbsp;DPL &nbsp;Type</span><br>
+&nbsp; &nbsp; SEGMENT_DESCRIPTOR <span class="nu0">0x00000000</span><span class="sy1">,</span> <span class="nu0">0xFFFFF</span><span class="sy1">,</span> <span class="nu0">00b</span><span class="sy1">,</span> CODE_EXECUTE_READ <span class="co1">; code segment descriptor</span><br>
+&nbsp; &nbsp; SEGMENT_DESCRIPTOR <span class="nu0">0x00000000</span><span class="sy1">,</span> <span class="nu0">0xFFFFF</span><span class="sy1">,</span> <span class="nu0">00b</span><span class="sy1">,</span> DATA_READ_WRITE &nbsp; <span class="co1">; data and stack segment descriptor</span><br>
+&nbsp; &nbsp; SEGMENT_DESCRIPTOR <span class="nu0">0x000B8000</span><span class="sy1">,</span> <span class="nu0">0x00008</span><span class="sy1">,</span> <span class="nu0">00b</span><span class="sy1">,</span> DATA_READ_WRITE &nbsp; <span class="co1">; video memory in text mode segment descriptor</span><br>
+<br>
+CODE_SELECTOR &nbsp;<span class="kw5">equ</span> <span class="nu0">0000000000001000b</span> <span class="co1">; code segment selector: &nbsp;RPL = 0, TI = 0, Descriptor Index = 1</span><br>
+DATA_SELECTOR &nbsp;<span class="kw5">equ</span> <span class="nu0">0000000000010000b</span> <span class="co1">; data segment selector: &nbsp;RPL = 0, TI = 0, Descriptor Index = 2</span><br>
+VIDEO_SELECTOR <span class="kw5">equ</span> <span class="nu0">0000000000011000b</span> <span class="co1">; video segment selector: RPL = 0, TI = 0, Descriptor Index = 3</span><br>
+&nbsp; &nbsp; <br>
+gdt_size <span class="kw5">equ</span> <span class="sy2">$</span> <span class="sy1">-</span> gdt<br>
+<br>
+<span class="co1">; data to be loaded to GDTR register</span><br>
+gdtr<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> gdt_size <span class="sy1">-</span> <span class="nu0">1</span> <span class="co1">; 16-bit limit of the global descriptor table</span><br>
+&nbsp; &nbsp; <span class="kw5">dd</span> gdt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; 32-bit base address of the global descriptor table</span><br>
+&nbsp; <br>
+<span class="co1">; -------------------------------------------- PROTECTED MODE CODE ---------------------------------------------</span><br>
+<span class="co1">; Protected mode entry point</span><br>
+pm_entry<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="co1">; Initialize segment registers (except CS which is already litialized)</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ax</span><span class="sy1">,</span> DATA_SELECTOR<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ds</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">fs</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">gs</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ss</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Load the selector of the video memory segment into ES</span><br>
+&nbsp; &nbsp; <span class="co1">; because ES is used in string operations like stos, stosw etc.</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ax</span><span class="sy1">,</span> VIDEO_SELECTOR<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">es</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+<br>
+include <span class="st0">'protected_mode.inc'</span><br>
+<br>
+finish<span class="sy1">:</span>
+</div></div>
+<p>Далее нас будет интересовать только файл <strong>protected_mode.inc</strong>. Его структура такова:</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; protected_mode.inc</span><br>
+<span class="kw1">jmp</span> protected_mode_code<br>
+<span class="co1">; разные данные: текстовые сообщения, счетчик для таймера, позиция курсора, скан-коды клавиатуры</span><br>
+<span class="co1">; таблица дескрипторов шлюзов прерываний (Interrupt Descriptor Table)</span><br>
+include <span class="st0">'pm_utility_functions.inc'</span> <span class="co1">; полезные функции (например, вывод текста на экран)</span><br>
+include <span class="st0">'keyboard.inc'</span> <span class="co1">; функции и макроопределения для работы с клавиатурой</span><br>
+protected_mode_code<span class="sy1">:</span><br>
+<span class="co1">; вывод на экран текстового сообщения о том, что мы в защищенном режиме</span><br>
+<span class="co1">; инициализация контроллера прерываний</span><br>
+<span class="co1">; разрешение прерываний</span><br>
+<span class="kw1">jmp</span> <span class="sy2">$</span> <span class="co1">; бесконечный цикл</span><br>
+<span class="co1">; обработчики прерываний</span>
+</div></div>
+<p>Рассмотрим каждую часть кода в отдельности.</p>
+<h2>Вывод на экран текстовых сообщений</h2>
+<p>Пока файл <strong>pm_utility_functions.inc</strong> содержит только функции для вывода текста на экран. Возможно в дальнейшем я добавлю в него еще какие-то функции. В <a href="https://en.wikipedia.org/wiki/Color_Graphics_Adapter">текстовом режиме</a> экран делится на 25 строк и 80 столбцов и содержит 25*80=2000 текстовых символов. Все 2000 символов представляют собой массив, который находится в видеопамяти, которая проецируется на адресное пространство процессора начиная с адреса <strong>0xB800</strong> (этот адрес, как вы помните, записан у нас в специальном дескрипторе сегмента). Каждый символ занимает два байта. Формат этих двух байт следующий: </p>
+<table>
+<tr>
+<th colspan="8">Атрибут</th>
+<th colspan="8">Символ</th>
+</tr>
+<tr>
+<td width="48">7</td>
+<td width="48">6</td>
+<td width="48">5</td>
+<td width="48">4</td>
+<td width="48">3</td>
+<td width="48">2</td>
+<td width="48">1</td>
+<td width="48">0</td>
+<td width="48">7</td>
+<td width="48">6</td>
+<td width="48">5</td>
+<td width="48">4</td>
+<td width="48">3</td>
+<td width="48">2</td>
+<td width="48">1</td>
+<td width="48">0</td>
+</tr>
+<tr>
+<td align="center">Мерцание</td>
+<td colspan="3">Цвет фона</td>
+<td colspan="4">Цвет текста</td>
+<td colspan="8">ASCII-код символа</td>
+</tr>
+</table>
+<p>Таким образом, чтобы вывести текстовую строку на экран, надо скопировать символы этой строки в видеопамять, не забыв добавить к каждому символу его атрибут. Вот это все и делает функция <strong>PrintString</strong>, код которой приведен ниже. Также у нас есть функция <strong>ClearScreen</strong>, которая заполняет весь экран нулевыми символами.</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; pm_utility_functions.inc</span><br>
+<br>
+<span class="co1">; &lt;---- ClearScreen ---------------</span><br>
+ClearScreen<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">eax</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">ecx</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">edi</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">eax</span><span class="sy1">,</span> <span class="nu0">0x0700</span> <span class="co1">; symbol (0x00) and its attribute (0x07)</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ecx</span><span class="sy1">,</span> <span class="nu0">2000</span> &nbsp; <span class="co1">; size of the screen in symbols</span><br>
+&nbsp; &nbsp; <span class="kw1">cld</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; direction flag = 0 (means that edi will be incremented)</span><br>
+&nbsp; &nbsp; <span class="kw1">xor</span> <span class="kw4">edi</span><span class="sy1">,</span> <span class="kw4">edi</span> &nbsp; &nbsp;<span class="co1">; edi = 0</span><br>
+&nbsp; &nbsp; <span class="kw1">rep</span> <span class="kw1">stosw</span> &nbsp; &nbsp; &nbsp; <span class="co1">; while(ecx != 0) { mov word [es:edi], ax; edi = edi + 2; }</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">edi</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">ecx</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">eax</span><br>
+&nbsp; &nbsp; <span class="kw1">ret</span><br>
+<span class="co1">; --------------------------------&gt;</span><br>
+<br>
+<span class="co1">; &lt;---- PrintString ---------------</span><br>
+<span class="co1">; Prints out a string. The string must be zero-terminated.</span><br>
+<span class="co1">; Parameters: dword [ebp + 8] - address of a zero-terminated string</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word [ebp + 12] - column (0...79)</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; word [ebp + 14] - row (0...24)</span><br>
+<span class="co1">; Remarks: This function assumes that the video card is in the text mode (CGA-mode)</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;where there are 80 columns * 25 rows each cell comprised of two bytes:</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1st - the ASCII-code,</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2nd - the attribute: four most significant bits define background color,</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; four least significant bits define foreground color.</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;The function also assumes that ES points to a segment descriptor which points to 0xB800 address</span><br>
+<span class="co1">; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;which is the beginning of video memory in video text mode.</span><br>
+PrintString<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">ebp</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ebp</span><span class="sy1">,</span> <span class="kw4">esp</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">eax</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">edi</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">esi</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">xor</span> <span class="kw4">eax</span><span class="sy1">,</span> <span class="kw4">eax</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; eax = 0</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">160</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; al = 80*2</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ah</span><span class="sy1">,</span> <span class="br0">&#91;</span><span class="kw4">ebp</span> <span class="sy1">+</span> <span class="nu0">14</span><span class="br0">&#93;</span> &nbsp;<span class="co1">; ah = row</span><br>
+&nbsp; &nbsp; <span class="kw1">mul</span> <span class="kw4">ah</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; ax = al * ah = 80*2 * row</span><br>
+&nbsp; &nbsp; <span class="kw1">add</span> <span class="kw4">ax</span><span class="sy1">,</span> <span class="br0">&#91;</span><span class="kw4">ebp</span> <span class="sy1">+</span> <span class="nu0">12</span><span class="br0">&#93;</span> &nbsp;<span class="co1">; ax = ax + column = 80*2 * row + column</span><br>
+&nbsp; &nbsp; <span class="kw1">add</span> <span class="kw4">ax</span><span class="sy1">,</span> <span class="br0">&#91;</span><span class="kw4">ebp</span> <span class="sy1">+</span> <span class="nu0">12</span><span class="br0">&#93;</span> &nbsp;<span class="co1">; ax = ax + column = 80*2 * row + column*2</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">esi</span><span class="sy1">,</span> <span class="br0">&#91;</span><span class="kw4">ebp</span> <span class="sy1">+</span> <span class="nu0">8</span><span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">edi</span><span class="sy1">,</span> <span class="kw4">eax</span><br>
+&nbsp; &nbsp; <span class="kw1">cld</span><br>
+&nbsp; &nbsp; <br>
+<span class="co1">; Text-printing loop</span><br>
+@@<span class="sy1">:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span class="kw1">lodsb</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; load to al the next charachter located at [ds:esi] address in memory (esi is incremented automatically as DF = 0)</span><br>
+&nbsp; &nbsp; <span class="kw1">test</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="kw4">al</span> &nbsp;<span class="co1">; test al against zero</span><br>
+&nbsp; &nbsp; <span class="kw1">jz</span> @f &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; exit if al is zero</span><br>
+&nbsp; &nbsp; <span class="kw1">stosb</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; otherwise move al to memory at address [es:edi] (edi is incremented automatically as DF = 0)</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x07</span> <span class="co1">; attribute=0x07 (foreground=light grey, background=black)</span><br>
+&nbsp; &nbsp; <span class="kw1">stosb</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; move al to memory at address [es:edi] (edi is incremented automatically as DF = 0)</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> @b<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">esi</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">edi</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">eax</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">esp</span><span class="sy1">,</span> <span class="kw4">ebp</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">ebp</span><br>
+&nbsp; &nbsp; <span class="kw1">ret</span> <span class="nu0">8</span><br>
+<span class="co1">; --------------------------------&gt;</span>
+</div></div>
+<h2>Шлюзы прерываний</h2>
+<p>Макросы для определения дескрипторов сегментов и шлюзов я поместил в отдельный файл <strong>descriptor_macros.inc</strong>. Формат дескриптора шлюза прерывания мы уже рассмотрели. Написать после этого макрос для его определения несложно. Все пояснения &#8212; в комментариях.</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; descriptor_macros.inc</span><br>
+<br>
+<span class="co1">; Segment descriptor format</span><br>
+<span class="co1">; BITS &nbsp;| SIZE | FIELD</span><br>
+<span class="co1">; ------+------+------</span><br>
+<span class="co1">; 0-15 &nbsp;| &nbsp;16 &nbsp;| Limit[0:15]</span><br>
+<span class="co1">; 16-39 | &nbsp;24 &nbsp;| Base[0:23]</span><br>
+<span class="co1">; 40-47 | &nbsp; 8 &nbsp;| P DPL[0:1] S Type[0:3]</span><br>
+<span class="co1">; 48-55 | &nbsp; 8 &nbsp;| G D/B L AVL Limit[16:19]</span><br>
+<span class="co1">; 56-63 | &nbsp; 8 &nbsp;| Base[24:31]</span><br>
+<br>
+<span class="co1">; The following macro defines a code or a data segment descriptor.</span><br>
+<span class="co1">; The following assumtions take place:</span><br>
+<span class="co1">; P=1 (the segment is present in physical memory)</span><br>
+<span class="co1">; S=1 (the segment is not a system segment)</span><br>
+<span class="co1">; G=1 (the Limit of the segment is measured in 4-kiB pages)</span><br>
+<span class="co1">; D/B=1 L=0 (the segment is a 32-bit segment)</span><br>
+<span class="co1">; AVL=0</span><br>
+macro SEGMENT_DESCRIPTOR _Base<span class="sy1">,</span> _Limit<span class="sy1">,</span> _DPL<span class="sy1">,</span> _Type<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Limit <span class="kw1">and</span> <span class="nu0">0xFFFF</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; Limit[0:15]</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Base &nbsp;<span class="kw1">and</span> <span class="nu0">0xFFFF</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; Base[0:15]</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="br0">&#40;</span>_Base <span class="kw1">shr</span> <span class="nu0">16</span><span class="br0">&#41;</span> <span class="kw1">and</span> <span class="nu0">0xFF</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">; Base[15:23]</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> _Type <span class="kw1">or</span> <span class="br0">&#40;</span>_DPL <span class="kw1">shr</span> <span class="nu0">5</span><span class="br0">&#41;</span> <span class="kw1">or</span> <span class="nu0">10010000b</span> &nbsp;<span class="co1">; P DPL[0:1] S Type[0:3]</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">11000000b</span> <span class="kw1">or</span> <span class="br0">&#40;</span>_Limit <span class="kw1">shr</span> <span class="nu0">16</span><span class="br0">&#41;</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; G D/B L AVL Limit[16:19]</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="br0">&#40;</span>_Base <span class="kw1">shr</span> <span class="nu0">24</span><span class="br0">&#41;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; Base[24:31]</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">; Segment descriptor types (see Intel 64 and IA-32 Architectures Software Developer’s Manual - 3.4.5.1 Code- and Data-Segment Descriptor Types).</span><br>
+<span class="co1">; Can be used as the _Type argument of SEGMENT_DESCRIPTOR macro</span><br>
+DATA_READ_ONLY <span class="kw5">equ</span> <span class="nu0">0000b</span><br>
+DATA_READ_WRITE <span class="kw5">equ</span> <span class="nu0">0010b</span><br>
+DATA_READ_ONLY_EXPAND_DOWN <span class="kw5">equ</span> <span class="nu0">0100b</span><br>
+DATA_READ_WRITE_EXPAND_DOWN <span class="kw5">equ</span> <span class="nu0">0110b</span><br>
+CODE_EXECUTE_ONLY <span class="kw5">equ</span> <span class="nu0">1000b</span><br>
+CODE_EXECUTE_READ <span class="kw5">equ</span> <span class="nu0">1010b</span><br>
+CODE_EXECUTE_ONLY_CONFORMING <span class="kw5">equ</span> <span class="nu0">1110b</span><br>
+CODE_EXECUTE_READ_CONFORMING <span class="kw5">equ</span> <span class="nu0">1111b</span><br>
+<br>
+<span class="co1">; Interrupt gate descriptor format</span><br>
+<span class="co1">; BITS &nbsp;| SIZE | FIELD</span><br>
+<span class="co1">; ------+------+------</span><br>
+<span class="co1">; 0-15 &nbsp;| &nbsp;16 &nbsp;| Offset[0:15]</span><br>
+<span class="co1">; 16-31 | &nbsp;16 &nbsp;| Selector[0:15]</span><br>
+<span class="co1">; 32-39 | &nbsp; 8 &nbsp;| reserved</span><br>
+<span class="co1">; 40-47 | &nbsp; 8 &nbsp;| P DPL[0:1] 0 D 1 1 0</span><br>
+<span class="co1">; 48-63 | &nbsp;16 &nbsp;| Offset[16:31]</span><br>
+<br>
+<span class="co1">; The following macro defines an interrupt gate descriptor.</span><br>
+<span class="co1">; The following assumtions take place:</span><br>
+<span class="co1">; P=1 (the segment is present in physical memory)</span><br>
+<span class="co1">; D=1 (the size of gate is 32 bit)</span><br>
+<span class="co1">; DPL=0 (descriptor privilege level = 0)</span><br>
+macro INTERRUPT_GATE_DESCRIPTOR _Selector<span class="sy1">,</span> _Offset<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Offset <span class="kw1">and</span> <span class="nu0">0xFFFF</span> <span class="co1">; Offset[0:15]</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Selector &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; Selector</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">0</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; reserved</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">10001110b</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; P DPL[0:1] 0 D 1 1 0</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Offset <span class="kw1">shr</span> <span class="nu0">16</span> &nbsp; &nbsp; <span class="co1">; Offset[16:31]</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="co1">; Trap gate descriptor format</span><br>
+<span class="co1">; BITS &nbsp;| SIZE | FIELD</span><br>
+<span class="co1">; ------+------+------</span><br>
+<span class="co1">; 0-15 &nbsp;| &nbsp;16 &nbsp;| Offset[0:15]</span><br>
+<span class="co1">; 16-31 | &nbsp;16 &nbsp;| Selector[0:15]</span><br>
+<span class="co1">; 32-39 | &nbsp; 8 &nbsp;| reserved</span><br>
+<span class="co1">; 40-47 | &nbsp; 8 &nbsp;| P DPL[0:1] 0 D 1 1 1</span><br>
+<span class="co1">; 48-63 | &nbsp;16 &nbsp;| Offset[16:31]</span><br>
+<br>
+<span class="co1">; The following macro defines a trap gate descriptor.</span><br>
+<span class="co1">; The following assumtions take place:</span><br>
+<span class="co1">; P=1 (the segment is present in physical memory)</span><br>
+<span class="co1">; D=1 (the size of gate is 32 bit)</span><br>
+<span class="co1">; DPL=0 (descriptor privilege level = 0)</span><br>
+macro TRAP_GATE_DESCRIPTOR _Selector<span class="sy1">,</span> _Offset<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Offset <span class="kw1">and</span> <span class="nu0">0xFFFF</span> <span class="co1">; Offset[0:15]</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Selector &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; Selector</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">0</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; reserved</span><br>
+&nbsp; &nbsp; <span class="kw5">db</span> <span class="nu0">10001111b</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; P DPL[0:1] 0 D 1 1 1</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> _Offset <span class="kw1">shr</span> <span class="nu0">16</span> &nbsp; &nbsp; <span class="co1">; Offset[16:31]</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2>Контроллер прерываний</h2>
+<p>Аппаратные прерывания &#8212; это механизм, при помощи которого периферийные устройства могут сообщать процессору о неких событиях. Периферийных устройств довольно много, и каждому выделена линия прерывания, на которую устройство может выдавать цифровой сигнал. Все эти линии прерываний идут от периферийных устройств на специальную микросхему на материнской плате компьютера &#8212; контроллер прерываний <strong>(PIC &#8212; Programmable Interrupt Controller)</strong>. До выхода процессора Intel Pentium этой микросхемой была <strong>i8259A</strong> (точнее, две соединенные друг с другом микросхемы i8259A). Начиная с процессора Pentium начал использоваться новый механизм обработки прерываний под названием <strong>APIC &#8212; Advanced Programmable Interrupt Controller</strong>, а в качестве контроллера прерываний стала использоваться микросхема <strong>i82093AA</strong> (i82093AA &#8212; это так называемый <strong>I/O APIC</strong>, а есть еще т. н. <strong>Local APIC</strong> &#8212; блок, встроенный в процессор). В модели APIC предусмотрена обратная совместимость со старой моделью (PIC), когда I/O APIC эмулирует работу двух микросхем i8259A. В этой заметке мы будем пользоваться старой моделью, а почитать подробнее о новой модели можно в следующих источниках:</p>
+<ul>
+<li>
+<strong>Intel 64 and IA-32 Architectures Software Developer’s Manual &#8212; Volume 3. System Programming Guide</strong> CHAPTER 10 ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER (APIC).
+</li>
+<li>
+<a href="http://www.osdever.net/tutorials/view/advanced-programming-interrupt-controller">os developer &#8212; Advanced Programmable Interrupt Controller</a>
+</li>
+<li><a href="https://wiki.osdev.org/APIC">OSDev.org &#8212; APIC</a></li>
+</ul>
+<p>Итак, рассматриваем старую модель (PIC &#8212; две микросхемы i8259A). О возникновении запроса на прерывание от периферийного устройства процессор узнает благодаря входу <strong>INTR (interrupt request)</strong>. Линия INTR соединена с PIC. У PIC есть 16 линий IRQ, на которые периферийные устройства присылают свои запросы на прерывания. PIC состоит из двух микросхем i8259A, одна из них называется ведущей (master), другая &#8212; ведомой (slave). У каждой i8259A восемь входов IRQ &#8212; всего получается 16. Причем ведомая i8259A подключена ко входу IRQ2 ведущей i8259A. Когда периферийное устройство посылает контроллеру прерываний запрос на прерывание (устанавливая активный логический уровень на соответствующем входе IRQ), контроллер в свою очередь устанавливает активный уровень на входе INTR процессора, после чего процессор прерывает выполнение основной программы, получает по системной шине от контроллера прерываний номер вектора прерывания, находит вектор прерывания в таблице векторов прерываний и переходит к выполнению обработчика прерывания. Каждому входу IRQ контроллера прерываний соответствует номер вектора прерываний, и программист должен запрограммировать это соответствие при инициализации контроллера прерываний. Например, в программе я настраиваю PIC так, чтобы вход IRQ0 соответствовал вектору прерывания номер 32, а IRQ15 &#8212; вектору номер 47. Программирование PIC осуществляется при помощи портов ввода-вывода 0x20 (регистр iSr ведущего PIC), 0x21 (регистр iMr ведущего PIC), 0xA0 (регистр iSr ведомого PIC), 0xA1 (регистр iMr ведомого PIC). Подробности читайте в книге [Аблязов] раздел 2.2.6. Аппаратные прерывания.</p>
+<p>У процессора есть еще один вход &#8212; <strong>NMI (non-maskable interrupt)</strong>, который активируется при возникновении неких аппаратных сбоев (см. <a href="https://wiki.osdev.org/Non_Maskable_Interrupt">OSDev.org &#8212; Non Maskable Interrupt</a> и раздел 6.7 NONMASKABLE INTERRUPT (NMI) руководства <strong>Intel 64 and IA-32 Architectures Software Developer’s Manual — Volume 3. System Programming Guide</strong>). Обработчик NMI имеет номер 2 в таблице векторов прерываний. Несмотря на название, немаскируемые прерывания все-таки можно отключить при помощи порта ввода-вывода 0x70 (<a href="https://wiki.osdev.org/CMOS#Non-Maskable_Interrupts">CMOS controller</a>).</p>
+<h2>Обработчики прерываний</h2>
+<p>Обработчик прерывания &#8212; это в общем обычная функция, впрочем есть пара особенностей. Когда возникает прерывание, процессор прерывает выполнение основной программы. При этом он сохраняет в стеке адрес машинной команды основной программы, на которой ему пришлось прерваться (пара CS:EIP), с тем, чтобы после обработки прерывания продолжить выполнение основной программы с этой команды. Еще в стеке сохраняется содержимое регистра EFLAGS. Команда возврата из обработчика прерывания должна восстановить значение регистра EFLAGS из стека и перепрыгнуть обратно на прерванную основную программу. Эта команда возврата называется <strong>IRETD</strong>.</p>
+<p>Кроме того, при возникновении некоторых исключений в стек помещается так называемый код ошибки &#8212; его обработчик исключения должен вытолкнуть их стека перед выполнением команды IRETD. Какие исключения помещают в стек код ошибки, а какие нет &#8212; смотрите в Table 6-1. Protected-Mode Exceptions and Interrupts руководства [Intel-Volume3].</p>
+<p>Обработчики аппаратных прерываний должны при своем завершении производить так называемый сброс обеих микросхем i8259A, сообщая им, что прерывание обработано. Это делается записью в их регистры iSr числа 0x20. Соответствующий код в программе помещен в функцию int_EOI, и все обработчики аппаратных прерываний в конце прыгают на эту функцию.</p>
+<h3>General Protection Fault</h3>
+<p>Исключение общей защиты возникает при нарушении кодом ограничений, задаваемых его уровнем привилегий. Это может быть например доступ к памяти ОС или выполнение команд in и out пользовательским кодом. В программе обработчик этого исключения просто выводит на экран сообщение &#171;General Protection Exception&#187;. В этом исключении есть код ошибки, поэтому обработчик выталкивает его из стека (pop eax).</p>
+<h3>Прерывание от системного таймера</h3>
+<p>Прерывание от системного таймера происходит с частотой 18 раз в секунду. На нем можно построить измерение времени, как это сделано в книге [Аблязов], но я решил упростить дело и просто вывожу в правый верхний угол экрана косую черточку, каждую секунду меняя ее направление (с \ на / и обратно). Для подсчета прерываний от таймера используется глобальная переменная timer_counter.</p>
+<h3>Прерывание от контроллера клавиатуры</h3>
+<p>Тема работы с клавиатурой сама по себе достаточно большая, поэтому я написал об этом <a href="http://localhost/at-ps2-keyboard/">отдельную заметку</a>.</p>
+<h2>Исходный код программы в защищенном режиме</h2>
+<p>Ниже приведен полный код файла <strong>protected_mode.inc</strong>:</p>
+<div class="codecolorer-container asm default" style="overflow:auto;white-space:nowrap;"><div class="asm codecolorer">
+<span class="co1">; protected_mode.inc</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> protected_mode_code<br>
+<br>
+<span class="co1">; -------------------------------------------- DATA ------------------------------------------------------------</span><br>
+pm_message <span class="kw5">db</span> <span class="st0">'Hello from protected mode! You can type something. Pressing Esc clears the screen.'</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+gp_message <span class="kw5">db</span> <span class="st0">'General Protection Exception'</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+<br>
+<span class="co1">; counter being incremented at each interrupt from the system timer</span><br>
+timer_counter <span class="kw5">dd</span> <span class="nu0">0</span><br>
+<br>
+<span class="co1">; cursor position (0...1999). initial value of 160 places the cursor to the 4th row on the screen.</span><br>
+cursor <span class="kw5">dd</span> <span class="nu0">240</span><br>
+<br>
+<span class="co1">; -------------------------------------------- INTERRUPT DESCRIPTOR TABLE --------------------------------------</span><br>
+<span class="kw5">align</span> <span class="nu0">8</span><br>
+idt<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 0 &nbsp; &nbsp;#DE &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; Divide Error</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 1 &nbsp; &nbsp;#DB &nbsp; Fault/Trap &nbsp; Error code No &nbsp; &nbsp; Debug Exception (For Intel use only)</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 2 &nbsp; &nbsp; - &nbsp; &nbsp;Interrupt &nbsp; &nbsp;Error code No &nbsp; &nbsp; Nonmaskable external interrupt</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 3 &nbsp; &nbsp;#BP &nbsp; Trap &nbsp; &nbsp; &nbsp; &nbsp; Error code No &nbsp; &nbsp; Breakpoint</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 4 &nbsp; &nbsp;#OF &nbsp; Trap &nbsp; &nbsp; &nbsp; &nbsp; Error code No &nbsp; &nbsp; Overflow</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 5 &nbsp; &nbsp;#BR &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; BOUND Range Exceeded</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 6 &nbsp; &nbsp;#UD &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; Invalid Opcode (Undefined Opcode)</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 7 &nbsp; &nbsp;#NM &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; Device Not Available (No Math Coprocessor)</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 8 &nbsp; &nbsp;#DF &nbsp; Abort &nbsp; &nbsp; &nbsp; &nbsp;Error code Zero &nbsp; Double Fault</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 9 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code Yes &nbsp; &nbsp;Coprocessor Segment Overrun (reserved)</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 10 &nbsp; #TS &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code Yes &nbsp; &nbsp;Invalid TSS</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 11 &nbsp; #NP &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code Yes &nbsp; &nbsp;Segment Not Present</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 12 &nbsp; #SS &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code Yes &nbsp; &nbsp;Stack-Segment Fault</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> exGP_handler<span class="co1">; 13 &nbsp; #GP &nbsp; Fault &nbsp; Error code Yes &nbsp; General Protection</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 14 &nbsp; #PF &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code Yes &nbsp; &nbsp;Page Fault &nbsp; </span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 15 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Error code No &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 16 &nbsp; </span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 17 &nbsp; #MF &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; x87 FPU Floating-Point Error (Math Fault)</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 18 &nbsp; #MC &nbsp; Abort &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; Machine Check</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 19 &nbsp; #XM &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; SIMD Floating-Point Exception</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 20 &nbsp; #VE &nbsp; Fault &nbsp; &nbsp; &nbsp; &nbsp;Error code No &nbsp; &nbsp; Virtualization Exception</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 21 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 22 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 23 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 24 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 25 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 26 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 27 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 28 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 29 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 30 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="kw5">dq</span> <span class="nu0">0</span> <span class="co1">; 31 &nbsp; &nbsp;- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intel reserved. Do not use.</span><br>
+&nbsp; &nbsp; <span class="co1">; --- Master PIC ---</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> irq0_handler <span class="co1">; 32 &nbsp; &nbsp;IRQ 0 &nbsp; &nbsp;System timer</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> irq1_handler <span class="co1">; 33 &nbsp; &nbsp;IRQ 1 &nbsp; &nbsp;Keyboard controller</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 34 &nbsp; &nbsp;IRQ 2 &nbsp; &nbsp;Cascaded signals from IRQs 8–15 (from slave PIC)</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 35 &nbsp; &nbsp;IRQ 3 &nbsp; &nbsp;Serial port controller for serial port 2 (shared with serial port 4, if present)</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 36 &nbsp; &nbsp;IRQ 4 &nbsp; &nbsp;Serial port controller for serial port 1 (shared with serial port 3, if present)</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 37 &nbsp; &nbsp;IRQ 5 &nbsp; &nbsp;Parallel port 2 and 3 &nbsp;or &nbsp;sound card</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 38 &nbsp; &nbsp;IRQ 6 &nbsp; &nbsp;Floppy disk controller</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 39 &nbsp; &nbsp;IRQ 7 &nbsp; &nbsp;Parallel port 1. It is used for printers or for any parallel port if a printer is not present.</span><br>
+&nbsp; &nbsp; <span class="co1">; --- Slave PIC ----</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 40 &nbsp; &nbsp;IRQ 8 &nbsp; &nbsp;Real-time clock (RTC)</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 41 &nbsp; &nbsp;IRQ 9 &nbsp; &nbsp;Advanced Configuration and Power Interface (ACPI) system control interrupt on Intel chipsets</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 42 &nbsp; &nbsp;IRQ 10 &nbsp; The Interrupt is left open for the use of peripherals</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 43 &nbsp; &nbsp;IRQ 11 &nbsp; The Interrupt is left open for the use of peripherals</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 44 &nbsp; &nbsp;IRQ 12 &nbsp; Mouse on PS/2 connector</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 45 &nbsp; &nbsp;IRQ 13 &nbsp; CPU co-processor &nbsp;or &nbsp;integrated floating point unit &nbsp;or &nbsp;inter-processor interrupt</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 46 &nbsp; &nbsp;IRQ 14 &nbsp; Primary ATA channel (ATA interface usually serves hard disk drives and CD drives)</span><br>
+&nbsp; &nbsp; INTERRUPT_GATE_DESCRIPTOR CODE_SELECTOR<span class="sy1">,</span> int_EOI &nbsp; &nbsp; &nbsp;<span class="co1">; 47 &nbsp; &nbsp;IRQ 15 &nbsp; Secondary ATA channel</span><br>
+<br>
+idt_size = <span class="sy2">$</span> <span class="sy1">-</span> idt<br>
+&nbsp; &nbsp;<br>
+idtr<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw5">dw</span> idt_size <span class="sy1">-</span> <span class="nu0">1</span> <span class="co1">; 16-bit limit of the interrupt descriptor table</span><br>
+&nbsp; &nbsp; <span class="kw5">dd</span> idt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">; 32-bit base address of the interrupt descriptor table</span><br>
+<br>
+<span class="co1">; -------------------------------------------- CODE ------------------------------------------------------------</span><br>
+include <span class="st0">'pm_utility_functions.inc'</span><br>
+include <span class="st0">'keyboard.inc'</span><br>
+<br>
+protected_mode_code<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw6">word</span> <span class="nu0">1</span> <span class="co1">; row</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw6">word</span> <span class="nu0">0</span> <span class="co1">; column</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> pm_message<br>
+&nbsp; &nbsp; <span class="kw1">call</span> PrintString<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Disable scan-code translation to set2</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw6">word</span> KEYBOARD_CONTROLLER_COMMAND_READ_COMMAND_BYTE<br>
+&nbsp; &nbsp; <span class="kw1">call</span> Keyboard_SendCommand<br>
+&nbsp; &nbsp; <span class="kw1">call</span> Keyboard_ReadOutputBuffer<br>
+&nbsp; &nbsp; <span class="kw1">and</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="kw1">not</span> KEYBOARD_COMMAND_BYTE_XLAT<br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw6">word</span> KEYBOARD_CONTROLLER_COMMAND_WRITE_COMMAND_BYTE<br>
+&nbsp; &nbsp; <span class="kw1">call</span> Keyboard_SendCommand<br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">call</span> Keyboard_WriteInputBuffer<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Disable keyboard</span><br>
+&nbsp; &nbsp; <span class="co1">;push word KEYBOARD_COMMAND_DISABLE</span><br>
+&nbsp; &nbsp; <span class="co1">;call Keyboard_WriteInputBuffer</span><br>
+&nbsp; &nbsp; <span class="co1">;call Keyboard_ReadOutputBuffer</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Enable keyboard</span><br>
+&nbsp; &nbsp; <span class="co1">;push word KEYBOARD_COMMAND_ENABLE</span><br>
+&nbsp; &nbsp; <span class="co1">;call Keyboard_WriteInputBuffer</span><br>
+&nbsp; &nbsp; <span class="co1">;call Keyboard_ReadOutputBuffer</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Load IDTR register</span><br>
+&nbsp; &nbsp; <span class="kw1">lidt</span> <span class="br0">&#91;</span>idtr<span class="br0">&#93;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Initialize Programmable Interrupt Controller (PIC)</span><br>
+&nbsp; &nbsp; iSr_master <span class="kw5">equ</span> <span class="nu0">0x20</span><br>
+&nbsp; &nbsp; iMr_master <span class="kw5">equ</span> <span class="nu0">0x21</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; iSr_slave <span class="kw5">equ</span> <span class="nu0">0xA0</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; iMr_slave <span class="kw5">equ</span> <span class="nu0">0xA1</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; &lt;-------- master i8259A PIC initialization --------</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00010001b</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iSr_master<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Define interrupt vector for the 0th line of PIC</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x20</span> <span class="co1">; (interrupt vector No 32)</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_master<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Bit mask defines the line of master i8259A to which slave i8259A is connected</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00000100b</span> <span class="co1">; (line No 2)</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_master<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00000001b</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_master<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="co1">; --------------------------------------------------&gt;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; &lt;-------- slave i8259A PIC initialization ---------</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00010001b</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iSr_slave<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Define interrupt vector for the 0th line of PIC</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x28</span> <span class="co1">; (interrupt vector No 40)</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_slave<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Defines the line number through which slave i8259A is connected to master i8259A</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00000010b</span> <span class="co1">; (line No 2)</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_slave<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">00000001b</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iMr_slave<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="co1">; --------------------------------------------------&gt;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">; Enable non-maskable interrupts (NMIs)</span><br>
+&nbsp; &nbsp; <span class="kw1">in</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x70</span> <span class="co1">; CMOS register</span><br>
+&nbsp; &nbsp; <span class="kw1">and</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x7F</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> <span class="nu0">0x70</span><span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Enable maskable interrupts</span><br>
+&nbsp; &nbsp; <span class="kw1">sti</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; Infinite loop</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> <span class="sy2">$</span><br>
+<br>
+<span class="co1">; -------------------------------------------- INTERRUPT HANDLERS ----------------------------------------------</span><br>
+<span class="co1">; ---- End of Interrupt -----------</span><br>
+int_EOI<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="co1">; Reset interrupt controllers</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x20</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iSr_master<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="kw1">out</span> iSr_slave<span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">iretd</span><br>
+<br>
+<span class="co1">; ---- General Protection Fault ---</span><br>
+exGP_handler<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> &nbsp;<span class="kw4">eax</span> <span class="co1">; pop error code</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> gp_message<br>
+&nbsp; &nbsp; <span class="kw1">call</span> PrintString<br>
+&nbsp; &nbsp; <span class="kw1">iretd</span> &nbsp; &nbsp; &nbsp; <br>
+<br>
+<span class="co1">; ---- System Timer ---------------</span><br>
+irq0_handler<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">byte</span> <span class="br0">&#91;</span><span class="kw4">es</span><span class="sy1">:</span><span class="nu0">159</span><span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">0x07</span><br>
+&nbsp; &nbsp; <span class="kw1">inc</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>timer_counter<span class="br0">&#93;</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>timer_counter<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">18</span><br>
+&nbsp; &nbsp; <span class="kw1">jz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> int_EOI<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>timer_counter<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw6">byte</span> <span class="br0">&#91;</span><span class="kw4">es</span><span class="sy1">:</span><span class="nu0">158</span><span class="br0">&#93;</span><span class="sy1">,</span> <span class="st0">'/'</span><br>
+&nbsp; &nbsp; <span class="kw1">jz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">byte</span> <span class="br0">&#91;</span><span class="kw4">es</span><span class="sy1">:</span><span class="nu0">158</span><span class="br0">&#93;</span><span class="sy1">,</span> <span class="st0">'/'</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> int_EOI<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">byte</span> <span class="br0">&#91;</span><span class="kw4">es</span><span class="sy1">:</span><span class="nu0">158</span><span class="br0">&#93;</span><span class="sy1">,</span> <span class="st0">'\'</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> int_EOI<br>
+<br>
+KEYBOARD_KEY_IS_SPECIAL_FLAG <span class="kw5">equ</span> <span class="nu0">00000001b</span><br>
+KEYBOARD_KEY_IS_BREAK_FLAG &nbsp; <span class="kw5">equ</span> <span class="nu0">00000010b</span><br>
+scan_code_flags <span class="kw5">db</span> <span class="nu0">0</span><br>
+<span class="co1">; ---- Keyboard Controller --------</span><br>
+irq1_handler<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">push</span> <span class="kw4">edi</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">in</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0x60</span><br>
+<br>
+<span class="co1">; &lt;----------------------------------------------</span><br>
+&nbsp; &nbsp; <span class="co1">;if(al == KEYBOARD_SPECIAL_KEY)</span><br>
+&nbsp; &nbsp; <span class="co1">;{</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;scan_code_flags |= KEYBOARD_KEY_IS_SPECIAL_FLAG;</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;return;</span><br>
+&nbsp; &nbsp; <span class="co1">;}</span><br>
+&nbsp; &nbsp; <span class="co1">;else if(al == KEYBOARD_BREAK_KEY)</span><br>
+&nbsp; &nbsp; <span class="co1">;{</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;scan_code_flags |= KEYBOARD_KEY_IS_BREAK_FLAG;</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;return;</span><br>
+&nbsp; &nbsp; <span class="co1">;}</span><br>
+&nbsp; &nbsp; <span class="co1">;else if((scan_code_flags &amp; KEYBOARD_KEY_IS_SPECIAL_FLAG) != 0 || (scan_code_flags &amp; KEYBOARD_KEY_IS_BREAK_FLAG) != 0)</span><br>
+&nbsp; &nbsp; <span class="co1">;{</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;scan_code_flags = 0;</span><br>
+&nbsp; &nbsp; <span class="co1">; &nbsp; &nbsp;return;</span><br>
+&nbsp; &nbsp; <span class="co1">;}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw4">al</span><span class="sy1">,</span> KEYBOARD_SPECIAL_KEY<br>
+&nbsp; &nbsp; <span class="kw1">jnz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">or</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> KEYBOARD_KEY_IS_SPECIAL_FLAG<br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> <span class="sy1">.</span>exit<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw4">al</span><span class="sy1">,</span> KEYBOARD_BREAK_KEY<br>
+&nbsp; &nbsp; <span class="kw1">jnz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">or</span> <span class="kw6">byte</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> KEYBOARD_KEY_IS_BREAK_FLAG<br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> <span class="sy1">.</span>exit<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">test</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> KEYBOARD_KEY_IS_SPECIAL_FLAG<br>
+&nbsp; &nbsp; <span class="kw1">jz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> <span class="sy1">.</span>exit<br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">test</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> KEYBOARD_KEY_IS_BREAK_FLAG<br>
+&nbsp; &nbsp; <span class="kw1">jz</span> @f<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="br0">&#91;</span>scan_code_flags<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> <span class="sy1">.</span>exit<br>
+<span class="co1">; ----------------------------------------------&gt;</span><br>
+&nbsp; &nbsp; <br>
+@@<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="co1">; convert scan-code to ASCII-code</span><br>
+&nbsp; &nbsp; <span class="kw1">dec</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="kw1">movzx</span> <span class="kw4">edi</span><span class="sy1">,</span> <span class="kw4">al</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="br0">&#91;</span><span class="kw4">edi</span><span class="sy1">+</span>SCAN_CODE_SET2<span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw4">al</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+&nbsp; &nbsp; <span class="kw1">jz</span> <span class="sy1">.</span>exit<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; print symbol on the screen</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">ah</span><span class="sy1">,</span> <span class="nu0">0x07</span> <span class="co1">; symbol attribute (light gray on black)</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw4">edi</span><span class="sy1">,</span> <span class="br0">&#91;</span>cursor<span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="br0">&#91;</span><span class="kw4">es</span><span class="sy1">:</span><span class="kw4">edi</span><span class="sy1">*</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy1">,</span> <span class="kw4">ax</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="co1">; advance cursor position (if(++cursor &gt;= 2000) cursor = 0;)</span><br>
+&nbsp; &nbsp; <span class="kw1">inc</span> <span class="kw6">dword</span> <span class="br0">&#91;</span>cursor<span class="br0">&#93;</span><br>
+&nbsp; &nbsp; <span class="kw1">cmp</span> <span class="kw6">dword</span> <span class="br0">&#91;</span>cursor<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">2000</span><br>
+&nbsp; &nbsp; <span class="kw1">jb</span> <span class="sy1">.</span>exit<br>
+&nbsp; &nbsp; <span class="kw1">mov</span> <span class="kw6">dword</span> <span class="br0">&#91;</span>cursor<span class="br0">&#93;</span><span class="sy1">,</span> <span class="nu0">0</span><br>
+<br>
+<span class="sy1">.</span>exit<span class="sy1">:</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> &nbsp;<span class="kw4">edi</span><br>
+&nbsp; &nbsp; <span class="kw1">pop</span> &nbsp;<span class="kw4">ax</span><br>
+&nbsp; &nbsp; <span class="kw1">jmp</span> &nbsp;int_EOI</div></div>
+<h2>Makefile</h2>
+<p>Наконец, вот makefile для построения программы:</p>
+<div class="codecolorer-container make default" style="overflow:auto;white-space:nowrap;"><div class="make codecolorer">
+<span class="co1"># makefile</span><br>
+all<span class="sy0">:</span> floppy<span class="sy0">.</span>img boot_sector<span class="sy0">.</span>lst<br>
+<br>
+floppy<span class="sy0">.</span>img <span class="sy0">:</span> boot_sector<span class="sy0">.</span>bin<br>
+&nbsp; &nbsp; dd if<span class="sy0">=</span><span class="st0">&quot;/dev/zero&quot;</span> of<span class="sy0">=</span><span class="st0">&quot;floppy.img&quot;</span> bs<span class="sy0">=</span><span class="nu0">1024</span> count<span class="sy0">=</span><span class="nu0">1440</span><br>
+&nbsp; &nbsp; dd if<span class="sy0">=</span>boot_sector<span class="sy0">.</span>bin of<span class="sy0">=</span>floppy<span class="sy0">.</span>img conv<span class="sy0">=</span>notrunc<br>
+<br>
+boot_sector<span class="sy0">.</span>bin <span class="sy0">:</span> boot_sector<span class="sy0">.</span>asm bios_services<span class="sy0">.</span>inc descriptor_macros<span class="sy0">.</span>inc protected_mode<span class="sy0">.</span>inc pm_utility_functions<span class="sy0">.</span>inc keyboard<span class="sy0">.</span>inc<br>
+&nbsp; &nbsp; fasm boot_sector<span class="sy0">.</span>asm boot_sector<span class="sy0">.</span>bin<br>
+<br>
+boot_sector<span class="sy0">.</span>lst<span class="sy0">:</span> boot_sector<span class="sy0">.</span>fas<br>
+&nbsp; &nbsp; listing <span class="sy0">-</span>a boot_sector<span class="sy0">.</span>fas boot_sector<span class="sy0">.</span>lst<br>
+<br>
+boot_sector<span class="sy0">.</span>fas<span class="sy0">:</span> boot_sector<span class="sy0">.</span>asm bios_services<span class="sy0">.</span>inc descriptor_macros<span class="sy0">.</span>inc protected_mode<span class="sy0">.</span>inc pm_utility_functions<span class="sy0">.</span>inc keyboard<span class="sy0">.</span>inc<br>
+&nbsp; &nbsp; fasm boot_sector<span class="sy0">.</span>asm <span class="sy0">-</span>s boot_sector<span class="sy0">.</span>fas</div></div>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/04/22/study-intel-part5/" data-a2a-title="Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 5 — Прерывания)">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F04%2F22%2Fstudy-intel-part5%2F&amp;linkname=%D0%98%D0%B7%D1%83%D1%87%D0%B0%D0%B5%D0%BC%20%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%83%20Intel%20x86-64%20%D0%BF%D1%80%D0%B8%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D0%B8%20%D0%B0%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80%D0%B0%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%9F%D1%80%D0%B5%D1%80%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%29" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F04%2F22%2Fstudy-intel-part5%2F&amp;linkname=%D0%98%D0%B7%D1%83%D1%87%D0%B0%D0%B5%D0%BC%20%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%83%20Intel%20x86-64%20%D0%BF%D1%80%D0%B8%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D0%B8%20%D0%B0%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80%D0%B0%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%9F%D1%80%D0%B5%D1%80%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%29" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F04%2F22%2Fstudy-intel-part5%2F&amp;linkname=%D0%98%D0%B7%D1%83%D1%87%D0%B0%D0%B5%D0%BC%20%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D1%83%20Intel%20x86-64%20%D0%BF%D1%80%D0%B8%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D0%B8%20%D0%B0%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80%D0%B0%20%28%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%9F%D1%80%D0%B5%D1%80%D1%8B%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%29" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/x86/" rel="tag">x86</a>, <a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" rel="tag">Ассемблер</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/03/11/c-cpp-cygwin/" rel="prev">C/C++ в Cygwin</a></div>
+<div class="nav-next"><a href="/2018/04/22/at-ps2-keyboard/" rel="next">Работа с клавиатурой AT и PS/2</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			2 комментария для &ldquo;Изучаем архитектуру Intel x86-64 при помощи ассемблера (Часть 5 — Прерывания)&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-5" class="comment even thread-even depth-1">
+			<article id="div-comment-5" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="https://secure.gravatar.com/avatar/f09e32234df0fda313eef984fcbf9b54a1aa9e4e8f9107fac1f92cd0d1ef588f?s=32&#038;d=mm&#038;r=g" srcset="https://secure.gravatar.com/avatar/f09e32234df0fda313eef984fcbf9b54a1aa9e4e8f9107fac1f92cd0d1ef588f?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" decoding="async">						<b class="fn">Денис</b><span class="says">:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2018/04/22/study-intel-part5/#comment-5"><time datetime="2020-08-21T01:52:39+03:00">21.08.2020 в 01:52</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Здравствуйте. С удовольствием прочел цикл Ваших статей, так как потребовалось &#171;с нуля&#187; написать нечто похожее. Я правильно понимаю, что на прерываниях и клавиатуре Вы и остановились?</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="/2018/04/22/study-intel-part5/?replytocom=5#respond" data-commentid="5" data-postid="394" data-belowelement="div-comment-5" data-respondelement="respond" data-replyto="Комментарий к записи Денис" aria-label="Комментарий к записи Денис">Ответить</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+		<li id="comment-6" class="comment byuser comment-author-dvsav bypostauthor odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-6" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="https://secure.gravatar.com/avatar/0ff6a93a5788f14d8c7bdcbdca6fd630ad53079a4908a557910fd5124c193b7e?s=32&#038;d=mm&#038;r=g" srcset="https://secure.gravatar.com/avatar/0ff6a93a5788f14d8c7bdcbdca6fd630ad53079a4908a557910fd5124c193b7e?s=64&#038;d=mm&#038;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" decoding="async">						<b class="fn">dvsav</b><span class="says">:</span>					</div>
+<!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="/2018/04/22/study-intel-part5/#comment-6"><time datetime="2020-08-23T01:05:49+03:00">23.08.2020 в 01:05</time></a>					</div>
+<!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Здравствуйте, Денис! Спасибо, рад, что вам понравились мои заметки. В общем, да, я на этом и остановился. Но может быть вернусь к теме ОС когда-нибудь. К OpenGL, например, я периодически возвращаюсь 🙂</p>
+				</div>
+<!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="/2018/04/22/study-intel-part5/?replytocom=6#respond" data-commentid="6" data-postid="394" data-belowelement="div-comment-6" data-respondelement="respond" data-replyto="Комментарий к записи dvsav" aria-label="Комментарий к записи dvsav">Ответить</a></div>			</article><!-- .comment-body -->
+		</li>
+<!-- #comment-## -->
+		</ol>
+<!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/04/22/study-intel-part5/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="394" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

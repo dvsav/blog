@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Unreal Engine Cookbook &#8212; Part 2 &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Unreal Engine Cookbook &#8212; Part 2&raquo;" href="/2022/03/04/ue4-part2/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/2009">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2022/03/04/ue4-part2/">
+<link rel="shortlink" href="/?p=2009">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2022%2F03%2F04%2Fue4-part2%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2022%2F03%2F04%2Fue4-part2%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-2009 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-2009" class="post-2009 post type-post status-publish format-standard hentry category-1 tag-c-c tag-ue4">
+	<header class="entry-header">
+		<h1 class="entry-title">Unreal Engine Cookbook &#8212; Part 2</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2022/03/04/ue4-part2/" rel="bookmark"><time class="entry-date published updated" datetime="2022-03-04T23:38:44+03:00">04.03.2022</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Публикую недописанную, но очень длинную  заметку про Unreal Engine 4. Буду дописывать по ходу дела, ибо неизвестно, что будет дальше.</p>
+<ul>
+<li><a href="#assetmigration">Migrating assets from one Unreal project to another</a></li>
+<li><a href="#abracadabra">Абракадабра в Compilation Log в Unreal Editor</a></li>
+<li><a href="#glitches">Глюки Intelli Sense в Visual Studio Code</a></li>
+<li><a href="#createclass">Как создать класс в Unreal Engine</a></li>
+<li><a href="#components">Компоненты</a></li>
+<li><a href="#fwddecl">Forward declaration in C++</a></li>
+<li><a href="#uproperty">UPROPERTY</a></li>
+<li><a href="#springarm">Camera and SpringArm</a></li>
+<li><a href="#pawncharacter">Pawn &amp; Character</a></li>
+<li><a href="#possession">Possession of a Pawn</a></li>
+<li><a href="#input">Input</a></li>
+<li><a href="#collision">Коллизии</a></li>
+<li><a href="#debugdraw">Отладка в UE &#8212; DrawDebugHelpers</a></li>
+<li><a href="#controller">Кто такой Controller?</a></li>
+<li><a href="#linetrace">Line Tracing</a></li>
+<li><a href="#timers">Timers</a></li>
+<li><a href="#spawn">Spawn</a></li>
+<li><a href="#uclass">Reflection &amp; Runtime Type Information в UE4</a></li>
+<li><a href="#usefulcomp">Полезные компоненты</a></li>
+<li><a href="#hitevents">HitEvents</a></li>
+<li><a href="#damage">Dealing With Damage</a></li>
+<li><a href="#death">Death &amp; Game Over</a></li>
+<li><a href="#cppblueprints">Интерфейс между C++ и блюпринтами</a></li>
+<li><a href="#widgets">Widgets</a></li>
+<li><a href="#blueprintvars">Переменные в блюпринтах на примере виджетов</a></li>
+<li><a href="#particles">Particle Effects</a></li>
+<li><a href="#sound">Sound Effects</a></li>
+<li><a href="#camshake">Camera Shake</a></li>
+<li><a href="#animation">Animations</a></li>
+<li><a href="#misc">Разное</a></li>
+</ul>
+<h2 id="assetmigration">Migrating assets from one Unreal project to another</h2>
+<p>Если нужно переместить ассеты из проекта Source в проект Destination, то это можно сделать так: откройте проект Source в Unreal Editor. В Content Browser кликните правой кнопкой мыши (ПКМ) по папке, содержащей ассеты. в контекстном меню выберите Migrate, откроется проводник, в котором выберите папку Contents проекта Destination.</p>
+<h2 id="abracadabra">Абракадабра в Compilation Log в Unreal Editor</h2>
+<p>При запуске компиляции из Unreal Editor (кнопка Compile на панели инструментов) или при запуске Packaging&#8217;а, если возникали ошибки компиляции, то в моей системе наблюдались сообщения о них отображались в виде абракадабры ромбиков и вопросительных знаков. Связано это, понятно дело, с несоответствием кодировок текста в Unreal Editor и Visual Studio. Решение &#8212; удалить в папке установки Visual Studio папку 1049 (1049 &#8212; это код русского языка). Я удалил таким образом следующие четыре папки:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x64\1049<br>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x86\1049<br>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx86\x64\1049<br>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\Hostx86\x86\1049</div></div>
+<h2 id="glitches">Глюки Intelli Sense в Visual Studio Code</h2>
+<p>Каждый раз при переносе с одной машины на другую проекта UE4 с VSCode в качестве среды разработки я получал ошибки Intelli Sense &#8212; ложные синтаксические ошибки, подчеркнутые красной волнистой линией (red squiggles). Причем упомянутое ранее расширение <a href="https://gist.github.com/boocs/f63a4878156295b6e854cac68672f305">VSCode UE Intellisense Fixes Extension</a> не решало проблему. Однако помогали следующие танцы с бубном:</p>
+<ul>
+<li>Удалить папку <strong>Intermediate</strong>
+</li>
+<li>Удалить папку <strong>Binaries</strong>
+</li>
+<li>Отредактировать файл <strong>c_cpp_properties.json</strong>
+</li>
+</ul>
+<p>Что касается последнего пункта, то у меня файл <strong>c_cpp_properties.json</strong> после редактирования выглядел так:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;"><div class="javascript codecolorer">
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="st0">&quot;configurations&quot;</span><span class="sy0">:</span> <span class="br0">&#91;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;name&quot;</span><span class="sy0">:</span> <span class="st0">&quot;ToonTanksEditor Editor Win64 Development (ToonTanks)&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;intelliSenseMode&quot;</span><span class="sy0">:</span> <span class="st0">&quot;msvc-x64&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;compileCommands&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>DVSAV<span class="es0">\\</span>Projects<span class="es0">\\</span>UnrealEngine<span class="es0">\\</span>ToonTanks<span class="es0">\\</span>.vscode<span class="es0">\\</span>compileCommands_ToonTanks.json&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;cStandard&quot;</span><span class="sy0">:</span> <span class="st0">&quot;c17&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;cppStandard&quot;</span><span class="sy0">:</span> <span class="st0">&quot;c++17&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;compilerPath&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>Program Files (x86)<span class="es0">\\</span>Microsoft Visual Studio<span class="es0">\\</span>2019<span class="es0">\\</span>Community<span class="es0">\\</span>VC<span class="es0">\\</span>Tools<span class="es0">\\</span>MSVC<span class="es0">\\</span>14.29.30133<span class="es0">\\</span>bin<span class="es0">\\</span>Hostx64<span class="es0">\\</span>x64<span class="es0">\\</span>cl.exe&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;name&quot;</span><span class="sy0">:</span> <span class="st0">&quot;Win32&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;intelliSenseMode&quot;</span><span class="sy0">:</span> <span class="st0">&quot;msvc-x64&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;compileCommands&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>DVSAV<span class="es0">\\</span>Projects<span class="es0">\\</span>UnrealEngine<span class="es0">\\</span>ToonTanks<span class="es0">\\</span>.vscode<span class="es0">\\</span>compileCommands_Default.json&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;cStandard&quot;</span><span class="sy0">:</span> <span class="st0">&quot;c17&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;cppStandard&quot;</span><span class="sy0">:</span> <span class="st0">&quot;c++17&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;compilerPath&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>Program Files (x86)<span class="es0">\\</span>Microsoft Visual Studio<span class="es0">\\</span>2019<span class="es0">\\</span>Community<span class="es0">\\</span>VC<span class="es0">\\</span>Tools<span class="es0">\\</span>MSVC<span class="es0">\\</span>14.29.30133<span class="es0">\\</span>bin<span class="es0">\\</span>Hostx64<span class="es0">\\</span>x86<span class="es0">\\</span>cl.exe&quot;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="br0">&#93;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; <span class="st0">&quot;version&quot;</span><span class="sy0">:</span> <span class="nu0">4</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Важно, что, если вы работаете в Windows, в качестве разделителя в пути к файлу должен использоваться двойной обратный слэш <code class="codecolorer text default"><span class="text">\\</span></code> вместо прямого слэша <code class="codecolorer text default"><span class="text">/</span></code>.</p>
+<p>Также убедитесь, что в файлах <strong>compileCommands_Default.json</strong> и <strong>compileCommands_YourProjectName.json</strong> присутствуют команды компиляции для всех файлов исходного кода (папка Source вашего проекта). У меня почему-то случалось, что команды не генерировались для какого-нибудь вновь добавляемого класса. В таком случае команды легко написать самостоятельно:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;"><div class="javascript codecolorer">
+<span class="br0">&#91;</span><br>
+&nbsp; &nbsp; ...<br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;file&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span><span class="es0">\\</span>DVSAV<span class="es0">\\</span><span class="es0">\\</span>Projects<span class="es0">\\</span><span class="es0">\\</span>UnrealEngine<span class="es0">\\</span><span class="es0">\\</span>Sandbox<span class="es0">\\</span><span class="es0">\\</span>Source<span class="es0">\\</span><span class="es0">\\</span>Sandbox<span class="es0">\\</span><span class="es0">\\</span>BasePawn.h&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;command&quot;</span><span class="sy0">:</span> <span class="st0">&quot;cl.exe @&quot;</span>C<span class="sy0">:</span>\\DVSAV\\Projects\\UnrealEngine\\Sandbox\\.<span class="me1">vscode</span>\\compileCommands_Default\\Sandbox.210.<span class="me1">rsp</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;directory&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>Program Files<span class="es0">\\</span>Epic Games<span class="es0">\\</span>UE_4.27<span class="es0">\\</span>Engine<span class="es0">\\</span>Source&quot;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;file&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span><span class="es0">\\</span>DVSAV<span class="es0">\\</span><span class="es0">\\</span>Projects<span class="es0">\\</span><span class="es0">\\</span>UnrealEngine<span class="es0">\\</span><span class="es0">\\</span>Sandbox<span class="es0">\\</span><span class="es0">\\</span>Source<span class="es0">\\</span><span class="es0">\\</span>Sandbox<span class="es0">\\</span><span class="es0">\\</span>BasePawn.cpp&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;command&quot;</span><span class="sy0">:</span> <span class="st0">&quot;cl.exe @&quot;</span>C<span class="sy0">:</span>\\DVSAV\\Projects\\UnrealEngine\\Sandbox\\.<span class="me1">vscode</span>\\compileCommands_Default\\Sandbox.210.<span class="me1">rsp</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="st0">&quot;directory&quot;</span><span class="sy0">:</span> <span class="st0">&quot;C:<span class="es0">\\</span>Program Files<span class="es0">\\</span>Epic Games<span class="es0">\\</span>UE_4.27<span class="es0">\\</span>Engine<span class="es0">\\</span>Source&quot;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#93;</span>
+</div></div>
+<h2 id="createclass">Как создать класс в Unreal Engine</h2>
+<p>Исходный код в UE разрабатывается в виде классов, кои можно создавать как на языке C++, так и на графическом языке Blueptins.</p>
+<p>Чтобы создать класс C++ в главном меню выбираем:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">File &gt; New C++ Class... &gt; Choose Parent Class</div></div>
+<p>Чтобы создать Blueprint class, в панели инструментов выбираем:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Blueprints &gt; New Empty Blueprint Class... &gt; Pick Parent Class</div></div>
+<p>Базовый класс для блюпринта можно даже поменять уже после создания последнего. Для этого надо открыть редактор блюпринта и в разделе <strong>Class Settings</strong> изменить опцию <strong>Parent Class</strong>.</p>
+<p>Часто классы Actor&#8217;ов и не только создают так. Сначала создают базовый класс на C++, унаследовав его от другого базового класса в зависимости от того, что мы хотим (например, Actor, Pawn, Controller, GameModeBase и т. д.), затем создают блюпринт-класс и наследуют его от только что созданного класса С++. В классе C++ мы программируем <em>поведение</em>, которое удобно программировать на C++. А вот в редакторе класса блюпринта нам удобно будет задавать значения различных свойств класса по-умолчанию (раздел Class Defaults).</p>
+<h2 id="components">Компоненты</h2>
+<p>Многие вещи в UE делаются через компоненты &#8212; классы производные от <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UActorComponent/">UActorComponent</a>. Например, при помощи компонента <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UStaticMeshComponent/">UStaticMeshComponent</a> Actor&#8217;у назначается Static Mesh (или набор Static Mesh&#8217;ей), который будет отрисован в сцене; при помощи компонента <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UCapsuleComponent/">UCapsuleComponent</a> Actor получает геометрию коллизий; при помощи компонента <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/UProjectileMovementComponent/">UProjectileMovementComponent</a> снаряд двигается в пространстве и т. д. и т. п.</p>
+<p>Компоненты прикрепляются к Actor&#8217;ам и модифицируют именно Actor&#8217;ов. Некоторые компоненты непосредственно отрисовываются на экране (производные от <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UPrimitiveComponent/">UPrimitiveComponent</a>) &#8212; к ним относится например <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UStaticMeshComponent/">UStaticMeshComponent</a> &#8212; из таких компонентов вы собираете внешний вид вашего объекта или персонажа как из деталек конструктора. Существуют компоненты, которые не отрисовываются на экране, но непосредственно размещаются в трёхмерном пространстве Actor&#8217;а &#8212; компоненты, производные от <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/USceneComponent/">USceneComponent</a> &#8212; к ним относится например <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Camera/UCameraComponent/">UCameraComponent</a>. Заметим, что поскольку USceneComponent размещается в трехмерном пространстве, у него существуют функции, которые позволяют получать и изменять его пространственное положение, такие например, как <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/USceneComponent/GetComponentLocation/">USceneComponent::GetComponentLocation</a>, <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Components/USceneComponent/SetWorldRotation/1/">USceneComponent::SetWorldRotation</a>. Другие же компоненты, которые не отрисовываются на экране и не размещаются в трехмерном пространстве Actor&#8217;а, модифицируют поведение Actor&#8217;а, например UProjectileMovementComponent.</p>
+<p>В UE существует два вида классов: C++ classes и Blueprint classes. Первые разрабатываются в виде текста на языке C++, вторые &#8212; на графическом языке блюпринтов. И к тем и к другим можно прикрепить компоненты. Начнем с классов C++. <strong>Добавление компонента к классу C++ включает следующие шаги:</strong></p>
+<p>1. Создать в классе приватное поле</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> AMyActor <span class="sy4">:</span> <span class="kw2">public</span> AActor<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> USomeComponent<span class="sy2">*</span> MyComponent<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>2. Создать экземпляр компонента в конструкторе Actor&#8217;а при помощи функции <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/CoreUObject/UObject/UObject/CreateDefaultSubobject/2/">UObject::CreateDefaultSubobject</a>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">AMyActor<span class="sy4">::</span><span class="me2">AMyActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; MyComponent <span class="sy1">=</span> CreateDefaultSubobject<span class="sy1">&lt;</span>USomeComponent<span class="sy1">&gt;</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;My Component&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В последствии можно получить указатель на добавленный компонент при помощи функции <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/CoreUObject/UObject/UObject/GetDefaultSubobjectByName/">UObject::GetDefaultSubobjectByName</a>. По-видимому, создание компонента при помощи функции CreateDefaultSubobject необходимо, поскольку именно эта функция <a href="https://answers.unrealengine.com/questions/317148/newobject-or-createdefaultsubobject.html">делает компонент видимым для Unreal Editor</a>.</p>
+<p>3. Далее действия различаются в зависимости от типа компонента.<br>
+3.1. Если компонент является классом производным от <strong>UPrimitiveComponent</strong>, и следовательно определяет некую геометрию, то этот компонент должен быть либо прикреплен к уже имеющемуся <strong>UPrimitiveComponent</strong> либо являться RootComponent&#8217;ом. Компоненты производные от UPrimitiveComponent прикрепляются друг к другу и образуют дерево, корнем которого является RootComponent, который сам ни к какому компоненту не прикреплен. Назначить вновь созданный компонент RootComponent&#8217;ом легко и просто &#8212; для этого нужно в конструкторе Actor&#8217;а выполнить присваивание <code class="codecolorer cpp default"><span class="cpp">RootComponent <span class="sy1">=</span> MyComponent<span class="sy4">;</span></span></code>. По-умолчанию у Actor&#8217;а уже есть компонент, играющий роль RootComponent &#8212; он называется DefaultSceneRoot. Можно прикрепить вновь созданный компонент к уже существующему UPrimitiveComponent&#8217;у (в том числе &#8212; к RootComponent&#8217;у) &#8212; для этого в конструкторе Actor&#8217;а нужно выполнить код: <code class="codecolorer cpp default"><span class="cpp">MyComponent<span class="sy2">-</span><span class="sy1">&gt;</span>SetupAttachment<span class="br0">&#40;</span>ExistingComponent<span class="br0">&#41;</span><span class="sy4">;</span></span></code>.<br>
+3.2. Если компонент не является производным от UPrimitiveComponent, то ничего больше делать не нужно.</p>
+<p><strong>Добавление компонента к классу Blueprint включает следующие шаги в Blueprint editor:</strong></p>
+<p>1. В окне Components нажимаем кнопку [+Add Component] и выбираем компонент. Вновь созданный компонент отобразится в окошке Components.<br>
+2. Если компонент является производным от UPrimitiveComponent, то он автоматически прикрепится к RootComponent&#8217;у или к другому UPrimitiveComponent&#8217;у, который был выбран в окошке Components.<br>
+3. Если компонент является производным от UPrimitiveComponent, то его можно назначить RootComponent&#8217;ом &#8212; для этого нужно в окне Components перетащить его на место RootComponent&#8217;а.<br>
+4. Можно редактировать дерево компонентов путем перетаскивания их в окне Components.</p>
+<p>Смысл идеи &#171;прикрепления&#187; (attachment) компонентов друг к другу таков же, как смысл прикрепления конечностей к торсу. Дочерние компоненты перемещаются в пространстве вместе со своим родительским компонентом.</p>
+<p>Важный момент. Только RootComponent задает геометрию, которая проверяется на коллизии, поэтому имеет смысл назначать на роль RootComponent&#8217;а компонент CapsuleComponent, который предназначен как раз для проверки коллизий.</p>
+<p>Если вы создаете свой класс компонента, то снабдите его макросом <code class="codecolorer text default"><span class="text">UCLASS( meta=(BlueprintSpawnableComponent) )</span></code> например так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UCLASS<span class="br0">&#40;</span> ClassGroup<span class="sy1">=</span><span class="br0">&#40;</span>Custom<span class="br0">&#41;</span>, meta<span class="sy1">=</span><span class="br0">&#40;</span>BlueprintSpawnableComponent<span class="br0">&#41;</span> <span class="br0">&#41;</span><br>
+<span class="kw2">class</span> MYFLAT_API UInteractComponent <span class="sy4">:</span> <span class="kw2">public</span> UActorComponent<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; ...<br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Благодаря этом можно будет добавлять компонент к Actor&#8217;у в редакторе блюпринтов.</p>
+<h2 id="fwddecl">Forward declaration in C++</h2>
+<p>Я прежде встречался с использованием понятия <a href="https://stackoverflow.com/questions/4757565/what-are-forward-declarations-in-c">forward declaration</a> в C++, когда в коде имелось два класса, которые ссылались друг на друга:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// class_A.h</span><br>
+<br>
+<span class="co2">#include &quot;class_B.h&quot;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; B<span class="sy2">*</span> PointerToClassB<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// class_B.h</span><br>
+<br>
+<span class="kw2">class</span> A<span class="sy4">;</span> <span class="co1">// FORWARD DECLARATION - No need to #include &quot;class_A.h&quot;</span><br>
+<br>
+<span class="kw2">class</span> B<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="sy2">*</span> PointerToClassA<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В этом случае, не будь forward declaration, получался бы замкнутый круг взаимных include&#8217;ов. Что касается Unreal Engine, то в заголовочных файлах классов, которые пишет программист, может встречаться много полей, которые являются указателями на другие классы. И чтобы облегчить жизнь себе и компилятору, можно применять к ним forward declaration.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// MyActor.h</span><br>
+<br>
+<span class="kw2">class</span> AMyActor <span class="sy4">:</span> <span class="kw2">public</span> AActor<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> A<span class="sy2">*</span> PointerToClassA<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> B<span class="sy2">*</span> PointerToClassB<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> C<span class="sy2">*</span> PointerToClassC<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Тогда в заголовочном файле не придется include&#8217;ить заголовочные файлы классов A, B и C. Другой вариант того же самого:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// MyActor.h</span><br>
+<br>
+<span class="kw2">class</span> A<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+<span class="kw2">class</span> B<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+<span class="kw2">class</span> C<span class="sy4">;</span> <span class="co1">// forward declaration</span><br>
+<br>
+<span class="kw2">class</span> AMyActor <span class="sy4">:</span> <span class="kw2">public</span> AActor<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="sy2">*</span> PointerToClassA<span class="sy4">;</span><br>
+&nbsp; &nbsp; B<span class="sy2">*</span> PointerToClassB<span class="sy4">;</span><br>
+&nbsp; &nbsp; C<span class="sy2">*</span> PointerToClassC<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Однако, если методы классов вызываются в методах класса AMyActor, то соответствующие заголовочные файлы придется заinclude&#8217;ить в файле исходного кода класса AMyActor:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// MyActor.cpp</span><br>
+<span class="co2">#include &quot;Class_A.h&quot;</span><br>
+<span class="co2">#include &quot;Class_B.h&quot;</span><br>
+<br>
+<span class="kw4">void</span> AMyActor<span class="sy4">::</span><span class="me2">SomeMethod</span><span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; PointerToClassA<span class="sy2">-</span><span class="sy1">&gt;</span>SomeMethodA<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; PointerToClassB<span class="sy2">-</span><span class="sy1">&gt;</span>SomeMethodB<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h2 id="uproperty">UPROPERTY</h2>
+<p>Часто процесс разработки состоит из следующих шагов:</p>
+<ol>
+<li>Создать класс C++.</li>
+<li>Создать класс Blueprint, унаследовав его от ранее созданного класса C++.</li>
+</ol>
+<p>Класс C++ может содержать поля (обычно закрытые) &#8212; это могут быть, например, какие-то числовые величины и указатели на объекты (например, компоненты). Эти поля, разумеется, наследуются классом блюпринта, и часто эти поля должны быть доступны для редактирования из Blueprint Editor (окошки Class Defaults или Details). Чтобы поля стали доступны для редактирования из Blueprint Editor, нужно добавить к объявлению поля макрос <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/GameplayArchitecture/Properties/">UPROPERTY</a> &#8212; это напоминает атрибуты в C#. UPROPERTY &#8212; это так называемый variadic macro &#8212; макрос с произвольным числом аргументов, а аргументами являются различные &#171;спецификаторы&#187;, предназначенные для <a href="https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/BuildTools/UnrealHeaderTool/">Unreal Header Tool</a> &#8212; утилиты, которая обрабатывает исходный код перед компиляцией.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// /Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectMacros.h</span><br>
+<span class="co2">#define UPROPERTY(...)</span>
+</div></div>
+<p>Спецификаторы содержат метаданные: например, в каких редакторах доступно поле, название категории (поля группируются в редакторе по категориям).</p>
+<p>Спецификаторы, определяющие доступность полей для редактирования в различных редакторах:</p>
+<table>
+<tr>
+<td style="text-align:left">EditAnywhere</td>
+<td style="text-align:left">Поле можно редактировать в окнах Details и Class Defaults редактора. В редакторе можно изменять как значение поля по-умолчанию (т. е. то, которое по-умолчанию получат все экземпляры класса при их создании), так и значения поля для отдельных экземпляров класса. Когда макрос UPROPERTY применяется к указателю на объект, спецификатор EditAnywhere означает, что сам указатель можно изменять из редактора, т. е. выбирать объект, на который он будет указывать.</td>
+</tr>
+<tr>
+<td style="text-align:left">VisibleAnywhere</td>
+<td style="text-align:left">Поле можно видеть в редакторе, но нельзя редактировать его значение. Когда макрос UPROPERTY применяется к указателю на объект, это означает, что в редакторе можно редактировать свойства самого этого объекта (как для объекта, который является значением поля по-умолчанию в окне Class Defaults, так и для объектов, которые являются значениями поля для отдельного экземпляра класса), но нельзя изменять значение указателя, перенаправляя его на другой объект.</td>
+</tr>
+<tr>
+<td style="text-align:left">VisibleInstanceOnly</td>
+<td style="text-align:left">Поле можно видеть в редакторе (если поле &#8212; указатель, то также редактировать свойства объекта, на который он указывает) только для отдельных экземпляров класса.</td>
+</tr>
+<tr>
+<td style="text-align:left">VisibleDefaultsOnly</td>
+<td style="text-align:left">Поле можно видеть в редакторе (если поле &#8212; указатель, то также редактировать свойства объекта, на который он указывает) только для значения по-умолчанию в окне Class Defaults.</td>
+</tr>
+<tr>
+<td style="text-align:left">EditDefaultsOnly</td>
+<td style="text-align:left">Поле можно изменять в редакторе, но только его значение по-умолчанию в окне Class Defaults.</td>
+</tr>
+</table>
+<p>Спецификаторы, определяющие доступность полей для редактирования в коде блюпринтов (т. е. в окне Event Graph):</p>
+<table>
+<tr>
+<td style="text-align:left">BlueprintReadWrite</td>
+<td style="text-align:left">Поле может быть считано или записано в коде блюпринта.</td>
+</tr>
+<tr>
+<td style="text-align:left">BlueprintReadOnly</td>
+<td style="text-align:left">Поле может быть только считано в коде блюпринта, но не может быть записано.</td>
+</tr>
+</table>
+<p>Заметим, что поля, помеченные вышеперечисленными атрибутами, будут доступны как для классов-блюпринтов, производных от C++ класса, которому принадлежат эти поля, так и для сторонних блюпринтов.</p>
+<p>Спецификаторы BlueprintReadWrite и BlueprintReadOnly по-умолчанию работают только для публичных и защищенных полей. Чтобы можно было применить эти спецификаторы к приватным полям, нужно добавить метаданые:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, meta <span class="sy1">=</span> <span class="br0">&#40;</span>AllowPrivateAccess <span class="sy1">=</span> <span class="st0">&quot;true&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+</div></div>
+<p>Однако, быть может, правильнее делать доступные для блюпринтов свойства защищенными, а не приватными.</p>
+<p>Примеры:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> Damage <span class="sy1">=</span> <span class="nu0">50</span>.<span class="me1">f</span><span class="sy4">;</span>
+</div></div>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>VisibleAnywhere, BlueprintReadWrite<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> UStaticMeshComponent<span class="sy2">*</span> Mesh<span class="sy4">;</span>
+</div></div>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>VisibleAnywhere, Category <span class="sy1">=</span> <span class="st0">&quot;Components&quot;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> UStaticMeshComponent<span class="sy2">*</span> Mesh<span class="sy4">;</span>
+</div></div>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>VisibleAnywhere, Category <span class="sy1">=</span> <span class="st0">&quot;Components&quot;</span>, BlueprintReadOnly, meta <span class="sy1">=</span> <span class="br0">&#40;</span>AllowPrivateAccess <span class="sy1">=</span> <span class="st0">&quot;true&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> UStaticMeshComponent<span class="sy2">*</span> Mesh<span class="sy4">;</span>
+</div></div>
+<h2 id="springarm">Camera and SpringArm</h2>
+<p>Как правило, мы создаем Player Character, которым будет управлять игрок. Тип этого объекта-персонажа обычно либо Pawn, либо Character (который наследует Pawn). В играх от третьего лица, да и от первого тоже &#8212; мы хотим расположить камеру относительно персонажа. В играх от третьего лица &#8212; где-то за плечом персонажа, в играх от первого &#8212; в голове персонажа. Можно добавить компонент <strong>Camera</strong> к RootComponent &#8212; UE автоматически подхватит viewport этой камеры. Однако возникнет проблема &#8212; камера будет проходить сквозь стены, а иногда стены буду загораживать персонажа от камеры. Поэтому сначала к RootComponent добавляют компонент под названием <strong>Spring Arm</strong> и уже к нему прикрепляют компонент Camera (рис. 1). </p>
+<figure id="attachment_2029" aria-describedby="caption-attachment-2029" style="width: 847px" class="wp-caption alignnone"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2022/02/UE4_SpringArm-1024x694.jpg" alt="" width="847" height="574" class="size-large wp-image-2029"><figcaption id="caption-attachment-2029" class="wp-caption-text">Рис. 1 &#8212; Camera and SpringArm</figcaption></figure>
+<p>Spring Arm ведет себя как пружина, к которой прикреплена камера. Длина пружины может изменяться в зависимости от того, насколько близко персонаж прижимается спиной к стенам. Но в любом случае Spring Arm будет работать так, чтобы персонаж всегда оставался в поле зрения. Не стоит изменять свойство Location камеры либо пружины. Взаимное расположение камеры, пружины и персонажа можно редактировать при помощи свойств <code class="codecolorer text default"><span class="text">SpringArm &gt; Details &gt; Target Arm Length</span></code> (длина пружины по-умолчанию) и <code class="codecolorer text default"><span class="text">SpringArm &gt; Details &gt; Camera &gt; Socket Offset</span></code> а также поворота камеры (<code class="codecolorer text default"><span class="text">Camera &gt; Details &gt; Transform &gt; Rotation</span></code>). Таким образом можно наблюдать персонажа с любого ракурса. Заметим, что редактировать свойство Rotation компонента Spring Arm бессмысленно, так как оно не оказывает на него никакого эффекта.</p>
+<p>В этой заметке мы упоминаем классы <a href="#pawncharacter">Pawn</a> и <a href="#controller">Controller</a>. Оба являются производными от класса Actor, т. е. располагаются в трехмерном пространстве сцены и обладают <a href="https://stackoverflow.com/questions/52013550/why-does-playercontroller-own-the-yaw-pitch-and-roll-but-the-character-owns">своими собственными положением и ориентацией в пространстве</a>. Также мы рассказываем про то, как осуществляется <a href="#input">обработка пользовательского ввода для перемещения и поворота</a>. Интересно, что функции для перемещения (AddMovementInput) перемещают Pawn, причем вместе с ним перемещается и Controller, и камера. Однако функции поворота (AddController&lt;Yaw|Pitch|Roll&gt;Input) поворачивают только Controller, но не Pawn. Так вот, все четыре участника этой истории (Pawn, Controller, SpringArm и Camera) могут синхронизировать повороты друг друга. Например, если мы, редактируя нашу Pawn в blueprint editor, отметим галку <code class="codecolorer text default"><span class="text">Class Defaults &gt; Details &gt; Pawn &gt; [v] Use Controller Rotation Pitch</span></code>, то наш персонаж (Pawn) будет вращаться вместе с контроллером (в игре от 3-его лица это выглядит так, что когда вы смотрите вверх, персонаж ложится на спину, а когда вниз &#8212; на живот). Мораль: обратите внимание на следующие галки, которые влияют на синхронизацию поворота контроллера-персонажа-камеры-SpringArm (я приведу здесь значения галок, которые типичны для шутера от 3-его лица):</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Pawn &gt; Class Defaults &gt; Details &gt; [ ] Use Controller Rotation Pitch<br>
+CameraComponent &gt; Details &gt; Camera Options &gt; [ ] Use Pawn Control Rotation<br>
+SpringArmComponent &gt; Details &gt; Camera Settings &gt; [v] Use Pawn Control Rotation</div></div>
+<h2 id="pawncharacter">Pawn &amp; Character</h2>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/Pawn/">Pawn (пешка)</a> &#8212; это Actor, которым можно управлять. Управлять может либо игрок, либо искусственный интеллект (формально управление осуществляет объект типа <a href="https://docs.unrealengine.com/4.26/en-US/InteractiveExperiences/Framework/Controller/">Controller</a>). <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/Pawn/Character/">Character</a> &#8212; это класс, производный от Pawn, который добавляет к последнему ряд компонентов:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Character<br>
+├── CapsuleComponent (Root)<br>
+│   ├── ArrowComponent<br>
+│   └── MeshComponent<br>
+└── CharacterMovementComponent</div></div>
+<p>Указанные компоненты также можно вручную добавить к классу, производному от Pawn.</p>
+<p>Создав блюпринт-класс, производный от Character, вы обычно выбираете для него Mesh: <code class="codecolorer text default"><span class="text">MeshComponent &gt; Details &gt; Skeletal Mesh &gt; Choose from assets</span></code>. Затем вы выравниваете CapsuleComponent относительно Mesh так, чтобы CapsuleComponent накрывал собою Mesh.</p>
+<h2 id="possession">Possession of a Pawn</h2>
+<p>Каждый объект типа Pawn (пешка) должен кем-то управляться (be possessed) &#8212; либо игроком, либо искусственным интеллектом (AI). Можно легко сделать так, чтобы объект Pawn управлялся игроком, для этого надо выбрать этот объект в окне World Outliner, затем <code class="codecolorer text default"><span class="text">Details &gt; Pawn &gt; Auto Possess = Player0</span></code>. Игрок может управлять только одной пешкой, поэтому, если вы проделаете приведенные выше манипуляции с другой пешкой, то старая пешка перестанет быть управляема игроком.</p>
+<p>Другой способ задать объект Pawn, которым будет управлять игрок: создать блюпринт-класс MyGameMode, производный от GameModeBase и выбрать его в качестве Default GameMode: <code class="codecolorer text default"><span class="text">Project Settings &gt; Maps &amp; Modes &gt; Default Modes &gt; Default GameMode = MyGameMode</span></code>. Другой вариант &#8212; задать GameMode только для текущего уровня: <code class="codecolorer text default"><span class="text">Settings &gt; World Settings &gt; Game Mode &gt; GameMode Override</span></code>.<br>
+Далее есть два альтернативных варианта. 1 &#8212; В классе MyGameMode нужно задать нужный класс пешки <code class="codecolorer text default"><span class="text">Details &gt; Classes &gt; Default Pawn Class = YourPawnClass</span></code>. 2 &#8212; Выбрать класс пешки в окне Project Settings: <code class="codecolorer text default"><span class="text">Project Settings &gt; Maps &amp; Modes &gt; Default Modes &gt; Selected GameMode &gt; Default Pawn Class = ...</span></code> (Заметим, что только <em>блюпринт</em>-классы, производные от GameModeBase могут иметь свойство PlayerController, которое можно установить таким образом. Т. е. с C++ классом <a href="https://forums.unrealengine.com/t/i-cant-set-the-default-pawn-class/126855/2">такое не пройдет</a>).</p>
+<p>Такой способ позволяет не размещать пешку в сцене вручную, так как она создается автоматически в месте, которое указывает actor PlayerStart (а вот его-то как раз и нужно разместить в сцене).</p>
+<h2 id="input">Input</h2>
+<p>Ввод данных пользователем осуществляется через клавиатуру, мышь или джойстик. Каждой операции ввода (например, нажатию на клавишу клавиатуры или движению мыши) может быть назначена функция-обработчик. Программист определяет операции ввода, которые должна обрабатывать игра &#8212; в окне <code class="codecolorer text default"><span class="text">Project Settings &gt; Input &gt; Action Mappings | Axis Mappings</span></code>. Операции разделяются на две категории:</p>
+<ul>
+<li>Action mappings &#8212; однократное событие, такое как нажатие или отпускание клавиши на клавиатуре или щелчок мышью.</li>
+<li>Axis mappings &#8212; длящееся событие, такое как длительное нажатие на клавишу или такое как движение мыши.</li>
+</ul>
+<p>В <code class="codecolorer text default"><span class="text">Project Settings &gt; Input</span></code> вы добавляете нужное событие в список и придумываете для него имя, которое затем понадобится для привязки к нему функции-обработчика (рис. 2).</p>
+<figure id="attachment_2044" aria-describedby="caption-attachment-2044" style="width: 825px" class="wp-caption aligncenter"><img decoding="async" src="/wp-content/uploads/2022/02/UE4_InputBindings.png" alt="" width="825" height="995" class="size-full wp-image-2044"><figcaption id="caption-attachment-2044" class="wp-caption-text">Рис. 2 &#8212; Project Settings, Input, Bindings: Action and Axis Mappings</figcaption></figure>
+<p>Любой класс, производный от APawn, может обрабатывать события ввода &#8212; для этого нужно переопределить функцию <code class="codecolorer cpp default"><span class="cpp">APawn<span class="sy4">::</span><span class="me2">SetupPlayerInputComponent</span><span class="br0">&#40;</span>UInputComponent<span class="sy2">*</span> PlayerInputComponent<span class="br0">&#41;</span></span></code> и вызвать внутри нее функции <code class="codecolorer cpp default"><span class="cpp">UInputComponent<span class="sy4">::</span><span class="me2">BindAction</span></span></code> и(ли) <code class="codecolorer cpp default"><span class="cpp">UInputComponent<span class="sy4">::</span><span class="me2">BindAxis</span></span></code>. Разумеется, это имеет смысл только для объектов, управляемых игроком.</p>
+<p><strong>ВАЖНО: КОГДА ВЫ ПЕРЕОПРЕДЕЛЯЕТЕ ФУНКЦИЮ, ОБЯЗАТЕЛЬНО ВЫЗЫВАЙТЕ ФУНКЦИЮ БАЗОВОГО КЛАССА</strong> <code class="codecolorer cpp default"><span class="cpp">Super<span class="sy4">::</span><span class="me2">Foo</span><span class="br0">&#40;</span><span class="br0">&#41;</span></span></code> <strong>&#8212; ИНАЧЕ МОЖЕТЕ ПОЛУЧИТЬ ТРУДНО ОТЛАЖИВАЕМЫЕ ГЛЮКИ</strong>.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> AMyPawn<span class="sy4">::</span><span class="me2">SetupPlayerInputComponent</span><span class="br0">&#40;</span>UInputComponent<span class="sy2">*</span> PlayerInputComponent<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Super<span class="sy4">::</span><span class="me2">SetupPlayerInputComponent</span><span class="br0">&#40;</span>PlayerInputComponent<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; PlayerInputComponent<span class="sy2">-</span><span class="sy1">&gt;</span>BindAxis<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; TEXT<span class="br0">&#40;</span><span class="st0">&quot;MoveForward&quot;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">this</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy3">&amp;</span>AMyPawn<span class="sy4">::</span><span class="me2">MoveForward</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; PlayerInputComponent<span class="sy2">-</span><span class="sy1">&gt;</span>BindAction<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; TEXT<span class="br0">&#40;</span><span class="st0">&quot;Shoot&quot;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; IE_Pressed,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">this</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy3">&amp;</span>AMyPawn<span class="sy4">::</span><span class="me2">Shoot</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> AMyPawn<span class="sy4">::</span><span class="me2">MoveForward</span><span class="br0">&#40;</span><span class="kw4">float</span> AxisValue<span class="br0">&#41;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> AMyPawn<span class="sy4">::</span><span class="me2">Shoot</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> ... <span class="br0">&#125;</span>
+</div></div>
+<p>Событие axis mapping сопровождается значением AxisValue, которое показывает в каком направлении и с какой силой осуществляется ввод, например, насколько резко пользователь переместил мышь, насколько сильно отклонил джойстик и т. п.</p>
+<p>Что же должно писать в обработчиках событий ввода (главным образом для axis mappings)? Для обработки движения можно воспользоваться функциями <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/AActor/AddActorLocalOffset/">AActor::AddActorLocalOffset</a> или <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APawn/AddMovementInput/">APawn::AddMovementInput</a> (последнее работает по-умолчанию только для классов, производных от ACharacter, поскольку &#171;Base Pawn classes won&#8217;t automatically apply movement, it&#8217;s up to the user to do so in a Tick event.&#187;). Для поворотов можно воспользоваться функциями <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/AActor/AddActorLocalRotation/2/">AActor::AddActorLocalRotation</a> и(ли) <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APawn/AddControllerPitchInput/">APawn::AddControllerPitchInput</a>, <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APawn/AddControllerYawInput/">APawn::AddControllerYawInput</a>, <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APawn/AddControllerRollInput/">APawn::AddControllerRollInput</a>.</p>
+<p>Обработчики axis mappings могут выглядеть например так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> AMyPawn<span class="sy4">::</span><span class="me2">Move</span><span class="br0">&#40;</span><span class="kw4">float</span> Value<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> DeltaTime <span class="sy1">=</span> UGameplayStatics<span class="sy4">::</span><span class="me2">GetWorldDeltaSeconds</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; AddActorLocalOffset<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; FVector<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Value <span class="sy2">*</span> DeltaTime <span class="sy2">*</span> Speed,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.0f</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.0f</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*bSweep*/</span> <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> AMyPawn<span class="sy4">::</span><span class="me2">Turn</span><span class="br0">&#40;</span><span class="kw4">float</span> Value<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">float</span> DeltaTime <span class="sy1">=</span> UGameplayStatics<span class="sy4">::</span><span class="me2">GetWorldDeltaSeconds</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; AddActorLocalRotation<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; FRotator<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*Pitch*/</span> <span class="nu17">0.0f</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*Yaw*/</span> Value <span class="sy2">*</span> DeltaTime <span class="sy2">*</span> TurnRate,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*Roll*/</span> <span class="nu17">0.0f</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*bSweep*/</span> <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Функция <strong>AActor::AddActorLocalOffset</strong> перемещает Actor&#8217;а в его пространстве модели (а не в пространстве уровня) &#8212; точнее, перемещает его RootComponent, если он не равен NULL.</p>
+<p>Обработчики событий ввода могут выглядеть и по-другому (как правило в программировании одну и ту же задачу можно решить разными способами):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> AMyCharacter<span class="sy4">::</span><span class="me2">MoveForward</span><span class="br0">&#40;</span><span class="kw4">float</span> AxisValue<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; AddMovementInput<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetActorForwardVector<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> AxisValue<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> AMyCharacter<span class="sy4">::</span><span class="me2">LookRight</span><span class="br0">&#40;</span><span class="kw4">float</span> AxisValue<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; AddControllerYawInput<span class="br0">&#40;</span>AxisValue<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw4">void</span> AMyCharacter<span class="sy4">::</span><span class="me2">LookRightRate</span><span class="br0">&#40;</span><span class="kw4">float</span> AxisValue<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; AddControllerYawInput<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; AxisValue <span class="sy2">*</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetDeltaSeconds<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>На рисунке 2 показано, что для поворота существует по две версии событий ввода (LookUp и LookUpRate, Turn и TurnRate) &#8212; это потому, что события Gamepad&#8217;а обрабатываются иначе, чем события клавиатуры и мыши: чем больше у вас частота кадров (FPS), тем чаще генерируются события Gamepad&#8217;а, в то время как частота событий клавиатуры и мыши от FPS не зависят &#8212; поэтому в обработчиках событий Gamepad&#8217;а мы домножаем AxisValue на DeltaSeconds (см. код выше). Функция <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/UWorld/GetDeltaSeconds/">UWorld::GetDeltaSeconds</a> возвращает количество секунд, прошедших с момента отображения предыдущего кадра. Заметим, что того же самого можно достичь при помощи функции<a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/GetWorldDeltaSeconds/"> UGameplayStatics::GetWorldDeltaSeconds</a>, которая принимает в качестве параметра указатель на объект WorldContextObject &#8212; это любой объект, который находится в уровне (как правило, можно использовать указатель this).</p>
+<h2 id="collision">Коллизии</h2>
+<p>Итак, мы нажимаем кнопку &#171;вперед&#187; на клавиатуре, и наш персонаж двигается вперед. Важно заметить, что если для перемещения персонажа мы пользуемся функцией AddActorLocalOffset, то при столкновении с другими Actor&#8217;ами в игре поведение нашего персонажа будет зависеть от параметра bSweep этой функции &#8212; только если он равен true, объект при перемещении будет проверяется на коллизии, и персонаж не будет, условно говоря, &#171;проходить сквозь стены&#187;. Напомню, что на коллизии проверяется только RootComponent.</p>
+<p>Вот хорошая статья о коллизиях в UE: <a href="https://www.unrealengine.com/en-US/blog/collision-filtering">Collision Filtering</a>. Каждый объект, который может проверяться на коллизии (например, CapsuleComponent или StaticMesh) имеет три вещи: 1. Object Type (World Static, World Dynamic, Pawn, Physics Body etc.) 3. Реакция на другие типы объектов (Ignore, Overlap, Block). От этих настроек зависит то, как поведут себя два объекта, которые волею судеб оказались рядом, столкнутся ли они или пройдут друг сквозь друга. Эти настройки можно задать в меню <code class="codecolorer text default"><span class="text">Details &gt; Collision Presets</span></code>. Совокупность настроек (галок) в меню Collision Presets называется Collision Profile, и этот profile может быть уникальным (custom) для данного конкретного Actor&#8217;а либо он может быть выбран из списка предопределенных профайлов (Block All, Physics Actor, Spectator и прочие).</p>
+<p>Чтобы избежать глюков, убедитесь, что RootComponent вашего персонажа не перекрывается с полом игрового уровня. Также проверьте, не перекрываются ли ваш персонаж и дуло его оружия, а то он может убить сам себя.</p>
+<p>Чтобы увидеть collision volumes статических мешей, можно во вьюпорте редактора выбрать меню (в левом верхнем углу) Player Collision или Visibility Collision &#8212; это может быть полезно при отладке. А чтобы во время игры посмотреть collision volumes персонажей и других Actor&#8217;ов, можно нажать на тильду (~) и в открывшейся консоли ввести <code class="codecolorer text default"><span class="text">show Collision</span></code>.</p>
+<h2 id="debugdraw">Отладка в UE &#8212; DrawDebugHelpers</h2>
+<p>В обычных программах для отладки часто используют вывод сообщений в консоль. В UE это тоже так &#8212; для этого используется функция UE_LOG. Но также полезно бывает рисовать отладочную информацию непосредственно в игровом уровне. Функции из заголовочного файла <strong>DrawDebugHelpers.h</strong> позволяют нарисовать в заданной точке пространства разные объекты: <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/DrawDebugPoint/">DrawDebugPoint</a>, <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/DrawDebugLine/">DrawDebugLine</a>, <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/DrawDebugSphere/">DrawDebugSphere</a>, <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/DrawDebugCamera/">DrawDebugCamera</a> и другие. Каждая такая функция имеет параметр bPersistentLines &#8212; если он равен true, то нарисованный объект будет оставаться нарисованным неограниченно долго. Если же bPersistentLines=false, то в дело вступает параметр Lifetime, который задает время существования нарисованного объекта в секундах. Вот пример рисования сферы, которая исчезает через 3 секунды после своего появления:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">DrawDebugSphere<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*InWorld*/</span> &nbsp;GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Center*/</span> &nbsp; ProjectileSpawnPointLocation,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Radius*/</span> &nbsp; <span class="nu0">10</span>.<span class="me1">f</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Segments*/</span> <span class="nu0">12</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Color*/</span> &nbsp; &nbsp;FColor<span class="sy4">::</span><span class="me2">Red</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*bPersistentLines*/</span> <span class="kw2">false</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Lifetime*/</span> <span class="nu0">3</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<h2 id="controller">Кто такой Controller?</h2>
+<p>Каждая пешка кем-то управляется (см. выше). В API это выражается в том, что у каждого Pawn есть свой <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/Controller/">Controller</a>, который может быть либо производным от <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/Controller/PlayerController/">PlayerController</a>, если пешка управляется игроком, либо производным от <a href="https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/Controller/AIController/">AIController</a>, если пешка управляется искусственным интеллектом.</p>
+<p>Классу, производному от PlayerController, обычно поручают обработку событий ввода от пользователя (у класса PlayerController есть виртуальная функция <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APlayerController/SetupInputComponent/">SetupInputComponent</a>, которую можно переопределить). В примере обработки пользовательского ввода выше мы переопределяли функцию APawn::SetupPlayerInputComponent, но так делают в реже.</p>
+<p>Класс, производный от AIController обычно должен реагировать на события в игре, на поведение персонажа игрока и пр. Например, вражеский AI должен охотиться за игроком и нападать на него. Для этого в классе, производном от AIController можно либо переопределить функцию <strong>AIController::Tick</strong>, в которой AI будет оценивать текущую ситуацию в игре и предпринимать соответствующие действия, либо в переопределенной функции <strong>AIController::BeginPlay</strong> запустить BehaviorTree, о чем пойдет речь существенно ниже в этой заметке.</p>
+<p>Пешка может получить ссылку на контроллер, который ею владеет при помощи функции <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APawn/GetController/2/">T* APawn::GetController<t>()</t></a>. Шаблонный параметр T служит для удобства, а имено, для указания типа, к которому мы желаем преобразовать полученный указатель на контроллер. Тут можно вспомнить о функции <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/CoreUObject/Templates/Cast/">T* Cast<t v>(V*)</t></a>, которая динамически преобразует указатель на тип V в указатель на тип T &#8212; это аналог оператора dynamic_cast в Unreal Engine.</p>
+<p>Контроллер может получить указатель на управляемую им пешку при помощи функции <strong>AController::GetPawn()</strong>.</p>
+<p>Как назначить пешке класс контроллера? Если мы хотим назначить класс контроллера персонажу игрока, то мы действуем через GameMode. Т. е. в блюпринте нашего кастомного GameMode идем в <code class="codecolorer text default"><span class="text">Details &gt; PlayerController = класс контроллера</span></code>. Либо идем в <code class="codecolorer text default"><span class="text">Project Settings &lt; Maps &amp; Modes &gt; Default Modes &gt; Selected Game Mode &gt; Player Controller Class = класс контроллера</span></code>. Если же мы хотим назначить контроллер для NPC (non-player-character), то идем в блюпринт нашего NPC <code class="codecolorer text default"><span class="text">Details &gt; Pawn &gt; AI Controller Class = класс контроллера</span></code>.</p>
+<p>Если персонаж NPC был уничтожен, то AIController нужно отключить от пешки, которую он контролирует, в противном случае уже мёртвая пешка будет продолжать выпонять действия, запрограммированные в AIController. Отключить пешку от контроллера можно вызовом функции <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APawn/DetachFromControllerPendingDestr-/">APawn::DetachFromControllerPendingDestroy()</a>.</p>
+<h2 id="linetrace">Line Tracing</h2>
+<p>В играх часто приходится решать задачу нахождения точки пересечения некоей линии в пространстве и какого-либо объекта в том же пространстве. Или задачу определения набора объектов, которые пересекает заданная линия. Например: куда попадет пуля, выпущенная из оружия персонажа? Или: видит ли один персонаж другого? Или: в какое место игрового уровня указывает курсор мыши?</p>
+<p>Еще раз упомянем статью <a href="https://www.unrealengine.com/en-US/blog/collision-filtering">Collision Filtering</a>. Каждый Actor имеет свойство Object Type, которое может принимать ограниченный набор значений (World Static, World Dynamic, Pawn и т.д.). И у каждого Actor&#8217;а есть свой индивидуальный набор реакций &#8212; object responses (всего вариантов реакций три: Ignore, Overlap, Block) на столкновение с объектами каждого Object Type&#8217;а. Далее, когда два объекта действительно столкнутся, то выбор реакции осуществится так, чтобы была выбрана least blocking interaction (см. статью).</p>
+<p>Но это еще не всё. В дополнение к Object Type&#8217;ам, есть еще и так называемые Trace Channels. У каждого Actor&#8217;а есть свой индивидуальный набор реакций &#8212; trace responses (вариантов реакций так же три: Ignore, Overlap, Block) на каждый trace channel. Здесь речь идет уже не о столкновении объектов, а о той самой задаче нахождения пересечения объекта и некой линии в пространстве. По-умолчанию в UE уже есть два trace channel&#8217;а: Visibility и Camera. Но мы можем добавлять свои trace channel&#8217;ы. Зачем это нужно. Ну например, нужно вам определить, находится ли персонаж в поле зрения противника &#8212; для этого подойдет канал Visibility &#8212; проводим линию между персонажем и противником и смотрим, пересекает ли она какие-либо объекты (если пересекает, значит персонаж вне поля зрения противника, спрятался за препятствием). Или нужно определить, в какой объект попадает пуля: проводим луч от дула оружия в направлении стрельбы и определяем, какие объекты он пересекает &#8212; для этого подойдет канал Bullet (который не существует по-умолчанию, поэтому мы должны его создать). Причем заметим, что каналы Visibility и Bullet отличаются &#8212; объекты реагируют на них по-разному: пуленепробиваемое стекло Block&#8217;ирует Bullet, но Ignore&#8217;ирует Visibility. Создать новый trace channel можно через окно <code class="codecolorer text default"><span class="text">Project Settings &gt; Collision &gt; Trace Channels</span></code> (рис. 3). В меню Presets можно настроить как каждый collision profile должен реагировать на наш trace channel (чтобы открыть окошко Edit Profile, нужно дважды щелкнуть на строчке нужного collision profile&#8217;а).</p>
+<figure id="attachment_2069" aria-describedby="caption-attachment-2069" style="width: 1146px" class="wp-caption aligncenter"><img decoding="async" src="/wp-content/uploads/2022/02/UE4_TraceChannels.jpg" alt="" width="1146" height="983" class="size-full wp-image-2069"><figcaption id="caption-attachment-2069" class="wp-caption-text">Рис. 3 &#8212; Создание нового Trace Channel</figcaption></figure>
+<p>Первая функция, которую мы упомянем &#8212; <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/UWorld/LineTraceSingleByObjectType/">UWorld::LineTraceSingleByObjectType</a> &#8212; ray trace&#8217;ит объекты по их типу и дает нам структуру <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/FHitResult/">FHitResult</a>, из которой можно получить например Actor, который &#171;проткнула&#187; наша линия trace (<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/FHitResult/GetActor/">FHitResult::GetActor()</a>), компонент этого Actor&#8217;а, который был &#171;проткнут&#187; (<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/FHitResult/GetComponent/">FHitResult::GetComponent()</a>) и координаты точки &#171;протыка&#187; (<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/FHitResult/Location/">FHitResul::Location</a>). Вот пример вызова функции LineTraceSingleByObjectType:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Ray-cast out to a certain distance</span><br>
+FHitResult Hit<span class="sy4">;</span><br>
+GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>LineTraceSingleByObjectType<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*OutHit*/</span> Hit,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Start*/</span> &nbsp;PlayerViewPointLocation,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*End*/</span> &nbsp; &nbsp;LineTraceEnd,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*ObjectQueryParams*/</span> FCollisionObjectQueryParams <span class="br0">&#123;</span> ECollisionChannel<span class="sy4">::</span><span class="me2">ECC_WorldDynamic</span> <span class="br0">&#125;</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Params*/</span> FCollisionQueryParams TraceParams<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*InTraceTag*/</span> &nbsp; &nbsp; &nbsp;FName<span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*bInTraceComplex*/</span> <span class="kw2">false</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*InIgnoreActor*/</span> &nbsp; GetOwner<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Вторая интересная функция &#8212; <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APlayerController/GetHitResultUnderCursor/">APlayerController::GetHitResultUnderCursor</a> &#8212; она позволяет определить объект, на который указывает курсор мыши. Вот пример ее вызова:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">FHitResult HitResult<span class="sy4">;</span><br>
+GetController<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetHitResultUnderCursor<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*channel*/</span> &nbsp; &nbsp; &nbsp; ECollisionChannel<span class="sy4">::</span><span class="me2">ECC_Visibility</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*bTraceComplex*/</span> <span class="kw2">false</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*OutHit*/</span> &nbsp; &nbsp; &nbsp; &nbsp;HitResult<span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>И третья функция <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/UWorld/LineTraceSingleByChannel/">UWorld::LineTraceSingleByChannel</a> &#8212; она как раз задействует созданный нами Trace Channel. Вот пример ее вызова:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">FHitResult Hit<span class="sy4">;</span><br>
+FCollisionQueryParams Params<span class="sy4">;</span><br>
+Params.<span class="me1">AddIgnoredActor</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+Params.<span class="me1">AddIgnoredActor</span><span class="br0">&#40;</span>GetOwner<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="kw1">if</span> <span class="br0">&#40;</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>LineTraceSingleByChannel<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*OutHit*/</span> Hit,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*Start*/</span> &nbsp;Start,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*End*/</span> &nbsp; &nbsp;End,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="coMULTI">/*TraceChannel*/</span> ECollisionChannel<span class="sy4">::</span><span class="me2">ECC_GameTraceChannel1</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Params<span class="br0">&#41;</span> <span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; ...<br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>В эту функцию, нужно передать параметр enum ECollisionChannel, который соответствует созданному нами Trace Channel&#8217;у. Но как узнать какое именно значение перечисления ECollisionChannel соответствует созданному нами каналу? Для этого нужно в папку нашего проекта найти файл <code class="codecolorer text default"><span class="text">Config / DefaultEngine.ini</span></code>. В этом файле для созданного нами канала (в примере он называется Bullet) будет иметься такая строчка:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">+DefaultChannelResponses=(Channel=ECC_GameTraceChannel1,DefaultResponse=ECR_Block,bTraceType=True,bStaticObject=False,Name=&quot;Bullet&quot;)</div></div>
+<p>Стало быть нужное нам значение перечисления &#8212; это ECollisionChannel::ECC_GameTraceChannel1.</p>
+<h2 id="timers">Timers</h2>
+<p><a href="https://docs.unrealengine.com/4.26/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Timers/">Таймеры в UE</a>, как и в других приложениях, нужны для выполнения определенных действий через определенные промежутки времени или же для выполнения одного действия, но не сразу, а по прошествии заданного промежутка времени. Таймер можно создать-запустить и остановить, а можно поставить на паузу. Действие, которое будет выполняться по таймеру &#8212; это делегат, т. е. указатель на функцию, которая, если я не ошибаюсь, должна являться методом класса. Запуск-пауза-остановка таймера осуществляется вызовами методов класса <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/FTimerManager/">FTimerManager</a> (заголовочный файл &#171;TimerManager.h&#187;). При этом одновременно таймеров может существовать множество, и конкретный таймер идентифицируется при помощи хэндла <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Engine/FTimerHandle/">FTimerHandle</a>.</p>
+<p>Запуск таймера выполняется вызовом функции <strong>FTimerManager::SetTimer</strong>, которая имеет несколько перегрузок. Отсановка таймера может быть выполнена либо вызовом функции <strong>FTimerManager::ClearTimer</strong>, либо вызовом функции <strong>FTimerManager::SetTimer</strong> с передачей ей отрицательного значения пероида таймера. Постановка таймера на паузу выполняется функцией <strong>FTimerManager::PauseTimer</strong>. Получить ссылку на объект FTimerManager можно вызовом функции <strong>AActor::GetWorldTimerManager()</strong> или <strong>UWorld::GetTimerManager()</strong>.</p>
+<p>Разные перегрузки функции SetTimer, которая запускает таймер, может принимать указатель на метод класса (и одновременно указатель на экземпляр класса), который будет вызываться по таймеру либо принимать объект FTimerDelegate, который содержит и всю вышеперечисленную информацию. Создать объект FTimerDelegate можно при помощи статической функции <code class="codecolorer cpp default"><span class="cpp">FTimerDelegate<span class="sy4">::</span><span class="me2">CreateUObject</span><span class="br0">&#40;</span>UserObject, Callback, Input parameters<span class="br0">&#41;</span></span></code>. К сожалению, на момент написания этой заметки почерпнуть какую-то информацию о параметрах этих функций можно скорее из исходного кода нежели чем из документации.</p>
+<h2 id="spawn">Spawn</h2>
+<p>Слово spawn означает &#171;порождать&#187;. Порождать нам обычно приходится: вражеских персонажей; снаряды, вылетающие из оружия; particle effects, т. е. взрывы, искры, дымы и прочее; звуковые эффекты &#8212; удары, щелчки и прочее. Для всего этого есть соответствующие функции:</p>
+<ul>
+<li>
+<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Engine/UWorld/SpawnActor/4/">UWorld::SpawnActor<t>(UClass[, Location, Rotation])</t></a> &#8212; создать Actor&#8217;а. У функции есть ряд перегрузок, но, вообще говоря, она позволяет создать и добавить в игровой уровень объект заданного класса, задав ему нужно пространственное положение. Класс в общем случае задается при помощи объекта <strong>UClass</strong> (см. ниже).
+</li>
+<li>
+<a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/SpawnEmitterAtLocation/1/">UGameplayStatics::SpawnEmitterAtLocation</a> &#8212; создает и запускает particle system заданного класса в заданной точке пространства. Эффект проигрывается и исчезает.<br>
+<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/SpawnEmitterAttached/1/">UGameplayStatics::SpawnEmitterAttached</a> &#8212; делает то же самое, что предыдущая функция, но прикрепляет particle system не к неподвижной точке пространства с заданными координатами, а к заданной точке (сокету &#8212; см. ниже) заданного компонента (компонент USeceneComponent принадлежит какому-либо объекту).
+</li>
+<li>
+<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/SpawnSoundAtLocation/">UGameplayStatics::SpawnSoundAtLocation</a> &#8212; создает и запускает звуковой эффект. Аналогична SpawnEmitterAtLocation выше.<br>
+<a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/SpawnSoundAttached/1/">UGameplayStatics::SpawnSoundAttached</a> &#8212; создает и запускает звуковой эффект. Аналогична SpawnEmitterAttached выше.
+</li>
+</ul>
+<p>Когда вы создаете (spawn&#8217;ите) Actor&#8217;а, крайне полезно вызвать для него функцию<br>
+<code class="codecolorer cpp default"><span class="cpp">AActor<span class="sy4">::</span><span class="me2">SetOwner</span><span class="br0">&#40;</span>AActor<span class="sy2">*</span> NewOwner<span class="br0">&#41;</span></span></code>, чтобы созданный Actor мог впоследствии получить указатель на своего владельца, вызвав функцию <code class="codecolorer cpp default"><span class="cpp">AActor<span class="sy4">::</span><span class="me2">GetOwner</span><span class="br0">&#40;</span><span class="br0">&#41;</span></span></code>.</p>
+<h2 id="uclass">Reflection &amp; Runtime Type Information в UE4</h2>
+<p><strong>UClass</strong> &#8212; это аналог класса <em>Type</em> в С#/.NET или <em>std::type_info</em> в C++ &#8212; он содержит runtime type information или reflection information, если угодно. С помощью UClass можно создать экземпляр класса. Каждый класс в Unreal Engine имеет статическое свойство StaticClass, которое возвращает указатель на UClass, точно так же, как в С#/.NET любой класс имеет метод <code class="codecolorer csharp default"><span class="csharp"><span class="kw1">static</span> Type GetType<span class="br0">&#40;</span><span class="br0">&#41;</span></span></code>.</p>
+<p>Часто в классах создают свойства типа UClass, чтобы дать себе возможность в редакторе выбирать например тип оружия и particle effect&#8217;ов. Если вы создадите в своем классе например такое свойство:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+UClass SomeClass<span class="sy4">;</span>
+</div></div>
+<p>&#8230; то в редакторе вы сможете присвоить этому свойству ссылку на любой класс. Но, предположим, что вам нужно ограничить допустимый набор опций теми, которые являются производными от какого-то определенного класса, например AActor. Тогда вместо UClass можно использовать шаблонный класс <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TSubclassOf/">TSubclassOf</a>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+TSubclassOf<span class="sy1">&lt;</span><span class="kw2">class</span> AActor<span class="sy1">&gt;</span> SomeActorDerivedClass<span class="sy4">;</span>
+</div></div>
+<h2 id="usefulcomp">Полезные компоненты</h2>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/UProjectileMovementComponent/">UProjectileMovementComponent</a>. Компонент будучи созданным внутри Actor&#8217;а при помощи функции UObject::CreateDefaultSubobject заставляет этого Actor&#8217;а двигаться как выпущенный из пушки снаряд (projectile). После создания компонента необходимо присвоить значения его свойствам InitialSpeed и MaxSpeed. Это пример компонента, который не размещается в трехмерном пространстве (т. е. не наследует классу USceneComponent) и не поддерживает функцию SetupAttachment, а лишь изменяет поведение объекта, к которому он применяется.</p>
+<p><a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Particles/UParticleSystemComponent/">UParticleSystemComponent</a>. Компонент, производный от USceneComponent, который размещается в трехмерном пространстве и который проигрывает заданный particle effect. Компонент следует создать (функция CreateDefaultSubobject), прикрепить к одному из компонентов объекта (SetupAttachment) и задать для компонента свойство <code class="codecolorer cpp default"><span class="cpp">UParticleSystem<span class="sy2">*</span> UParticleSystemComponent<span class="sy4">::</span><span class="me2">Template</span></span></code> &#8212; указатель на particle effect, который компонент будет воспроизводить. Такой компонент можно использовать например для создания дымового следа за выпущенным из пушки снарядом, так как particle effect будет перемещаться вслед за объектом, к которому он прикреплен.</p>
+<h2 id="hitevents">HitEvents</h2>
+<p>Класс <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UPrimitiveComponent/">UPrimitiveComponent</a> представляет собой геометрию, которая может быть использована как для отрисовки на экране, так и для коллизий. Т. е. в том числе для генерации событий столкновения с другими объектами (hit events). Производными от UPrimitiveComponent являются например такие классы как UStaticMeshComponent и UCapsuleComponent.</p>
+<p>В UE4 есть понятие событий (аналогичное например понятию события в C#). Класс UPrimitiveComponent имеет событие <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Components/UPrimitiveComponent/OnComponentHit/">OnComponentHit</a>, которое генерируется при столкновении компонента с любым твердым телом. Подписка на событие осуществляется вызовом функции <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/CoreUObject/UObject/TSparseDynamicDelegate/__Internal_AddDynamic/">AddDynamic</a>, которая принимает два параметра: указатель на объект, метод класса которого добавляется в invokation list события и сам указатель на метод класса (обработчик события). Сигнатура обработчика события OnComponentHit выглядит так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> OnComponentHit<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; UPrimitiveComponent<span class="sy2">*</span> HitComp,<br>
+&nbsp; &nbsp; AActor<span class="sy2">*</span> OtherActor,<br>
+&nbsp; &nbsp; UPrimitiveComponent<span class="sy2">*</span> OtherComponent,<br>
+&nbsp; &nbsp; FVector NormalImpulse,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> FHitResult<span class="sy3">&amp;</span> Hit<span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Важно: чтобы отборатчик был вызван, он доллжен быть снабжен макросом UFUNCTION() в своем объявлении в заголовочном файле.</p>
+<p>В обработчике события OnComponentHit как правило полезно проверять, не столкнулись ли друг с другом компоненты одного и того же Actor&#8217;а &#8212; это можно сделать путем сравнения соответствующих указателей с указателем OtherActor.</p>
+<p>Чтобы компонент, производный от UPrimitiveComponent, мог генерировать события столкновений, нужно разрешить ему это в редакторе блюпринтов: <code class="codecolorer text default"><span class="text">Выбираем компонент &gt; Details &gt; Collision &gt; Collision Presets &gt; Collision Enabled = Collision Enabled (Query and Physics)</span></code>.</p>
+<h2 id="damage">Dealing With Damage</h2>
+<p>Часто геймплей состоит в том, что персонажи наносят друг другу повреждения, поэтому необходимо наладить учет здоровья персонажей а также обрабатывать ситуацию, когда это здоровье заканчивается.</p>
+<p>В процессе нанесения повреждений выделяются следующие этапы:</p>
+<ol>
+<li>Sending damage (нанесение повреждения)</li>
+<li>Receving damage (получение повреждения)</li>
+</ol>
+<p>С точки зрения API эти этапы могут реализовываться двумя путями.</p>
+<h3>Вариант 1</h3>
+<p>Нанесение повреждения Actor&#8217;у возможно путем вызова функции <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/ApplyDamage/">UGameplayStatics::ApplyDamage</a>, которую можно вызвать например в упоминавшемся выше обработчике события OnComponentHit:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UGameplayStatics<span class="sy4">::</span><span class="me2">ApplyDamage</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*DamagedActor*/</span> OtherActor, <span class="co1">// Actor that will be damaged.</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*DamageAmount*/</span> Damage, &nbsp; &nbsp; <span class="co1">// The base damage to apply.</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*Instigator*/</span> &nbsp; MyOwner<span class="sy2">-</span><span class="sy1">&gt;</span>GetInstigatorController<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="co1">// Controller that was responsible for causing this damage (e.g. player who shot the weapon)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*DamageCauser*/</span> <span class="kw3">this</span>, &nbsp; &nbsp; &nbsp; <span class="co1">// Actor that actually caused the damage (e.g. the grenade that exploded)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*DamageType*/</span> &nbsp; UDamageType<span class="sy4">::</span><span class="me2">StaticClass</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="co1">// Class that describes the damage that was done.</span><br>
+<span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Чтобы получить указатель AController* Instigator, можно воспользоваться одним из методов APawn::GetController() или AActor::GetInstigatorController().</p>
+<p>Получение же повреждения можно осуществить через обработку события <strong>AActor::OnTakeAnyDamage</strong>. О том, как подписываться на события рассказывалось выше. Обработчик события OnTakeAnyDamage может иметь следующую сигнатуру:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> DamageTaken<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; AActor<span class="sy2">*</span> DamagedActor,<br>
+&nbsp; &nbsp; <span class="kw4">float</span> Damage,<br>
+&nbsp; &nbsp; <span class="kw4">const</span> UDamageType<span class="sy2">*</span> DamageType,<br>
+&nbsp; &nbsp; AController<span class="sy2">*</span> Instigator, <span class="co1">// controller which caused the damage or nullptr (Instigator - подстрекатель, зачинщик)</span><br>
+&nbsp; &nbsp; AActor<span class="sy2">*</span> DamageCauser<span class="br0">&#41;</span>
+</div></div>
+<p>Сама обработка события сводится к уменьшению здоровья персонажа. Здоровье можно хранить как в классе персонажа, так и в специально созданном компоненте (можно назвать таковой, скажем, HealthComponent). Если здоровье персонажа закончилось, то можно например удалить персонаж со сцены, вызвав <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/AActor/Destroy/">AActor::Destroy</a>.</p>
+<h3>Вариант 2</h3>
+<p>У класса AActor есть виртуальная функция <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/AActor/TakeDamage/">AActor::TakeDamage</a>, которую можно переопределить (не забудьте вызвать Super::TakeDamage). Нанести повреждение в таком случае означает вызвать эту функцию напрямую (например, в том же обработчике события OnComponentHit). Исходный код для нанесения повреждения может выглядеть как-то так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">FPointDamageEvent DamageEvent<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; Damage,<br>
+&nbsp; &nbsp; Hit,<br>
+&nbsp; &nbsp; ShotDirection,<br>
+&nbsp; &nbsp; <span class="kw2">nullptr</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+AActor<span class="sy2">*</span> DamagedActor <span class="sy1">=</span> Hit.<span class="me1">GetActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+DamagedActor<span class="sy2">-</span><span class="sy1">&gt;</span>TakeDamage<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*float DamageAmount*/</span> Damage,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*const FDamageEvent&amp;*/</span> DamageEvent,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*AController* EventInstigator*/</span> OwnerController,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*AActor* DamageCauser*/</span> <span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Заметим, что функция TakeDamage принимает в качестве параметра ссылку на объект <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Engine/FDamageEvent/">FDamageEvent</a>, который хранит специфическую информацию о характере повреждения и его количественных характеристиках. Есть два класса, производных от FDamageEvent: FPointDamageEvent, FRadialDamageEvent, соответствующие различным видам повреждений.</p>
+<p>Если здоровье персонажа закончилось и он отдал концы, то здесь может быть повод известить об этом событий класс GameMode, так как именно он назначен проверять условия проигрыша и выигрыша (если цель игры &#8212; уничтожить всех врагов и не помереть самому). Для этого в классе GameMode можно предусмотреть функцию, скажем, ActorDied или PawnKilled и т. п., которую вызывать в обработчике получения повреждений. Получить же указатель на GameMode можно двумя способами:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">AMyGameGameModeBase<span class="sy2">*</span> MyGameMode <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>AMyGameGameModeBase<span class="sy1">&gt;</span><span class="br0">&#40;</span>UGameplayStatics<span class="sy4">::</span><span class="me2">GetGameMode</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+AMyGameGameModeBase<span class="sy2">*</span> MyGameMode <span class="sy1">=</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetAuthGameMode<span class="sy1">&lt;</span>AMyGameGameModeBase<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Заметим, что в каждом случае мы преобразовываем полученный указатель к нашему кастомному классу Game Mode.</p>
+<h2 id="death">Death &amp; Game Over</h2>
+<p><strong>Что делать с пешкой NPC, когда она погибает?</strong> Несколько вещей.<br>
+1. Прекратить ее активность, т. е. она должна перестать совершать какие-либо действия. Если действия пешки были запрограммированы в методе AActor::Tick, то следует отключить для данной пешки &#171;тиканье&#187; вызовом AActor::SetActorTickEnabled(false). Если действия пешки контролировались контроллером AIController, то нужно отсоединить контроллер от пешки вызовом <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/GameFramework/APawn/DetachFromControllerPendingDestr-/">APawn::DetachFromControllerPendingDestroy</a>.<br>
+2. Уничтожить пешку вызовом AActor::Destroy(), в результате чего она пропадет со сцены. Либо не уничтожать пешку, но сделать активной анимацию, которая дает понять, что пешка убита (об анимациях см. ниже) а также отключить коллизии для убитой пешки вызовом <code class="codecolorer cpp default"><span class="cpp">GetCapsuleComponent<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>SetCollisionEnabled<span class="br0">&#40;</span>ECollisionEnabled<span class="sy4">::</span><span class="me2">Type</span><span class="sy4">::</span><span class="me2">NoCollision</span><span class="br0">&#41;</span></span></code>, чтобы остальные персонажи не спотыкались об нее.<br>
+3. Известить объект GameMode о том, что пешка убита, чтобы GameMode проверил критерий окончания игры (может быть, это была последняя пешка?).</p>
+<p><strong>Что делать с персонажем игрока, если он погибает?</strong><br>
+1. Необходимо прервать связь между пользовательским вводом и действиями персонажа. Для этого можно вызвать <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APawn/DisableInput/">APawn::DisableInput</a> (см. также APawn::EnableInput) либо выполнит уже упомянутое выше отключение контроллера от пешки вызовом APawn::DetachFromControllerPendingDestroy.<br>
+2. Можно спрятать персонажа игрока вызовом <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/AActor/SetActorHiddenInGame/">AActor::SetActorHiddenInGame(bool)</a>. Можно также спрятать курсор мыши при помощи <code class="codecolorer cpp default"><span class="cpp">APlayerController<span class="sy4">::</span><span class="me2">bShowMouseCursor</span> <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span></span></code>.<br>
+3. 3. Известить объект GameMode о том, что пешка игрока убита, с тем, чтобы GameMode проверил критерий окончания игры (может быть, у игрока есть несколько жизней?).</p>
+<p><strong>Как узнать, что игра завершилась? Каков критерий завершения игры?</strong> Критерий определяет программист. Например, игра завершается, если персонаж игрока погиб либо если игрок уничтожил всех врагов. Чтобы понять, была убита именно пешка игрока, можно сравнить указатель на убитую пешку с указателем на пешку игрока, который можно получить вызовом <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/GetPlayerPawn/">UGameplayStatics::GetPlayerPawn(this, 0)</a>; либо можно проверить, управляет ли убитой пешкой контроллер, производный от APlayerController:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">APlayerController<span class="sy2">*</span> PlayerController <span class="sy1">=</span> KilledPawn<span class="sy2">-</span><span class="sy1">&gt;</span>GetController<span class="sy1">&lt;</span>APlayerController<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="kw1">if</span> <span class="br0">&#40;</span>PlayerController<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="co1">// Player was killed</span>
+</div></div>
+<p>Если же убита пешка вражеского NPC, то можно проверить, остались ли еще на поле вражеские пешки, а для этого нужно их пересчитать. Это можно сделать например вызовом <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/GetAllActorsOfClass/">UGameplayStatics::GetAllActorsOfClass</a>, если вражеские пешки принадлежат к одному классу:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">TArray<span class="sy1">&lt;</span>AActor<span class="sy2">*</span><span class="sy1">&gt;</span> EnemyPawns<span class="sy4">;</span><br>
+UGameplayStatics<span class="sy4">::</span><span class="me2">GetAllActorsOfClass</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*WorldContextObject*/</span> <span class="kw3">this</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*ActorClass*/</span> AEnemyPawn<span class="sy4">::</span><span class="me2">StaticClass</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*OutActors*/</span> EnemyPawns<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="kw4">auto</span> NumberOfEnemies <span class="sy1">=</span> EnemyPawns.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Если вражеские пешки, будучи убитыми, не удаляются со сцены, то можно завести для них свойство вида IsAlive (или IsDead) и проверить, остались ли на поле пешки, у которых IsAlive==true (или IsDead==false). Чтобы перебрать всех Actor&#8217;ов заданного типа, можно воспользоваться классом <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/TActorRange/">TActorRange</a>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw1">for</span> <span class="br0">&#40;</span>AEnemyPawn<span class="sy2">*</span> Enemy <span class="sy4">:</span> TActorRange<span class="sy1">&lt;</span>AEnemyPawn<span class="sy1">&gt;</span><span class="br0">&#40;</span>GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>Enemy<span class="sy2">-</span><span class="sy1">&gt;</span>IsAlive<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span> <span class="co1">// There are still enemies to kill</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p><strong>Что нужно сделать, когда игра завершается?</strong> Если мы выяснили, что условие завершения игры выполнено, то мы должны сделать несколько вещей.<br>
+1. У класса AController есть виртуальный метод <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/AController/GameHasEnded/">GameHasEnded</a>. GameMode должен вызвать его для всех имеющихся в игре контроллеров, чтобы известить их об окончании игры.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw1">for</span> <span class="br0">&#40;</span>AController<span class="sy2">*</span> Controller <span class="sy4">:</span> TActorRange<span class="sy1">&lt;</span>AController<span class="sy1">&gt;</span><span class="br0">&#40;</span>GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Controller<span class="sy2">-</span><span class="sy1">&gt;</span>GameHasEnded<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*EndGameFocus*/</span> Controller<span class="sy2">-</span><span class="sy1">&gt;</span>GetPawn<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="co1">// Actor to set as the view target on end game</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*bIsWinner*/</span> ... &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// true if this controller is on winning team</span><br>
+&nbsp; &nbsp; <span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Контроллеры же внутри этого метода (который можно переопределить в производных классах) выполнят какую-то работу, связанную с окончанием игры. Например, контроллер игрока PlayerController может отобразить на экране виджет, показывающий результат игры (о виджетах &#8212; ниже).<br>
+2. Можно отобразить виджет с результатом игры.<br>
+3. Можно перезапустить игру, для чего вызвать <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APlayerController/RestartLevel/">APlayerController::RestartLevel</a>, в результате чего в частности все Actor&#8217;ы будут respawn&#8217;ены. Перезапуск игры можно сделать по таймеру, чтобы игрок успел увидеть результат игры.</p>
+<h2 id="cppblueprints">Интерфейс между C++ и блюпринтами</h2>
+<p>Выше упоминались атрибуты в макросе UPROPERTY, которые делали поля класса доступными для чтения или чтения-записи в блюпринтах. <a href="https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/Blueprints/TechnicalGuide/ExtendingBlueprints/">Что касается функций-членов</a> класса, то их можно сделать &#171;вызывабельными&#187; из блюпринта <em>(т. е. в блюпринте можно будет вызывать функцию, написанную на C++)</em> а также &#171;переопределяюельными&#187; в классе блюпринта <em>(т. е. функцию можно будет переопределить в классе блюпринта, производном от класса C++; при этом вызывать функцию можно будет из кода на C++; хотя по смыслу своему такая функция виртуальная, но снабжать ее прецификатором virtual не нужно)</em>. Делается это всё при помощи макроса UFUNCTION.</p>
+<p>&#171;Вызывабельной&#187; функцию можно сделать, снабдив ее через макрос UFUNCTION одним из следующих атрибутов:</p>
+<table>
+<tr>
+<td style="text-align:left">BlueprintCallable</td>
+<td style="text-align:left">Функция имеет то, что называется &#171;execution pin&#187; &#8212; это такие белые треугольнички в блюпринтах, которые соединяют белыми же линиями, и которые олицетворяют собой последовательность действий, т. е. поток управления. Такая функция, вообще говоря, может изменять состояние объекта, поэтому и важно какое место ее вызов займет в последовательности других действий.</td>
+</tr>
+<tr>
+<td style="text-align:left">BlueprintPure</td>
+<td style="text-align:left">У функции, помеченной таким атрибутом, отсутствует &#171;execution pin&#187;, поскольку она не изменяет объект. По той же причине она обязательно должна быть помечена как const.</td>
+</tr>
+</table>
+<p>&#171;Переопределябельной&#187; функцию можно сделать, снабдив ее через макрос UFUNCTION одним из следующих атрибутов:</p>
+<table>
+<tr>
+<td style="text-align:left">BlueprintImplementableEvent</td>
+<td style="text-align:left">У такой функции нет определения в классе C++ &#8212; есть только объявление. Переопределяется функция в классе блюпринта путем создания узла Event &lt;Function Name&gt; (рис. 4)</td>
+</tr>
+<tr>
+<td style="text-align:left">BlueprintNativeEvent</td>
+<td style="text-align:left">То же, что и BlueprintImplementableEvent, но только на этот раз функция может иметь реализацию по-умолчанию на C++.</td>
+</tr>
+</table>
+<p>Вот пара примеров применения вышеперечисленных атрибутов:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UFUNCTION<span class="br0">&#40;</span>BlueprintImplementableEvent<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> GameOver<span class="br0">&#40;</span><span class="kw4">bool</span> bWonGame<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; UFUNCTION<span class="br0">&#40;</span>BlueprintPure<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> IsDead<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><span class="sy4">;</span>
+</div></div>
+<figure id="attachment_2076" aria-describedby="caption-attachment-2076" style="width: 300px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/wp-content/uploads/2022/02/UE4_BlueprintImplementableEvent-300x175.jpg" alt="" width="300" height="175" class="size-medium wp-image-2076"><figcaption id="caption-attachment-2076" class="wp-caption-text">Рис. 4 &#8212; Узел функции, помеченной атрибутом BlueprintImplementableEvent</figcaption></figure>
+<h2 id="widgets">Widgets</h2>
+<p>Виджеты &#8212; это двумерный графический элемент управления. В игре можно использовать такие элементы в качестве меню, для отображения уровня здоровья игрока, прицела, для индикации начала и окончания игры (надпись Game Over например) и прочего. В UE4 есть соответствующий класс ассетов &#8212; WidgetBlueprint.</p>
+<p>Чтобы создать виджет, можно воспользоваться меню <code class="codecolorer text default"><span class="text">ContentBrowser &gt; ПКМ &gt; UserInterface &gt; WidgetBlueprint</span></code>. Откроется редактор, в котором можно сконструировать виджет из набора стандартных элементов управления (Text, Progress Bar и пр.) &#8212; рис. 5.</p>
+<figure id="attachment_2082" aria-describedby="caption-attachment-2082" style="width: 1668px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/wp-content/uploads/2022/02/UE4_WidgetBlueprint.jpg" alt="" width="1668" height="1080" class="size-full wp-image-2082"><figcaption id="caption-attachment-2082" class="wp-caption-text">Рис. 5 &#8212; Widget Blueprint</figcaption></figure>
+<p>Элементы управления мы перетаскиваем из окна Palette на поверхность виджета. Элементы управления образуют иерархию, когда одни элементы управления являются контейнерами для других &#8212; это напоминает мне библиотеку Windows Presentation Foundation. Дерево элементов управления отображается в окне Hierarchy.</p>
+<p>По-умолчанию верхним элементом в иерархии является Canvas Panel. Можно например перетащить элемент управления на Canvas Panel, и он станет его дочерним элементом. Выбрав элемент управления, мы можем изменять различные его свойства в окне Details, некоторые из которых отвечают за внешний вид элемента, а другие &#8212; за позицию элемента внутри его родительского элемента управления (контейнера). Позиция элемента внутри Canvas Pane задается относительно Anchor&#8217;а (&#171;якоря&#187;), который может быть выбран из выпадающего списка в меню <code class="codecolorer text default"><span class="text">Details &gt; Slot (Canvas Panel Slot) &gt; Anchors</span></code>. Позиция относительно anchor&#8217;а задается свойствами <code class="codecolorer text default"><span class="text">Details &gt; Slot (Canvas Panel Slot) &gt; Position X|Y, Size X|Y, Alignment X|Y</span></code>. Например, чтобы разместить элемент управления ровно по центру Canvas Pane, нужно задать <code class="codecolorer text default"><span class="text">Anchors=ПоЦентру, Position X=0, Position Y=0, Alignment X=0.5, Alignment <br>
+&nbsp;Y=0.5</span></code>. Также полезна галочка Size To Content, которая подгоняет размеры рамки элемента управления в соответствии с содержимым элемента.</p>
+<p>У каждого элемента управления есть свои специфические свойства, например, для элемента Text свойство Justification задает выравнивание текста относительно рамок элемента (которые задаются свойствами <code class="codecolorer text default"><span class="text">Position X|Y, Size X|Y</span></code> &#8212; см. выше).</p>
+<p><strong>Как добавить виджет на экран из блюпринта?</strong> В коде блюпринтов (например в блюпринте GameMode) мы сначала создаем виджет при помощи узла <strong>Create Widget</strong>. У узла Create Widget есть вход Class, в котором можно выбрать из выпадающего списка один из имеющихся в проекте классов виджетов. Далее мы добавляем созданный виджет на экран передавая его на вход Target узла <strong>Add to Viewport</strong>. Чтобы удалить виджет с экрана, можно воспользоваться узлом <strong>Remove From Parent</strong>, подав ссылку на этот виджет на вход Target этого узла.</p>
+<p><strong>Как добавить виджет на экран из C++?</strong> WidgetBlueprint наследует классу UUserWidget. В C++ виджет сначала нужно создать при помощи функции <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/UMG/Blueprint/CreateWidget/">CreateWidget(OwnerT*, TSubclassOf<uuserwidget>, FName WidgetName)</uuserwidget></a>. Передать в качестве параметра OwningObject можно только указатели на объекты типа UWidget, UWidgetTree, APlayerController, UGameInstance или UWorld. Далее, чтобы добавить виджет на экран, нужно вызвать метод <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/UMG/Blueprint/UUserWidget/AddToViewport/">UUserWidget::AddToViewport</a>.</p>
+<p>Вызывая вышеуказанные функции, мы можем нарваться на ошибку компоновки вида:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">error LNK2019: unresolved external symbol &quot;__declspec(dllimport) private: static class UClass * __cdecl UUserWidget::GetPrivateStaticClass(void)&quot; (__imp_?GetPrivateStaticClass@UUserWidget@@CAPEAVUClass@@XZ) referenced in function &quot;...&quot; (??$CreateWidget@VUUserWidget@@...@@@@YAPEAVUUserWidget@@...@@V?$TSubclassOf@VUUserWidget@@@@VFName@@@Z)</div></div>
+<p>Чтобы ее исправить, нужно найти в папке проекта файл <strong>Build.cs</strong> и добавить в нем модуль &#171;UMG&#187;:</p>
+<div class="codecolorer-container csharp default" style="overflow:auto;white-space:nowrap;"><div class="csharp codecolorer">PublicDependencyModuleNames<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><a href="http://www.google.com/search?q=new+msdn.microsoft.com"><span class="kw3">new</span></a> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span>, <span class="st0">&quot;GameplayTasks&quot;</span>, <span class="st0">&quot;UMG&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+</div></div>
+<p>Чтобы удалить виджет с экрана, можно вызвать его метод UUserWidget::RemoveFromViewport.</p>
+<p>Заметим, что если мы создаем объект внутри класса, и внутри класса у нас имеется поле, которое хранит указатель на этот объект, то желательно снабдить это поле макросом UPROPERTY() &#8212; для того, чтобы этот объект был собран сборщиком мусора UE4.</p>
+<h2 id="blueprintvars">Переменные в блюпринтах на примере виджетов</h2>
+<p>Блюпринты &#8212; это аналог классов в C++, программируемые при помощи одноименного графического языка. Поэтому в блюпринтах могут быть и функции-члены (методы), и переменные-слены (поля), которые могут быть приватными либо публичными. Виджеты &#8212; это блюпринты. Их внешний вид конструируется в окне Designer, а код (поведение) &#8212; в окне Graph. В окне Graph по-умолчанию уже созданы узлы событий Event Pre Construct (аналог конструктора), Event Construct (аналог метода BeginPlay) и Event Tick (аналог метода Tick). В окне Graph можно создавать переменные-члены и функции-члены (в окошке My Blueprint &#8212; рис. 6). Но содержимое отдельных элементов управления можно автоматически сделать/связать с переменной. Например, если выбрать в Designer&#8217;е элемент управления Text, и в окне Details выбрать галку [v]Is Variable, то автоматически будет создана переменная, которая называется так же, как элемент управления. Если эта переменная будет изменена тем или иным способом, то изменится и содержимое элемента управления Text.</p>
+<p>Когда мы создали переменную в блюпринте, выбрав ее, мы сможем отредактировать ее свойства в окне Details, наиболее важные из которых: Variable Name, Variable Type и Default Value. Причем переменная получит свое значение по-умолчанию только после того, как вы нажмете кнопку Compile.</p>
+<figure id="attachment_2089" aria-describedby="caption-attachment-2089" style="width: 232px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/wp-content/uploads/2022/02/UE4_BlueprintVariables-232x300.jpg" alt="" width="232" height="300" class="size-medium wp-image-2089"><figcaption id="caption-attachment-2089" class="wp-caption-text">Рис. 6 &#8212; Переменные в блюпринте</figcaption></figure>
+<p>В окошке My Blueprint рядом с каждой переменной есть иконка &#171;глаз&#187;. Если этот глаз открыт &#8212; значит переменная публичная, и к ней может получить доступ другой блюпринт, если у него есть ссылка на экземпляр блюпринта, которому принадлежит эта переменная. Если глаз закрыт, то, соответственно &#8212; не может.</p>
+<p>Можно сделать так, чтобы значение содержимого (или иного свойства, цвета например) элемента управления вычислялось в каждом кадре (в каждом Tick&#8217;е). Яркий пример &#8212; шкала здоровья (Progress Bar). Правильно будет, ели значение, отображаемое в шкале здоровья обновлялось в каждом кадре. Поэтому должна существовать функция-член нашего блюпринта (назовем ее GetHealth), которая будет вызываться в каждом кадре. Этот механизм называется Binding (снова напоминает мне Windows Presentation Foundation). Чтобы задействовать binding, на примере Progress Bar, нужно выбрать Progress Bar, затем <code class="codecolorer text default"><span class="text">Details &gt; Progress &gt; Percent &gt; Bind &gt; Create Binding</span></code> (рис. 7) &#8212; автоматически будет создана функция-член и вы переместитесь в редактор Graph для написания ее кода.</p>
+<figure id="attachment_2092" aria-describedby="caption-attachment-2092" style="width: 1876px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/wp-content/uploads/2022/02/UE4_BlueprintVariableBind.jpg" alt="" width="1876" height="532" class="size-full wp-image-2092"><figcaption id="caption-attachment-2092" class="wp-caption-text">Рис. 7 &#8212; Bind a Progress Bar Value to a Function in Blueprint</figcaption></figure>
+<h2 id="particles">Particle Effects</h2>
+<p>Эффекты частиц (взрывы, искры, дымы и прочее) являются ассетами. В любом классе C++ MyClass можно создать свойство:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> MyClass<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> UParticleSystem<span class="sy2">*</span> SomeParticleEffect<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>&#8230; после чего создать производный класс BP_MyClass и в редакторе блюпринтов установить в окне Class Defaults значение для этого свойства. Затем в нужный момент можно создать (spawn) и воспроизвести эффект при помощи функции UGameplayStatics::SpawnEmitterAtLocation, которая уже упоминалась выше.</p>
+<p>Другой вариант использования частиц &#8212; когда необходимо, чтобы Actor испускал частицы постоянно. Это можно сделать, прикрепив к Actor&#8217;у компонент UParticleSystemComponent, который тоже уже упоминался. Его можно создать (CreateDefaultSubobject) и прикрепить (SetupAttachment) в C++ либо сделать то же самое через редактор блюпринтов.</p>
+<h2 id="sound">Sound Effects</h2>
+<p>Звуковые эффекты &#8212; это так же ассеты. Работать с ними можно аналогично вышеупомянутым эффектам частиц. В классе C++ можно создать свойство типа <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Sound/USoundBase/">SoundBase</a>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> MyClass<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="kw2">class</span> USoundBase<span class="sy2">*</span> SomeSoundEffect<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Воспроизвести звуковой эффект можно, вызвав <a href="https://docs.unrealengine.com/4.27/en-US/API/Runtime/Engine/Kismet/UGameplayStatics/PlaySoundAtLocation/2/">UGameplayStatics::PlaySoundAtLocation</a> например так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">UGameplayStatics<span class="sy4">::</span><span class="me2">PlaySoundAtLocation</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*WorldContextObject*/</span> <span class="kw3">this</span>,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Sound*/</span> SomeSoundEffect,<br>
+&nbsp; &nbsp; <span class="coMULTI">/*Location*/</span> GetActorLocation<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<h2 id="camshake">Camera Shake</h2>
+<p>Сотрясение камеры &#8212; это еще один эффект (и ассет), который может пригодиться, когда вам нужно создать например впечатление землетрясения или близкого взрыва. Существует базовый класс <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/Camera/UMatineeCameraShake/">UMatineeCameraShake</a>, от которого вы можете унаследовать класс блюпринта и уже в редакторе блюпринтов настроить параметры сотрясения камеры в окне Class Defaults. Основные параметры, которые нужно настроить:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Details &gt; Oscilation &gt; Oscilation Duration (seconds)<br>
+Details &gt; Oscilation &gt; Loc Oscilation</div></div>
+<p>В любом классе C++ можно создать свойство</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> MyClass<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; UPROPERTY<span class="br0">&#40;</span>EditAnywhere<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; TSubclassOf<span class="sy1">&lt;</span><span class="kw2">class</span> UCameraShakeBase<span class="sy1">&gt;</span> SomeCameraShakeClass<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>&#8230; и в редакторе блюпринтов выбрать значение этого свойства в меню <code class="codecolorer text default"><span class="text">Class Defaults &gt; Details</span></code>.</p>
+<p>Далее в нужный момент можно воспроизвести эффект тряски камеры, вызвав <a href="https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APlayerController/ClientStartCameraShake/">APlayerController::ClientStartCameraShake</a> например так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetFirstPlayerController<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>ClientStartCameraShake<span class="br0">&#40;</span>SomeCameraShakeClass<span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<h2 id="animation">Animations</h2>
+<p>Анимация &#8212; это движение персонажа. В принципе, персонаж двигается всегда, в том числе, когда стоит и ничего не делает (он может в это время переминаться с ноги на ногу). Анимации создаются путем изменения вершин Mesh&#8217;а. Эти изменения рассчитываются при помощи скелета (Skeleton), состоящего из связанных между собой костей (bones). SkeletalMesh поддерживает возможность такой анимации, StaticMesh &#8212; не поддерживает. Анимации, собственно, задают движение костей скелета во времени. Анимация состоит из ряда кадров (key frames) во времени. Каждый кадр задает определенное положение костей скелета. Положение костей в промежуточные моменты времени между кадрами вычисляется при помощи интерполяции между соседними кадрами. Сами анимации можно комбинировать (для этого они должны использовать один и тот же скелет), т. е. можно создать анимацию, которая будет являться линейной комбинацией других анимаций.</p>
+<p>Выбор меша для персонажа осуществляется так: <code class="codecolorer text default"><span class="text">Pawn/Character &gt; Blueprint Editor &gt; Mesh Component &gt; Details &gt; Mesh &gt; Skeletal Mesh = ...</span></code>. Выбор анимации персонажа &#8212; так: <code class="codecolorer text default"><span class="text">Pawn/Character &gt; Blueprint Editor &gt; Mesh Component &gt; Details &gt; Animation &gt; Animation Mode = Use Animation Asset | Use Animation Blueprint, Anim Class = ...</span></code>.</p>
+<h2 id="misc">Разное</h2>
+<p>Setting Editor Startup Map &#038; Game Default Map in Edit > Project Settings&#8230; > Maps &#038; Modes.<br>
+Button in the form of a globe: Cycles the transform gizmo coordinate system between local and world coordinate systems<br>
+Edit > Editor Preferences > Level Editor > Viewports > Look and Feel > [v] Preview Selected Cameras<br>
+Play > Simulate &#8212; play without possessing any pawns<br>
+Drop-down next to [Perspective] > Show FPS<br>
+File > New C++ Class > [v] Show All Classes<br>
+FRotator FVector::Rotation() &#8212; rotation corresponding to the vector<br>
+FVector::Dist() calcs distance<br>
+static APawn* UGameplayStatics::GetPlayerPawn()<br>
+AActor::GetActorLocation()<br>
+&#171;Select&#187; node > RMB on Return Value > Change Pin Type<br>
+Ctrl+W &#8212; duplicate the lastly created node<br>
+Ceil node<br>
+Switch on Int node > Details > [v] Has Default Pin<br>
+Print String node<br>
+Set Text node<br>
+Branch node<br>
+In the Content Browser select Blueprint > RMB > Duplicate<br>
+Don&#8217;t forget to connect execution wires!<br>
+Ceil node<br>
+If something is not working in Blueprint try to reload Unreal Editor.<br>
+Blueprint Editor > Get Owner Player Pawn node &#8212;> Cast To <yourcharactertype> &#8212;> GetHealth<br>
+Content Browser > RMB on a Blueprint class > Create a Child Blueprint Class<br>
+Частенько для того, чтобы найти нужный узел в редакторе блюпринтов, нужно в соответствующем контекстном меню снять галку Context Sensitive.<br>
+Чтобы камера двигалась плавно, с ускорением, а не сразу дергалась при нажатии на одну из клавиш ASWD: Spring Arm Component > Details > Lag > [v] Enable Camera Lag, [v] Enable Camera Rotation Lag<br>
+Создать дистрибутив игры (в том числе исполняемый файл): File > Package Project > Windows > New Folder (Build)</yourcharactertype></p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2022/03/04/ue4-part2/" data-a2a-title="Unreal Engine Cookbook — Part 2">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2022%2F03%2F04%2Fue4-part2%2F&amp;linkname=Unreal%20Engine%20Cookbook%20%E2%80%94%20Part%202" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2022%2F03%2F04%2Fue4-part2%2F&amp;linkname=Unreal%20Engine%20Cookbook%20%E2%80%94%20Part%202" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2022%2F03%2F04%2Fue4-part2%2F&amp;linkname=Unreal%20Engine%20Cookbook%20%E2%80%94%20Part%202" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a>, <a href="/tag/ue4/" rel="tag">UE4</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2021/12/22/ue4-part1/" rel="prev">Unreal Engine CookBook &#8212; Part 1</a></div>
+<div class="nav-next"><a href="/2022/03/27/cppthreads/" rel="next">C++ Threads Cookbook</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2022/03/04/ue4-part2/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="2009" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

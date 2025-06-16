@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Опыт изучения OpenGL &#8212; Часть 5 &#8212; Рисуем треугольник &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Опыт изучения OpenGL &#8212; Часть 5 &#8212; Рисуем треугольник&raquo;" href="/2018/09/17/opengl-5/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/813">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/09/17/opengl-5/">
+<link rel="shortlink" href="/?p=813">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F09%2F17%2Fopengl-5%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F09%2F17%2Fopengl-5%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-813 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-813" class="post-813 post type-post status-publish format-standard hentry category-1 tag-c-c tag-opengl">
+	<header class="entry-header">
+		<h1 class="entry-title">Опыт изучения OpenGL &#8212; Часть 5 &#8212; Рисуем треугольник</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/09/17/opengl-5/" rel="bookmark"><time class="entry-date published updated" datetime="2018-09-17T16:23:52+03:00">17.09.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>В <a href="http://localhost/opengl-4/">предыдущих заметках</a> мы провели всю необходимую подготовку для того, чтобы начать рисовать. Рисовать начнем с треугольника (так поступают авторы большинства книжек по OpenGL). На примере рисования треугольника мы обсудим ряд базовых концепций компьютерной графики. Пока речь не пойдет о трехмерном пространстве, наш треугольник не будет поворачиваться, и на него нельзя будет взглянуть под произвольным углом.</p>
+<h2 id="references">Литература</h2>
+<p>Настоятельно рекомендую вам главы из нижеследующих книг перед чтением этой заметки (или после чтения):</p>
+<ul>
+<li id="McKesson">
+<strong>Jason McKesson &#8212; Learning Modern 3D Graphics Programming.</strong><br>
+&#8212; Introduction.<br>
+&#8212; Chapter 1. Hello, Triangle!
+</li>
+<li id="Wolf">
+<strong>David Wolf &#8212; OpenGL 4 Shading Language Cookbook (2nd Edition).</strong><br>
+&#8212; Chapter 1. Getting Started with GLSL.
+</li>
+<li id="Guide8th">
+<strong>Dave Shreiner et al. &#8212; OpenGL Programming Guide (8th Edition).</strong><br>
+&#8212; Chapter 1. Introduction to OpenGL.
+</li>
+<li id="SuperBible7th">
+<strong>Graham Sellers &#8212; OpenGL SuperBible (7th Edition).</strong><br>
+&#8212; Chapter 2. Our First OpenGL Program.
+</li>
+</ul>
+<p>Про архитектуру видеопроцессоров (для любопытствующих) &#8212; то, что я нашел в Интернете:</p>
+<ul>
+<li>
+Erik Lindholm, John Nickolls, Stuart Oberman, John Montrym &#8212; NVIDIA Tesla: A Unified Graphics and Computing Architecture &#8212; 2008 IEEE.
+</li>
+<li>NVIDIA Whitepaper &#8212; NVIDIA’s Next Generation CUDA Compute Architecture: Fermi.</li>
+</ul>
+<h2>Теория</h2>
+<p>Конечная цель работы графической программы &#8212; формирование изображения на экране. Изображение как правило изменяется во времени и должно обновляться с достаточно высокой частотой, чтобы глазу было комфортно его воспринимать. На сегодняшний день технология формирования изображения такова, что оно представляет собой матрицу маленьких элементов, каждый из которых имеет определенный цвет. Эти элементы называются пикселями. Пиксел (pixel &#8212; picture element) &#8212; наименьший элемент изображения, характеризуется координатами на экране X и Y, и цветом.</p>
+<p>Так что в конечном счете сформировать изображение &#8212; значит для каждого пикселя задать определенный цвет. Что-то вроде собирания <a href="https://ru.wikipedia.org/wiki/Мозаика">мозаики</a>. Собирание мозаики &#8212; процесс долгий и кропотливый, нам же надо формировать картинку, меняющуюся во времени с частотой не менее 24 кадров в секунду. Так что приходится автоматизировать процесс, и выполняет эту задачу <a href="https://ru.wikipedia.org/wiki/Графический_процессор">видеопроцессор (GPU &#8212; graphics processing unit)</a>.</p>
+<p>В архитектуре видеопроцессора используются две идеи, которые радикально повышают производительность, позволяя формировать изображение из миллионов пикселей достаточно быстро:</p>
+<ul>
+<li>
+<strong>Параллелизм.</strong> Процессор содержит большое количество ядер &#8212; порядка тысячи. Ядра, разумеется, работают параллельно.
+</li>
+<li>
+<strong>Конвейер (pipeline).</strong> Суть конвейерного производства &#8212; в разделении процесса сборки изделия (в нашем случае это изделие &#8212; пиксель) на ряд стадий и узкая специализация тех, кто эти стадии выполняет. Причем, как только одно изделие покидает очередную стадию конвейера, на его место тут же поступает новое изделие. Среднее время выпуска одного изделия равно времени, которое затрачивается на самую длинную стадию конвейера, поэтому чем больше стадий в конвейере, тем быстрее выпускаются изделия. При этом время прохода одного конкретного изделия через все стадии конвейера может быть много больше среднего времени выпуска одного изделия (но для нас-то важно как раз последнее).
+</li>
+</ul>
+<p>Ясно, что видеопроцессор должен принимать от прикладной программы некие команды рисования. Мы не хотим, чтобы эти команды звучали &#171;задать пикселю с координатами X и Y цвет COLOR&#187;, иначе о какой автоматизации может идти речь? Нет, команды рисования должны быть более высокоуровневыми, например, &#171;нарисуй линию&#187;, &#171;нарисуй треугольник&#187; (команда &#171;нарисовать точку&#187; тоже существует). Итак, в OpenGL существует три примитива рисования: точка, линия и треугольник &#8212; это кирпичики, из которых программист строит изображение (по-видимому, самым ходовым примитивом является треугольник, так как из треугольников можно строить поверхности). Таким образом, программист должен передать видеокарте информацию об изображении в виде набора примитивов. Что это за информация? Во-первых, тип примитива (точка/линия/треугольник). Во-вторых &#8212; <em>вершины</em> (по-английски &#171;вершина&#187; &#8212; <em>vertex</em>, мн. ч. &#8212; <em>vertices</em>). Примитив &#8212; это геометрическая фигура. А у геометрической фигуры есть вершины (у точки &#8212; одна вершина, у линии &#8212; две, у треугольника &#8212; три). Каждая вершина несет кусочек информации (так называемые атрибуты вершины), прежде всего это &#8212; координаты вершины в трехмерном пространстве. Помимо координат с каждой вершиной могут быть связаны разнообразные данные, самые распространенные из которых: цвет вершины, координаты текстуры и вектор нормали к поверхности в точке, где расположена вершина (но вообще это могут быть произвольные данные &#8212; все это целиком во власти программиста). Со всем этим мы будем разбираться в последующих заметках.</p>
+<p>Итак, пользовательская программа отправляет видеокарте поток примитивов рисования (вероятнее всего, этот поток сохраняется в памяти видеокарты). Видеопроцессор превращает каждый примитив в набор пикселей. Как уже было сказано, этот процесс распараллелен и конвейеризован благодаря архитектуре видеопроцессора. Стадии конвейера перечислены в [<a href="#Guide8th">Guide8th, OpenGL&#8217;s Rendering Pipeline</a>]. Здесь приведу только те стадии, которые важны для нас в начале изучения OpenGL:</p>
+<ol>
+<li>
+<strong>Vertex shader.</strong> На вход этой стадии поступает отдельная вершина. Как правило эта стадия производит преобразование ее координат в 3-хмерном пространстве. Что это за преобразование? Об этом &#8212; в следующих заметках, в сегодняшнем примере с рисованием треугольника никаких преобразований не будет. Но, забегая вперед, скажу, что говоря о преобразованиях, мы имеем в виду переход из одной системы координат в другую (в компьютерной графике выделяют три системы координат: связанная с моделью (model), связанная с миром (world) и связанная с наблюдателем (view)) и из трехмерного пространства в плоский экран (это преобразование проекции).</li>
+<li>
+<strong>Primitive setup</strong> &#8212; сборка примитивов из нескольких вершин.</li>
+<li>
+<strong>Culling and Clipping</strong> &#8212; отбрасывание невидимых поверхностей и обрезка примитивов, которые частично выходят за границы экрана.</li>
+<li>
+<strong>Rasterization (растеризация)</strong> &#8212; генерация массива пикселей, которые соответствуют данному примитиву рисования. Про растеризацию хорошо написано в [<a href="#McKesson">McKesson, Introduction. Graphics and Rendering</a>].</li>
+<li>
+<strong>Fragment shader</strong> &#8212; закрашивание пикселей, т. е. определение цвета каждого пикселя.</li>
+</ol>
+<p>Определенные стадии конвейера являются программируемыми, т. е. прикладной программист может контролировать работу видеопроцессора на этих стадиях. Для этого он пишет программы, которые называются <em>шейдерами (shaders)</em>. Шейдеры пишут на специальном языке. В OpenGL этот язык называется GLSL (OpenGL Shading Language), в DirectX &#8212; HLSL (High Level Shading Language). Оба языка похожи на язык Си.</p>
+<p>Подведем итог. Что должен сделать программист, чтобы на экране появилось изображение? Он должен предоставить OpenGL необходимую информацию, а именно:</p>
+<ul>
+<li>
+<strong>Описание трехмерных объектов.</strong> В компьютерной графике все объемные трехмерные объекты полые внутри &#8212; они будто сделаны из бумаги. То есть мы имеем дело с <em>поверхностями</em>. А поверхности состоят из треугольников. У треугольника есть три вершины. Так что описание трехмерного объекта суть массив координат вершин в пространстве. Такие массивы называют <a href="https://ru.wikipedia.org/wiki/Полигональная_сетка">полигональными сетками (mesh)</a>. Полигональная сетка помещается в память видеокарты, с тем, чтобы последняя нарисовала объект на экране.
+</li>
+<li>
+<strong>Программа, которую должен выполнять видеопроцессор.</strong> Формирование изображения состоит из ряда программируемых стадий. Каждой стадии соответствует свой шейдер. Шейдеры пишет программист. Набор шейдеров компилируется в <em>программу</em> и отправляется видеокарте. Подробнее о шейдерах читайте в [<a href="#Wolf">Wolf</a>]. Чтобы не путать с обычной прикладной программой, далее я буду называть программу, которую выполняет видеопроцессор, <em>шейдерной программой</em>.
+</li>
+</ul>
+<h2>Практика</h2>
+<p>А теперь напишем программу, которая будет рисовать на экране треугольник. Сначала мы напишем ее так, как это делают в учебниках, т. е. при помощи голого OpenGL, без создания какого-либо фреймворка (Кое-какой фреймворк все-таки присутствует, но он служит не для рисования, а для создания окна и обработки сообщений. В книгах чаще всего для этих целей применяется библиотека FreeGLUT, у меня же для этого используется класс <a href="http://localhost/opengl-4/">engine::ProgramBase</a>). Программу, подобную представленной ниже, с пояснениями, вы найдете в каждой книге из приведенного выше <a href="#references">списка литературы</a>. Мы подробно обсудим, что происходит в этой программе, а также увидим, что программа эта трудночитаема и трудноизменяема. Вот эти недостатки мы и попытаемся устранить путем создания своего собственного фреймворка в виде набора типов и функций. Итак&#8230;</p>
+<h3>Программа, рисующая разноцветный треугольник при помощи голого OpenGL</h3>
+<figure id="attachment_894" aria-describedby="caption-attachment-894" style="width: 701px" class="wp-caption alignnone"><img fetchpriority="high" decoding="async" src="http://dvsav.ru/wp-content/uploads/2018/09/opengl_triangle.jpg" alt="" width="701" height="585" class="size-full wp-image-894"><figcaption id="caption-attachment-894" class="wp-caption-text">Рисунок 1 &#8212; Разноцветный треугольник, нарисованный при помощи OpenGL</figcaption></figure>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// Program.h</span><br>
+<br>
+<span class="co2">#include &quot;ProgramBase.h&quot;</span><br>
+<span class="co2">#include &quot;GLEWHeaders.h&quot;</span><br>
+<span class="co2">#include &quot;File.h&quot;</span><br>
+<br>
+<span class="kw2">class</span> Program <span class="kw2">final</span> <span class="sy4">:</span> <span class="kw2">public</span> engine<span class="sy4">::</span><span class="me2">ProgramBase</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLuint m_Program<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// shader program handle</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLuint m_VertexBufferObject<span class="sy4">;</span> <span class="co1">// VBO handle</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GLuint m_VAO<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// Vertex Array Object hadnle</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Program<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// --- Compile shaders and link program ---</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GLuint vertexShader <span class="sy1">=</span> glCreateShader<span class="br0">&#40;</span>GL_VERTEX_SHADER<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="me2">string</span> vertexShaderText <span class="sy1">=</span> util<span class="sy4">::</span><span class="me2">file</span><span class="sy4">::</span><span class="me2">ReadAllText</span><span class="br0">&#40;</span><span class="st0">&quot;../../shaders/passthrough.vert&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> GLchar<span class="sy2">*</span> text <span class="sy1">=</span> vertexShaderText.<span class="me1">c_str</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glShaderSource<span class="br0">&#40;</span>vertexShader, <span class="nu0">1</span>, <span class="sy3">&amp;</span>text, <span class="kw2">nullptr</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glCompileShader<span class="br0">&#40;</span>vertexShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// here compilation error check must go which I skipped for the sake of simplicity</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GLuint fragmentShader <span class="sy1">=</span> glCreateShader<span class="br0">&#40;</span>GL_FRAGMENT_SHADER<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="me2">string</span> fragmentShaderText <span class="sy1">=</span> util<span class="sy4">::</span><span class="me2">file</span><span class="sy4">::</span><span class="me2">ReadAllText</span><span class="br0">&#40;</span><span class="st0">&quot;../../shaders/passthrough.frag&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text <span class="sy1">=</span> fragmentShaderText.<span class="me1">c_str</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glShaderSource<span class="br0">&#40;</span>fragmentShader, <span class="nu0">1</span>, <span class="sy3">&amp;</span>text, <span class="kw2">nullptr</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glCompileShader<span class="br0">&#40;</span>fragmentShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// here compilation error check must go which I skipped for the sake of simplicity</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Program <span class="sy1">=</span> glCreateProgram<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glAttachShader<span class="br0">&#40;</span>m_Program, vertexShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glAttachShader<span class="br0">&#40;</span>m_Program, fragmentShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glLinkProgram<span class="br0">&#40;</span>m_Program<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// here link error check must go which I skipped for the sake of simplicity</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glDetachShader<span class="br0">&#40;</span>m_Program, vertexShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glDetachShader<span class="br0">&#40;</span>m_Program, fragmentShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glDeleteShader<span class="br0">&#40;</span>vertexShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glDeleteShader<span class="br0">&#40;</span>fragmentShader<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// --- Create buffer and populate it with vertex data ---</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GLfloat vertexData<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy2">-</span><span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, &nbsp; &nbsp; &nbsp;<span class="co1">// vertex 1 coordinates</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">1.0f</span>, <span class="nu17">0.0f</span>, <span class="nu17">0.0f</span>, <span class="nu17">1.0f</span>, <span class="co1">// vertex 1 color = red</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.0f</span>, <span class="sy2">-</span><span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, &nbsp; &nbsp; &nbsp;<span class="co1">// vertex 2 coordinates</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.0f</span>, <span class="nu17">1.0f</span>, <span class="nu17">0.0f</span>, <span class="nu17">1.0f</span>, <span class="co1">// vertex 1 color = green</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, &nbsp; &nbsp; &nbsp; <span class="co1">// vertex 3 coordinates</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nu17">0.0f</span>, <span class="nu17">0.0f</span>, <span class="nu17">1.0f</span>, <span class="nu17">1.0f</span> &nbsp;<span class="co1">// vertex 1 color = blue</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glGenBuffers<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="sy3">&amp;</span>m_VertexBufferObject<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glBindBuffer<span class="br0">&#40;</span>GL_ARRAY_BUFFER, m_VertexBufferObject<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glBufferData<span class="br0">&#40;</span>GL_ARRAY_BUFFER, <span class="kw3">sizeof</span><span class="br0">&#40;</span>vertexData<span class="br0">&#41;</span>, vertexData, GL_STATIC_DRAW<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// --- Create Vertex Array Object (VAO) and store vertex data format in it ---</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glGenVertexArrays<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="sy3">&amp;</span>m_VAO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glBindVertexArray<span class="br0">&#40;</span>m_VAO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GLuint positionAttribLocation <span class="sy1">=</span> glGetAttribLocation<span class="br0">&#40;</span>m_Program, <span class="st0">&quot;v3_position&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glVertexAttribPointer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*index*/</span> &nbsp; &nbsp; &nbsp;positionAttribLocation,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*size*/</span> &nbsp; &nbsp; &nbsp; <span class="nu0">3</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*type*/</span> &nbsp; &nbsp; &nbsp; GL_FLOAT,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*normalized*/</span> GL_FALSE,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*stride*/</span> &nbsp; &nbsp; <span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span> <span class="sy2">*</span> <span class="nu0">7</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*pointer*/</span> &nbsp; &nbsp;<span class="kw2">nullptr</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glEnableVertexAttribArray<span class="br0">&#40;</span>positionAttribLocation<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GLuint colorAttribLocation <span class="sy1">=</span> glGetAttribLocation<span class="br0">&#40;</span>m_Program, <span class="st0">&quot;v4_color&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glVertexAttribPointer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*index*/</span> &nbsp; &nbsp; &nbsp;colorAttribLocation,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*size*/</span> &nbsp; &nbsp; &nbsp; <span class="nu0">4</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*type*/</span> &nbsp; &nbsp; &nbsp; GL_FLOAT,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*normalized*/</span> GL_FALSE,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*stride*/</span> &nbsp; &nbsp; <span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span> <span class="sy2">*</span> <span class="nu0">7</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*pointer*/</span> &nbsp; &nbsp;<span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span><span class="sy2">*</span><span class="nu0">3</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glEnableVertexAttribArray<span class="br0">&#40;</span>colorAttribLocation<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">protected</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> UpdateTime<span class="br0">&#40;</span><span class="kw4">double</span> currentTime, <span class="kw4">double</span> timeDelta<span class="br0">&#41;</span> <span class="kw2">override</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> setupCamera<span class="br0">&#40;</span><span class="kw4">const</span> engine<span class="sy4">::</span><span class="me2">Camera</span><span class="sy3">&amp;</span> cam<span class="br0">&#41;</span> <span class="kw2">override</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> OnRender<span class="br0">&#40;</span>opengl<span class="sy4">::</span><span class="me2">OpenGLWindow</span><span class="sy2">*</span> sender<span class="br0">&#41;</span> <span class="kw2">override</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// use the shader program</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glUseProgram<span class="br0">&#40;</span>m_Program<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// bind the VAO, that stores vertex atrributes' format</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glBindVertexArray<span class="br0">&#40;</span>m_VAO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// draw the triangle</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; glDrawArrays<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*mode*/</span> &nbsp;GL_TRIANGLES, <span class="co1">// draw triangles (not lines and not points)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*first*/</span> <span class="nu0">0</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// start drawing triangle from the 1st vertex</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*count*/</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// triangle has 3 vertices</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<p>В конструкторе класса <strong>Program</strong> подготавливается все, что нужно для рисования. Само рисование происходит в методе <strong>Program::OnRender</strong>. Подготовка к рисованию, как уже было сказано, включает 1) загрузку и компиляцию шейдеров и 2) описание вершин объекта, который мы будем рисовать, т. е. треугольника. В программе каждый из этих этапов отмечен комментарием.</p>
+<h3>Вершины</h3>
+<p>Сперва обсудим вершины, т. е. полигональную сетку. Для начала надо решить, какие данные будут связаны с каждой вершиной. В нашем примере у каждой вершины будут координаты в трехмерном пространстве XYZ (для данного примера можно было бы обойтись и двумя координатами XY, но пусть будет три, ведь впоследствии мы будем иметь дело с трехмерным объектами) и цвет. Вершин у нашего объекта три, следовательно, имеем три набора по три координаты и три цвета. Все эти данные в OpenGL должны помещаться в так называемые <em>буферы</em> (Буферы, в которые помещаются вершины, в литературе часто называют <em>vertex buffer objects &#8212; VBO</em>. Данные из буфера VBO являются входными данными для шейдера vertex shader.) Вообще в буферы помещаются как правило любые данные большого размера, используемые для рисования, это могут быть массивы атрибутов вершин, массивы индексов вершин, текстуры, карты shadow maps, переменные (uniform block) и пр. Буфер надо 1) создать и 2) загрузить в него данные. Ссылаемся на буфер мы, как и на все объекты в OpenGL, по его дескриптору. В нашей программе дескриптор VBO хранится в поле <strong>GLuint m_VertexBufferObject</strong>. Есть разные варианты хранения вершин. Например, можно создать два буфера, в один из которых поместить координаты всех трех вершин, а в другой &#8212; их цвета. Но мне кажется наиболее логичным хранить все атрибуты вершин в одном буфере.</p>
+<p>В OpenGL постоянно встречаются понятия <em>bind</em>, <em>binding point</em> и т. п. Так или иначе, чтобы поработать (&#171;поработать&#187; может означать модифицировать состояние объекта или использовать его для рисования) с некоторым объектом OpenGL (например с VBO), его надо <em>привязать</em> к так называемой <em>точке привязки</em> в контексте OpenGL. Например, чтобы загрузить в VBO массив атрибутов вершин, надо привязать VBO к точке привязки (в нашем примере точка привязки называется <strong>GL_ARRAY_BUFFER</strong>). Когда работу с объектом заканчивают, то его как правило &#171;отвязывают&#187; от точки привязки. О привязках хорошо написано в [<a href="#McKesson">McKesson, Introduction. What is OpenGL</a>].</p>
+<h3>Шейдеры</h3>
+<p>Теперь поговорим о шейдерах. Их два: <strong>vertex shader</strong> и <strong>fragment shader</strong>. Это минимальное необходимое число шейдеров в шейдерной программе (меньше их быть не может). Ниже приведен их исходный код на языке GLSL.</p>
+<div class="codecolorer-container glsl default" style="overflow:auto;white-space:nowrap;"><div class="glsl codecolorer">
+<span class="co1">// Vertex shader</span><br>
+<span class="co1">// passthrough.vert</span><br>
+<br>
+<span class="co2">#version 400 core</span><br>
+<br>
+layout <span class="br0">&#40;</span>location <span class="sy0">=</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="kw2">in</span> <span class="kw3">vec3</span> v3_position<span class="sy0">;</span> <span class="co1">// vertex position</span><br>
+layout <span class="br0">&#40;</span>location <span class="sy0">=</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="kw2">in</span> <span class="kw3">vec4</span> v4_color<span class="sy0">;</span> &nbsp; &nbsp;<span class="co1">// vertex color</span><br>
+<br>
+<span class="kw2">out</span> <span class="kw3">vec4</span> vs_color<span class="sy0">;</span><br>
+<br>
+<span class="kw3">void</span> main<span class="br0">&#40;</span><span class="kw3">void</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// gl_Position has the type vec4. It consists of four components: X, Y, Z and W.</span><br>
+&nbsp; &nbsp; <span class="co1">// W accepts the value 1.0f in this example. I'll give you more details in the future posts.</span><br>
+&nbsp; &nbsp; <span class="kw6">gl_Position</span> <span class="sy0">=</span> <span class="kw3">vec4</span><span class="br0">&#40;</span>v3_position<span class="sy0">,</span> 1<span class="sy0">.</span>0f<span class="br0">&#41;</span><span class="sy0">;</span><br>
+<br>
+&nbsp; &nbsp; vs_color <span class="sy0">=</span> v4_color<span class="sy0">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p><strong>Vertex shader</strong> &#8212; это программа, которая выполняется по одному разу для каждой вершины нашей полигональной сетки. Поскольку мы рисуем треугольник, то vertex shader за время отрисовки выполнится три раза. У vertex shader&#8217;а есть так называемые входные переменные или <em>атрибуты</em> (vertex input variables/attributes). Это те данные, которые этот шейдер получает на входе. Набор значений атрибутов соответствует ровно одной вершине. Атрибуты вершины &#8212; это позиция в виде вектора из трех координат XYZ <strong>vec3 v3_position</strong> и цвет в виде вектора из четырех каналов RGBA <strong>vec4 v4_color</strong>.  Результатом работы шейдера является присваивание значения глобальной переменной <strong>gl_Position</strong> и выходной переменной <strong>vs_color</strong>. Последняя является входной переменной для fragment shader&#8217;а, исходный код которого приведен ниже. В нашем примере со входными переменными не производится никаких преобразований, они передаются на выход как есть (поэтому файлы шейдеров и названы словом &#171;passthrough&#187;).</p>
+<div class="codecolorer-container glsl default" style="overflow:auto;white-space:nowrap;"><div class="glsl codecolorer">
+<span class="co1">// Fragment shader</span><br>
+<span class="co1">// passthrough.frag</span><br>
+<br>
+<span class="co2">#version 400 core</span><br>
+<br>
+<span class="kw2">in</span> <span class="kw3">vec4</span> vs_color<span class="sy0">;</span> <span class="co1">// color produced by the vertex shader</span><br>
+<br>
+<span class="kw2">out</span> <span class="kw3">vec4</span> color<span class="sy0">;</span><br>
+<br>
+<span class="kw3">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; color <span class="sy0">=</span> vs_color<span class="sy0">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p><strong>Fragment shader</strong> выполняется после растеризации нашего треугольника. Растеризация &#8212; это разбиение треугольника на отдельные пиксели (они называются <em>фрагментами</em>). Для каждого фрагмента выполняется fragment shader. Поскольку фрагментов в треугольнике гораздо больше, чем вершин, то и fragment shader выполняется большее число раз, чем vertex shader. При этом значение входной переменной <strong>vs_color</strong> линейно интерполируется (подробнее об этом читайте в [<a href="#Wolf">Wolf</a>]). Результатом работы этого шейдера является цвет пикселя, который помещается в выходную переменную <strong>vec4 color</strong>. В нашем примере с цветом, который fragment shader получает на входе тоже не производится никаких преобразований, он передается на выход как есть.</p>
+<p>В начале программы мы загружаем из текстовых файлов шейдеры, компилируем их (<strong>glCompileShader</strong>) и компонуем программу (<strong>glLinkProgram</strong>), после чего сами шейдеры перестают быть нам нужны, поэтому мы их удаляем (<strong>glDeleteShader</strong>). В приведенной программе я убрал проверку наличия ошибок компиляции и компоновки, чтобы сократить длину кода &#8212; об этих вещах читайте [<a href="#Wolf">Wolf, Chapter 1. Getting started with GLSL. Compiling a shader</a>].</p>
+<h3>Vertex Array Object</h3>
+<p>И наконец, последний, третий этап подготовки к рисованию &#8212; создание <strong>VAO &#8212; Vertex Array Object (VAO)</strong>. VAO &#8212; это штука, которая связывает полигональную сетку и шейдерную программу. У программы есть входные данные &#8212; это атрибуты вершин &#8212; входные переменные шейдера vertex shader. Таких входных переменных может быть много. Значения их поступают из буфера (VBO) или из нескольких подобных буферов. Как правило, в буфере хранится <strong>массив элементов одинакового формата</strong> (по одному на каждую вершину). Каждый элемент содержит значения входных переменных vertex shader&#8217;а. Но программа &#171;не знает&#187; формата тех данных, которые хранятся в буфере VBO. А форматы могут быть самые разные. Например, можно хранить две, а можно &#8212; три координаты вершин объекта. Каждую координату можно хранить в виде целого числа или числа с плавающей точкой, двойной или одинарной точности. Вариантов на самом деле значительно больше. То же касается и формата, в котором хранится цвет. Эти форматы мы указываем при помощи функции <strong>glVertexAttribPointer</strong>. VAO всю эту информацию о формате данных запоминает. VAO также запоминает ссылку на сам буфер (или буферы, если их несколько) с данными. Ниже я как мог изобразил как данные из буфера VBO должны соответствовать входным переменным шейдера vertex shader:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">&nbsp; &nbsp; | &nbsp; &nbsp;Vertex Array Object &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Vertex Shader &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|<br>
+&nbsp; &nbsp; |---------------------------+----------------------------------------------|<br>
+1st |-0.5f, 0.5f, 0.5f, &nbsp; &nbsp; &nbsp; --|-&gt; layout (location = 0) in &nbsp;vec3 v3_position |<br>
+&nbsp; &nbsp; | 1.0f, 0.0f, 0.0f, 1.0f, --|-&gt; layout (location = 1) vec4 v4_color &nbsp; &nbsp; &nbsp; &nbsp;|<br>
+&nbsp; &nbsp; |---------------------------+----------------------------------------------|<br>
+2nd | 0.0f, -0.5f, 0.5f, &nbsp; &nbsp; &nbsp;--|-&gt; layout (location = 0) in &nbsp;vec3 v3_position |<br>
+&nbsp; &nbsp; | 0.0f, 1.0f, 0.0f, 1.0f, --|-&gt; layout (location = 1) vec4 v4_color &nbsp; &nbsp; &nbsp; &nbsp;|<br>
+&nbsp; &nbsp; |---------------------------+----------------------------------------------|<br>
+3rd | 0.5f, 0.5f, 0.5f, &nbsp; &nbsp; &nbsp; --|-&gt; layout (location = 0) in &nbsp;vec3 v3_position |<br>
+&nbsp; &nbsp; | 0.0f, 0.0f, 1.0f, 1.0f &nbsp;--|-&gt; layout (location = 1) vec4 v4_color &nbsp; &nbsp; &nbsp; &nbsp;|</div></div>
+<p>Что мы должны сообщить OpenGL, чтобы всё было именно так? А вот что:</p>
+<ul>
+<li>
+Между адресами двух соседних элементов массива вершин имеется расстояние в <strong>7*sizeof(GLfloat) = 28 байт</strong>. По-английски это расстояние называется <strong>stride</strong>. OpenGL должен знать его для того, чтобы определить где в буфере начинается очередная вершина. Если <strong>i-я</strong> вершина начинается с адреса <strong>Addr</strong>, то <strong>(i+1)-я</strong> вершина начинается с адреса <strong>Addr+stride</strong>.
+</li>
+<li>В шейдере за координаты вершины отвечает атрибут <strong>vec3 v3_position</strong>.</li>
+<li>
+Координаты каждой вершины находятся в самом <strong>начале</strong> элемента массива вершин (т. е. смещение относительно начала каждого элемента массива равно <strong>0 байт</strong>).
+</li>
+<li>Координат <strong>три</strong>: XYZ.</li>
+<li>Каждая координата имеет тип <strong>GLfloat</strong>.</li>
+<li>В шейдере за цвет вершины отвечает атрибут <strong>vec4 v4_color</strong>.</li>
+<li>Цвет вершины расположен по смещению <strong>3*sizeof(GLfloat) = 12 байт</strong> относительно начала каждого элемента массива вершин.</li>
+<li>Цвет состоит из <strong>четырех</strong> компонент: RGBA.</li>
+<li>Каждая компонента цвета имеет тип <strong>GLfloat</strong>.</li>
+</ul>
+<p>Посмотрим, как вся эта информация записывается в объект VAO при помощи функции <strong>glVertexAttribPointer</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">glBindVertexArray<span class="br0">&#40;</span>m_VAO<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// bind VAO</span><br>
+glBindBuffer<span class="br0">&#40;</span>GL_ARRAY_BUFFER, m_VertexBufferObject<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// store the reference to the vertex buffer object in the VAO</span><br>
+<br>
+GLuint positionAttribLocation <span class="sy1">=</span> glGetAttribLocation<span class="br0">&#40;</span>m_Program, <span class="st0">&quot;v3_position&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+glVertexAttribPointer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*index*/</span> &nbsp; &nbsp; &nbsp;positionAttribLocation, <span class="co1">// the location of vertex shader input variable v3_position is 0 (layout (location = 0) in vec3 v3_position)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*size*/</span> &nbsp; &nbsp; &nbsp; <span class="nu0">3</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// the coordinates have 3 components: XYZ</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*type*/</span> &nbsp; &nbsp; &nbsp; GL_FLOAT, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the type of a single component is GLfloat</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*normalized*/</span> GL_FALSE, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// this parameter is applicable to integer components only (which is not the case here)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*stride*/</span> &nbsp; &nbsp; <span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span> <span class="sy2">*</span> <span class="nu0">7</span>, &nbsp; &nbsp;<span class="co1">// stride between two consequent vertices equals the size of one vertex because vertices are tightly packed</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*pointer*/</span> &nbsp; &nbsp;<span class="kw2">nullptr</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the offset of the coordinates from the beginning of the vertex is zero because the coordinates are located at the beggining of each vertex</span><br>
+<span class="br0">&#41;</span><span class="sy4">;</span><br>
+glEnableVertexAttribArray<span class="br0">&#40;</span>positionAttribLocation<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+GLuint colorAttribLocation <span class="sy1">=</span> glGetAttribLocation<span class="br0">&#40;</span>m_Program, <span class="st0">&quot;v4_color&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+glVertexAttribPointer<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*index*/</span> &nbsp; &nbsp; &nbsp;colorAttribLocation, &nbsp; &nbsp; &nbsp; <span class="co1">// the location of vertex shader input variable v3_position is 1 (layout (location = 1) in vec3 v4_color)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*size*/</span> &nbsp; &nbsp; &nbsp; <span class="nu0">4</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// the color has 4 components: RGBA</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*type*/</span> &nbsp; &nbsp; &nbsp; GL_FLOAT, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// the type of a single component is GLfloat</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*normalized*/</span> GL_FALSE, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// this parameter is applicable to integer components only (which is not the case here)</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*stride*/</span> &nbsp; &nbsp; <span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span> <span class="sy2">*</span> <span class="nu0">7</span>, &nbsp; &nbsp; &nbsp; <span class="co1">// stride between two consequent vertices equals the size of one vertex because vertices are tightly packed</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*pointer*/</span> &nbsp; &nbsp;<span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw3">sizeof</span><span class="br0">&#40;</span>GLfloat<span class="br0">&#41;</span><span class="sy2">*</span><span class="nu0">3</span><span class="br0">&#41;</span> <span class="co1">// the offset of color from the beginning of vertex equals the size of coordinates data because the color is located right after the coordinates</span><br>
+<span class="br0">&#41;</span><span class="sy4">;</span><br>
+glEnableVertexAttribArray<span class="br0">&#40;</span>colorAttribLocation<span class="br0">&#41;</span><span class="sy4">;</span>
+</div></div>
+<p>Как видите, для того, чтобы сохранить в VAO информацию о форматах атрибутов вершин и ссылку на буфер, из которого вершины берутся, надо предварительно привязать VAO к контексту OpenGL при помощи функции <strong>glBindVertexArray</strong>. Это правило в OpenGL: хочешь работать с объектом &#8212; привяжи его к контексту. И наконец, рассмотрим функцию, в которой непосредственно происходит рисование &#8212; <strong>Program::OnRender</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> OnRender<span class="br0">&#40;</span>opengl<span class="sy4">::</span><span class="me2">OpenGLWindow</span><span class="sy2">*</span> sender<span class="br0">&#41;</span> <span class="kw2">override</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// use the shader program</span><br>
+&nbsp; &nbsp; glUseProgram<span class="br0">&#40;</span>m_Program<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// bind the VAO, that stores vertex atrributes' format</span><br>
+&nbsp; &nbsp; glBindVertexArray<span class="br0">&#40;</span>m_VAO<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// draw the triangle</span><br>
+&nbsp; &nbsp; glDrawArrays<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*mode*/</span> &nbsp;GL_TRIANGLES, <span class="co1">// draw triangles (not lines and not points)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*first*/</span> <span class="nu0">0</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// start drawing triangle from the 1st vertex</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="coMULTI">/*count*/</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// triangle has 3 vertices</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Тут всё более-менее понятно. Главная часть &#8212; вызов функции <strong>glDrawArrays</strong> (вообще, существует несколько подобных функций, о них мы еще поговорим). Перед этим вызовом мы говорим OpenGL использовать для рисования ту шейдерную программу, которую мы в ранее скомпилировали из шейдеров (функция <strong>glUseProgram</strong>), и привязываем VAO &#8212; объект, который хранит информацию о том, из какого буфера следует считывать вершины и в каком формате они хранятся (функция <strong>glBindVertexArray</strong>). Эти две операции в данном примере конечно необязательны, так как и программа уже используется, и VAO уже был привязан в конструкторе класса <strong>Program</strong>. Но, тем не менее, этот подход правильный, и к нему надо привыкать, поскольку в более сложных примерах у нас может оказаться и несколько программ, и несколько различных VAO, поэтому каждый раз перед рисованием их нужно привязывать к контексту.</p>
+<p>В <a href="http://localhost/opengl-6/">следующей заметке</a> начнем переписывать приведенную программу рисования треугольника, чтобы сделать ее проще и понятней. Делать это мы будем путем создания некоего набора классов, т. е. своего фреймворка, движка, API&#8230; или как вам будет угодно это называть.</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/09/17/opengl-5/" data-a2a-title="Опыт изучения OpenGL — Часть 5 — Рисуем треугольник">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F09%2F17%2Fopengl-5%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%A0%D0%B8%D1%81%D1%83%D0%B5%D0%BC%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F09%2F17%2Fopengl-5%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%A0%D0%B8%D1%81%D1%83%D0%B5%D0%BC%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F09%2F17%2Fopengl-5%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%205%20%E2%80%94%20%D0%A0%D0%B8%D1%81%D1%83%D0%B5%D0%BC%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a>, <a href="/tag/opengl/" rel="tag">OpenGL</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/08/10/opengl-4/" rel="prev">Опыт изучения OpenGL &#8212; Часть 4 &#8212; Класс engine::ProgramBase</a></div>
+<div class="nav-next"><a href="/2018/09/30/opengl-6/" rel="next">Опыт изучения OpenGL &#8212; Часть 6 &#8212; Улучшаем программу рисования треугольника</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/09/17/opengl-5/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="813" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

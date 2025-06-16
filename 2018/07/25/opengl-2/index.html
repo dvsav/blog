@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Опыт изучения OpenGL &#8212; Часть 2 &#8212; Окно &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Опыт изучения OpenGL &#8212; Часть 2 &#8212; Окно&raquo;" href="/2018/07/25/opengl-2/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/701">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2018/07/25/opengl-2/">
+<link rel="shortlink" href="/?p=701">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F07%2F25%2Fopengl-2%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2018%2F07%2F25%2Fopengl-2%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-701 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-701" class="post-701 post type-post status-publish format-standard hentry category-1 tag-c-c tag-opengl tag-winapi">
+	<header class="entry-header">
+		<h1 class="entry-title">Опыт изучения OpenGL &#8212; Часть 2 &#8212; Окно</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2018/07/25/opengl-2/" rel="bookmark"><time class="entry-date published updated" datetime="2018-07-25T15:58:07+03:00">25.07.2018</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>В <a href="http://localhost/opengl-1/">прошлой заметке</a> я начал рассказывать про свой опыт изучения OpenGL и остановился на том, что проинициализировал библиотеку GLEW, которая загружает все функции API OpenGL. Чтобы начать рисовать что-либо при помощи OpenGL, нам нужно то, на чем можно рисовать, а именно &#8212; окно. Ему и посвящена настоящая заметка. Работа окна имеет непосредственное отношение к используемой нами операционной системе, в моем случае &#8212; Windows. Поэтому в коде активно используется WinAPI. Исходный код проекта по изучению OpenGL находится в <a href="https://bitbucket.org/dvsav/openrenderingengine/">открытом репозитории</a>.</p>
+<h2>Литература</h2>
+<p>Если вы не сталкивались прежде с созданием графических приложений с использованием одного лишь WinAPI, рекомендую вам книги</p>
+<ul>
+<li>Чарльз Петцольд &#8212; Программирование для Windows 95</li>
+<li>Джеффри Рихтер, Кристоф Назар &#8212; Windows Via C/C++</li>
+</ul>
+<h2>Функция main</h2>
+<p>В программах на C/C++ всё, как известно, начинается с функции <strong>main</strong>. В Windows при компоновке программы надо указывать т. н. <em>подсистему</em>, коей для пользовательских приложений может быть CONSOLE, WINDOWS или POSIX (последний вариант мне пока использовать не приходилось) &#8212; эта информация нужна ОС Windows при запуске приложения. Если подсистема &#8212; CONSOLE, то создается всем знакомое консольное окошко, если WINDOWS &#8212; консольного окошка не создается. Можно не задавать подсистему явно &#8212; компоновщик в состоянии сам ее определить: если у вас в программе есть функция main, то подсистема &#8212; CONSOLE, если функция называется не main, а WinMain, то подсистема &#8212; WINDOWS. Создавать или не создавать консольное окошко в графическом приложении? В моем случае приложение рисует в графическом окне 3d-графику, и консольное окно удобно держать в программе для вывода диагностических сообщений. Тот факт, что подсистема в программе CONSOLE, никак не мешает насоздавать сколько угодно графических окон.<br>
+Что в принципе должна делать графическая программа в ОС Windows? Она должна создать по крайней мере одно окно и выполнять бесконечный цикл обработки сообщений. С точки зрения top-down approach (если мы представим, что у нас уже есть некий класс Window) это может выглядеть примерно так:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; Window window<span class="sy4">;</span><br>
+&nbsp; &nbsp; window.<span class="me1">Show</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; MSG msg<span class="br0">&#123;</span> <span class="nu0">0</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>GetMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg, <span class="kw2">NULL</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; TranslateMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; DispatchMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Функция <strong>GetMessage</strong> извлекает из очереди очередное сообщение и помещает его в структуру <strong>MSG msg</strong>. GetMessage возвращает булевское значение TRUE, если получено любое сообщение кроме <strong>WM_QUIT</strong>, которое сигнализирует о закрытии программы. Функция <strong>TranslateMessage</strong> преобразует сообщение от клавиатуры из одного формата в другой &#8212; содержащий код нажатого символа на клавиатуре в формате UTF-16 &#8212; и посылает это преобразованное сообщение потоку (подробности см. в <a href="https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms644955(v=vs.85).aspx">MSDN</a>). Насколько я понимаю, функцию TranslateMessage можно не вызывать, если ваша программа не работает с текстом, вводимым с клавиатуры. Функция <strong>DispatchMessage</strong> вызывает <em>оконную процедуру</em>, которая обрабатывает сообщение. Оконная процедура &#8212; это процедура, которая должна обрабатывать конкретные сообщения. Сообщение она принимает в качестве параметра. Адрес оконной процедуры указывается в структуре <strong>WNDCLASSEX</strong> при регистрации класса окна (об этом см. ниже), поэтому оконная процедура принадлежит целому классу окон, и если окон на основе этого класса создано несколько, то она будет вызываться для обработки сообщений для всех этих окон.</p>
+<h2>Краткая теория окон</h2>
+<p>В Windows работа графических приложений основана на системе передачи <em>сообщений</em>. Действия пользователя с окном, такие как щелчки мыши, нажатия клавиатуры, перетаскивание и другие называются <em>событиями</em>. При возникновении события ОС <em>посылает</em> окну приложения <em>сообщение</em> (message). Это означает, что ОС помещает небольшой кусочек данных (сообщение), в <em>очередь сообщений</em> (message queue). Этот кусочек данных содержит информацию о событии (например, если пользователь щелкнул мышью, то сообщение содержит информацию о том, в какой точке окна он щелкнул и на какую именно кнопку мыши нажал). Очередь сообщений принадлежит тому <em>потоку управления</em> программы, который создал окно. Если поток не создавал окон, то у него нет очереди сообщений, так как Windows создает для потока очередь сообщений при создании этим потоком хотя бы одного окна. Поток может извлечь сообщение из очереди (см. функции <strong>GetMessage</strong> и <strong>PeekMessage</strong>) и как-то на него отреагировать (т. е. обработать). Обычно в программе принято иметь только один поток, который создает окна и обрабатывает сообщения &#8212; его называют <em>потоком обработки сообщений</em>. Этот поток извлекает сообщения из очереди в цикле, который называют <em>циклом обработки сообщений</em> (message loop). Дополнительную информацию см. в статье <a href="https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-messages-and-message-queues">Using Messages and Message Queues</a>.</p>
+<h2>Класс win::Window</h2>
+<p>Понятие &#171;окно&#187; прекрасно соответствует понятию &#171;объект&#187; объектно-ориентированного программирования, поэтому для окна можно запросто написать класс на C++. Окно можно создать (конструктор класса), взаимодействовать с ним (функции-члены класса) и в конце &#8212; уничтожить (деструктор класса). Пойдем по-порядку.</p>
+<h3>Конструктор и деструктор</h3>
+<p>Как создать окно в Windows при помощи WinAPI? По моему скромному мнению, процесс несколько забюрократизирован.</p>
+<ol>
+<li>
+Создать и зарегистрировать т. н. класс окна (функция <strong>RegisterClassEx</strong>). Здесь под классом окна понимается структура <strong>WNDCLASSEX</strong> &#8212; не путать с классом в языке C++. В структуре WNDCLASSEX указывается ряд параметров окна, в том числе адрес оконной процедуры <strong>WndProc</strong> &#8212; той процедуры, которую вызывает функция DispatchMessage (см. выше). На основе класса окна можно насоздавать много окон со схожими параметрами (очевидно для этого понятие &#171;класс окна&#187; и было введено).
+</li>
+<li>
+Создать окно на основе класса окна (функция <strong>CreateWindow</strong>), указав еще ряд параметров, таких как текст заголовка и размеры. Эти параметры, очевидно, считаются уникальными для каждого окна, поэтому они не входят в структуру класса окна <strong>WNDCLASSEX</strong>.
+</li>
+</ol>
+<p>WinAPI так же как и OpenGL является объектно-ориентированным (несмотря на то, что это C-API). Например, окно &#8212; это объект. Каждый объект в WinAPI идентифицируется так называемым <em>дескриптором</em> (он же &#8212; описатель, он же &#8212; хэндл). Этот дескриптор возвращает функция WinAPI, которая создает объект, например CreateWindow. Дескриптор следует сохранить, чтобы использовать его для взаимодействия с объектом. При создании окна его дескриптор (переменная типа <strong>HWND</strong>) логично будет сохранить в поле класса Window.<br>
+Созданием окна должен заниматься конструктор класса. Тут возникает пара трудностей:</p>
+<ol>
+<li>
+Создавать и регистрировать класс окна нужно только один раз за время работы программы, а не каждый раз при создании окна. В C# подобные проблемы решаются при помощи статического конструктора, который вызывается при первом обращении к классу. В C++ нет понятия статического конструктора, но его можно легко реализовать &#8212; создать статическую функцию и вызывать ее в каждом конструкторе класса. Функция может определить, вызывали ли ее хотя бы раз при помощи статической переменной. В моем коде эта функция называется <strong>InitWndClass</strong>.
+</li>
+<li>
+В конечном счете обрабатывать сообщение, посланное окну, по идее должна экземплярная функция-член класса Window. Но сообщение передается оконной процедуре, а оконная процедура принадлежит не конкретному окну, а всему классу окон в целом.  Разумеется, оконная процедура не может быть экземплярной функцией-членом класса. Идентифицировать окно, которому адресовано сообщение, можно по дескриптору окна, который содержится в структуре <strong>MSG</strong>. Таким образом, оконная процедура должна по дескриптору найти экземпляр окна и вызвать его функцию-член, которая обработает сообщение. Для этого придется завести некий глобальный массив, куда помещать ссылки на экземпляры окон при их создании. Тогда оконная процедура сможет найти нужное окно в этом массиве. В моей программе этим массивом является ассоциативный массив <strong>std::map<hwnd window> s_RegisteredWindows</hwnd></strong>.
+</li>
+</ol>
+<p>Приведу здесь в <em>упрощенном виде</em> код класса Window, относящийся к созданию (конструктор) и уничтожению (деструктор) окна, а также к обработке сообщений (оконная процедура):</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Window<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">static</span> WNDCLASSEX s_WndClassEx<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// WinAPI window class structure</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">static</span> std<span class="sy4">::</span><span class="me2">map</span><span class="sy1">&lt;</span>HWND, Window<span class="sy2">*</span><span class="sy1">&gt;</span> s_RegisteredWindows<span class="sy4">;</span> <span class="co1">// collection of existing windows</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; HWND m_hWnd<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// window descriptor</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Constructor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Window<span class="br0">&#40;</span><span class="kw4">const</span> std<span class="sy4">::</span><span class="me2">string</span><span class="sy3">&amp;</span> title,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="kw4">int</span> width,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="kw4">int</span> height<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; InitWndClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_hWnd<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy1">=</span> <span class="sy4">::</span><span class="me2">CreateWindow</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">lpszClassName</span>, &nbsp; <span class="co1">// window class name</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; title.<span class="me1">c_str</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// window title</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WS_OVERLAPPEDWINDOW, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// window type</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CW_USEDEFAULT, CW_USEDEFAULT, <span class="co1">// starting window location in pixels (x, y)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; width, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// window width in pixels</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; height, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// window height in pixels</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">NULL</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// parent window descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">NULL</span>, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// menu descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GetModuleHandle<span class="br0">&#40;</span><span class="kw2">NULL</span><span class="br0">&#41;</span>, &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// application descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// pointer to a value passed along with WM_CREATE message through ((CREATESTRUCT*)lParam)-&gt;lpCreateParams</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Place window descriptor to the registered windows collection.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_RegisteredWindows<span class="br0">&#91;</span>m_hWnd<span class="br0">&#93;</span> <span class="sy1">=</span> <span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Destructor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Window<span class="sy4">::</span>~Window<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">CloseWindow</span><span class="br0">&#40;</span>m_hWnd<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">DestroyWindow</span><span class="br0">&#40;</span>m_hWnd<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">static</span> <span class="kw4">void</span> InitWndClass<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// flag showing whether the window class has been initialized</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">static</span> <span class="kw4">bool</span> s_Initialized <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>s_Initialized<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_Initialized <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; HINSTANCE hInst <span class="sy1">=</span> GetModuleHandle<span class="br0">&#40;</span><span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">cbSize</span> <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>WNDCLASSEX<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// structure size</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">style</span> <span class="sy1">=</span> CS_HREDRAW <span class="sy3">|</span> CS_VREDRAW <span class="sy3">|</span> CS_OWNDC<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// window style</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">lpfnWndProc</span> <span class="sy1">=</span> Window<span class="sy4">::</span><span class="me2">WndProc</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// pointer to window procedure WndProc</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">cbClsExtra</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// shared memory</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">cbWndExtra</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// number of additional bytes</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">hInstance</span> <span class="sy1">=</span> hInst<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// application handle</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">hIcon</span> <span class="sy1">=</span> LoadIcon<span class="br0">&#40;</span>hInst, MAKEINTRESOURCE<span class="br0">&#40;</span>IDI_APPLICATION<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// icon descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">hCursor</span> <span class="sy1">=</span> LoadCursor<span class="br0">&#40;</span><span class="kw2">NULL</span>, IDC_ARROW<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// cursor descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">hbrBackground</span> <span class="sy1">=</span> <span class="kw2">reinterpret_cast</span><span class="sy1">&lt;</span>HBRUSH<span class="sy1">&gt;</span><span class="br0">&#40;</span>COLOR_MENU <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// background brush descriptor</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">lpszMenuName</span> <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// menu name</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">lpszClassName</span> <span class="sy1">=</span> <span class="st0">&quot;win::Window&quot;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// window class name</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s_WndClassEx.<span class="me1">hIconSm</span> <span class="sy1">=</span> LoadIcon<span class="br0">&#40;</span>hInst, MAKEINTRESOURCE<span class="br0">&#40;</span>IDI_APPLICATION<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// small icon descriptor</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// register window class</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RegisterClassEx<span class="br0">&#40;</span><span class="sy3">&amp;</span>s_WndClassEx<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// The so-called window procedure handles all the messages received</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// by all windows of a particular window class</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">static</span> LRESULT CALLBACK WndProc<span class="br0">&#40;</span>HWND hWnd,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UINT message,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WPARAM wParam,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LPARAM lParam<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Window<span class="sy2">*</span> pWindow <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">try</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pWindow <span class="sy1">=</span> s_RegisteredWindows.<span class="me1">at</span><span class="br0">&#40;</span>hWnd<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">catch</span> <span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">out_of_range</span><span class="sy3">&amp;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy4">::</span><span class="me2">DefWindowProc</span><span class="br0">&#40;</span>hWnd, message, wParam, lParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> pWindow<span class="sy2">-</span><span class="sy1">&gt;</span>WindowProcedure<span class="br0">&#40;</span>message, wParam, lParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// This procedure handles all the messages received by the window</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; LRESULT WindowProcedure<span class="br0">&#40;</span>UINT message,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WPARAM wParam,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LPARAM lParam<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">switch</span> <span class="br0">&#40;</span>message<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_PAINT<span class="sy4">:</span> &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_MOUSEMOVE<span class="sy4">:</span> &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_LBUTTONDOWN<span class="sy4">:</span> <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_LBUTTONUP<span class="sy4">:</span> &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_TIMER<span class="sy4">:</span> &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_KEYDOWN<span class="sy4">:</span> &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_KEYUP<span class="sy4">:</span> &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_COMMAND<span class="sy4">:</span> &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_SIZE<span class="sy4">:</span> &nbsp; &nbsp; &nbsp; &nbsp;<span class="br0">&#123;</span> ... <span class="kw1">break</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_DESTROY<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// remove window descriptor from the registered windows collection</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> elems_erased <span class="sy1">=</span> s_RegisteredWindows.<span class="me1">erase</span><span class="br0">&#40;</span>m_hWnd<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">assert</span><span class="br0">&#40;</span>elems_erased <span class="sy1">==</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// if this was the last existing window, quit</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span><span class="br0">&#40;</span>s_RegisteredWindows.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">==</span> <span class="nu0">0</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PostQuitMessage<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">default</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy4">::</span><span class="me2">DefWindowProc</span><span class="br0">&#40;</span>m_hWnd, message, wParam, lParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Обращу ваше внимание на строчку <code class="codecolorer cpp default"><span class="cpp">s_WndClassEx.<span class="me1">style</span> <span class="sy1">=</span> CS_HREDRAW <span class="sy3">|</span> CS_VREDRAW <span class="sy3">|</span> CS_OWNDC<span class="sy4">;</span></span></code>. <strong>CS_HREDRAW</strong> и <strong>CS_VREDRAW</strong> означают, что при изменении размеров окна ему будет посылаться сообщение <strong>WM_PAINT</strong> (сигнал о необходимости перерисовки), а <strong>CS_OWNDC</strong> означает, что для она будет создан <em>постоянный</em> контекст устройства &#8212; это важно для работы OpenGL (подробности см. в статьях <a href="https://www.khronos.org/opengl/wiki/Creating_an_OpenGL_Context_(WGL)">Creating an OpenGL Context (WGL)</a> и  <a href="https://blogs.msdn.microsoft.com/oldnewthing/20060601-06/?p=31003">What does the CS_OWNDC class style do?</a>.</p>
+<h3>Функции-члены</h3>
+<p>Программируя на C#, я давно привык к таким понятиям C# как <em>свойства</em> и <em>события</em>, которые отсутствуют в стандартном C++. Поскольку свойство &#8212; это ничто иное как пара методов (get и set), нечто подобное свойствам C# можно легко сделать в C++. В качестве примера приведу несколько свойств класса Window:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Window<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets window handle.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; HWND getWindowHandle<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_hWnd<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Gets window title.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">const</span> std<span class="sy4">::</span><span class="me2">string</span> getTitle<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TCHAR buffer<span class="br0">&#91;</span><span class="nu0">256</span><span class="br0">&#93;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">GetWindowText</span><span class="br0">&#40;</span>m_hWnd, buffer, <span class="nu0">255</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> std<span class="sy4">::</span><span class="me2">string</span><span class="br0">&#40;</span>buffer<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Sets window title.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> setTitle<span class="br0">&#40;</span><span class="kw4">const</span> std<span class="sy4">::</span><span class="me2">string</span><span class="sy3">&amp;</span> value<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">SetWindowText</span><span class="br0">&#40;</span>m_hWnd, value.<span class="me1">c_str</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Некоторые свойства можно как считывать, так и записывать &#8212; в примере выше это свойство Title. Некоторые &#8212; только считывать (свойство WindowHandle).<br>
+Помимо свойств &#8212; функций-членов, которые считывают или записывают некие параметры объекта &#8212; конечно же существуют функции-члены, которые выполняют некие <em>действия</em> &#8212; в C# они называются <em>методами</em>. Вот например окно можно отобразить на экране или закрыть:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Window<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Shows the window on the screen.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> Show<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// show window and fill its client area with background brush</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">ShowWindow</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_hWnd, &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// window handle</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SW_SHOWNORMAL<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// show options</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// redraw window</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy4">::</span><span class="me2">UpdateWindow</span><span class="br0">&#40;</span>m_hWnd<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Closes the window.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> Close<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="sy4">::</span><span class="me2">CloseWindow</span><span class="br0">&#40;</span>m_hWnd<span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p><strong>События</strong> &#8212; это механизм, при помощи которого объект оповещает о чем-то &#171;заинтересованных лиц&#187; (говорят, что объект <em>генерирует</em> событие). Заинтересованные лица предоставляют объекту функции, которые объект должен вызвать при возникновении события (эти функции еще называют словом callback) &#8212; это называется &#171;подписаться на событие&#187;. В C# события поддерживаются на уровне синтаксиса языка. В C++ такого нет, но можно написать код, который позволит реализовать события в C++ в том же виде, в каком они имеются в C#. На эту тему я нашел пару статей на сайте Code Project:</p>
+<ul>
+<li><a href="https://www.codeproject.com/Articles/6197/Emulating-C-delegates-in-Standard-C">Arnold the Aardvark &#8212; Emulating C# delegates in Standard C++, 24 Feb 2004</a></li>
+<li id="Clugston"><a href="https://www.codeproject.com/Articles/7150/Member-Function-Pointers-and-the-Fastest-Possible">Don Clugston &#8212; Member Function Pointers and the Fastest Possible C++ Delegates, 5 Apr 2005</a></li>
+</ul>
+<p>С точки зрения реализации, событие &#8212; это коллекция указателей на callback-функции. В эту коллекцию можно добавлять новые указатели (подписка на событие) и можно вызвать все функции из коллекции (генерация события). В C# подписка осуществляется при помощи оператора <code class="codecolorer text default"><span class="text">+=</span></code>, а генерация события &#8212; при помощи оператора <code class="codecolorer text default"><span class="text">()</span></code>. Можно написать класс, который будет содержать коллекцию указателей на функции и определить для него упомянутые операторы. Дело осложняется тем, что функции, которые можно подписать на событие, бывают очень разные &#8212; это может быть:</p>
+<ul>
+<li>свободная функция (т. е. не являющаяся членом какого-либо класса) или статическая функция-член класса</li>
+<li>невиртуальная экземплярная функция класса</li>
+<li>виртуальная экземплярная функция класса</li>
+</ul>
+<p>В зависимости от вида функции ее приходится вызывать по-разному. Например, чтобы вызвать экземплярную функцию-член класса, надо иметь указатель на экземпляр класса. Если функция-член виртуальная, то ее адрес берется из таблицы виртуальных функций (заставить компилятор вычислить этот адрес во время компиляции &#8212; нетривиальная задача). Эти проблемы описаны в упомянутой выше статье [<a href="#Clugston">Clugston</a>]. В итоге, воспользовавшись разработкой Don Clugston под названием <strong>FastDelegate</strong>, я написал класс <strong>util::Event</strong>, код которого в упрощенном виде приведен ниже:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span> <span class="sy1">&lt;</span><span class="kw2">typename</span> TArg<span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> Event <span class="kw2">final</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">using</span> EventHandler <span class="sy1">=</span> fastdelegate<span class="sy4">::</span><span class="me2">FastDelegate1</span><span class="sy1">&lt;</span>TArg<span class="sy1">&gt;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="me2">vector</span><span class="sy1">&lt;</span>EventHandler<span class="sy1">&gt;</span> m_HandlersCollection<span class="sy4">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Event<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_HandlersCollection<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Adds new event handler to the event handler's collection.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Event<span class="sy3">&amp;</span> operator<span class="sy2">+</span><span class="sy1">=</span><span class="br0">&#40;</span><span class="kw4">const</span> EventHandler<span class="sy3">&amp;</span> eventHadler<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_HandlersCollection.<span class="me1">push_back</span><span class="br0">&#40;</span>eventHadler<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Removes event handler from the event handler's collection.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Event<span class="sy3">&amp;</span> operator<span class="sy2">-</span><span class="sy1">=</span><span class="br0">&#40;</span><span class="kw4">const</span> EventHandler<span class="sy3">&amp;</span> eventHadler<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">auto</span> iter <span class="sy1">=</span> std<span class="sy4">::</span><span class="me2">find</span><span class="br0">&#40;</span>m_HandlersCollection.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, m_HandlersCollection.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, eventHadler<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_HandlersCollection.<span class="me1">erase</span><span class="br0">&#40;</span>iter<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span class="sy2">*</span><span class="kw3">this</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Calls all event handlers.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> operator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#40;</span>TArg arg<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span>EventHandler f <span class="sy4">:</span> m_HandlersCollection<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f<span class="br0">&#40;</span>arg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Генерация события &#8212; это вызов всех функций, указатели на которые хранятся в коллекции <strong>m_HandlersCollection</strong>. У этих функций могут быть параметры (аргументы). Параметры &#8212; это дополнительная информация, которую тот, кто генерирует событие, может передать тем, кто подписан на событие. Сколько может быть таких параметров? Я посчитал, что достаточно одного: если необходимо передать несколько значений разных типов, то можно передать их в виде структуры или кортежа (tuple). Поэтому у класса Event есть ровно один шаблонный параметр TArg &#8212; тип аргумента, передаваемого функциям, подписанным на событие.</p>
+<p>Теперь посмотрим как класс Event используется в классе Window. Окно может генерировать много различных событий, в основном оповещающих заинтересованных лиц о различных действия пользователя: нажимании и отпускании клавиш клавиатуры и мыши, движениях мыши, изменениях размера окна и пр. Приведу фрагмент кода класса Window, касающийся событий мыши и клавиатуры:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Window<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="co1">// Typedefs for delegates</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">using</span> MOUSE_EVENT_DELEGATE <span class="sy1">=</span> util<span class="sy4">::</span><span class="me2">Event</span><span class="sy1">&lt;</span>std<span class="sy4">::</span><span class="me2">tuple</span><span class="sy1">&lt;</span>Window<span class="sy2">*</span>, <span class="kw4">int</span>, <span class="kw4">int</span>, WPARAM<span class="sy1">&gt;&gt;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">using</span> KEYBOARD_EVENT_DELEGATE <span class="sy1">=</span> util<span class="sy4">::</span><span class="me2">Event</span><span class="sy1">&lt;</span>std<span class="sy4">::</span><span class="me2">tuple</span><span class="sy1">&lt;</span>Window<span class="sy2">*</span>, WPARAM<span class="sy1">&gt;&gt;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE m_MouseMoveEvent<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE m_MouseLeftButtonDownEvent<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE m_MouseLeftButtonUpEvent<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; KEYBOARD_EVENT_DELEGATE m_KeyDownEvent<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; KEYBOARD_EVENT_DELEGATE m_KeyUpEvent<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Events</span><br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE<span class="sy3">&amp;</span> MouseMoveEvent<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_MouseMoveEvent<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE<span class="sy3">&amp;</span> MouseLeftButtonDownEvent<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_MouseLeftButtonDownEvent<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; MOUSE_EVENT_DELEGATE<span class="sy3">&amp;</span> MouseLeftButtonUpEvent<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_MouseLeftButtonUpEvent<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; KEYBOARD_EVENT_DELEGATE<span class="sy3">&amp;</span> KeyDownEvent<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_KeyDownEvent<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; KEYBOARD_EVENT_DELEGATE<span class="sy3">&amp;</span> KeyUpEvent<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw1">return</span> m_KeyUpEvent<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// The methods rasing events</span><br>
+&nbsp; &nbsp; <span class="kw2">protected</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> OnMouseMove<span class="br0">&#40;</span><span class="kw4">int</span> x, <span class="kw4">int</span> y, WPARAM virtualKeyCode<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_MouseMoveEvent<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">make_tuple</span><span class="br0">&#40;</span><span class="kw3">this</span>, x, y, virtualKeyCode<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> OnMouseLeftButtonDown<span class="br0">&#40;</span><span class="kw4">int</span> x, <span class="kw4">int</span> y, WPARAM virtualKeyCode<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_MouseLeftButtonDownEvent<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">make_tuple</span><span class="br0">&#40;</span><span class="kw3">this</span>, x, y, virtualKeyCode<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> OnMouseLeftButtonUp<span class="br0">&#40;</span><span class="kw4">int</span> x, <span class="kw4">int</span> y, WPARAM virtualKeyCode<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_MouseLeftButtonUpEvent<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">make_tuple</span><span class="br0">&#40;</span><span class="kw3">this</span>, x, y, virtualKeyCode<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> OnKeyDown<span class="br0">&#40;</span>WPARAM virtualKeyCode<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_KeyDownEvent<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">make_tuple</span><span class="br0">&#40;</span><span class="kw3">this</span>, virtualKeyCode<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Window procedure switches among event types and calls methods raising events</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; LRESULT Window<span class="sy4">::</span><span class="me2">WindowProcedure</span><span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; UINT message,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WPARAM wParam,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LPARAM lParam<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">switch</span> <span class="br0">&#40;</span>message<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ...<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_MOUSEMOVE<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; OnMouseMove<span class="br0">&#40;</span>GET_X_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, GET_Y_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, wParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_LBUTTONDOWN<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; OnMouseLeftButtonDown<span class="br0">&#40;</span>GET_X_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, GET_Y_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, wParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_LBUTTONUP<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; OnMouseLeftButtonUp<span class="br0">&#40;</span>GET_X_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, GET_Y_LPARAM<span class="br0">&#40;</span>lParam<span class="br0">&#41;</span>, wParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_KEYDOWN<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; OnKeyDown<span class="br0">&#40;</span>wParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">case</span> WM_KEYUP<span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; OnKeyUp<span class="br0">&#40;</span>wParam<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">break</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ...<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Ok, у нас есть события, генерируемые окном. Чтобы на них отреагировать, надо на них подписаться. Ниже показан в упрощенном виде фрагмент кода класса <strong>Program</strong>, который подписывается на события класса Window:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Program<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; win<span class="sy4">::</span><span class="me2">Window</span> m_Window<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Program<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window<span class="br0">&#40;</span><span class="st0">&quot;Test Window&quot;</span>, <span class="nu0">1280</span>, <span class="nu0">720</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Subscribing to events</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window.<span class="me1">MouseMoveEvent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">+</span><span class="sy1">=</span> fastdelegate<span class="sy4">::</span><span class="me2">MakeDelegate</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ProgramBase<span class="sy4">::</span><span class="me2">OnMouseMove</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window.<span class="me1">KeyDownEvent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">+</span><span class="sy1">=</span> fastdelegate<span class="sy4">::</span><span class="me2">MakeDelegate</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ProgramBase<span class="sy4">::</span><span class="me2">OnKeyDown</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window.<span class="me1">KeyUpEvent</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">+</span><span class="sy1">=</span> fastdelegate<span class="sy4">::</span><span class="me2">MakeDelegate</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ProgramBase<span class="sy4">::</span><span class="me2">OnKeyUp</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// Event handlers (shown here without implementation)</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> OnMouseMove<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">tuple</span><span class="sy1">&lt;</span>win<span class="sy4">::</span><span class="me2">Window</span><span class="sy2">*</span>, <span class="kw4">int</span>, <span class="kw4">int</span>, WPARAM<span class="sy1">&gt;</span> eventArgs<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> OnKeyDown<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">tuple</span><span class="sy1">&lt;</span>win<span class="sy4">::</span><span class="me2">Window</span><span class="sy2">*</span>, WPARAM<span class="sy1">&gt;</span> eventArgs<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> OnKeyUp<span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">tuple</span><span class="sy1">&lt;</span>win<span class="sy4">::</span><span class="me2">Window</span><span class="sy2">*</span>, WPARAM<span class="sy1">&gt;</span> eventArgs<span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Подписывать на события можно не только экземплярные функции-члены классов, как в приведенном примере, но и свободные функции и статические функции-члены классов.<br>
+Описание класса Window закончено. Но поскольку всплыл класс <strong>Program</strong>, скажу пару слов о нем.</p>
+<h2>Класс Program</h2>
+<p>Я уже говорил, что очень люблю и уважаю top-down approach (подход &#171;сверху-вниз&#187;) в программировании. Взгляните на исходный код функции <strong>main</strong> ниже. В подходе &#171;сверху-вниз&#187; вы сначала пишете этот код, а уже затем код класса <strong>Program</strong>.</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co1">// main.cpp</span><br>
+<br>
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &quot;Program.h&quot;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">try</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Program prog<span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; prog.<span class="me1">Main</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="kw2">catch</span> <span class="br0">&#40;</span>std<span class="sy4">::</span><span class="me2">exception</span> ex<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> ex.<span class="me1">what</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> std<span class="sy4">::</span><span class="me2">endl</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;Press any key to exit ...&quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; std<span class="sy4">::</span><span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Вроде не бог весть что &#8212; просто создается некий объект <strong>Program</strong> и вся работа программы перепоручается его методу <strong>Main</strong>. Но есть как минимум два приятных момента от такого подхода: 1) структура функции main проста и понятна 2) нет глобальных переменных &#8212; все переменные упрятаны в объекте <strong>Program prog</strong>. Вот как мог бы выглядеть код класса Program:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> Program<br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; win<span class="sy4">::</span><span class="me2">Window</span> m_Window<span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Program<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window<span class="br0">&#40;</span><span class="st0">&quot;Test Window&quot;</span>, <span class="nu0">1280</span>, <span class="nu0">720</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span> ... <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">void</span> Main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Window.<span class="me1">Show</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MSG msg<span class="br0">&#123;</span> <span class="nu0">0</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>GetMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg, <span class="kw2">NULL</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TranslateMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DispatchMessage<span class="br0">&#40;</span><span class="sy3">&amp;</span>msg<span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>На самом деле в моем коде класс Program наследует классу <strong>engine::ProgramBase</strong>. Дело в том, что я написал несколько программ, которые рисуют на экране различные сценки, начиная от рисования неподвижного одноцветного треугольника и заканчивая Солнцем, Землей и Луной (см. рисунок в <a href="http://localhost/opengl-1/">прошлой заметке</a>). Каждая программа &#8212; это отдельная версия класса Program. Разумеется у всех этих версий оказалось много общего, и это общее я и поместил в класс engine::ProgramBase. Он-то и содержит и указатель на объект окна, и функцию Main и еще много чего, что мы обсудим в <a href="http://localhost/opengl-4/">последующих заметках</a>. Но сначала <a href="http://localhost/opengl-3/">создадим контекст рисования</a>.</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2018/07/25/opengl-2/" data-a2a-title="Опыт изучения OpenGL — Часть 2 — Окно">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2018%2F07%2F25%2Fopengl-2%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20%D0%9E%D0%BA%D0%BD%D0%BE" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2018%2F07%2F25%2Fopengl-2%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20%D0%9E%D0%BA%D0%BD%D0%BE" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2018%2F07%2F25%2Fopengl-2%2F&amp;linkname=%D0%9E%D0%BF%D1%8B%D1%82%20%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20OpenGL%20%E2%80%94%20%D0%A7%D0%B0%D1%81%D1%82%D1%8C%202%20%E2%80%94%20%D0%9E%D0%BA%D0%BD%D0%BE" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a>, <a href="/tag/opengl/" rel="tag">OpenGL</a>, <a href="/tag/winapi/" rel="tag">WinAPI</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2018/07/20/%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-%d1%81%d0%b2%d0%be%d0%b9-%d0%bf%d1%80%d0%be%d0%b5%d0%ba%d1%82-%d0%be%d1%82%d0%ba%d1%80%d1%8b%d1%82%d1%8b%d0%bc-open-source/" rel="prev">Как сделать свой проект открытым (open source)</a></div>
+<div class="nav-next"><a href="/2018/08/03/opengl-3/" rel="next">Опыт изучения OpenGL &#8212; Часть 3 &#8212; Создание контекста рисования</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2018/07/25/opengl-2/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="701" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

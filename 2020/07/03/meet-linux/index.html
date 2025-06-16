@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Шпаргалка по Linux для чайников &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Шпаргалка по Linux для чайников&raquo;" href="/2020/07/03/meet-linux/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1552">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2020/07/03/meet-linux/">
+<link rel="shortlink" href="/?p=1552">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2020%2F07%2F03%2Fmeet-linux%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2020%2F07%2F03%2Fmeet-linux%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1552 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1552" class="post-1552 post type-post status-publish format-standard hentry category-1 tag-28 tag-29">
+	<header class="entry-header">
+		<h1 class="entry-title">Шпаргалка по Linux для чайников</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2020/07/03/meet-linux/" rel="bookmark"><time class="entry-date published updated" datetime="2020-07-03T17:29:11+03:00">03.07.2020</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Заранее прошу прощения у опытных пользователей Linux, если допустил где-то ляпы&#8230; Что взять с чайника? 🙂</p>
+<p>В тексте ниже в качестве приглашения (prompt) используется символ доллара.</p>
+<h2>Package Management</h2>
+<p>Разные дистрибутивы Linux включают в себя разные пакетные менеджеры. Например:<br>
+&#8212; <strong>Debian</strong> &#8212; apt-get<br>
+&#8212; <strong>RedHat</strong> &#8212; dnf или yum</p>
+<p>О том, что такое пакетные менеджеры, читайте статью <a href="https://www.linode.com/docs/tools-reference/linux-package-management/">Linux Package Management</a>.<br>
+Утилиты вроде apt-get и dnf &#8212; более высокоуровневые &#8212; они не заставляют пользователя указывать точную версию пакета и они сами устанавливают нужные зависимости пакета. Но за ними стоят низкоуровневые утилиты: <strong>rpm</strong>, <strong>dpkg</strong>, которые такой функциональностью не обладают. Существуют пакетные менеджеры с графическим пользовательским интерфейсом, например <strong>gnome-software</strong>, <strong>yast</strong>, <strong>yumex-dnf</strong>.</p>
+<p>Как установить нужный пакет:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># debian family</span><br>
+$ <span class="kw2">sudo</span> apt <span class="kw2">install</span> packagename<br>
+<br>
+<span class="co0"># redhat family</span><br>
+$ <span class="kw2">sudo</span> dnf <span class="kw2">install</span> packagename</div></div>
+<p>Иногда нужно узнать, к какому пакету (или пакетам) принадлежит тот или иной файл:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># debian family</span><br>
+$ <span class="kw2">apt-file search</span> <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>filename<br>
+<br>
+<span class="co0"># redhat family</span><br>
+$ dnf provides <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>filename</div></div>
+<p>Надо заметить, что менеджер пакетов берет пакеты из неких репозиториев. Этих репозиториев много, и пакетный менеджер ищет в них пакет, который вы хотите установить. Иногда нужного репозитория в списке нет, и его нужно добавить &#8212; об этом читайте статью <a href="https://www.cyberciti.biz/faq/how-to-enable-and-install-epel-repo-on-centos-8-x/">How To Enable and Install EPEL Repo on CentOS 8</a>.</p>
+<p>Различные дистрибутивы (разные семейства) Linux (RedHat, Ubuntu, OpenSUSE и т. д.) не очень-то совместимы между собой &#8212; в том плане, что какие-то пакеты могут быть предназначены для какого-то определенного дистрибутива Linux и не предназначены для другого.</p>
+<h2>Запуск утилит</h2>
+<p>В Linux устанавливать пакеты разрешено не всем пользователям, а как правило только так называемому суперпользователю (root). Чтобы запустить команду от имени суперпользователя, применяются команды <strong>su</strong> и <strong>sudo</strong> &#8212; о них читайте в статье <a href="https://www.howtogeek.com/111479/htg-explains-whats-the-difference-between-sudo-su/">What’s the Difference Between Sudo and Su in Linux?</a></p>
+<p>Еще одна вещь непривычная для пользователя Windows: если запустить из командной оболочки программу (в том числе, программу с графическим интерфейсом), то пока эта запущенная программа не завершится, в оболочке нельзя будет выполнять никакие команды. Такой запуск называется <strong>exec</strong>.</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># exec emacs</span><br>
+$ emacs</div></div>
+<p>Не блокирующий оболочку запуск программы в отдельном процессе называется в linux словом <strong>fork</strong>:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># fork emacs</span><br>
+$ emacs <span class="sy0">&amp;</span><br>
+$</div></div>
+<h2>Desktop Manager</h2>
+<p>CentOS 8. Как узнать какой <strong>desktop manager</strong> вы используете (<strong>gnome</strong> или <strong>KDE</strong>):</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw3">echo</span> <span class="re1">$DESKTOP_SESSION</span><br>
+gnome</div></div>
+<p>CentOS 8. Установить пакет gnome-tweak-tool:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">sudo</span> dnf <span class="kw2">install</span> gnome-tweak-tool</div></div>
+<h2>Help System</h2>
+<p>Получить справку по той или иной программе или функции:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw2">man</span> <span class="kw2">grep</span><br>
+<br>
+$ <span class="kw2">man</span> socket<br>
+$ <span class="kw2">man</span> <span class="nu0">2</span> socket<br>
+$ <span class="kw2">man</span> <span class="re5">-a</span> socket<br>
+<br>
+$ info <span class="kw2">grep</span><br>
+<br>
+$ <span class="kw2">grep</span> <span class="re5">--help</span>
+</div></div>
+<p><strong>info</strong> &#8212; очень ценная команда, которая отображает подробную справку с гипертекстовыми ссылками. Для навигации по справке следует использовать горячие клавиши. Список горячих клавиш можно получить нажав на клавиатуре <strong>Shift+h</strong></p>
+<p>Команда <strong>whatis</strong> возвращает список разделов документации, относящихся к указанной команде.<br>
+Команда <strong>apropos</strong> либо <strong>man -k</strong> возвращает список всех разделов документации, в которых упоминается указанная команда.</p>
+<p>Оказывается, что есть два вида команд: одни суть нормальные программы типа grep (utilities), другие &#8212; команды (commands), встроенные в командную оболочку, например pwd. Команда <strong>help</strong> выводит справку по встроенным командам, команда <strong>man</strong> &#8212; по программам.</p>
+<p>Незаменимая утилита для поиска текста (в частности, внутри справки) &#8212; grep. Ее можно использовать для поиска упоминаний нужного текста в справке. Например, найдем все слова author в справке по команде ls:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw2">man</span> <span class="kw2">ls</span> <span class="sy0">|</span> <span class="kw2">grep</span> author<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="re5">--author</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;with -l, print the author of each <span class="kw2">file</span>
+</div></div>
+<h2>Разное</h2>
+<p>Оказывается, некоторые пакеты можно установить только от имени пользователя <strong>root</strong>. Например gcc. Чтобы зайти в терминал от имени root-пользователя, нужно набрать</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">su</span>
+</div></div>
+<p>Чтобы выйти из сессии <strong>root</strong>-пользователя, нужно набрать</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw3">exit</span>
+</div></div>
+<h2>Текстовые редакторы</h2>
+<p>&#8212; <strong>vi</strong> консольный редактор, который есть во всех дистрибутивах Linux<br>
+&#8212; <strong>vim</strong> и <strong>emacs</strong> &#8212; наиболее популярные консольные редакторы<br>
+&#8212; <strong>nano</strong> &#8212; консольный редактор для новичков<br>
+&#8212; <strong>gedit</strong> &#8212; графический текстовый редактор в gnome<br>
+&#8212; <strong>KWrite</strong> &#8212; графический  текстовый редактор в KDE</p>
+<p>Создать текстовый файл:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw3">echo</span> Hello <span class="sy0">&gt;</span> filename<br>
+$ <span class="kw3">echo</span> line1 <span class="sy0">&gt;&gt;</span> filename<br>
+$ <span class="kw3">echo</span> <span class="st_h">'line 2'</span> <span class="sy0">&gt;&gt;</span> filname</div></div>
+<p><strong>vim</strong><br>
+Переход в режим редактирования &#8212; клавиша i, переход в режим команд &#8212; клавиша Esc.<br>
+Чтобы сохранить файл &#8212; набрать <code class="codecolorer text default"><span class="text">:w</span></code><br>
+Чтобы выйти из редактора &#8212; набрать <code class="codecolorer text default"><span class="text">:q</span></code></p>
+<p><strong>emacs</strong><br>
+Имеет главное меню и позволяет перемещать курсор при помощи мыши.</p>
+<h2>Скрипты</h2>
+<p>Первая строка скрипта содержит информацию о том, в какой командной оболочке он будет запускаться:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0">#!/bin/bash</span><br>
+<span class="kw3">echo</span> Hello</div></div>
+<p>Помимо bash мое внимание привлекли оболочка <strong>csh</strong> (C shell) и ее потомок <strong>tsch</strong>, поскольку их синтаксис очень близок к милому моему сердцу языку C.</p>
+<p>Узнать используемую по-умолчанию командную оболочку:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw3">echo</span> <span class="re1">$SHELL</span>
+</div></div>
+<p>Поменять используемую по-умолчанию командную оболочку (например на tcsh):</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">chsh</span> tcsh</div></div>
+<p>Чтобы временно воспользоваться нужной вам командной оболочкой, не изменяя оболочку по-умолчанию, можно просто запустить нужную оболочку из основной оболочки:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="sy0">/</span>usr<span class="sy0">/</span>bin<span class="sy0">/</span>tchs</div></div>
+<p>Чтобы выйти из запущенной вами подоболочки, нужно выполнить команду <strong>exit</strong>.</p>
+<h2>Переменные окружения</h2>
+<p>Вывести все переменные окружения:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">env</span>
+</div></div>
+<p>Можно создать новую переменную окружения, записав в командной оболочке ее имя, знак равно и значение переменной:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="re2">MY_ENV_VAR</span>=HELLO<br>
+$ <span class="kw3">echo</span> <span class="re1">$MY_ENV_VAR</span>
+</div></div>
+<p>Если вы просто создадите переменную окружения (как показано выше), то она будет доступна только внутри используемой вами командной оболочки (эдакая локальная переменная), но не будет доступна внутри дочерних процессов, которые вы будете запускать из командной оболочки. Чтобы сделать переменную доступной для дочерних процессов, нужно выполнить команду <strong>export</strong>:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw3">export</span> <span class="re1">$MY_ENV_VAR</span>
+</div></div>
+<p>Чтобы удалить переменную окружения, используем команду <strong>unset</strong>:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw3">unset</span> MY_ENV_VAR</div></div>
+<p>Созданные в командной оболочке переменные существуют только на время сессии. Чтобы перманентно изменить или добавить переменную окружения, можно отредактировать файл <code class="codecolorer text default"><span class="text">~/.bashrc</span></code></p>
+<p>Шаблон приглашения (prompt) находится в переменной окружения <strong>PS1</strong>. В моей системе он имел такое значение:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw3">echo</span> <span class="re1">$PS1</span><br>
+<span class="br0">&#91;</span>\u<span class="sy0">@</span>\h \W<span class="br0">&#93;</span>$</div></div>
+<p>&#8230; что в переводе означает <code class="codecolorer text default"><span class="text">[имя_пользователя@имя_хоста текущая_директория]$</span></code>. Можно изменить эту переменную, чтобы получить то приглашение, которое вам больше нравится.</p>
+<h2>Специальные символы</h2>
+<p>Существуют символы, которые выполняют в командной оболочке специальные функции. Например символ &#171;решетка&#187; означает комментарий, а символ &#171;больше&#187; означает перенаправление потока вывода. Однако, если вы хотите распечатать подобные символы, то вам придется использовать кавычки (двойные или одинарные) либо символ экранирования &#171;обратный слэш&#187;.</p>
+<h2>Перенаправление потоков ввода-вывода и pipelining</h2>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># redirect echo's output to hello.txt file</span><br>
+$ <span class="kw3">echo</span> Hello <span class="sy0">&gt;</span> hello.txt<br>
+<br>
+<span class="co0"># append one more line to hello.txt file</span><br>
+$ <span class="kw3">echo</span> <span class="st0">&quot;One more hello&quot;</span> <span class="sy0">&gt;&gt;</span> hello.txt<br>
+<br>
+<span class="co0"># redirect cat's input to hello.txt file</span><br>
+$ <span class="kw2">cat</span> <span class="sy0">&lt;</span> hello.txt<br>
+<br>
+<span class="co0"># redirect echo's output to grep's input</span><br>
+$ <span class="kw3">echo</span> <span class="st0">&quot;Hello, World!&quot;</span> <span class="sy0">|</span> <span class="kw2">grep</span> World</div></div>
+<p>Для стандартных потоков ввода-вывода существуют т. н. дескрипторы:<br>
+0 &#8212; stdin<br>
+1 &#8212; stdout<br>
+2 &#8212; stderr</p>
+<p>И существуют команды, которые могут перенаправлять поток с тем или иным дескриптором в файл или поток с другим дескриптором. Для ссылки на дескриптор применяется символ амперсанд. Например:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># stderr(2) &gt; err.txt</span><br>
+$ foo <span class="nu0">2</span><span class="sy0">&gt;</span> err.txt<br>
+<br>
+<span class="co0"># stdout(1) &gt; file; stderr(2) &gt; to where stdout(1) is redirected i. e. file; </span><br>
+$ foo <span class="nu0">1</span><span class="sy0">&gt;</span> <span class="kw2">file</span> <span class="nu0">2</span><span class="sy0">&gt;&amp;</span><span class="nu0">1</span>
+</div></div>
+<h2>Вычисление и подстановка выражений</h2>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="re2">x</span>=<span class="nu0">3</span><br>
+<br>
+$ <span class="kw3">echo</span> result = <span class="re1">$x</span> + <span class="nu0">1</span><br>
+result = <span class="nu0">3</span> + <span class="nu0">1</span><br>
+<br>
+$ <span class="kw3">echo</span> result = $<span class="br0">&#40;</span><span class="br0">&#40;</span><span class="re1">$x</span> + <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span><br>
+result = <span class="nu0">4</span><br>
+<br>
+$ <span class="kw3">echo</span> result = <span class="sy0">`</span><span class="kw2">expr</span> <span class="re1">$x</span> + <span class="nu0">1</span><span class="sy0">`</span><br>
+result = <span class="nu0">4</span><br>
+<br>
+$ <span class="kw3">echo</span> result = <span class="sy0">`</span><span class="kw2">expr</span> <span class="re1">$x</span>+<span class="nu0">1</span><span class="sy0">`</span><br>
+result = <span class="nu0">3</span>+<span class="nu0">1</span>
+</div></div>
+<p>Обратите внимание на то, что наличие пробелов в выражении для команды <strong>expr</strong> в двух последних примерах играет роль.</p>
+<h2>Файловая система</h2>
+<p>В Linux система папок имеет некую стандартную структуру: каждая папка выполняет некую функцию. Какие-то названия были даже у меня на слуху (а я до сих пор имел с Linux лишь шапочное знакомство): bin, usr, home, etc, lib&#8230;</p>
+<p>Утилита для обзора и добавления разделов диска &#8212; <strong>fdisk</strong>.<br>
+Утилита для форматирования раздела диска &#8212; <strong>mkfs</strong>.</p>
+<p>Путь, начинающийся с прямого слэша, считается абсолютным. Любой другой путь &#8212; относительным относительно текущей директории.</p>
+<p>Создать жесткую ссылку (hard link) или символическую ссылку (ярлык):</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># create a hard link (file1 and file2 are two names of the same file)</span><br>
+$ <span class="kw2">ln</span> file1 file2<br>
+<br>
+<span class="co0"># create a symbolic link (file 2 contains a link to file1)</span><br>
+$ <span class="kw2">ln</span> <span class="re5">-s</span> file1 file2</div></div>
+<p>Конечно же нельзя не упомянуть утилиту ls, которая, можно сказать, заменяет лиинуксоидам проводник:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">ls</span> <span class="re5">-l</span> <span class="sy0">/</span>usr</div></div>
+<p>Ключ -l заставляет ls выводить список файлов по одному на строку.</p>
+<h2>Runlevels</h2>
+<p>Runlevels &#8212; это набор режимов работы операционной системы (типа как в Windows были обычный режим и безопасный режим). В зависимости от режима может быть запущена или не запущена графическая оболочка, включен или выключен многопользовательский режим. Таких runlevel&#8217;ов всего штук семь. Они пронумерованы, и между ними можно переключаться при помощи программы <strong>telinit</strong>.</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># show current runlevel</span><br>
+$ runlevel<br>
+N <span class="nu0">5</span><br>
+<br>
+<span class="co0"># swith to runlevel 3 (no graphical shell)</span><br>
+$ <span class="kw2">sudo</span> telinit <span class="nu0">3</span>
+</div></div>
+<p>Того же эффекта как при переключении между runlevel&#8217;ами 3 и 5, вроде как, можно добиться, останавливая либо запуская графическую оболочку (GNOME Display Manager &#8212; gdm):</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">$ <span class="kw2">sudo</span> systemctl stop gdm<br>
+$ <span class="kw2">sudo</span> systemctl start gdm</div></div>
+<p>Ну, не знаю, когда я попытался выполнить первую из этих команд на Ubuntu, мой экран просто погас и не появилось никакой командной оболочки вместо него.</p>
+<h2>Память</h2>
+<p>Отобразить количество используемой&sol;свободной памяти в системе, включая файл подкачки, можно утилитой free:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">free</span> <span class="re5">-mt</span>
+</div></div>
+<p>Более детальная информация содержится в файле <code class="codecolorer text default"><span class="text">proc/meminfo</span></code>. Этот файл, как и все файлы в директории <code class="codecolorer text default"><span class="text">/proc</span></code>, существует не на диске, а в оперативной памяти, папку <code class="codecolorer text default"><span class="text">/proc</span></code> при этом называют даже псевдофайловой системой.</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">cat</span> proc<span class="sy0">/</span>meminfo</div></div>
+<p>Также можно посмотреть информацию по файлам подкачки (а могут быть не только файлы подкачки, но и разделы на диске) при помощи файла <code class="codecolorer text default"><span class="text">/proc/swaps</span></code>:</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co4">$ </span><span class="kw2">cat</span> proc<span class="sy0">/</span>swaps</div></div>
+<p>Подкачку можно включать и выключать командами <strong>swapon -a</strong> и <strong>swapoff -a</strong>.</p>
+<h2>Сети</h2>
+<p>Настройку сетевых интерфейсов осуществляет утилита <strong>ifconfig</strong> (пакет net-tools) или более новая утилита <strong>ip</strong>. Что нам нужно: получить список сетевых интерфейсов с их настройками, изменить настройки конкретных сетевых интерфейсов, включать и выключать сетевые интерфейсы. Заметим, что имена интерфейсов &#8212; это набор букв и цифр, который новичку вроде меня может показаться странным (например enp0s3).</p>
+<div class="codecolorer-container bash blackboard" style="overflow:auto;white-space:nowrap;"><div class="bash codecolorer">
+<span class="co0"># show network interfaces</span><br>
+$ <span class="kw2">ifconfig</span><br>
+<span class="co0"># or</span><br>
+$ <span class="kw2">ip link</span><br>
+<br>
+<span class="co0"># show ip-addresses</span><br>
+$ <span class="kw2">ip</span> address<br>
+<br>
+<span class="co0"># change ip-address of interface enp0s3 (assign it statically)</span><br>
+$ <span class="kw2">sudo</span> <span class="kw2">ifconfig</span> enp0s3 inet 10.0.2.16<br>
+<br>
+<span class="co0"># configure interface to get ip-address from DHCP</span><br>
+$ <span class="kw2">sudo</span> dhclient enp0s3 <span class="re5">-v</span><br>
+<br>
+<span class="co0"># turn interface off</span><br>
+$ <span class="kw2">sudo</span> <span class="kw2">ip link</span> <span class="kw1">set</span> enp0s3 down<br>
+<br>
+<span class="co0"># turn interface on</span><br>
+$ <span class="kw2">sudo</span> <span class="kw2">ip link</span> <span class="kw1">set</span> enp0s3 up<br>
+<br>
+<span class="co0"># add ip-address to interface</span><br>
+$ <span class="kw2">sudo</span> <span class="kw2">ip</span> address add 192.168.1.2<span class="sy0">/</span><span class="nu0">24</span> dev enp0s3<br>
+<br>
+<span class="co0"># delete ip-address from interface</span><br>
+$ <span class="kw2">sudo</span> <span class="kw2">ip</span> address del 192.168.1.2<span class="sy0">/</span><span class="nu0">24</span> dev enp0s3</div></div>
+<h2>Службы (демоны)</h2>
+<p>Службы, они же демоны, они же фоновые процессы &#8212; это программы, которые работают в фоне, и не имеют пользовательского интерфейса.<br>
+Запуск, остановка, перечисление служб контролируется утилитой <strong>systemctl</strong>.</p>
+<h2>Пользователи и группы</h2>
+<p>Бывают настоящие пользователи, а бывают ненастоящие (демоны они в общем:). Пользователь &#8212; это единица, которой назначаются права доступа ко всяким возможностям системы. Информация о пользователях хранится в файлах <code class="codecolorer text default"><span class="text">/etc/group</span></code> и <code class="codecolorer text default"><span class="text">/etc/passwd</span></code>. Группы &#8212; это единицы, которые включают одного или нескольких пользователей и которым назначаются определенные права доступа к возможностям ОС. У каждого пользователя есть ID (целое число) &#8212; для настоящих пользователей он начинается с 1000, для демонов &#8212; с 1. ID=0 &#8212; это суперпользователь (root). Еще у настоящих пользователей есть домашняя папка (home directory) и оболочка, которая запускается при входе в систему (обычно &#8212; bash).</p>
+<p>Пользователей добавляет и удаляет только суперпользователь &#8212; при помощи команд <strong>useradd</strong>, <strong>userdel</strong>. Он же назначает пользователю пароль для входа командой <strong>passwd</strong>. Изменение настроек пользователя, таких как домашняя папка, пароль или принадлежность к группе &#8212; выполняется командой <strong>usermod</strong>.</p>
+<p>Аналогично суперпользователь создает и удаляет группы &#8212; командами <strong>groupadd</strong> и <strong>groupdel</strong>. И изменяет &#8212; командой <strong>groupmod</strong>. Посмотреть, членом каких групп является тот или иной пользователь, можно при помощи команды <strong>groups</strong>. Также можно использовать команду <strong>id</strong>, чтобы получить информацию о текущем пользователе.</p>
+<p>Каждый файл в системе имеет владельца (пользователя). Помимо владельца есть еще два субъекта: группа владельца и все остальные. Каждому из этих трех субъектов назначаются права на то, что можно делать с файлом: читать (read), писать (write), исполнять (execute). Посмотреть права доступа к файлу можно командой <code class="codecolorer text default"><span class="text">ls -lF filename</span></code>, изменить права доступа &#8212; командой <strong>chmod</strong>, и даже поменять владельца &#8212; командой <strong>chown</strong>. Суперпользователь имеет полный доступ ко всем файлам в системе.</p>
+<h2>sudo и su</h2>
+<p>Команда <strong>sudo</strong> позволяет выполнить одну команду от имени другого пользователя. При этом <strong>sudo</strong> потребует пароль текущего пользователя. Но для того, чтобы подобное работало, нужно, чтобы суперпользователь настроил файл <code class="codecolorer text default"><span class="text">/etc/sudoers</span></code>, что можно сделать командами <strong>visudo</strong> или <strong>sudoedit</strong>. Более современный вариант &#8212; создавать файлы в директории <code class="codecolorer text default"><span class="text">/etc/sudoers.d</span></code> &#8212; для каждого пользователя.</p>
+<p>Команда <strong>su</strong> позволяет залогиниться в командную оболочку от имени другого пользователя. Однако <strong>su</strong> потребует уже пароль того пользователя, от имени которого вы хотите залогиниться. В Ubuntu под root&#8217;ом вам просто так не зайти, поскольку вы не знаете его пароля. Но это можно легко обойти командой <code class="codecolorer text default"><span class="text">sudo su</span></code>.</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2020/07/03/meet-linux/" data-a2a-title="Шпаргалка по Linux для чайников">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2020%2F07%2F03%2Fmeet-linux%2F&amp;linkname=%D0%A8%D0%BF%D0%B0%D1%80%D0%B3%D0%B0%D0%BB%D0%BA%D0%B0%20%D0%BF%D0%BE%20Linux%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D0%B9%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2020%2F07%2F03%2Fmeet-linux%2F&amp;linkname=%D0%A8%D0%BF%D0%B0%D1%80%D0%B3%D0%B0%D0%BB%D0%BA%D0%B0%20%D0%BF%D0%BE%20Linux%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D0%B9%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2020%2F07%2F03%2Fmeet-linux%2F&amp;linkname=%D0%A8%D0%BF%D0%B0%D1%80%D0%B3%D0%B0%D0%BB%D0%BA%D0%B0%20%D0%BF%D0%BE%20Linux%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D0%B9%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" rel="tag">Образование</a>, <a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" rel="tag">Разное</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2020/06/26/nand2tetris/" rel="prev">From Nand To Tetris &#8212; Как построить компьютер с нуля</a></div>
+<div class="nav-next"><a href="/2021/04/07/vlsi-cad-p1-logic/" rel="next">Very Large Scale Integration CAD &#8212; Part I &#8212; Logic</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2020/07/03/meet-linux/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1552" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>

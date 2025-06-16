@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/xmlrpc.php">
+    
+<title>Тест по программированию на C++ от GeekBrains (средний уровень) &#8212; Dmitry&#039;s Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//static.addtoany.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента" href="/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев" href="/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry&#039;s Blog &raquo; Лента комментариев к &laquo;Тест по программированию на C++ от GeekBrains (средний уровень)&raquo;" href="/2019/05/18/geekbrains-test-cpp-intermediate/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"🏳️‍⚧️","🏳️​⚧️")?!1:!n(e,"🇺🇳","🇺​🇳")&&!n(e,"🏴󠁧󠁢󠁥󠁮󠁧󠁿","🏴​󠁧​󠁢​󠁥​󠁮​󠁧​󠁿");case"emoji":return!n(e,"🐦‍🔥","🐦​🔥")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/wp-includes/css/dist/block-library/style.min.css?ver=6.8.1" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}</style>
+<style id="classic-theme-styles-inline-css" type="text/css">/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}</style>
+<style id="global-styles-inline-css" type="text/css">:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=6.8.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/wp-content/themes/education-hub/style.css?ver=2.7.1" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="addtoany-css" href="/wp-content/plugins/add-to-any/addtoany.min.css?ver=1.16" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" id="addtoany-core-js-before">
+/* <![CDATA[ */
+window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_localize = {
+	Share: "Отправить",
+	Save: "Сохранить",
+	Subscribe: "Подписаться",
+	Email: "E-mail",
+	Bookmark: "В закладки!",
+	ShowAll: "Показать все",
+	ShowLess: "Показать остальное",
+	FindServices: "Найти сервис(ы)",
+	FindAnyServiceToAddTo: "Найти сервис и добавить",
+	PoweredBy: "Работает на",
+	ShareViaEmail: "Поделиться по электронной почте",
+	SubscribeViaEmail: "Подписаться по электронной почте",
+	BookmarkInYourBrowser: "Добавить в закладки",
+	BookmarkInstructions: "Нажмите Ctrl+D или ⌘+D, чтобы добавить страницу в закладки",
+	AddToYourFavorites: "Добавить в Избранное",
+	SendFromWebOrProgram: "Отправлять с любого email-адреса или email-программы",
+	EmailProgram: "Почтовая программа",
+	More: "Подробнее&#8230;",
+	ThanksForSharing: "Спасибо, что поделились!",
+	ThanksForFollowing: "Спасибо за подписку!"
+};
+/* ]]> */
+</script>
+<script type="text/javascript" defer src="https://static.addtoany.com/menu/page.js" id="addtoany-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" defer src="/wp-content/plugins/add-to-any/addtoany.min.js?ver=1.1" id="addtoany-jquery-js"></script>
+<link rel="https://api.w.org/" href="/wp-json/">
+<link rel="alternate" title="JSON" type="application/json" href="/wp-json/wp/v2/posts/1348">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="/2019/05/18/geekbrains-test-cpp-intermediate/">
+<link rel="shortlink" href="/?p=1348">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F05%2F18%2Fgeekbrains-test-cpp-intermediate%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/wp-json/oembed/1.0/embed?url=%2F2019%2F05%2F18%2Fgeekbrains-test-cpp-intermediate%2F#038;format=xml">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-150x150.png" sizes="32x32">
+<link rel="icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+<meta name="msapplication-TileImage" content="/wp-content/uploads/2020/02/карандаш_сжат-270x270.png">
+		<style type="text/css" id="wp-custom-css">.entry-content a:link {
+  text-decoration: underline; 
+}</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-1348 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Перейти к содержимому</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div>
+<!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/wp-content/uploads/2020/02/карандаш_сжат-e1750103027884.png" class="custom-logo" alt="Dmitry&#039;s Blog" decoding="async"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/" rel="home">Dmitry&#039;s Blog</a></p>
+	            				
+					        </div>
+<!-- #site-identity -->
+			
+	    </div>
+<!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/">
+	      <label>
+	        <span class="screen-reader-text">Поиск по:</span>
+	        <input type="search" class="search-field" placeholder="Поиск…" value="" name="s" title="Поиск по:">
+	      </label>
+	      <input type="submit" class="search-submit" value="Поиск">
+	    </form>		    </div>
+	    
+        </div>
+<!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			Меню</button>
+            <div class="wrap-menu-content">
+				<ul>
+<li><a href="/">Главная</a></li>
+<li class="page_item page-item-387"><a href="/aboutme/">О себе</a></li>
+</ul>            </div>
+<!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content">
+<div class="container">
+<div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1348" class="post-1348 post type-post status-publish format-standard hentry category-1 tag-c-c">
+	<header class="entry-header">
+		<h1 class="entry-title">Тест по программированию на C++ от GeekBrains (средний уровень)</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/2019/05/18/geekbrains-test-cpp-intermediate/" rel="bookmark"><time class="entry-date published updated" datetime="2019-05-18T19:38:03+03:00">18.05.2019</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/author/dvsav/">dvsav</a></span></span>		</div>
+<!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>Недавно я завис на портале <a href="https://geekbrains.ru/">geekbrains.ru</a>, раздумывая, не поступить ли мне на курс по C++ или по Unity. Решил для развлечения тесты порешать по моим любимым языкам C/C++/C#. Несколько базовых тестов успешно прошел, а дальше забуксовал. И решил проработать проблемные вопросы, а в качестве стимула написать заметку в блог. Итак, поехали. Я немножко переформатировал фрагменты кода, чтобы он лучше воспринимался глазами. Ответы и пояснения иногда привожу прямо в исходном коде тестов в виде комментариев.</p>
+<h3>1. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; x<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; y<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; z<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">int</span> b<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; y<span class="br0">&#40;</span>x <span class="sy2">+</span> <span class="nu0">2</span> <span class="sy2">*</span> b<span class="br0">&#41;</span>, <span class="co1">// 3rd</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; z<span class="br0">&#40;</span>y <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#41;</span>, &nbsp; &nbsp; <span class="co1">// 2nd</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; x<span class="br0">&#40;</span>a<span class="br0">&#41;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// 1st</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> z <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> x<span class="sy4">;</span> <span class="co1">// 1st</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> y<span class="sy4">;</span> <span class="co1">// 2nd</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> z<span class="sy4">;</span> <span class="co1">// 3rd</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Видно, что вызывается конструктор класса <strong>A</strong> с двумя параметрами. Вот только конструктор какой-то странный, я бы такой код никогда не написал. Поле <strong>y</strong> инициализируется значением <strong>x + 2 * b</strong>, но поле <strong>x</strong> еще не проинициализировано, значит результат такой инициализации будет неопределен. Так рассудил я, ответил &#171;Результат неизвестен&#187; и ошибся. Подвело меня то, что я привык, что поля класса инициализируются <em>в списке инициализации конструктора</em> в том же порядке, в котором они объявлены, а в данном случае авторы, очевидно, нарочно сделали по-другому. Дело в том, что в языке C++ поля инициализируются в том порядке, в котором они объявлены, независимо от порядка, в котором вы их инициализируете в списке инициализации в конструкторе. Поэтому правильные сначала инициализируется поле <strong>x</strong>, потом <strong>y</strong>, потом <strong>z</strong>. Если бы авторы теста не старались запутать нас специально, то они написали бы:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+...<br>
+&nbsp; &nbsp; <span class="me1">A</span><span class="br0">&#40;</span><span class="kw4">int</span> a, <span class="kw4">int</span> b<span class="br0">&#41;</span> <span class="sy4">:</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; x<span class="br0">&#40;</span>a<span class="br0">&#41;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; y<span class="br0">&#40;</span>x <span class="sy2">+</span> <span class="nu0">2</span> <span class="sy2">*</span> b<span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; z<span class="br0">&#40;</span>y <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> z <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+...<br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<p>Таким образом <strong>x = a = 1</strong>, <strong>y = x + 2 * b = 1 + 2 * 1 = 3</strong>, <strong>z = y + 1 = 4</strong>. Правильный ответ: на экран будет выведено число <strong>4</strong>.</p>
+<h3>2. Что должно стоять вместо ***, чтобы в результате работы программы на экран были выведены символы &#171;12&#187;</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="nu0">1</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="sy2">***</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; A<span class="sy2">*</span> a <span class="sy1">=</span> <span class="kw3">new</span> A<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; A<span class="sy2">*</span> b <span class="sy1">=</span> <span class="kw3">new</span> B<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; a<span class="sy2">-</span><span class="sy1">&gt;</span>f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; b<span class="sy2">-</span><span class="sy1">&gt;</span>f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Вариантов можно было выбрать несколько и я выбрал:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="nu0">2</span><span class="sy4">;</span> <span class="br0">&#125;</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// правильно</span><br>
+<span class="kw2">virtual</span> <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="nu0">2</span><span class="sy4">;</span> <span class="br0">&#125;</span> <span class="co1">// правильно</span><br>
+<span class="kw4">static</span> <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="nu0">2</span><span class="sy4">;</span> <span class="br0">&#125;</span> &nbsp;<span class="co1">// НЕправильно</span>
+</div></div>
+<p>А подвело меня то, что я не обратил внимание на то, что указатель <strong>b</strong> имеет тип <strong>A*</strong>, а не <strong>B*</strong>. Поэтому компилятор выберет функцию <strong>A::f()</strong>, а не <strong>B::f()</strong>.</p>
+<h3>3. В каких строках программы содержатся ошибки?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> <span class="kw4">int</span> x <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 1</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span><span class="sy3">&amp;</span> y <span class="sy1">=</span> x<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// 2 ошибка: ссылка не константная, а ссылается на константную переменную</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> <span class="sy2">*</span><span class="kw4">const</span> p <span class="sy1">=</span> <span class="kw3">new</span> <span class="kw4">int</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 3</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> <span class="kw4">int</span> <span class="sy2">*</span>q <span class="sy1">=</span> <span class="sy3">&amp;</span>x<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 4</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> <span class="sy3">&amp;</span>z <span class="sy1">=</span> p<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// 5 ошибка в синтаксисе</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Правильный ответ приведен тут же в коде: <strong>2</strong> и <strong>5</strong>. Но я по ошибке добавил еще и <strong>4</strong>, не заметив слова <strong>const</strong>, которое в данном случае делает указатель указателем на констанные данные. Вот как исправить ошибки в строках 2 и 5:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> <span class="kw4">int</span> x <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 1</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> <span class="kw4">int</span><span class="sy3">&amp;</span> y <span class="sy1">=</span> x<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="co1">// 2 добавил слово const</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> <span class="sy2">*</span><span class="kw4">const</span> p <span class="sy1">=</span> <span class="kw3">new</span> <span class="kw4">int</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 3</span><br>
+&nbsp; &nbsp; <span class="kw4">const</span> <span class="kw4">int</span> <span class="sy2">*</span>q <span class="sy1">=</span> <span class="sy3">&amp;</span>x<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 4</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> <span class="sy3">&amp;</span>z <span class="sy1">=</span> <span class="sy2">*</span>p<span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 5 добавил * перед p</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<h3>4. Какие контейнеры отсутствуют в стандартной библиотеке C++?</h3>
+<ol>
+<li>deque</li>
+<li>min_heap</li>
+<li>inverse_list</li>
+<li>unordered_set</li>
+<li>forward_vector</li>
+</ol>
+<p>Я ответил правильно, только вот указал не те которые отсутствуют, а те которые присутствуют. Но вопрос все равно стоящий, поскольку я например всех контейнеров STL наизусть не помню, так как в своих поделках пользуюсь только тремя: <strong>vector</strong>, <strong>map</strong> и <strong>array</strong>. Отличная табличка с перечислением всех контейнеров и их функциональности есть на <a href="https://ru.cppreference.com/w/cpp/container">cppreference.com</a>. Я только их перечислю:</p>
+<ul>
+<li>
+<strong>array</strong> &#8212; массив фиксированного размера.</li>
+<li>
+<strong>vector</strong> &#8212; контейнер с изменяемым размером</li>
+<li>
+<strong>deque</strong> &#8212; double-ended queue (двустронняя очередь), позволяет вставлять эффективно вставлять и удалять элементы с начала и с конца.</li>
+<li>
+<strong>forward_list</strong> &#8212; односвязный список, позволяет эффективно вставлять и удалять элементы.</li>
+<li>
+<strong>list</strong> &#8212; двусвязный список, позволяет эффективно вставлять и удалять элементы.</li>
+<li>
+<strong>set</strong> &#8212; множество уникальных объектов.</li>
+<li>
+<strong>map</strong> &#8212; ассоциативный контейнер с уникальными ключами.</li>
+<li>
+<strong>unordered_set</strong> &#8212; множество уникальных объектов.</li>
+<li>
+<strong>unordered_map</strong> &#8212; ассоциативный контейнер с уникальными ключами.</li>
+<li>
+<strong>stack</strong> &#8212; адаптер контейнера, предоставляет функциональность LIFO-устройства.</li>
+<li>
+<strong>queue</strong> &#8212; адаптер контейнера, предоставляет функциональность FIFO-устройства.</li>
+</ul>
+<h3>5. Что из перечисленного ниже обязательно вызовет неопределенное поведение в C++?</h3>
+<ol>
+<li>Обращение по несуществующему ключу в map через operator[]</li>
+<li>Разыменование нулевого указателя</li>
+<li>Использование виртуального наследования</li>
+<li>Выход за пределы типа</li>
+<li>Множественное наследование</li>
+</ol>
+<p>Провожу эксперимент &#8212; разыменовываю нулевой указатель:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span><span class="sy2">*</span> p <span class="sy1">=</span> <span class="kw2">nullptr</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> a <span class="sy1">=</span> <span class="sy2">*</span>p<span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Появляется сообщение &#171;Access violation exception&#187;, и программа завершается. Вроде вполне себе определенное поведение, поэтому я этот пункт не отметил и ошибся. Дело в том, что в стандарте C++ написано, что разыменование нулевого указателя вызывает неопределенное поведение, т. е. поведение, которое не регламентируется стандартом. А сообщение об ошибке и завершение программы в моем случае &#8212; это заслуга операционной системы. Что такое &#171;выход за пределы типа&#187;, я вообще не понял, возможно, имелся в виду &#171;доступ к объекту при помощи указателя на тип отличный от типа объекта&#187;. Типичные примеры неопределенного поведения приведены на <a href="https://en.cppreference.com/w/cpp/language/ub">cppreference.com</a>, а полную информацию см. в <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3690.pdf">спецификации C++</a> на полторы тысячи страниц.</p>
+<h3>6. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">template</span><span class="sy1">&lt;</span><span class="kw2">class</span> T <span class="sy1">=</span> <span class="kw4">int</span><span class="sy1">&gt;</span><br>
+<span class="kw2">class</span> MyClass<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;D&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;&gt;</span><br>
+<span class="kw2">class</span> MyClass<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span><br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> g<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;S1&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span><span class="sy1">&lt;&gt;</span><br>
+<span class="kw2">class</span> MyClass<span class="sy1">&lt;</span><span class="kw4">double</span><span class="sy1">&gt;</span><br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> h<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;S2&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; MyClass<span class="sy1">&lt;&gt;</span> a<span class="sy4">;</span> <span class="co1">// MyClass&lt;int&gt; a;</span><br>
+&nbsp; &nbsp; a.<span class="me1">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; <span class="co1">// Ошибка: MyClass&lt;int&gt; не имеет функции-члена с именем f</span><br>
+<br>
+&nbsp; &nbsp; MyClass<span class="sy1">&lt;</span>string<span class="sy1">&gt;</span> b<span class="sy4">;</span><br>
+&nbsp; &nbsp; b.<span class="me1">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; MyClass<span class="sy1">&lt;</span><span class="kw4">double</span><span class="sy1">&gt;</span> c<span class="sy4">;</span><br>
+&nbsp; &nbsp; c.<span class="me1">h</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Я ответил &#171;DDS2&#187; и ошибся. На самом деле программа не скомпилируется &#8212; пояснения даны в коде. Шаблонный параметр класса MyClass имеет значение по-умолчанию &#8212; int, но в то же время для шаблонного параметра int существует специализация, а в этой специализации действительно нет функции-члена с именем f. Авторы теста опять сбили меня с понталыку, написав заведомо корявый код.</p>
+<h3>7. Что должно стоять вместо ***, чтобы программа успешно скомпилировалась?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> C <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> D <span class="sy4">:</span> <span class="kw2">public</span> B, <span class="kw2">public</span> C<br>
+<span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; D d<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="sy2">***</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Это пример <a href="https://ru.wikipedia.org/wiki/Ромбовидное_наследование">ромбовидного наследования</a>. Как ни странно, я до сих пор никогда не пользовался даже множественным наследованием, не говоря уже о ромбовидном. Хитростей в C++ и так хватает, а множественное наследование подкидывает еще дополнительные. Например в приведенном коде класс <strong>D</strong> содержит две копии класса <strong>A</strong>, поэтому если написать вызов функции <strong>d.f()</strong>, возникнет неоднозначность, для какой копии класса <strong>A</strong> вызывать функцию. Поэтому надо явно сообщить компилятору эту информацию:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; D d<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="co1">// d.f(); // Error: ambiguity</span><br>
+&nbsp; &nbsp; d.<span class="me1">A</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; d.<span class="me1">B</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; d.<span class="me1">C</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>А вот вам такой забавный код, который показывает, что порядок, в котором вы указываете базовые классы при множественном наследовании, важен:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">char</span> x<span class="sy4">;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">char</span> x<span class="br0">&#41;</span> <span class="sy4">:</span> x<span class="br0">&#40;</span>x<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> x <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; B<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span> A<span class="br0">&#40;</span><span class="st0">'B'</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> C <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; C<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">:</span> A<span class="br0">&#40;</span><span class="st0">'C'</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> D <span class="sy4">:</span> <span class="kw2">public</span> B, <span class="kw2">public</span> C<br>
+<span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> E <span class="sy4">:</span> <span class="kw2">public</span> C, <span class="kw2">public</span> B<br>
+<span class="br0">&#123;</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; D d<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="co1">// d.f(); // Error: ambiguity</span><br>
+&nbsp; &nbsp; d.<span class="me1">A</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;B&quot;</span><br>
+&nbsp; &nbsp; d.<span class="me1">B</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;B&quot;</span><br>
+&nbsp; &nbsp; d.<span class="me1">C</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;C&quot;</span><br>
+<br>
+&nbsp; &nbsp; E e<span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="co1">// e.f(); // Error: ambiguity</span><br>
+&nbsp; &nbsp; e.<span class="me1">A</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;C&quot;</span><br>
+&nbsp; &nbsp; e.<span class="me1">B</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;B&quot;</span><br>
+&nbsp; &nbsp; e.<span class="me1">C</span><span class="sy4">::</span><span class="me2">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// &quot;C&quot;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Про множественное наследование можно почитать в <strong>[Bjarne Stroustrup. The C++ Programming Language. Fourth Edition. 21.3 Multiple Inheritance]</strong>. Что следует отметить: при &#171;ромбовидном&#187; наследовании в самом производном классе обязательно окажется несколько копий одного и того же базового класса, если только это не так называемое <em>виртуальное наследование</em>, при котором таких копий не возникает &#8212; см. <strong>[Stroustrup, 21.3.5 Virtual base classes]</strong>. На самом деле термин &#171;ромбовидное наследование&#187; относится как раз к виртуальному наследованию. Если наследование не виртуальное, то формально никакого ромба нет, но мне проще употреблять термин &#171;ромбовидное наследование&#187; и в этом случае тоже.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">--- обычное наследование ---<br>
+class A {};<br>
+class B : public A {};<br>
+class C : public A {};<br>
+class D : public B, public C {};<br>
+<br>
+A &nbsp; A<br>
+| &nbsp; |<br>
+B &nbsp; C<br>
+&nbsp;\ /<br>
+&nbsp; D<br>
+<br>
+--- виртуальное наследование ---<br>
+class A {};<br>
+class B : virtual public A {};<br>
+class C : virtual public A {};<br>
+class D : public B, public C {};<br>
+<br>
+&nbsp; A<br>
+&nbsp;/ \<br>
+B &nbsp; C<br>
+&nbsp;\ /<br>
+&nbsp; D</div></div>
+<p>Класс, который наследуется виртуально называется <em>виртуальным базовым классом</em>.</p>
+<p>Виртуальное наследование позволяет избежать дублирования данных при ромбовидном наследовании, но за это приходится платить &#171;странностями&#187; правил инициализации и присваивания классов, его использующих. В книжке <strong>Скотта Мейерса &#171;Эффективное использование C++&#187;</strong> есть раздел &#171;Правило 40: Продумывайте подход к использованию множественного наследования&#187;. Совет Скотта Мейерса таков:</p>
+<blockquote><p>
+Не применяйте виртуальное наследование до тех пор, пока в нем не возникнет настоятельная необходимость &#8212; по-умолчанию используйте невиртуальное наследование. Если вы используете виртуальные базовые классы, старайтесь не размещать в них данные. Тогда можно забыть о странностях правил инициализации и присваивания таких классов.
+</p></blockquote>
+<p>Можно следовать тем же правилам вируального наследования, которые определены в языках Java и C#, которые допускают множественное наследование интерфейсов, но не множественное наследование классов.</p>
+<h3>8. Какие строчки программы приведут к ошибкам компиляции?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">template</span> <span class="sy1">&lt;</span><span class="kw2">typename</span> T1, <span class="kw2">typename</span> T2<span class="sy1">&gt;</span><br>
+<span class="kw4">void</span> f<span class="br0">&#40;</span>T1 x, T2 y<span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> x <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span> <span class="sy1">&lt;&lt;</span> y <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">int</span> x<span class="br0">&#41;</span> <span class="sy4">:</span> val<span class="br0">&#40;</span>x<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> val<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; f<span class="sy1">&lt;</span><span class="kw4">char</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="st0">'1'</span>, <span class="st0">&quot;2&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; <span class="co1">// 1</span><br>
+&nbsp; &nbsp; f<span class="sy1">&lt;</span>string<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="st0">'1'</span>, <span class="st0">&quot;2&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 2 Error: '1' is not a string</span><br>
+&nbsp; &nbsp; f<span class="br0">&#40;</span><span class="st0">'1'</span>, <span class="st0">&quot;2&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 3</span><br>
+&nbsp; &nbsp; f<span class="sy1">&lt;</span>A, <span class="kw4">int</span><span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; <span class="co1">// 4</span><br>
+&nbsp; &nbsp; f<span class="br0">&#40;</span><span class="nu16">1.0</span>, <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// 5</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Правильный ответ приведен в комментариях.</p>
+<h3>9. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw2">virtual</span> <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;A&quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;B&quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; B b<span class="sy4">;</span><br>
+&nbsp; &nbsp; A<span class="sy3">&amp;</span> a <span class="sy1">=</span> b<span class="sy4">;</span><br>
+&nbsp; &nbsp; a.<span class="me1">f</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Я давно программирую на C#, а в C# подобный код вывел бы <strong>&#171;A&#187;</strong>, потому что в классе <strong>B</strong> в определении функции <strong>f</strong> нет слова <strong>override</strong>, поэтому функция <strong>B::f</strong> скрывает функцию <strong>A::f</strong>. Но в C++ все не так, функция <strong>B::f</strong> переопределяет функцию <strong>A::f</strong>, поэтому выведется <strong>&#171;B&#187;</strong>. Однако и в C++ когда переопределяют функции хорошо бы добавлять для ясности слово <strong>override</strong>:</p>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">override</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;B&quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<h3>10. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;vector&gt;</span><br>
+<span class="co2">#include &lt;algorithm&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> v <span class="sy1">=</span> <span class="br0">&#123;</span> <span class="nu0">52</span>, <span class="nu0">12</span>, <span class="nu0">32</span>, <span class="nu0">29</span>, <span class="nu0">37</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; make_heap<span class="br0">&#40;</span>v.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, v.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// 1</span><br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; max-heap:<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 52<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/ &nbsp;\<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;37 &nbsp; &nbsp;32<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp;\<br>
+&nbsp; &nbsp; &nbsp; &nbsp; 29 &nbsp; &nbsp;12<br>
+<br>
+&nbsp; &nbsp; vector after the heapification:<br>
+&nbsp; &nbsp; &nbsp; &nbsp; 52 37 32 29 12<br>
+&nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">int</span> n <span class="sy1">=</span> v.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span><br>
+&nbsp; &nbsp; <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; pop_heap<span class="br0">&#40;</span>v.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, v.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> v.<span class="me1">back</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot; &quot;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; v.<span class="me1">pop_back</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="co1">// 52 37 32 29 12</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Я понятия не имел, что такое <strong>heap</strong>, поэтому полез в <a href="https://ru.wikipedia.org/wiki/Куча_(структура_данных)">Википедию</a>. Там я ничего не понял, но заглянул в список литературы и стал читать <strong>[Т.Кормен, Ч.Лейзерсон, Р.Ривест, К.Штайн &#8212; Алгоритмы. Построение и анализ &#8212; 2013]</strong>. Очень интересная книжка, из нее я наконец узнал какие-то методы сортировки кроме метода пузырька. Чтобы понять, что такое <strong>heap</strong> (переводится в данном контексте как &#171;пирамида&#187;, хотя в статьях в Википедии переводят как &#171;куча&#187;), нужно прочитать всё до <strong>Главы 6 &#8212; Пирамидальная сортировка</strong> включительно. Если в двух словах, то&#8230; heap &#8212; это структура данных &#171;бинарное дерево&#187;, т. е. дерево, у каждого узла которого есть по два дочерних узла (или нет дочерних узлов вовсе). Причем каждый родительский узел связан с дочерними соотношением &#171;больше или равно&#187; (невозрастающее дерево) либо &#171;меньше или равно&#187; (неубывающее дерево). Оказывается, что любой контейнер из стандартной библиотеки C++ можно сделать таким деревом &#8212; для этого нужно просто выстроить элементы контейнера в определенном порядке, а именно по уровням дерева (словами объяснять &#8212; это непонятно, почитайте <strong>[Кормен и др., 6.1 &#8212; Пирамиды]</strong>). А зачем вообще нужна эта самая пирамида? Из книжки я понял, что она может быть нужна для двух вещей: 1) сортировка массива за время <strong>O(n*lg(n))</strong>, 2) реализация т. н. очереди с приоритетами.</p>
+<p>Чтобы выстроить (упорядочить) элементы контейнера в соответствии со структурой heap, можно вызвать функцию <strong>make_heap</strong>. Функция выстраивает элементы в виде невозрастающего бинарного дерева. Первый элемент (корень дерева) всегда максимальный (52), на следующем уровне дерева расположены числа 37 и 32, еще ниже &#8212; 29 и 12 (см. комментарии в коде). Далее в цикле for: <strong>pop_heap</strong> перемещает первый элемент в конец контейнера, а остальные элементы снова heap&#8217;ифицирует. Следующая строка выводит на экран последний элемент контейнера, а функция <strong>pop_back</strong> его из контейнера удаляет. Таким образом на экран выведутся все элементы контейнера в порядке убывания.</p>
+<h3>11. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;vector&gt;</span><br>
+<span class="co2">#include &lt;algorithm&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> v <span class="sy1">=</span> <span class="br0">&#123;</span> <span class="nu0">0</span>, <span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">4</span>, <span class="nu0">5</span>, <span class="nu0">6</span> <span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw4">auto</span> it <span class="sy1">=</span> remove_if<span class="br0">&#40;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; v.<span class="me1">begin</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; v.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">int</span> x<span class="br0">&#41;</span> <span class="sy2">-</span><span class="sy1">&gt;</span> <span class="kw4">bool</span> <span class="br0">&#123;</span> <span class="kw1">return</span> x <span class="sy2">%</span> <span class="nu0">5</span> <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="coMULTI">/*<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;it<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|<br>
+&nbsp; &nbsp; &nbsp; &nbsp;0 5 2 3 4 5 6<br>
+&nbsp; &nbsp; */</span><br>
+<br>
+&nbsp; &nbsp; v.<span class="me1">erase</span><span class="br0">&#40;</span>it, v.<span class="me1">end</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<br>
+&nbsp; &nbsp; <span class="co1">// 0 5</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> v.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 2</span><br>
+<br>
+&nbsp; &nbsp; <span class="kw3">cin</span>.<span class="me1">get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Можно было бы подумать, что функция <strong>remove_if</strong> удаляет элементы из контейнера. На самом деле она этого делать не умеет, поскольку не является членом класса контейнера. Вместо этого она сдвигает все элементы, удовлетворяющие условию в правую часть контейнера, чтобы затем можно было их удалить вызовом специализированной функции &#8212; в данном случае <strong>vector::erase</strong>. Возвращает же функция <strong>remove_if</strong> итератор, который указывает на начало диапазона, который надо будет удалить. В приведенном примере удаляются все элементы, которые не делятся нацело на 5, и в результате в контейнере остается только два элемента &#8212; 2 и 5.</p>
+<h3>12. Какие строчки программы приведут к ошибкам компиляции?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;memory&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A <span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">int</span> x<span class="br0">&#41;</span> <span class="sy4">:</span> val<span class="br0">&#40;</span>x<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> val<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> p1 <span class="sy1">=</span> make_shared<span class="sy1">&lt;</span>A<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 1</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> p2 <span class="sy1">=</span> make_shared<span class="br0">&#40;</span>A, <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 2 Error: missing template arguments. Correct: make_shared&lt;A&gt;(1)</span><br>
+&nbsp; &nbsp; A<span class="sy2">*</span> a <span class="sy1">=</span> <span class="kw3">new</span> A<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> p3 <span class="sy1">=</span> make_shared<span class="br0">&#40;</span>a<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp;<span class="co1">// 3 Error: missing template arguments. Correct: make_shared&lt;A&gt;(a)</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> p4 <span class="sy1">=</span> shared_ptr<span class="br0">&#40;</span>a<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp; &nbsp; <span class="co1">// 4 Error: missing template arguments. Correct: shared_ptr&lt;A&gt;(a)</span><br>
+&nbsp; &nbsp; <span class="kw4">auto</span> p5 <span class="sy1">=</span> shared_ptr<span class="sy1">&lt;</span>A<span class="sy1">&gt;</span><span class="br0">&#40;</span>a<span class="br0">&#41;</span><span class="sy4">;</span> &nbsp;<span class="co1">// 5</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Ответ &#8212; в комментариях в исходном коде.</p>
+<h3>13. Какие строчки программы приведут к ошибкам компиляции?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">protected</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> g<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+<br>
+<span class="kw2">private</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> h<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> method<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 1</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; g<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 2</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; h<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 3 Error: trying to access private member of base class</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> C <span class="sy4">:</span> <span class="kw2">protected</span> B<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; <span class="kw4">void</span> method<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 4</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; g<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 5</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; h<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 6 Error: trying to access private member of base class</span><br>
+&nbsp; &nbsp; <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+</div></div>
+<p>Ответ приведен в исходном коде. Я в своем коде до сих пор никогда не пользовался защищенным (protected) и закрытым (private) наследованием, поэтому есть повод поговорить. В зависимости от типа наследования изменяется видимость членов базового класса в производном классе. Например, при публичном (public) наследовании <em>публичные</em> члены базового класса становятся <strong>публичными</strong> же членами производного класса. А при защищенном наследовании <em>публичные</em> члены базового класса становятся <em>защищенными</em> членами производного класса. В таблице ниже показано, как изменяется видимость членов базового класса в производном классе в зависимости от типа наследования.</p>
+<table>
+<tr>
+<th rowspan="2">Base class member access modifier</th>
+<th colspan="3">Type of inheritance</th>
+</tr>
+<tr>
+<th>public</th>
+<th>protected</th>
+<th>private</th>
+</tr>
+<tr>
+<th>public</th>
+<td>public</td>
+<td>protected</td>
+<td>private</td>
+</tr>
+<tr>
+<th>protected</th>
+<td>protected</td>
+<td>protected</td>
+<td>private</td>
+</tr>
+<tr>
+<th>private</th>
+<td>inaccessible</td>
+<td>inaccessible</td>
+<td>inaccessible</td>
+</tr>
+</table>
+<h3>14. Почему программа не скомпилируется?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="co2">#include &lt;string&gt;</span><br>
+<span class="co2">#include &lt;map&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">int</span> x, <span class="kw4">const</span> string<span class="sy3">&amp;</span> a<span class="br0">&#41;</span> <span class="sy4">:</span> val<span class="br0">&#40;</span>x<span class="br0">&#41;</span>, str<span class="br0">&#40;</span>a<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="kw4">const</span> A<span class="sy3">&amp;</span> a<span class="br0">&#41;</span> <span class="sy1">=</span> <span class="kw3">delete</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw4">int</span> val<span class="sy4">;</span><br>
+&nbsp; &nbsp; string str<span class="sy4">;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">// Relational less than operator is needed for map&lt;A, ...&gt;</span><br>
+<span class="co1">// bool operator&lt;(const A&amp; a, const A&amp; b) { return a.val &lt; b.val; }</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; map<span class="sy1">&lt;</span>A, <span class="kw4">int</span><span class="sy1">&gt;</span> m<span class="sy4">;</span><br>
+&nbsp; &nbsp; A a<span class="br0">&#40;</span><span class="nu0">3</span>, <span class="st0">&quot;2&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; m<span class="br0">&#91;</span>a<span class="br0">&#93;</span> <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span> <span class="co1">// Error(1): This instruction tries to add a new key to the map</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To add a key it needs to copy variable a.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; But the copy constructor is deleted.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">// Error(2): Relational less than operator isn't defined (see comment above)</span><br>
+&nbsp; &nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> m<span class="br0">&#91;</span>a<span class="br0">&#93;</span><span class="sy4">;</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Ответ приведен в комментариях. Ошибок две: конструктор копирования класса <strong>A</strong> удален (deleted function), для объектов класса <strong>A</strong> не определен оператор &#171;меньше&#187;. И то, и другое требуется для того, чтобы можно было использовать объекты класса <strong>A</strong> в качестве ключей контейнера <strong>map</strong>.</p>
+<h3>15. Что будет выведено на экран в результате работы программы?</h3>
+<div class="codecolorer-container cpp default" style="overflow:auto;white-space:nowrap;"><div class="cpp codecolorer">
+<span class="co2">#include &lt;iostream&gt;</span><br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; A<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;A&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; ~A<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;~A&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> B <span class="sy4">:</span> <span class="kw2">public</span> A<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; B<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;B&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; ~B<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;~B&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> C <span class="sy4">:</span> <span class="kw2">public</span> A, <span class="kw2">public</span> B<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; C<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;C&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; ~C<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;~C&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> D <span class="sy4">:</span> <span class="kw2">public</span> A, <span class="kw2">public</span> B, <span class="kw2">public</span> C<br>
+<span class="br0">&#123;</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; &nbsp; D<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;D&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+&nbsp; &nbsp; ~D<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">&quot;~D&quot;</span><span class="sy4">;</span> <span class="br0">&#125;</span><br>
+<span class="br0">&#125;</span><span class="sy4">;</span><br>
+<br>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span><br>
+<span class="br0">&#123;</span><br>
+&nbsp; &nbsp; D d<span class="sy4">;</span> <span class="co1">// AABAABCD~D~C~B~A~A~B~A~A</span><br>
+<span class="br0">&#125;</span>
+</div></div>
+<p>Ответ приведен в комментарии. Множественное наследование со множеством копий класса <strong>A</strong>. В каком порядке вызываются конструкторы классов поможет понять следующий рисунок:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">иерархия &nbsp; &nbsp; &nbsp; &nbsp;порядок вызова<br>
+наследования &nbsp; &nbsp;конструкторов<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |<br>
+&nbsp; &nbsp;A &nbsp;A &nbsp;B &nbsp; &nbsp; &nbsp; &nbsp; 2 &nbsp;4 &nbsp;6<br>
+&nbsp; &nbsp;| &nbsp;| / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp;| /<br>
+A &nbsp;B &nbsp;C &nbsp; &nbsp; &nbsp; &nbsp; 1 &nbsp;3 &nbsp;7<br>
+&nbsp;\ | / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \ | /<br>
+&nbsp; &nbsp;D &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8</div></div>
+<p>Деструкторы же вызываются в порядке, обратном тому, в котором вызываются конструкторы.</p>
+<h3>16. Какие из перечисленных ниже типов умных указателей существуют в С++11 и удаляют объект, на который указывают, если отсутствуют другие указатели, указывающие на тот же объект?</h3>
+<p>Вот список умных указателей, которые предлагает стандартная библиотека С++ с краткими пояснениями.</p>
+<ul>
+<li>
+<strong>unique_ptr</strong> &#8212; указатель, которые не допускает копирование себя, предполагается, что существует только один (уникальный) указатель на некоторый объект. Когда удаляется указатель <strong>unique_ptr</strong>, удаляется и объект на который он указывает.
+</li>
+<li>
+<strong>shared_ptr</strong> &#8212; указатель, который допускает копирование себя и производит подсчет ссылок. Число ссылок увеличивается при копировании указателя и уменьшается при уничтожении указателя. Когда число ссылок на объект становится равным нулю, объект удаляется.
+</li>
+<li>
+<strong>weak_ptr</strong> &#8212; указатель, который работает в связке с <strong>shared_ptr</strong>. Не участвует в подсчете ссылок и не удаляет объект при уничтожении указателя. Задача <strong>weak_ptr</strong> &#8212; дать программисту возможность получить временный <strong>shared_ptr</strong>-указатель на объект при помощи функции <strong>lock()</strong>. Вызов функции <strong>lock()</strong> может завершиться неудачей, если объект уже удален.
+</li>
+</ul>
+<p>Таким образом, правильный ответ на вопрос теста &#8212; <strong>shared_ptr</strong>.</p>
+<p>Пока это всё. Буду обновлять данную заметку до тех пор пока не пройду тест 🙂</p>
+<div class="addtoany_share_save_container addtoany_content addtoany_content_bottom"><div class="a2a_kit a2a_kit_size_32 addtoany_list" data-a2a-url="/2019/05/18/geekbrains-test-cpp-intermediate/" data-a2a-title="Тест по программированию на C++ от GeekBrains (средний уровень)">
+<a class="a2a_button_facebook" href="https://www.addtoany.com/add_to/facebook?linkurl=%2F2019%2F05%2F18%2Fgeekbrains-test-cpp-intermediate%2F&amp;linkname=%D0%A2%D0%B5%D1%81%D1%82%20%D0%BF%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E%20%D0%BD%D0%B0%20C%2B%2B%20%D0%BE%D1%82%20GeekBrains%20%28%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%29" title="Facebook" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_mastodon" href="https://www.addtoany.com/add_to/mastodon?linkurl=%2F2019%2F05%2F18%2Fgeekbrains-test-cpp-intermediate%2F&amp;linkname=%D0%A2%D0%B5%D1%81%D1%82%20%D0%BF%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E%20%D0%BD%D0%B0%20C%2B%2B%20%D0%BE%D1%82%20GeekBrains%20%28%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%29" title="Mastodon" rel="nofollow noopener" target="_blank"></a><a class="a2a_button_email" href="https://www.addtoany.com/add_to/email?linkurl=%2F2019%2F05%2F18%2Fgeekbrains-test-cpp-intermediate%2F&amp;linkname=%D0%A2%D0%B5%D1%81%D1%82%20%D0%BF%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E%20%D0%BD%D0%B0%20C%2B%2B%20%D0%BE%D1%82%20GeekBrains%20%28%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%29" title="Email" rel="nofollow noopener" target="_blank"></a><a class="a2a_dd addtoany_share_save addtoany_share" href="https://www.addtoany.com/share"></a>
+</div></div>			</div>
+<!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">Без рубрики</a></span><span class="tags-links"><a href="/tag/c-c/" rel="tag">C/C++</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="Записи">
+		<h2 class="screen-reader-text">Навигация по записям</h2>
+		<div class="nav-links">
+<div class="nav-previous"><a href="/2019/05/04/powershell-vs-postbuild-2/" rel="prev">PowerShell, NuGet &#038; Visual Studio postbuild event (продолжение)</a></div>
+<div class="nav-next"><a href="/2019/06/30/vs-vscode-migration/" rel="next">Переход с Visual Studio на VS Code</a></div>
+</div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Добавить комментарий <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/05/18/geekbrains-test-cpp-intermediate/#respond" style="display:none;">Отменить ответ</a></small>
+</h3>
+<form action="/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+<p class="comment-notes"><span id="email-notes">Ваш адрес email не будет опубликован.</span> <span class="required-field-message">Обязательные поля помечены <span class="required">*</span></span></p>
+<p class="comment-form-comment"><label for="comment">Комментарий <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p>
+<p class="comment-form-author"><label for="author">Имя <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">Сайт</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Сохранить моё имя, email и адрес сайта в этом браузере для последующих моих комментариев.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Отправить комментарий"> <input type="hidden" name="comment_post_ID" value="1348" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+</form>	</div>
+<!-- #respond -->
+	
+</div>
+<!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div>
+<!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
+<label class="wp-block-search__label" for="wp-block-search__input-1">Поиск</label><div class="wp-block-search__inside-wrapper ">
+<input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="Поиск" class="wp-block-search__button wp-element-button" type="submit">Поиск</button>
+</div>
+</form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 элемента)">.NET</a>
+<a href="/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 элемента)">Apache</a>
+<a href="/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-3" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 элемента)">Bochs</a>
+<a href="/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="C# (2 элемента)">C#</a>
+<a href="/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-5" style="font-size: 22pt;" aria-label="C/C++ (27 элементов)">C/C++</a>
+<a href="/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-6" style="font-size: 8pt;" aria-label="cmake (1 элемент)">cmake</a>
+<a href="/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-7" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 элемента)">Coursera</a>
+<a href="/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-8" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 элемента)">Cygwin</a>
+<a href="/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Git (2 элемента)">Git</a>
+<a href="/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-10" style="font-size: 8pt;" aria-label="JavaScript (1 элемент)">JavaScript</a>
+<a href="/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-11" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 элемента)">Machine Learning</a>
+<a href="/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-12" style="font-size: 8pt;" aria-label="MySQL (1 элемент)">MySQL</a>
+<a href="/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-13" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 элементов)">OpenGL</a>
+<a href="/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="PHP (2 элемента)">PHP</a>
+<a href="/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-15" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 элемента)">PowerShell</a>
+<a href="/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-16" style="font-size: 8pt;" aria-label="Python (1 элемент)">Python</a>
+<a href="/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-17" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 элемента)">UE4</a>
+<a href="/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-18" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 элементов)">Vulkan</a>
+<a href="/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-19" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 элемента)">WinAPI</a>
+<a href="/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-20" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 элемента)">WordPress</a>
+<a href="/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-21" style="font-size: 15.304347826087pt;" aria-label="x86 (7 элементов)">x86</a>
+<a href="/tag/%d0%90%d1%81%d1%81%d0%b5%d0%bc%d0%b1%d0%bb%d0%b5%d1%80/" class="tag-cloud-link tag-link-26 tag-link-position-22" style="font-size: 15.304347826087pt;" aria-label="Ассемблер (7 элементов)">Ассемблер</a>
+<a href="/tag/%d0%91%d0%bb%d0%be%d0%b3%d0%b8%d0%bd%d0%b3/" class="tag-cloud-link tag-link-27 tag-link-position-23" style="font-size: 10.191304347826pt;" aria-label="Блогинг (2 элемента)">Блогинг</a>
+<a href="/tag/%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5/" class="tag-cloud-link tag-link-28 tag-link-position-24" style="font-size: 12.869565217391pt;" aria-label="Образование (4 элемента)">Образование</a>
+<a href="/tag/%d1%80%d0%b0%d0%b7%d0%bd%d0%be%d0%b5/" class="tag-cloud-link tag-link-29 tag-link-position-25" style="font-size: 17.495652173913pt;" aria-label="Разное (11 элементов)">Разное</a>
+<a href="/tag/%d1%84%d0%b8%d0%b7%d0%b8%d0%ba%d0%b0/" class="tag-cloud-link tag-link-30 tag-link-position-26" style="font-size: 12.869565217391pt;" aria-label="Физика (4 элемента)">Физика</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div>
+<!-- #sidebar-primary -->
+</div>
+<!-- .inner-wrapper -->
+</div>
+<!-- .container -->
+</div>
+<!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Авторские права защищены.	      </div>
+<!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">Работает на WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub автор: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div>
+<!-- .site-info -->
+	    	</div>
+<!-- .container --></footer><!-- #colophon -->
+</div>
+<!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}</script>
+<script type="text/javascript" src="/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text directionltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-05-08 07:00:39+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["Эта контактная форма размещена в неправильном месте."],"Error:":["Ошибка:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">раскрыть дочернее меню<\/span>","collapse":"<span class=\"screen-reader-text\">свернуть дочернее меню<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/wp-includes/js/comment-reply.min.js?ver=6.8.1" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>
