@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru-RU"><head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="/blog/xmlrpc.php">
+    
+<title>Very Large Scale Integration CAD &mdash; Part II &mdash; Layout &mdash; Dmitry's Blog</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Dmitry's Blog &raquo; &#1051;&#1077;&#1085;&#1090;&#1072;" href="/blog/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry's Blog &raquo; &#1051;&#1077;&#1085;&#1090;&#1072; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1077;&#1074;" href="/blog/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dmitry's Blog &raquo; &#1051;&#1077;&#1085;&#1090;&#1072; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1077;&#1074; &#1082; &laquo;Very Large Scale Integration CAD &mdash; Part II &mdash; Layout&raquo;" href="/blog/2022/05/03/vlsi-cad-p2-layout/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/localhost\/dvsav.ru\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.2"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="/blog/wp-includes/css/dist/block-library/style.min.css?ver=6.8.2" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote:where(.has-text-align-right){border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote:where(.has-text-align-center){border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote:where(.is-style-plain){border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css" type="text/css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--gray: #666666;--wp--preset--color--light-gray: #f3f3f3;--wp--preset--color--dark-gray: #222222;--wp--preset--color--blue: #294a70;--wp--preset--color--dark-blue: #15305b;--wp--preset--color--navy-blue: #00387d;--wp--preset--color--sky-blue: #49688e;--wp--preset--color--light-blue: #6081a7;--wp--preset--color--yellow: #f4a024;--wp--preset--color--dark-yellow: #ffab1f;--wp--preset--color--red: #e4572e;--wp--preset--color--green: #54b77e;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 28px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-size--normal: 16px;--wp--preset--font-size--huge: 32px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="/blog/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.1" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-css" href="/blog/wp-content/themes/education-hub/third-party/font-awesome/css/all.min.css?ver=6.7.2" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-google-fonts-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&amp;ver=6.8.2" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-style-css" href="/blog/wp-content/themes/education-hub/style.css?ver=3.0" type="text/css" media="all">
+<link rel="stylesheet" id="education-hub-block-style-css" href="/blog/wp-content/themes/education-hub/css/blocks.css?ver=20201208" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="/blog/wp-content/plugins/codecolorer/codecolorer.css?ver=0.10.1" type="text/css" media="screen">
+<script type="text/javascript" src="/blog/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="/blog/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="/blog/wp-json/wp/v2/posts/2279"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/blog/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.2">
+<link rel="canonical" href="/blog/2022/05/03/vlsi-cad-p2-layout/">
+<link rel="shortlink" href="/blog/?p=2279">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="/blog/wp-json/oembed/1.0/embed?url=%2Fblog%2F2022%2F05%2F03%2Fvlsi-cad-p2-layout%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="/blog/wp-json/oembed/1.0/embed?url=%2Fblog%2F2022%2F05%2F03%2Fvlsi-cad-p2-layout%2F&amp;format=xml">
+<link rel="icon" href="/blog/wp-content/uploads/2020/02/%D0%BA%D0%B0%D1%80%D0%B0%D0%BD%D0%B4%D0%B0%D1%88_%D1%81%D0%B6%D0%B0%D1%82-150x150.png" sizes="32x32">
+<link rel="icon" href="/blog/wp-content/uploads/2020/02/%D0%BA%D0%B0%D1%80%D0%B0%D0%BD%D0%B4%D0%B0%D1%88_%D1%81%D0%B6%D0%B0%D1%82-270x270.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/blog/wp-content/uploads/2020/02/%D0%BA%D0%B0%D1%80%D0%B0%D0%BD%D0%B4%D0%B0%D1%88_%D1%81%D0%B6%D0%B0%D1%82-270x270.png">
+<meta name="msapplication-TileImage" content="/blog/wp-content/uploads/2020/02/&#1082;&#1072;&#1088;&#1072;&#1085;&#1076;&#1072;&#1096;_&#1089;&#1078;&#1072;&#1090;-270x270.png">
+		<style type="text/css" id="wp-custom-css">
+			.entry-content a:link {
+  text-decoration: underline; 
+}		</style>
+		</head>
+
+<body class="wp-singular post-template-default single single-post postid-2279 single-format-standard wp-custom-logo wp-embed-responsive wp-theme-education-hub site-layout-fluid global-layout-right-sidebar">
+
+	
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">&#1055;&#1077;&#1088;&#1077;&#1081;&#1090;&#1080; &#1082; &#1089;&#1086;&#1076;&#1077;&#1088;&#1078;&#1080;&#1084;&#1086;&#1084;&#1091;</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+				
+							</div>
+
+			
+			
+		</div> <!-- .container -->
+	</div><!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="/blog/" class="custom-logo-link" rel="home"><img width="150" height="150" src="/blog/wp-content/uploads/2020/02/pencil-compressed.png" class="custom-logo" alt="Dmitry's Blog" decoding="async" srcset="/blog/wp-content/uploads/2020/02/pencil-compressed.png 150w, /blog/wp-content/uploads/2020/02/&#1082;&#1072;&#1088;&#1072;&#1085;&#1076;&#1072;&#1096;_&#1089;&#1078;&#1072;&#1090;-270x270.png 270w, /blog/wp-content/uploads/2020/02/&#1082;&#1072;&#1088;&#1072;&#1085;&#1076;&#1072;&#1096;_&#1089;&#1078;&#1072;&#1090;-300x300.png 300w, /blog/wp-content/uploads/2020/02/&#1082;&#1072;&#1088;&#1072;&#1085;&#1076;&#1072;&#1096;_&#1089;&#1078;&#1072;&#1090;-768x768.png 768w" sizes="(max-width: 150px) 100vw, 150px"></a>
+										        <div id="site-identity">
+					            	              <p class="site-title"><a href="/blog/" rel="home">Dmitry's Blog</a></p>
+	            				
+					        </div><!-- #site-identity -->
+			
+	    </div><!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="/blog/">
+	      <label>
+	        <span class="screen-reader-text">&#1055;&#1086;&#1080;&#1089;&#1082; &#1087;&#1086;:</span>
+	        <input type="search" class="search-field" placeholder="&#1055;&#1086;&#1080;&#1089;&#1082;&hellip;" value="" name="s" title="&#1055;&#1086;&#1080;&#1089;&#1082; &#1087;&#1086;:">
+	      </label>
+	      <input type="submit" class="search-submit" value="&#1055;&#1086;&#1080;&#1089;&#1082;">
+	    </form>		    </div>
+	    
+        </div><!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          	<i class="fa fa-bars"></i>
+          	<i class="fa fa-close"></i>
+			&#1052;&#1077;&#1085;&#1102;</button>
+            <div class="wrap-menu-content">
+				<ul><li><a href="/blog/">&#1043;&#1083;&#1072;&#1074;&#1085;&#1072;&#1103;</a></li><li class="page_item page-item-387"><a href="/blog/aboutme/">&#1054; &#1089;&#1077;&#1073;&#1077;</a></li>
+</ul>            </div><!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-2279" class="post-2279 post type-post status-publish format-standard hentry category-1 tag-coursera tag-education tag-miscelaneous">
+	<header class="entry-header">
+		<h1 class="entry-title">Very Large Scale Integration CAD &mdash; Part II &mdash; Layout</h1>
+		<div class="entry-meta">
+			<span class="posted-on"><a href="/blog/2022/05/03/vlsi-cad-p2-layout/" rel="bookmark"><time class="entry-date published updated" datetime="2022-05-03T23:43:45+03:00">03.05.2022</time></a></span><span class="byline"> <span class="author vcard"><a class="url fn n" href="/blog/author/dvsav/">dvsav</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<p>This is the summary of the course <a href="https://www.coursera.org/learn/vlsi-cad-layout">VLSI CAD Part II: Layout</a> from the University of Illinois at Urbana-Champaign. The author of the course is Rob A. Rutenbar. Here&rsquo;s <a href="http://localhost/vlsi-cad-p1-logic/">the summary of the 1st course in the series</a>.</p>
+<ul>
+<li><a href="#placement">Placement</a></li>
+<li><a href="#techmapping">Technology mapping</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#timing">Timing Analysis</a></li>
+</ul>
+<p><strong>Technology Mapping</strong> &mdash; transfroming boolean functions/networks into logic gates.</p>
+<p><strong>Standard Cell Library</strong> &mdash; a library which contains &laquo;standard cells&raquo; &mdash; logic gates and small logic elements (XOR, NOR, NAND, flip-flop, adder, etc.)</p>
+<p><strong>Standard Cell</strong> can be considered as a geometric container (black box with certain sizes) with some transistors and wires (at the topology level). Standard cells have all the same height but can have different widths. Same heights allow us to place cells in a row.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">Netlist = gates + wires (nets)</div></div>
+<h2 id="placement">Placement</h2>
+<p>Placement: <code class="codecolorer text default"><span class="text">netlist --&gt; exact location of each gate</span></code>.<br>
+Goal: minimize (optimize) the estimated (expected) length of wires used at the routing step.</p>
+<p>Very simple model of a chip for placement: &laquo;chess board&raquo; (grid), where each gate takes exactly one cell; pins that connect gates are fixed at the edges.</p>
+<p><strong>2-point</strong> nets and <strong>multipoint</strong> nets.<br>
+<strong>Fanout</strong> &mdash; &#1088;&#1072;&#1079;&#1074;&#1077;&#1090;&#1074;&#1083;&#1077;&#1085;&#1080;&#1077;, when sigle net connects more than 2 gates.</p>
+<p><strong>How to estimate the length of a wire?</strong><br>
+Most famous estimation algorithm:<strong> Half Perimeter Wirelength (HPWL)</strong> also known as <strong>Bounding Box (BBOX)</strong>.<br>
+Put the smallest bounding box around all gates that are connected. Add width of the bounding box to its height &mdash; that will be the wire length estimate: <code class="codecolorer text default"><span class="text">max(x) - min(x) + max(y) - min(y)</span></code>.</p>
+<figure id="attachment_2284" aria-describedby="caption-attachment-2284" style="width: 847px" class="wp-caption aligncenter"><img fetchpriority="high" decoding="async" src="/blog/wp-content/uploads/2022/05/2-point-net-1024x547.jpg" alt="" width="847" height="452" class="size-large wp-image-2284"><figcaption id="caption-attachment-2284" class="wp-caption-text">2-point net. How to estimate wire length.</figcaption></figure>
+<figure id="attachment_2286" aria-describedby="caption-attachment-2286" style="width: 847px" class="wp-caption aligncenter"><img decoding="async" src="/blog/wp-content/uploads/2022/05/k-point-net-1024x470.jpg" alt="" width="847" height="389" class="size-large wp-image-2286"><figcaption id="caption-attachment-2286" class="wp-caption-text">k-point net. How to estimate wire length.</figcaption></figure>
+<p><strong>Random Iterative Improvement Placement:</strong></p>
+<ol>
+<li>Place randomly each gate to a free grid location.</li>
+<li>Pick a rundom gate pair and swap their locations. Update wirelength estimate incrementally (recalculate only those nets that may have changed).</li>
+<li>If wirelength estimate got bigger, undo the swap.</li>
+<li>Go to step 2 until wirelength estimate stops improving.</li>
+</ol>
+<figure id="attachment_2287" aria-describedby="caption-attachment-2287" style="width: 847px" class="wp-caption aligncenter"><img decoding="async" src="/blog/wp-content/uploads/2022/05/IterativeImprovement-1024x450.jpg" alt="" width="847" height="372" class="size-large wp-image-2287"><figcaption id="caption-attachment-2287" class="wp-caption-text">Iterative Improvement Placement Algorithm. One step: swap gates 2 and 4.</figcaption></figure>
+<p>The issue with the previous algorithm is that we may stuck in a local minimum or wire length. A solution is to allow to increase wire length at some times.<br>
+<strong>Iterative Improvement with Hill Climbling:</strong></p>
+<ol>
+<li>Place randomly each gate to a free grid location.</li>
+<li>Pick a rundom gate pair and swap their locations. Update wirelength estimate incrementally (recalculate only those nets that may have changed).</li>
+<li>If wirelength estimate got bigger, discard it or accept it randomly (the probability of acceptance depends on delta L: <code class="codecolorer text default"><span class="text">p = exp(-dL / T)</span></code>, where T is the &laquo;temperature&raquo;). <code class="codecolorer text default"><span class="text">if (uniform_random() &lt; p) then ...</span></code></li>
+<li>Go to step 2 until wirelength estimate stops improving.</li>
+</ol>
+<p><strong>Simulated Annealing (placement algorithm insiperd by a physical analogy):</strong><br>
+Crystal analogy. We want all the atoms to be lined up in crystal lattice sites (lowest energy state of the atoms). How to do it: get the material very HOT, so that the atoms have enough energy to move around even to bad places. Cool very, very slowly so that the atoms settle in good spots. The idea has a name: <strong>Metropolis algorithm</strong>:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">while (wirelength decreases)<br>
+{<br>
+&nbsp; &nbsp; Loop Iterative Improvement with Hill Climbling<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; // Cool down slowly<br>
+&nbsp; &nbsp; T = T * 0.90;<br>
+}</div></div>
+<p><strong>Net congestion</strong> (&#1089;&#1082;&#1086;&#1087;&#1083;&#1077;&#1085;&#1080;&#1077; &#1087;&#1088;&#1086;&#1074;&#1086;&#1076;&#1086;&#1074;) &mdash; an estimate that shows how many wires (nets) use the same cell of the grid. How to calculate it:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">congestion[W][H]; // W - grid width, H - grid height<br>
+for each net<br>
+{<br>
+&nbsp; &nbsp; n = calculate the number of gates in the bounding box of the net;<br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; for each cell(x, y) in the bounding box of the net<br>
+&nbsp; &nbsp; {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; congestion[x][y] += n ;<br>
+&nbsp; &nbsp; }<br>
+}</div></div>
+<p>Annealing makes congestion map homogenious. Annealing works well for 100K-500K gates but too slow for 1M+ gates.</p>
+<p><strong>Analytical placement.</strong> Quadratic wirelength model: for a 2-point net <code class="codecolorer text default"><span class="text">the quadratic length = (x1-x2)^2 + (y1-y2)^2</span></code>. For a k-point net (a net that connects k gates) we consider the net as <code class="codecolorer text default"><span class="text">(k-1) + (k-2) + ... + 1 = k*(k-1)/2</span></code> wires that connect each gate with all other gates (fully connected net or &laquo;a clique&raquo;).<br>
+<code class="codecolorer text default"><span class="text">The estimated wirelength of a k-point net = Sum(quadratic length of each wire) / (k-1)</span></code></p>
+<p>Partial derivative on xi and yi. Set of linear equations:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">A * x = bx<br>
+A * y = by<br>
+A is a matrix N * N where N is the number of gates.</div></div>
+<p><strong>Connectivity matrix.</strong> <code class="codecolorer text default"><span class="text">C[i, j] = weight of the wire connecting gates i and j</span></code>.<br>
+Weighted quadratic wire length. Each quadratic length has a different weight.<br>
+Connectivity matrix ignores the pads:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">A-matrix[i, j] = -C[i, j] if not on the diagonal<br>
+A-matrix [i, i] = sum(C[row i]) + ith gate connected to the pad ? padwireweight_i : 0;<br>
+bx = ith gate connected to the pad ? padwireweight_i * pad_x : 0<br>
+The same for by</div></div>
+<figure id="attachment_2289" aria-describedby="caption-attachment-2289" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/AnalyticalPlacement-1024x884.jpg" alt="" width="847" height="731" class="size-large wp-image-2289"><figcaption id="caption-attachment-2289" class="wp-caption-text">Analytical Placement Algorithm</figcaption></figure>
+<p>A-matrix is sparse, symmetric, diagonally-dominant &mdash; positive semidefinite.<br>
+We use iterative approximate solvers that converge gradually to the solution.</p>
+<p><strong>Analytical Placement Recoursive Partitioning</strong><br>
+Partitioning: how do we take into account the fact that each gate must be placed to a discrete cell of the grid, so its x and y cannot change smoothly and that each gate has a nonzero size and that gates cannot be on top of each other.<br>
+Recoursive partitioning: after solving a placement task divide the chip into several smaller placement tasks etc.</p>
+<p><strong>Partition:</strong> how do we divide the chip into new smaller placement tasks?<br>
+<strong>Assignment:</strong> which gates should go into each new smaller region?<br>
+<strong>Containment:</strong> formulate new Quadratic Placement matrix so gates stay in new regions with short wires (taking into account that some gates from one region have connections with gates from other regions).</p>
+<p><strong>&laquo;PROUD&raquo; algorithm of placement</strong> (Ren Song Tsay, Ernest Kuh et al.)<br>
+<strong>Partitioning:</strong> after the first placement is complete divide the chip into two parts (left and right).<br>
+<strong>Assignment:</strong> sort the gates by X coordinate. One half of the sorted gates goes to the left and the other half goes to the right.<br>
+<strong>Containment:</strong> for each gate from the left part which has a connection with another gate from the right part create a pseudopad at the boarder between the right and the left parts of the chip. Each pseudopad has Y coordinate which is equal to the Y coordinate of the gate from the right part. This is called pad propagation. We propagate not only pseudopads corresponding to the gates, we also propagate real pads if needed.<br>
+Proceed recoursively until the number of gates in one region reaches a small enough value (10&hellip;100).<br>
+Finally we need to force gates into precise rows (standard cell rows) &mdash; the respective algorithm step is called &laquo;Legalization&raquo;. It has something to do with annealing but described very-very superficially in the course.</p>
+<figure id="attachment_2291" aria-describedby="caption-attachment-2291" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/PROUD-1024x381.jpg" alt="" width="847" height="315" class="size-large wp-image-2291"><figcaption id="caption-attachment-2291" class="wp-caption-text">PROUD Algorithm of Placement</figcaption></figure>
+<h2 id="techmapping">Technology mapping</h2>
+<p><code class="codecolorer text default"><span class="text">Boolean nodes --&gt; standard cells</span></code>. Each standard cell has some cost.<br>
+Standard cell library may have <em>complex gates</em> in it (for example AOI21). AOI21 means AND has 2 inputs and there&rsquo;s 1 more input for OR gate.</p>
+<figure id="attachment_2293" aria-describedby="caption-attachment-2293" style="width: 177px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/ComplexGate-177x300.jpg" alt="" width="177" height="300" class="size-medium wp-image-2293"><figcaption id="caption-attachment-2293" class="wp-caption-text">Complex Gate</figcaption></figure>
+<p>Multilevel synthesis doesn&rsquo;t produce logic gates and neither produces it standard cells. This is why it&rsquo;s called <em>uncommitted logic</em> or <em>technology independent logic</em> &mdash; logic bubbles (each bubble is a sum of products &mdash; SOP). Each bubble is converted to a combination of NOT &amp; NAND gates.<figure id="attachment_2296" aria-describedby="caption-attachment-2296" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/ConvertNodesToGates-1024x260.jpg" alt="" width="847" height="215" class="size-large wp-image-2296"><figcaption id="caption-attachment-2296" class="wp-caption-text">Convert Nodes to Gates</figcaption></figure></p>
+<p><strong>Tree covering problem.</strong> The logic network is represented as a tree of NAND and NOT gates. Standard cells are also represented in this same form (must be converted to a tree of NAND and NOT gates).<br>
+There can be many covers of the same tree. Peek one with the minimum cost.<br>
+Tree-ifying the netlist. A fanout &mdash; one gate output drives many other gates&rsquo; inputs. When we see a fanout we must split the tree into subtrees.</p>
+<figure id="attachment_2299" aria-describedby="caption-attachment-2299" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/FanoutSubtrees-1024x358.jpg" alt="" width="847" height="296" class="size-large wp-image-2299"><figcaption id="caption-attachment-2299" class="wp-caption-text">When we see a fanout we must split the tree into subtrees.</figcaption></figure>
+<p>Some standard cells (gates) cannot be represented as a single tree because they have fanouts. So those cannot be matched with the target logic network tree and must be excluded from consideration. Example: EXOR.</p>
+<figure id="attachment_2300" aria-describedby="caption-attachment-2300" style="width: 300px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/XOR-300x266.jpg" alt="" width="300" height="266" class="size-medium wp-image-2300"><figcaption id="caption-attachment-2300" class="wp-caption-text">Some standard cells (gates) cannot be represented as a single tree because they have fanouts.</figcaption></figure>
+<p>Matching: NOT matches NOT, NAND matches NAND, input box matches any node, different patters may overlap (at input boxes).</p>
+<p><strong>Recoursive matching.</strong><br>
+Matching the logic network tree with standard cells&rsquo; trees.<br>
+Try every library gate at each node of the subject tree.<br>
+Recoursive algorithm: match root of subject with root of pattern and than recoursively match children of subject to children of pattern.<br>
+(Asymmetric library patterns have two possible ways of matching!)<br>
+For each gate node of the subject tree we know which library pattern trees match that that node. We annotate each node of the subject tree with this matching information &mdash; list of library patterns that match that node. Problem: what is the best cover of the subject tree with patterns from target library?</p>
+<p><strong>Minimum cost tree covering:</strong></p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">mincost(subtree)<br>
+{<br>
+&nbsp; &nbsp; cost = Infinity;<br>
+&nbsp; &nbsp; foreach (P in patterns that match the root node of the subtree)<br>
+&nbsp; &nbsp; {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; newcost = cost(P);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; foreach (L in leafnodes of P)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; newcost += mincost(L);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+&nbsp; &nbsp; &nbsp; &nbsp; if (newcost &lt; cost)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cost = newcost;<br>
+&nbsp; &nbsp; }<br>
+}</div></div>
+<p>The algorithm may revizit the same node many times, so we should keep a table with the mincost of each node (cache the mincost) as well as the pattern matching the node that leads to that mincost.</p>
+<figure id="attachment_2298" aria-describedby="caption-attachment-2298" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/TreeCover-1024x834.jpg" alt="" width="847" height="690" class="size-large wp-image-2298"><figcaption id="caption-attachment-2298" class="wp-caption-text">Tree Covering Problem</figcaption></figure>
+<h2 id="routing">Routing</h2>
+<ul>
+<li>Internals of standard cells &mdash; metal layers #1-2.</li>
+<li>Routing wires &mdash; layers #3-8.</li>
+<li>Layers #9-10 &mdash; power and clock distribution.</li>
+<li>On the very top &mdash; package interconnect (a large blob of metal, bold grid array).</li>
+</ul>
+<p>Wires in different (adjacent) layers connect through &laquo;vias&raquo; (vertical joins) .</p>
+<p>FEOL &mdash; front end of line group of layers. Transistors.<br>
+BEOL &mdash; back end of line group of layers. Wiring.</p>
+<p><strong>Maze routing</strong> (Maze &mdash; &#1083;&#1072;&#1073;&#1080;&#1088;&#1080;&#1085;&#1090;).<br>
+Grid. Connect two grid cells. There are obstacles where we aren&rsquo;t allowed to rout.<br>
+The grid is set up so that all geometry design rules are satisfied automatically.</p>
+<p>References:</p>
+<ul>
+<li>E. F. Moore &laquo;Path through a maze&raquo;</li>
+<li>Chester Lee &laquo;Lee router&raquo;</li>
+<li>Rubin</li>
+<li>Hightower &laquo;Hightower router&raquo;</li>
+</ul>
+<p><strong>Expansion:</strong> source and target. Mark all the cells reachable from the source with path length = 1. Mark all the cells that are reachable from the cells previously marked with path length = 1. Do that until you reach the target. Diamond wavefront that goes around obstacles.<br>
+<strong>Backtrace:</strong> finding the shortest path: go from target to source in descending order.<br>
+Mark the cells that cannot be used again as obstacles (mark the newly placed wire as an obstacle).</p>
+<figure id="attachment_2303" aria-describedby="caption-attachment-2303" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/UnitCostMazeRouting-1024x735.jpg" alt="" width="847" height="608" class="size-large wp-image-2303"><figcaption id="caption-attachment-2303" class="wp-caption-text">Unit-Cost Maze Routing</figcaption></figure>
+<p><strong>Multi-point nets:</strong> one source and many targets.<br>
+Pick one point as source and label all other points as targets.<br>
+Use maze routing to find the nearest target and rout a wire to it.<br>
+Relabel all the routed cells as source.<br>
+Source can be not just one cell but a bunch of cells.<br>
+Expansion works for a multiple-cell source just well, though the wavefront is no longer a diamond.</p>
+<figure id="attachment_2305" aria-describedby="caption-attachment-2305" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/UnitCostMazeRoutingMultipointNet-1024x974.jpg" alt="" width="847" height="806" class="size-large wp-image-2305"><figcaption id="caption-attachment-2305" class="wp-caption-text">Unit-Cost Maze Routing for Multipoint Net</figcaption></figure>
+<p>Multi-point net routing is not optimal.<br>
+The shortest path is called &laquo;Steiner tree&raquo;. Complexity of finding it is exponential.</p>
+<p><strong>Multi-level routing. </strong><br>
+Now expansion is allowed into adjecent layers (3d grid).<br>
+Technology tells you at which grid cells you can place vias (via must cost more than one).</p>
+<p><strong>Nonuniform costs.</strong> Problem: there can be different paths with different costs between the same two cells.</p>
+<p>We don&rsquo;t need to store costs of all cells, we just need to store the costs of the recently labeled cells (the wavefront).<br>
+<strong>Cheapest cells first search &mdash; Dijkstra&rsquo;s algorithm</strong> (the shortest path between two nodes in a graph).</p>
+<ol>
+<li>Find  the cheapest cell C from the wavefront.</li>
+<li>Find the neighbors of cell C that you haven&rsquo;t reached yet.</li>
+<li>Compute the cost of expanding to these new cells.</li>
+<li>Add these new cells to the wavefront data structure indexed by their newly computed pathcosts (this is how you keep cells sorted).</li>
+<li>Add to each of these new cells a pointer to cell C as the predecessor.</li>
+<li>Mark the routing grid to remember that we have reached these new cells.</li>
+<li>Remove cell C from the wavefront.</li>
+<li>Repeat with thr next cheapest cell on wavefront.</li>
+</ol>
+<figure id="attachment_2306" aria-describedby="caption-attachment-2306" style="width: 753px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/NonunitCostMazeRouting2Layers.jpg" alt="" width="753" height="764" class="size-full wp-image-2306"><figcaption id="caption-attachment-2306" class="wp-caption-text">Nonunit Cost Maze Routing. 2 Layers.</figcaption></figure>
+<p>A cell can either be &laquo;expanded&raquo; or &laquo;on wavefront&raquo; or &laquo;not reached yet&raquo;.<br>
+Pointer to the predecessor is stored in the form of the direction from which the cell was reached: <em>North</em>, <em>East</em>, <em>West</em>, <em>East</em>, <em>Up</em>, <em>Down</em>. Because the predecessor is a neighbor of this cell in any case. 3 bits are enough to store this. (Up and Down are for adjacent layers).</p>
+<p>Data structures.</p>
+<ol>
+<li>Routing grid.<br>
+Cell costs.<br>
+Predecessors.</li>
+<p>Reached or not reached. </p>
+<li>Wavefront.<br>
+Cells (their coordinates) sorted (indexed) by their pathcosts.<br>
+Pathcosts <code class="codecolorer text default"><span class="text">pathcost(N) = pathcost(C) + cellcost(N)</span></code></li>
+</ol>
+<p><strong>Heap (priority queue)</strong> is the data structure with the maximal (minimal is also supported) element always on top. O(log(N)) complexity for insert, remove operations.<br>
+Min heap in C++: <code class="codecolorer cpp default"><span class="cpp">priority_queue <span class="sy1">&lt;</span><span class="kw4">int</span>, vector<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span>, greater<span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> <span class="sy1">&gt;</span></span></code></p>
+<p>The Dijkstra&rsquo;s algorithm relies on the &laquo;consistency assumption&raquo;: the cost of reaching a cell is independent of the path as a whole. It&rsquo;s easy to define a cost scheme which breaks this assumption while still making perfect sense in a real router. Example: bend penalty &mdash; bending a wire costs more than having it straight.<br>
+You need to allow reviziting already reached cells. And keep in memory some limited number of alternative paths with different pathcosts so that when the target is reached you could peek the cheapest one. This is kind of an advanced topic.</p>
+<figure id="attachment_2307" aria-describedby="caption-attachment-2307" style="width: 900px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/BendPenalty.jpg" alt="" width="900" height="359" class="size-full wp-image-2307"><figcaption id="caption-attachment-2307" class="wp-caption-text">Bend Penalty Example</figcaption></figure>
+<p><strong>Depth-first search.</strong> Previously we expanded wavefront in all directions. But why don&rsquo;t expand preferrably in the direction from source to target (searching towards the target)? And can we still be sure that this will lead us to the minimum cost?<br>
+There&rsquo;s a source-target box (a rectangle whoose corners are source and target). Let&rsquo;s first search in that source-target box.<br>
+We define a &laquo;predictor&raquo; function that would estimate rougly the cost of path between two arbitrary cells.<br>
+Now, while a plane maze router adds a new cell C to the wavefront storing <code class="codecolorer text default"><span class="text">pathcost(source to C)</span></code>, a more sophisticated router stores <code class="codecolorer text default"><span class="text">pathcost(source to C) + predict_pathcost(C to target)</span></code>. This is called a &laquo;depth-first search&raquo; or &laquo;A* search&raquo;.<br>
+Typical predictor function evaluates <code class="codecolorer text default"><span class="text">[Half Perimeter Wirelength (HPWL)] * [smallest cell cost]</span></code>.<br>
+Theorem: <code class="codecolorer text default"><span class="text">if predict_pathcost(C to target) &lt; real_pathcost(C to target)</span></code> then you are guaranteed to find the minimum cost path.<br>
+Using predictor just alters the order in which we expand cells: we expand cells that are closer to the target first (that have smaller predicted path cost).</p>
+<figure id="attachment_2308" aria-describedby="caption-attachment-2308" style="width: 869px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/Predictor.jpg" alt="" width="869" height="409" class="size-full wp-image-2308"><figcaption id="caption-attachment-2308" class="wp-caption-text">Predictor Function</figcaption></figure>
+<p><strong>From Detailed routing to Global routing.</strong><br>
+<strong>Detailed routing</strong> gives the exact final path of a wire.<br>
+<strong>Global routing</strong> breaks coarsely the chip into a number of large cells (for example 200 x 200 wires &mdash; called GBOX) and maze-routs the wire through these large cells. After that we do detailed routing inside those large cells.<br>
+Otherwise a typical chip would require 100 billion grid cells!<br>
+Different metal layers usually have different preferred wire direction. For example, layers 3, 5, 7, 9 &mdash; prefer vertical and 4, 6, 8, 10 prefer horizontal. If you need to bend &mdash; use a via &mdash; this makes it easier to embed lots of wires.</p>
+<p>In global routing cells (GBOXes) have dynamic cost that remembers how many wires passed through the cell (the more &mdash; the higher the cost) and how many more can fit later.</p>
+<h2 id="timing">Timing analysis</h2>
+<p>I give you:</p>
+<ul>
+<li>Net list.</li>
+<li>Timing model of gates and (after placement and routing) timing model of wires.</li>
+</ul>
+<p>You tell me:</p>
+<ul>
+<li>when signals arrive at various points in the network.</li>
+<li>longest delays through gates network.</li>
+<li>does the netlist satisfy the timing requirement (at what maximum clock frequency can it function).</li>
+</ul>
+<p>Model of synchronous logic network: <code class="codecolorer text default"><span class="text">flip-flops --&gt; combinational logic --&gt; flip-flops</span></code>. Flip-flops have common clock signal.</p>
+<figure id="attachment_2310" aria-describedby="caption-attachment-2310" style="width: 568px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/SynchLogicNetwork.jpg" alt="" width="568" height="647" class="size-full wp-image-2310"><figcaption id="caption-attachment-2310" class="wp-caption-text">Synchronous Logic Network</figcaption></figure>
+<p><strong>Logic gate timing model.</strong><br>
+What affects gate delay:</p>
+<ul>
+<li>gate type (not, and, or, etc.)</li>
+<li>how many other gates are driven by the gate&rsquo;s output (load)</li>
+<li>the shape of input signal (sharp edge or slow edge)</li>
+<li>transition direction (rising or falling) because of the difference in pMOS and nMOS transistors speed</li>
+<li>which input pin of the gate is considered (which one experiences transition)</li>
+<li>delay is not fully deterministic, it&rsquo;s statisticall (mean + 3*sigma is the conservative estimate of the delay)</li>
+</ul>
+<p><strong>Pin-to-pin delay:</strong> delay is a function of gate input and gate output.</p>
+<figure id="attachment_2312" aria-describedby="caption-attachment-2312" style="width: 300px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/DelayDependsOnPin-300x140.jpg" alt="" width="300" height="140" class="size-medium wp-image-2312"><figcaption id="caption-attachment-2312" class="wp-caption-text">Delay Depends On Input Pin and Output Pin</figcaption></figure>
+<p><strong>Topological timing analysis</strong> ignores what the logical function is and sees all gates as little circles each having some delay. This gives pessimistic results and may consider false paths but it&rsquo;s practical.</p>
+<p><strong>Static timing analysis (STA).</strong><br>
+<strong>Delay graph:</strong></p>
+<ul>
+<li>Wires are nodes</li>
+<li>Gates are edges (cell arcs) that make the delay</li>
+</ul>
+<p>There are also <strong>Source</strong> and <strong>Sink</strong> nodes that are abstract nodes added for convenience.<br>
+Source node is connected (with delay 0) to every primary input (input of the logic scheme that isn&rsquo;t internal), Sink node is connected (with delay 0) to each primary output.</p>
+<p>The question is: what is the longest path between the Source and the Sink?<br>
+Wire delays can also be represented as edges in the graph.</p>
+<p><strong>Node oriented timing analysis.</strong><br>
+<strong>Arrival time</strong> at node n <strong>AT(n)</strong> &mdash; the worst (latest) time at which a signal arrives at a specific node. It&rsquo;s the longest path from Source to node n.<br>
+<strong>Required arrival time</strong> at node n <strong>RAT(n)</strong> &mdash; the longest time the signal is allowed to become stable at node n. = clk period &mdash; longest path from node n to Sink.<br>
+<strong>Slack</strong> = RAT &mdash; AT. Positive Slack is good, negative Slack is bad.</p>
+<p>Node n has neighboring nodes before it <strong>(predecessors)</strong> and after it <strong>(successors)</strong>.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">AT(n) = MAX(AT(pred(n)) + delay(pred(n), n))<br>
+RAT(n) = MIN(RAT(suc(n)) - delay(n, suc(n))</div></div>
+<p>Theorem: sequence of nodes with minimal Slack comprise the longest path from Source to Sink.</p>
+<figure id="attachment_2314" aria-describedby="caption-attachment-2314" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/DelayTree-858x1024.jpg" alt="" width="847" height="1011" class="size-large wp-image-2314"><figcaption id="caption-attachment-2314" class="wp-caption-text">Delay Tree</figcaption></figure>
+<p>We want a list of paths in violation ordered from slowest to fastest.<br>
+We may want to exclude false paths from the list of paths that violate timing.</p>
+<p>Calculating ATs.<br>
+Sort the nodes in topological order: the only rule is <code class="codecolorer text default"><span class="text">if p--&gt;s then p goes before s</span></code>.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;"><div class="text codecolorer">AT(SRC) = 0<br>
+foreach(node n in topological order) <br>
+{<br>
+&nbsp; &nbsp; AT(n) = -Infinity<br>
+&nbsp; &nbsp; foreach(p in predecessors of n) <br>
+&nbsp; &nbsp; &nbsp; &nbsp; AT(n) = max(AT(n), AT(p) + delay(p, n)) <br>
+}<br>
+<br>
+RAT(SNK) = ClockPeriod<br>
+foreach(node n in reverse topological order) <br>
+{<br>
+&nbsp; &nbsp; RAT(n) = +Infinity<br>
+&nbsp; &nbsp; foreach(s in successors of n) <br>
+&nbsp; &nbsp; &nbsp; &nbsp; RAT(n) = min(RAT(n), RAT(p) - delay(n, s)) <br>
+}</div></div>
+<p>Theorem: for the longest path Slack is the same for all nodes.</p>
+<p>After finding all the ATs and RATs and Slacks we want to list the worst paths in order from the longest one to the shortest one. The point is to find not all paths but just the worst ones! To do that we use kind of a maze routing algorithm but for now we apply it to the delay graph. Main features of this algorithm are expansion and priority queue (min heap where Slack is the key).</p>
+<figure id="attachment_2315" aria-describedby="caption-attachment-2315" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/WorstPaths-1024x482.jpg" alt="" width="847" height="399" class="size-large wp-image-2315"><figcaption id="caption-attachment-2315" class="wp-caption-text">Enumerating Worst Paths</figcaption></figure>
+<p><strong>Interconnect timing. &laquo;Pi&raquo; model.</strong><br>
+Wire: resistor <code class="codecolorer text default"><span class="text">rL/W</span></code> between two capacitors <code class="codecolorer text default"><span class="text">cWL/2</span></code>.<br>
+Where L &mdash; wire length, W &mdash; wire width.<br>
+Via: resistor.</p>
+<figure id="attachment_2317" aria-describedby="caption-attachment-2317" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/InterconnectDelay-1024x317.jpg" alt="" width="847" height="262" class="size-large wp-image-2317"><figcaption id="caption-attachment-2317" class="wp-caption-text">Interconnect Delay</figcaption></figure>
+<p>Model of a net, comprised of several wires is the &laquo;RC tree&raquo;<br>
+The gate that drives the net (root of RC tree) is modeled as voltage source with internal resistance, and the gates that are driven (leaves of RC tree) are modeled as capacitors.</p>
+<figure id="attachment_2318" aria-describedby="caption-attachment-2318" style="width: 847px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/RC-Tree-1024x285.jpg" alt="" width="847" height="236" class="size-large wp-image-2318"><figcaption id="caption-attachment-2318" class="wp-caption-text">RC-Tree</figcaption></figure>
+<p><strong>Elmore delay.</strong><br>
+Set <code class="codecolorer text default"><span class="text">tau = 0</span></code>.<br>
+Delay from the root to a leaf: at each resistor R do: <code class="codecolorer text default"><span class="text">tau = tau + R*sum(capacitors downstream)</span></code>.<br>
+&laquo;Downstream capacitor&raquo; is any capacitor reachable in tee below this resistor.</p>
+<figure id="attachment_2319" aria-describedby="caption-attachment-2319" style="width: 865px" class="wp-caption aligncenter"><img loading="lazy" decoding="async" src="/blog/wp-content/uploads/2022/05/ElmoreDelay.jpg" alt="" width="865" height="733" class="size-full wp-image-2319"><figcaption id="caption-attachment-2319" class="wp-caption-text">Elmore Delay</figcaption></figure>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links"><a href="/blog/category/%d0%b1%d0%b5%d0%b7-%d1%80%d1%83%d0%b1%d1%80%d0%b8%d0%ba%d0%b8/" rel="category tag">&#1041;&#1077;&#1079; &#1088;&#1091;&#1073;&#1088;&#1080;&#1082;&#1080;</a></span><span class="tags-links"><a href="/blog/tag/coursera/" rel="tag">Coursera</a>, <a href="/blog/tag/education/" rel="tag">Education</a>, <a href="/blog/tag/miscelaneous/" rel="tag">Miscelaneous</a></span>	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+
+			
+	<nav class="navigation post-navigation" aria-label="&#1047;&#1072;&#1087;&#1080;&#1089;&#1080;">
+		<h2 class="screen-reader-text">&#1053;&#1072;&#1074;&#1080;&#1075;&#1072;&#1094;&#1080;&#1103; &#1087;&#1086; &#1079;&#1072;&#1087;&#1080;&#1089;&#1103;&#1084;</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="/blog/2022/03/29/cmake/" rel="prev">CMake Cookbook</a></div></div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1081; <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/2022/05/03/vlsi-cad-p2-layout/#respond" style="display:none;">&#1054;&#1090;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100; &#1086;&#1090;&#1074;&#1077;&#1090;</a></small></h3><form action="/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">&#1042;&#1072;&#1096; &#1072;&#1076;&#1088;&#1077;&#1089; email &#1085;&#1077; &#1073;&#1091;&#1076;&#1077;&#1090; &#1086;&#1087;&#1091;&#1073;&#1083;&#1080;&#1082;&#1086;&#1074;&#1072;&#1085;.</span> <span class="required-field-message">&#1054;&#1073;&#1103;&#1079;&#1072;&#1090;&#1077;&#1083;&#1100;&#1085;&#1099;&#1077; &#1087;&#1086;&#1083;&#1103; &#1087;&#1086;&#1084;&#1077;&#1095;&#1077;&#1085;&#1099; <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">&#1050;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1081; <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">&#1048;&#1084;&#1103; <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required></p>
+<p class="comment-form-url"><label for="url">&#1057;&#1072;&#1081;&#1090;</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100; &#1084;&#1086;&#1105; &#1080;&#1084;&#1103;, email &#1080; &#1072;&#1076;&#1088;&#1077;&#1089; &#1089;&#1072;&#1081;&#1090;&#1072; &#1074; &#1101;&#1090;&#1086;&#1084; &#1073;&#1088;&#1072;&#1091;&#1079;&#1077;&#1088;&#1077; &#1076;&#1083;&#1103; &#1087;&#1086;&#1089;&#1083;&#1077;&#1076;&#1091;&#1102;&#1097;&#1080;&#1093; &#1084;&#1086;&#1080;&#1093; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1077;&#1074;.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="&#1054;&#1090;&#1087;&#1088;&#1072;&#1074;&#1080;&#1090;&#1100; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1081;"> <input type="hidden" name="comment_post_ID" value="2279" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="/blog/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"><label class="wp-block-search__label" for="wp-block-search__input-1">&#1055;&#1086;&#1080;&#1089;&#1082;</label><div class="wp-block-search__inside-wrapper "><input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-label="&#1055;&#1086;&#1080;&#1089;&#1082;" class="wp-block-search__button wp-element-button" type="submit">&#1055;&#1086;&#1080;&#1089;&#1082;</button></div></form></aside><aside id="block-8" class="widget widget_block widget_tag_cloud"><p class="wp-block-tag-cloud"><a href="/blog/tag/net/" class="tag-cloud-link tag-link-3 tag-link-position-1" style="font-size: 11.652173913043pt;" aria-label=".NET (3 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">.NET</a>
+<a href="/blog/tag/apache/" class="tag-cloud-link tag-link-4 tag-link-position-2" style="font-size: 10.191304347826pt;" aria-label="Apache (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Apache</a>
+<a href="/blog/tag/assembler/" class="tag-cloud-link tag-link-26 tag-link-position-3" style="font-size: 15.304347826087pt;" aria-label="Assembler (7 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">Assembler</a>
+<a href="/blog/tag/blogging/" class="tag-cloud-link tag-link-27 tag-link-position-4" style="font-size: 10.191304347826pt;" aria-label="Blogging (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Blogging</a>
+<a href="/blog/tag/bochs/" class="tag-cloud-link tag-link-6 tag-link-position-5" style="font-size: 10.191304347826pt;" aria-label="Bochs (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Bochs</a>
+<a href="/blog/tag/c/" class="tag-cloud-link tag-link-8 tag-link-position-6" style="font-size: 10.191304347826pt;" aria-label="C# (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">C#</a>
+<a href="/blog/tag/c-c/" class="tag-cloud-link tag-link-7 tag-link-position-7" style="font-size: 22pt;" aria-label="C/C++ (27 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">C/C++</a>
+<a href="/blog/tag/cmake/" class="tag-cloud-link tag-link-9 tag-link-position-8" style="font-size: 8pt;" aria-label="cmake (1 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;)">cmake</a>
+<a href="/blog/tag/coursera/" class="tag-cloud-link tag-link-11 tag-link-position-9" style="font-size: 10.191304347826pt;" aria-label="Coursera (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Coursera</a>
+<a href="/blog/tag/cygwin/" class="tag-cloud-link tag-link-12 tag-link-position-10" style="font-size: 11.652173913043pt;" aria-label="Cygwin (3 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Cygwin</a>
+<a href="/blog/tag/education/" class="tag-cloud-link tag-link-28 tag-link-position-11" style="font-size: 12.869565217391pt;" aria-label="Education (4 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Education</a>
+<a href="/blog/tag/git/" class="tag-cloud-link tag-link-13 tag-link-position-12" style="font-size: 10.191304347826pt;" aria-label="Git (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Git</a>
+<a href="/blog/tag/javascript/" class="tag-cloud-link tag-link-14 tag-link-position-13" style="font-size: 8pt;" aria-label="JavaScript (1 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;)">JavaScript</a>
+<a href="/blog/tag/machine-learning/" class="tag-cloud-link tag-link-15 tag-link-position-14" style="font-size: 10.191304347826pt;" aria-label="Machine Learning (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Machine Learning</a>
+<a href="/blog/tag/miscelaneous/" class="tag-cloud-link tag-link-29 tag-link-position-15" style="font-size: 17.495652173913pt;" aria-label="Miscelaneous (11 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">Miscelaneous</a>
+<a href="/blog/tag/mysql/" class="tag-cloud-link tag-link-16 tag-link-position-16" style="font-size: 8pt;" aria-label="MySQL (1 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;)">MySQL</a>
+<a href="/blog/tag/opengl/" class="tag-cloud-link tag-link-17 tag-link-position-17" style="font-size: 17.008695652174pt;" aria-label="OpenGL (10 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">OpenGL</a>
+<a href="/blog/tag/php/" class="tag-cloud-link tag-link-18 tag-link-position-18" style="font-size: 10.191304347826pt;" aria-label="PHP (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">PHP</a>
+<a href="/blog/tag/physics/" class="tag-cloud-link tag-link-30 tag-link-position-19" style="font-size: 12.869565217391pt;" aria-label="Physics (4 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">Physics</a>
+<a href="/blog/tag/powershell/" class="tag-cloud-link tag-link-19 tag-link-position-20" style="font-size: 10.191304347826pt;" aria-label="PowerShell (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">PowerShell</a>
+<a href="/blog/tag/python/" class="tag-cloud-link tag-link-20 tag-link-position-21" style="font-size: 8pt;" aria-label="Python (1 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;)">Python</a>
+<a href="/blog/tag/ue4/" class="tag-cloud-link tag-link-21 tag-link-position-22" style="font-size: 10.191304347826pt;" aria-label="UE4 (2 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">UE4</a>
+<a href="/blog/tag/vulkan/" class="tag-cloud-link tag-link-22 tag-link-position-23" style="font-size: 15.913043478261pt;" aria-label="Vulkan (8 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">Vulkan</a>
+<a href="/blog/tag/winapi/" class="tag-cloud-link tag-link-23 tag-link-position-24" style="font-size: 11.652173913043pt;" aria-label="WinAPI (3 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">WinAPI</a>
+<a href="/blog/tag/wordpress/" class="tag-cloud-link tag-link-24 tag-link-position-25" style="font-size: 12.869565217391pt;" aria-label="WordPress (4 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1072;)">WordPress</a>
+<a href="/blog/tag/x86/" class="tag-cloud-link tag-link-25 tag-link-position-26" style="font-size: 15.304347826087pt;" aria-label="x86 (7 &#1101;&#1083;&#1077;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;)">x86</a></p></aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
+
+</ul>
+</aside>	</div><!-- #sidebar-primary -->
+</div><!-- .inner-wrapper --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        &#1040;&#1074;&#1090;&#1086;&#1088;&#1089;&#1082;&#1080;&#1077; &#1087;&#1088;&#1072;&#1074;&#1072; &#1079;&#1072;&#1097;&#1080;&#1097;&#1077;&#1085;&#1099;.	      </div><!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://ru.wordpress.org/">&#1056;&#1072;&#1073;&#1086;&#1090;&#1072;&#1077;&#1090; &#1085;&#1072; WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub &#1072;&#1074;&#1090;&#1086;&#1088;: <a href="https://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div><!-- .site-info -->
+	    	</div><!-- .container --></footer><!-- #colophon -->
+</div><!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/dvsav.ru\/*"},{"not":{"href_matches":["\/dvsav.ru\/wp-*.php","\/dvsav.ru\/wp-admin\/*","\/dvsav.ru\/wp-content\/uploads\/*","\/dvsav.ru\/wp-content\/*","\/dvsav.ru\/wp-content\/plugins\/*","\/dvsav.ru\/wp-content\/themes\/education-hub\/*","\/dvsav.ru\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="/blog/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/blog/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="/blog/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.1" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-08-05 08:59:32+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);","lang":"ru"},"This contact form is placed in the wrong place.":["\u042d\u0442\u0430 \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u0430\u044f \u0444\u043e\u0440\u043c\u0430 \u0440\u0430\u0437\u043c\u0435\u0449\u0435\u043d\u0430 \u0432 \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e\u043c \u043c\u0435\u0441\u0442\u0435."],"Error:":["\u041e\u0448\u0438\u0431\u043a\u0430:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "http:\/\/localhost\/dvsav.ru\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/blog/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.1" id="contact-form-7-js"></script>
+<script type="text/javascript" src="/blog/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115" id="education-hub-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="/blog/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6" id="cycle2-js"></script>
+<script type="text/javascript" src="/blog/wp-content/themes/education-hub/js/custom.min.js?ver=1.0" id="education-hub-custom-js"></script>
+<script type="text/javascript" id="education-hub-navigation-js-extra">
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">\u0440\u0430\u0441\u043a\u0440\u044b\u0442\u044c \u0434\u043e\u0447\u0435\u0440\u043d\u0435\u0435 \u043c\u0435\u043d\u044e<\/span>","collapse":"<span class=\"screen-reader-text\">\u0441\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u0434\u043e\u0447\u0435\u0440\u043d\u0435\u0435 \u043c\u0435\u043d\u044e<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="/blog/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206" id="education-hub-navigation-js"></script>
+<script type="text/javascript" src="/blog/wp-includes/js/comment-reply.min.js?ver=6.8.2" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+</body>
+</html>
